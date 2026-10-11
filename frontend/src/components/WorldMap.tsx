@@ -8,27 +8,27 @@ import type {
   MapGeoJSONFeature,
   MapMouseEvent,
   Map as MapLibreMap,
+  ExpressionSpecification,
   Marker,
-  StyleSpecification,
 } from "maplibre-gl";
 import { useLocale } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
 import { API_URL, type LabelProps, localized } from "@/lib/api";
 
-const OSM_STYLE: StyleSpecification = {
-  version: 8,
-  sources: {
-    osm: {
-      type: "raster",
-      tiles: ["https://tile.openstreetmap.org/{z}/{x}/{y}.png"],
-      tileSize: 256,
-      maxzoom: 19,
-      attribution: "© OpenStreetMap contributors",
-    },
-  },
-  layers: [{ id: "osm", type: "raster", source: "osm" }],
-};
+// Basemap: OpenFreeMap vector tiles (free, no key, commercial use allowed); its tiles bring
+// the required OpenFreeMap / OpenMapTiles / OpenStreetMap attribution.
+const BASEMAP_STYLE = "https://tiles.openfreemap.org/styles/positron";
+
+/** Show basemap place names in the interface language where OpenStreetMap has them. */
+function localizeBasemapLabels(m: MapLibreMap, locale: string) {
+  const name: ExpressionSpecification = ["coalesce", ["get", `name:${locale}`], ["get", "name"]];
+  for (const layer of m.getStyle().layers) {
+    if (layer.type === "symbol" && m.getLayoutProperty(layer.id, "text-field") !== undefined) {
+      m.setLayoutProperty(layer.id, "text-field", name);
+    }
+  }
+}
 
 // Served from public/, see scripts/copy-maplibre-worker.mjs
 const WORKER_URL = "/maplibre/maplibre-gl-worker.mjs";
@@ -109,7 +109,7 @@ export default function WorldMap({
       markerClassRef.current = Marker;
       const m = new Map({
         container: containerRef.current,
-        style: OSM_STYLE,
+        style: BASEMAP_STYLE,
         center: [20, 48],
         zoom: 3,
       });
@@ -117,6 +117,7 @@ export default function WorldMap({
       m.addControl(new NavigationControl(), "top-right");
 
       m.on("load", () => {
+        localizeBasemapLabels(m, localeRef.current);
         m.addSource(SOURCE, {
           type: "vector",
           tiles: [`${API_URL}/api/regions/tiles/{z}/{x}/{y}.mvt`],

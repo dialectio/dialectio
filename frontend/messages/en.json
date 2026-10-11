@@ -116,7 +116,7 @@
     "words": "Words",
     "recordings": "Recordings",
     "mapTitle": "Map",
-    "map": "Country and region borders come from Natural Earth (public domain), in the Ukrainian point-of-view edition. Basemap © OpenStreetMap contributors (ODbL). The map is rendered with MapLibre GL.",
+    "map": "Country and region borders come from Natural Earth (public domain), in the Ukrainian point-of-view edition. Basemap: OpenFreeMap, © OpenMapTiles, data © OpenStreetMap contributors (ODbL). The map is rendered with MapLibre GL.",
     "ttsTitle": "Synthetic pronunciation",
     "tts": "Where no real recording exists, pronunciation is synthesized with Piper, using only voices whose license allows this use. These recordings are marked TTS.",
     "ownTitle": "Dialectio's own data",
@@ -134,7 +134,7 @@
     "browserTitle": "In your browser",
     "browser": "The site remembers in your browser (localStorage) the dialect you last picked in the contribution form, so you don't have to pick it again. This is not sent to us.",
     "thirdTitle": "Third-party services",
-    "third": "The basemap is loaded from OpenStreetMap servers and some audio from Wikimedia Commons. These services see your IP address, like any site your browser loads something from.",
+    "third": "The basemap is loaded from OpenFreeMap servers and some audio from Wikimedia Commons. These services see your IP address, like any site your browser loads something from.",
     "deleteTitle": "Deletion",
     "delete": "To delete your contribution or voice recording, write to us on <link>GitHub</link> with the word and the dialect."
   },
