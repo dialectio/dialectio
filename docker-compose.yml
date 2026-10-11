@@ -10,11 +10,26 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./docker/initdb:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dialectio}"]
       interval: 5s
       timeout: 5s
       retries: 10
+
+  # Visit statistics without cookies (https://umami.is): docker compose --profile analytics up -d
+  umami:
+    image: ghcr.io/umami-software/umami:latest
+    profiles: [analytics]
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-dialectio}:${POSTGRES_PASSWORD:-dialectio}@db:5432/umami
+      APP_SECRET: ${UMAMI_APP_SECRET:-change-me}
+    ports:
+      - "3001:3000"
+    depends_on:
+      db:
+        condition: service_healthy
 
 volumes:
   pgdata:
