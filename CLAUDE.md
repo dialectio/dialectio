@@ -33,4 +33,5 @@ Full plan and decisions: [docs/plan.md](docs/plan.md). Communicate with the user
 - Migrations (from `backend/`): `uv run alembic revision --autogenerate -m "..."`, `uv run alembic upgrade head`
 - Frontend (from `frontend/`): `npm install`, `npm run dev`, `npm run lint`, `npm run build`
 - `uvicorn --reload` on Windows sometimes misses file changes: if the API serves old code, restart it
+- Production: `docker-compose.prod.yml` (db, backend, frontend, umami, Caddy) with `.env.prod`; full steps in [docs/deploy.md](docs/deploy.md). Pages that fetch the API outside a dynamic route call `await connection()` so `next build` (in Docker, without the API) does not prerender them
 - Next.js 16 has breaking changes vs older versions: check `frontend/node_modules/next/dist/docs/` before writing frontend code.

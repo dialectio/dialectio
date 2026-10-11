@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import { setRequestLocale } from "next-intl/server";
 
 import HomePanel from "@/components/HomePanel";
@@ -13,6 +14,7 @@ function dayNumber() {
 export default async function Home({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
   setRequestLocale(locale);
+  await connection(); // needs the API: render per request, not at build time
 
   // Word of the day: the featured concepts take turns, one per (UTC) day.
   const featured = await listFeaturedConcepts().catch(() => []);

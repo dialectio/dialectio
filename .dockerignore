@@ -1,0 +1,10 @@
+# Build contexts: repository root (backend) and frontend/
+.git
+data
+**/node_modules
+**/.next
+backend/.venv
+**/__pycache__
+.env
+.env.*
+!.env.example

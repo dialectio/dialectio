@@ -98,7 +98,7 @@
 
 ### Етап 4 — публічний запуск
 - [x] Фонова карта: OpenFreeMap або власні тайли замість `tile.openstreetmap.org` (правила OSM забороняють навантаження від публічних сайтів)
-- [ ] Production-конфігурація: Docker-образи backend/frontend, Caddy (HTTPS), бекапи БД і `media/`
+- [x] Production-конфігурація: Docker-образи backend/frontend, Caddy (HTTPS), бекапи БД і `media/` — перевірено локально, інструкція в [deploy.md](deploy.md)
 - [ ] Hetzner VPS, домен (dialectio.org — рекомендовано, рішення відкладено)
 - [ ] Google Search Console, Bing Webmaster Tools, sitemap; перевірити індексацію сторінок слів
 - [ ] Мінімум перед запуском: переглянути найпомітніші чернетки (говори, українська), прибрати явні помилки «≈» у популярних словах

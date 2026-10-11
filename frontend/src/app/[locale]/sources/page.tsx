@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 
 import InfoPage from "@/components/InfoPage";
@@ -16,6 +17,7 @@ export async function generateMetadata({
 export default async function SourcesPage({ params }: PageProps<"/[locale]/sources">) {
   const { locale } = await params;
   setRequestLocale(locale);
+  await connection(); // needs the API: render per request, not at build time
   const t = await getTranslations("Sources");
   const format = await getFormatter();
   const stats = await getStats().catch(() => null);

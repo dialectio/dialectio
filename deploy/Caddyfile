@@ -1,0 +1,20 @@
+# Site, API and media on one domain; statistics on stats.<domain>.
+{$DOMAIN} {
+	encode zstd gzip
+	@api path /api/* /media/* /health
+	handle @api {
+		reverse_proxy backend:8000
+	}
+	handle {
+		reverse_proxy frontend:3000
+	}
+}
+
+www.{$DOMAIN} {
+	redir https://{$DOMAIN}{uri} permanent
+}
+
+stats.{$DOMAIN} {
+	encode zstd gzip
+	reverse_proxy umami:3000
+}

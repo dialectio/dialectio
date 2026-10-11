@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import DialectList from "@/components/DialectList";
@@ -16,6 +17,7 @@ export async function generateMetadata({
 export default async function DialectsPage({ params }: PageProps<"/[locale]/dialects">) {
   const { locale } = await params;
   setRequestLocale(locale);
+  await connection(); // needs the API: render per request, not at build time
   const dialects = await listDialects();
   return <DialectList dialects={dialects} />;
 }

@@ -1,11 +1,9 @@
 import type { MetadataRoute } from "next";
+import { connection } from "next/server";
 
 import { INFO_PAGES } from "@/components/InfoPage";
 import { routing } from "@/i18n/routing";
 import { listConceptLinks, listDialects, listDialectWords, SITE_URL } from "@/lib/api";
-
-// Rebuild the sitemap at most once an hour.
-export const revalidate = 3600;
 
 function alternates(path: string) {
   return {
@@ -14,6 +12,7 @@ function alternates(path: string) {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  await connection(); // needs the API: render per request, not at build time
   const [concepts, dialects, dialectWords] = await Promise.all([
     listConceptLinks(),
     listDialects(),
