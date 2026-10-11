@@ -27,6 +27,7 @@ from app.api.lexicon import MACHINE_SOURCE_NAME
 from app.db.session import SessionLocal
 from app.importers.common import upsert_source
 from app.importers.descriptions import own_descriptions
+from app.importers.glosses import apply_glosses
 from app.importers.languages import LANGUAGES, Language
 from app.models import Audio, Concept, Form, Region, Variety
 from app.slugs import assign_missing_slugs
@@ -506,6 +507,7 @@ def main() -> None:
             concept.description_uk = (entry.get("description_uk") or "")[:500] or (
                 own_descriptions().get(qid)  # ours fill gaps until Wikidata has one
             )
+            apply_glosses(concept)  # our fixes for poor Wikidata labels
             concepts[qid] = concept
         session.flush()
 

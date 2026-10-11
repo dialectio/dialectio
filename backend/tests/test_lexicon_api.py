@@ -188,3 +188,13 @@ def test_dialect_word_audio_is_not_repeated() -> None:
     for meaning in client.get("/api/dialect-words/бараболя").json()["meanings"]:
         urls = [a["url"] for a in meaning["audio"]]
         assert len(urls) == len(set(urls))
+
+
+def test_concept_names_are_unique_and_readable() -> None:
+    links = client.get("/api/concepts").json()
+    uk = [c["gloss_uk"] for c in links]
+    assert None not in uk
+    assert len(set(uk)) == len(uk)  # homonyms get a hint: "помідор (плід)"
+    assert len({c["gloss_en"] for c in links}) == len(links)
+    names = {c["slug"]: c["gloss_uk"] for c in links}
+    assert names["duck"] == "качка" and names["butterfly"] == "метелик"
