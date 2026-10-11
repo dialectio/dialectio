@@ -9,13 +9,25 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query, status
 from pydantic import BaseModel, Field, field_validator
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session, selectinload
 
 from app.config import MEDIA_DIR, MEDIA_URL_PREFIX, settings
 from app.db.session import get_session
 from app.importers.common import upsert_source
-from app.models import APPROVED, PENDING, PUBLIC_STATUSES, SUBMITTED, Concept, Form, Variety
+from app.models import (
+    APPROVED,
+    DISPUTED,
+    PENDING,
+    PUBLIC_STATUSES,
+    SUBMITTED,
+    Concept,
+    Form,
+    Report,
+    Variety,
+    Vote,
+    community_status,
+)
 
 EDITOR_SOURCE_NAME = "Dialectio editors"
 EDITOR_SOURCE_URL = "https://github.com/gmisha777/dialectio"
@@ -375,4 +387,106 @@ def delete_form(session: SessionDep, form_id: int) -> None:
         ).first()
         if replacement:
             replacement.is_primary = True
+    session.commit()
+
+
+class ReportOut(BaseModel):
+    id: int
+    message: str
+    region_code: str | None
+    created_at: str
+
+
+class FeedbackItem(BaseModel):
+    form: EditorForm
+    concept_id: int
+    concept_slug: str | None
+    concept_gloss_en: str
+    concept_gloss_uk: str | None
+    variety_code: str
+    variety_name_en: str
+    variety_name_uk: str | None
+    yes: int
+    no: int
+    community: str | None
+    # Votes by the voter's region: {"UA-26": [yes, no]}
+    regions: dict[str, list[int]]
+    reports: list[ReportOut]
+
+
+FEEDBACK_LIMIT = 200
+
+
+@router.get("/feedback")
+def list_feedback(session: SessionDep) -> list[FeedbackItem]:
+    """Words visitors voted on or reported: disputed ones and open reports first."""
+    vote_rows = session.execute(
+        select(
+            Vote.form_id,
+            Vote.region_code,
+            func.count().filter(Vote.value > 0),
+            func.count().filter(Vote.value < 0),
+        ).group_by(Vote.form_id, Vote.region_code)
+    ).all()
+    votes: dict[int, dict[str | None, list[int]]] = {}
+    for form_id, region, yes, no in vote_rows:
+        votes.setdefault(form_id, {})[region] = [yes, no]
+    reports: dict[int, list[Report]] = {}
+    for item in session.scalars(select(Report).where(~Report.resolved).order_by(Report.created_at)):
+        reports.setdefault(item.form_id, []).append(item)
+
+    form_ids = set(votes) | set(reports)
+    forms = session.scalars(
+        select(Form)
+        .where(Form.id.in_(form_ids), Form.status.in_(PUBLIC_STATUSES))
+        .options(
+            selectinload(Form.concept),
+            selectinload(Form.variety),
+            selectinload(Form.source),
+            selectinload(Form.audio),
+        )
+    ).all()
+
+    items = []
+    for form in forms:
+        by_region = votes.get(form.id, {})
+        yes = sum(v[0] for v in by_region.values())
+        no = sum(v[1] for v in by_region.values())
+        items.append(
+            FeedbackItem(
+                form=to_editor_form(form),
+                concept_id=form.concept.id,
+                concept_slug=form.concept.slug,
+                concept_gloss_en=form.concept.gloss_en,
+                concept_gloss_uk=form.concept.gloss_uk,
+                variety_code=form.variety.code,
+                variety_name_en=form.variety.name_en,
+                variety_name_uk=form.variety.name_uk,
+                yes=yes,
+                no=no,
+                community=community_status(yes, no),
+                regions={code: counts for code, counts in by_region.items() if code},
+                reports=[
+                    ReportOut(
+                        id=r.id,
+                        message=r.message,
+                        region_code=r.region_code,
+                        created_at=r.created_at.isoformat(),
+                    )
+                    for r in reports.get(form.id, [])
+                ],
+            )
+        )
+    items.sort(
+        key=lambda i: (i.community != DISPUTED, -len(i.reports), -(i.no - i.yes), -(i.yes + i.no))
+    )
+    return items[:FEEDBACK_LIMIT]
+
+
+@router.post("/reports/{report_id}/resolve", status_code=status.HTTP_204_NO_CONTENT)
+def resolve_report(session: SessionDep, report_id: int) -> None:
+    item = session.get(Report, report_id)
+    if item is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Report not found")
+    item.resolved = True
     session.commit()

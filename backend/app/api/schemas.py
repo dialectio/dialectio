@@ -46,6 +46,7 @@ class AudioOut(ORMModel):
 
 
 class FormOut(BaseModel):
+    id: int
     spelling: str
     ipa: str | None
     transliteration: str | None
@@ -55,6 +56,10 @@ class FormOut(BaseModel):
     # True for words not checked by a person or a dictionary (taken from concept labels or
     # generated automatically); the site marks them as possibly inaccurate.
     unverified: bool = False
+    # Visitors' "do people say it like this?" votes and the resulting mark
+    votes_yes: int = 0
+    votes_no: int = 0
+    community: str | None = None  # "confirmed" or "disputed"
     audio: list[AudioOut]
 
 

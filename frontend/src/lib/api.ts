@@ -35,6 +35,7 @@ export type Audio = {
 };
 
 export type Form = {
+  id: number;
   spelling: string;
   ipa: string | null;
   transliteration: string | null;
@@ -43,6 +44,11 @@ export type Form = {
   source: string | null;
   /** Not checked by a person or a dictionary: shown as possibly inaccurate. */
   unverified: boolean;
+  /** Visitors' "do people say it like this?" votes */
+  votes_yes: number;
+  votes_no: number;
+  /** "confirmed" by speakers' votes, or "disputed" */
+  community: "confirmed" | "disputed" | null;
   audio: Audio[];
 };
 

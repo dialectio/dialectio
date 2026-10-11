@@ -12,13 +12,17 @@ import {
   type EditorConcept,
   EditorError,
   type EditorForm,
+  type FeedbackItem,
   listConcepts,
+  listFeedback,
   listSubmissions,
   listVarieties,
+  resolveReport,
   setPrimaryForm,
   type EditorVariety,
   type Submission,
 } from "@/lib/editor";
+import { listUkraineRegions } from "@/lib/feedback";
 import { sortVarieties } from "@/lib/varieties";
 
 const DEFAULT_VARIETY = "ukr";
@@ -275,6 +279,149 @@ function ConceptRow({
   );
 }
 
+function Feedback({ token }: { token: string }) {
+  const t = useTranslations("Editor");
+  const locale = useLocale();
+  const [items, setItems] = useState<FeedbackItem[]>([]);
+  const [regionNames, setRegionNames] = useState<Record<string, string>>({});
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    listFeedback(token)
+      .then((result) => !cancelled && setItems(result))
+      .catch(() => !cancelled && setError(true));
+    listUkraineRegions()
+      .then(
+        (regions) =>
+          !cancelled &&
+          setRegionNames(
+            Object.fromEntries(regions.map((r) => [r.code, localized(locale, r.name_en, r.name_uk)])),
+          ),
+      )
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [token, locale]);
+
+  const act = async (item: FeedbackItem, approve: boolean) => {
+    setError(false);
+    try {
+      if (approve) {
+        const form = await approveForm(token, item.form.id);
+        setItems((all) => all.map((i) => (i.form.id === form.id ? { ...i, form } : i)));
+      } else {
+        await deleteForm(token, item.form.id);
+        setItems((all) => all.filter((i) => i.form.id !== item.form.id));
+      }
+    } catch {
+      setError(true);
+    }
+  };
+
+  const resolve = async (item: FeedbackItem, reportId: number) => {
+    setError(false);
+    try {
+      await resolveReport(token, reportId);
+      setItems((all) =>
+        all.map((i) =>
+          i === item ? { ...i, reports: i.reports.filter((r) => r.id !== reportId) } : i,
+        ),
+      );
+    } catch {
+      setError(true);
+    }
+  };
+
+  if (items.length === 0 && !error) return null;
+  return (
+    <section className="mb-6 rounded-lg border border-sky-500/40 bg-sky-500/5 p-3">
+      <h2 className="mb-2 font-semibold">{t("feedback", { count: items.length })}</h2>
+      {error && <p className="text-sm text-red-600">{t("saveError")}</p>}
+      <ul className="space-y-3">
+        {items.map((item) => (
+          <li key={item.form.id} className="text-sm">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+              <span className="opacity-70">
+                {localized(locale, item.concept_gloss_en, item.concept_gloss_uk)} ·{" "}
+                {localized(locale, item.variety_name_en, item.variety_name_uk)}
+              </span>
+              <span className="text-base font-semibold">{item.form.spelling}</span>
+              <span>
+                👍 {item.yes} · 👎 {item.no}
+              </span>
+              {item.community === "confirmed" && <span>{t("confirmedLabel")}</span>}
+              {item.community === "disputed" && (
+                <span className="font-semibold text-red-700 dark:text-red-400">
+                  {t("disputedLabel")}
+                </span>
+              )}
+              {item.concept_slug && (
+                <a
+                  href={`/${locale}/word/${item.concept_slug}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-xs underline opacity-60"
+                >
+                  {t("openWord")}
+                </a>
+              )}
+              {item.form.status !== "approved" && (
+                <button
+                  type="button"
+                  onClick={() => act(item, true)}
+                  aria-label={t("approve", { word: item.form.spelling })}
+                  className="font-semibold text-green-700 dark:text-green-400"
+                >
+                  ✓
+                </button>
+              )}
+              {item.form.editable && (
+                <button
+                  type="button"
+                  onClick={() => act(item, false)}
+                  aria-label={t("delete", { word: item.form.spelling })}
+                  className="opacity-60 hover:opacity-100"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+            {Object.keys(item.regions).length > 0 && (
+              <div className="text-xs opacity-70">
+                {Object.entries(item.regions)
+                  .map(([code, [yes, no]]) => `${regionNames[code] ?? code}: 👍${yes} 👎${no}`)
+                  .join(" · ")}
+              </div>
+            )}
+            {item.reports.map((report) => (
+              <div key={report.id} className="mt-1 flex items-start gap-2 text-xs">
+                <span className="rounded bg-amber-500/15 px-2 py-0.5">
+                  {report.message}
+                  {report.region_code && (
+                    <span className="opacity-60">
+                      {" "}
+                      — {regionNames[report.region_code] ?? report.region_code}
+                    </span>
+                  )}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => resolve(item, report.id)}
+                  className="underline opacity-60 hover:opacity-100"
+                >
+                  {t("resolve")}
+                </button>
+              </div>
+            ))}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 function Submissions({ token }: { token: string }) {
   const t = useTranslations("Editor");
   const locale = useLocale();
@@ -436,6 +583,7 @@ export default function WordEditor() {
       {error && <p className="mb-4 text-red-600">{error}</p>}
 
       {token && !error && <Submissions token={token} />}
+      {token && !error && <Feedback token={token} />}
 
       {concepts && (
         <>

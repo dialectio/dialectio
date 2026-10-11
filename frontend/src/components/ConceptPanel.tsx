@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 import ContributeDialog from "@/components/ContributeDialog";
+import WordCheck, { type Counts, TrustMark } from "@/components/WordCheck";
 import { RelatedWords, WordIntro } from "@/components/WordSummary";
 import { Link } from "@/i18n/navigation";
 import type { SelectedRegion } from "@/components/WorldMap";
@@ -47,19 +48,12 @@ export function AudioButtons({ audio }: { audio: AudioInfo[] }) {
   );
 }
 
-function Approximate() {
-  const t = useTranslations("Panel");
-  return (
-    <span title={t("unverified")} aria-label={t("unverified")} className="cursor-help text-sm opacity-60">
-      ≈
-    </span>
-  );
-}
-
 function LanguageCard({ language }: { language: LanguageForms }) {
   const locale = useLocale();
   const t = useTranslations("Panel");
   const [primary, ...others] = language.forms;
+  // Updated when the visitor votes, so the trust mark changes right away.
+  const [counts, setCounts] = useState<Counts>();
 
   return (
     <li
@@ -78,7 +72,7 @@ function LanguageCard({ language }: { language: LanguageForms }) {
       </div>
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <span className="text-xl font-semibold">{primary.spelling}</span>
-        {primary.unverified && <Approximate />}
+        <TrustMark form={primary} counts={counts} />
         {primary.ipa && <span className="font-mono text-sm opacity-80">{primary.ipa}</span>}
         <AudioButtons audio={primary.audio} />
       </div>
@@ -100,6 +94,7 @@ function LanguageCard({ language }: { language: LanguageForms }) {
           ))}
         </div>
       )}
+      <WordCheck form={primary} onCounts={setCounts} />
     </li>
   );
 }

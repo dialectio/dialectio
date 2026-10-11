@@ -1,4 +1,5 @@
 from app.models.base import Base
+from app.models.feedback import CONFIRMED, DISPUTED, Report, Vote, community_status
 from app.models.lexicon import (
     APPROVED,
     PENDING,
@@ -14,6 +15,9 @@ from app.models.lexicon import (
 )
 
 __all__ = [
+    "CONFIRMED",
+    "DISPUTED",
+    "community_status",
     "APPROVED",
     "PENDING",
     "PUBLIC_STATUSES",
@@ -23,7 +27,9 @@ __all__ = [
     "Concept",
     "Form",
     "Region",
+    "Report",
     "Source",
     "Variety",
+    "Vote",
     "variety_region",
 ]

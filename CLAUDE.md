@@ -15,6 +15,7 @@ Full plan and decisions: [docs/plan.md](docs/plan.md). Communicate with the user
 - Every imported record must keep its `Source` (name, url, license).
 - Synthetic (TTS) audio must be flagged `is_synthetic`.
 - Forms have `status`: `approved` or `pending` (drafts from `app.importers.suggestions`, source "Dialectio suggestions (draft)"). Both are public (`PUBLIC_STATUSES`); drafts are marked unverified ("≈") until approved in the editor. Public queries must filter on `PUBLIC_STATUSES`.
+- Visitors check words with anonymous votes (`vote`) and error reports (`report`), see `app/api/feedback.py`. Votes never change a word: enough yes-votes give the "👥 confirmed by speakers" mark (`community_status` in `app/models/feedback.py`), which stays below an editor's approval; editors see votes and reports in the editor ("Голоси й помилки").
 - Only one uvicorn may listen on port 8000: an orphaned old server keeps serving stale code. If changes don't show up, check `Get-NetTCPConnection -LocalPort 8000` and stop stray processes.
 - Concept slugs (`/[locale]/word/[slug]`) are permanent once assigned (`app/slugs.py`); never recompute them, URLs are indexed by search engines.
 - Use only free/open data sources and libraries; no Google Maps.

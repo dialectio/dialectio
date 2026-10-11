@@ -1,7 +1,7 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from sqlalchemy import select, text
+from sqlalchemy import func, select, text
 from sqlalchemy.orm import Session, selectinload
 
 from app.api.labels import build_labels
@@ -16,7 +16,7 @@ from app.api.schemas import (
     SearchHit,
 )
 from app.db.session import get_session
-from app.models import PENDING, PUBLIC_STATUSES, Concept, Form, Variety
+from app.models import PENDING, PUBLIC_STATUSES, Concept, Form, Variety, Vote, community_status
 
 router = APIRouter(prefix="/api", tags=["lexicon"])
 
@@ -174,6 +174,19 @@ def build_detail(session: Session, concept: Concept) -> ConceptDetail:
         .order_by(Form.variety_id, Form.is_primary.desc(), Form.spelling)
     ).all()
 
+    votes = {
+        form_id: (yes, no)
+        for form_id, yes, no in session.execute(
+            select(
+                Vote.form_id,
+                func.count().filter(Vote.value > 0),
+                func.count().filter(Vote.value < 0),
+            )
+            .where(Vote.form_id.in_([f.id for f in forms]))
+            .group_by(Vote.form_id)
+        )
+    }
+
     languages: dict[int, LanguageForms] = {}
     for form in forms:
         variety = form.variety
@@ -191,8 +204,10 @@ def build_detail(session: Session, concept: Concept) -> ConceptDetail:
                 forms=[],
             )
         source = form.source.name if form.source else None
+        yes, no = votes.get(form.id, (0, 0))
         entry.forms.append(
             FormOut(
+                id=form.id,
                 spelling=form.spelling,
                 ipa=form.ipa,
                 transliteration=form.transliteration,
@@ -200,6 +215,9 @@ def build_detail(session: Session, concept: Concept) -> ConceptDetail:
                 external_id=form.external_id,
                 source=source,
                 unverified=source in UNVERIFIED_SOURCES or form.status == PENDING,
+                votes_yes=yes,
+                votes_no=no,
+                community=community_status(yes, no),
                 audio=[AudioOut.model_validate(a) for a in form.audio],
             )
         )

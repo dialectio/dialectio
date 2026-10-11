@@ -93,3 +93,26 @@ export const changeSpelling = (token: string, id: number, spelling: string, ipa:
 
 export const deleteForm = (token: string, id: number) =>
   request<void>(token, `/forms/${id}`, { method: "DELETE" });
+
+export type FeedbackItem = {
+  form: EditorForm;
+  concept_id: number;
+  concept_slug: string | null;
+  concept_gloss_en: string;
+  concept_gloss_uk: string | null;
+  variety_code: string;
+  variety_name_en: string;
+  variety_name_uk: string | null;
+  yes: number;
+  no: number;
+  community: "confirmed" | "disputed" | null;
+  /** Votes by voters' region: {"UA-26": [yes, no]} */
+  regions: Record<string, [number, number]>;
+  reports: { id: number; message: string; region_code: string | null; created_at: string }[];
+};
+
+/** Words visitors voted on or reported (disputed and reported first). */
+export const listFeedback = (token: string) => request<FeedbackItem[]>(token, "/feedback");
+
+export const resolveReport = (token: string, id: number) =>
+  request<void>(token, `/reports/${id}/resolve`, { method: "POST" });
