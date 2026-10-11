@@ -3,12 +3,9 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo } from "react";
 
-import { useMapView } from "@/components/MapShell";
+import { UKRAINE_BOUNDS, useMapView } from "@/components/MapShell";
 import { Link, useRouter } from "@/i18n/navigation";
 import { capitalize, type DialectSummary, localized } from "@/lib/api";
-
-// Ukrainian dialects and the neighbouring areas where they are spoken.
-const UKRAINE_BOUNDS = [19, 44, 41, 53];
 
 /** The dialect index: groups with their dialects; the map shows all dialect areas. */
 export default function DialectList({ dialects }: { dialects: DialectSummary[] }) {

@@ -43,7 +43,7 @@ export function TrustMark({ form, counts }: { form: Form; counts?: Counts }) {
 }
 
 /** "Where do you live?" asked once, after the first vote. */
-function RegionQuestion({ onDone }: { onDone: () => void }) {
+export function RegionQuestion({ onDone }: { onDone: () => void }) {
   const t = useTranslations("Check");
   const locale = useLocale();
   const [regions, setRegions] = useState<RegionOption[]>([]);

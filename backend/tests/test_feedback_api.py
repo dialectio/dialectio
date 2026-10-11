@@ -120,3 +120,32 @@ def test_ukraine_regions_for_the_voter() -> None:
     regions = client.get("/api/regions/ukraine").json()
     assert len(regions) >= 25
     assert all(r["code"].startswith("UA-") for r in regions)
+
+
+def test_check_game_decks_and_cards() -> None:
+    decks = {d["code"]: d for d in client.get("/api/check/decks").json()}
+    assert decks["ukr"]["words"] > 0
+    assert not any(code.startswith("ukr-") for code in decks)  # dialects are in the "ukr" deck
+
+    voter = uuid.uuid4().hex
+    cards = client.get("/api/check/cards", params={"voter": voter, "limit": 5}).json()
+    assert 0 < len(cards) <= 5
+    assert all(c["variety_code"] == "ukr" or c["variety_code"].startswith("ukr-") for c in cards)
+
+    first = cards[0]["form_id"]
+    try:
+        vote(first, 1, voter)
+        again = client.get(
+            "/api/check/cards",
+            params={"voter": voter, "limit": 30, "skip": [c["form_id"] for c in cards[1:]]},
+        ).json()
+        ids = {c["form_id"] for c in again}
+        assert first not in ids  # already voted
+        assert not ids & {c["form_id"] for c in cards[1:]}  # skipped
+    finally:
+        with SessionLocal() as session:
+            session.execute(delete(Vote).where(Vote.form_id == first))
+            session.commit()
+
+    polish = client.get("/api/check/cards", params={"voter": voter, "deck": "pol"}).json()
+    assert polish and all(c["variety_code"] == "pol" for c in polish)

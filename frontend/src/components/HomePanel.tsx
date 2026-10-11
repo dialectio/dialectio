@@ -84,6 +84,13 @@ export default function HomePanel({
         </section>
       )}
 
+      <Link
+        href="/check"
+        className="block rounded-lg border border-dashed border-green-600/50 px-3 py-2 text-sm text-green-800 hover:bg-green-600/10 dark:text-green-300"
+      >
+        {t("checkCta")}
+      </Link>
+
       <InfoNav />
     </aside>
   );

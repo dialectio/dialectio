@@ -9,13 +9,14 @@ memory only, and a honeypot field on reports. Votes never change a word; they ad
 import hashlib
 import time
 from collections import defaultdict, deque
+from typing import Annotated
 
-from fastapi import APIRouter, HTTPException, Request, status
+from fastapi import APIRouter, HTTPException, Query, Request, status
 from pydantic import BaseModel, Field, field_validator
-from sqlalchemy import func, select
+from sqlalchemy import func, select, text
 from sqlalchemy.dialects.postgresql import insert
 
-from app.api.lexicon import SessionDep
+from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
 from app.models import PUBLIC_STATUSES, Form, Region, Report, Vote, community_status
 
 router = APIRouter(prefix="/api", tags=["feedback"])
@@ -158,3 +159,113 @@ def ukraine_regions(session: SessionDep) -> list[RegionOption]:
         .order_by(func.coalesce(Region.name_uk, Region.name_en))
     )
     return [RegionOption(code=r.code, name_en=r.name_en, name_uk=r.name_uk) for r in rows]
+
+
+# --- "Check words" game: cards of unverified words to vote on -----------------------------
+
+# The deck for Ukrainian: standard Ukrainian and all its dialects.
+UKRAINIAN_DECK = "ukr"
+CARDS_MAX = 30
+
+UNVERIFIED_FORMS = """
+    FROM form f
+    JOIN variety v ON v.id = f.variety_id
+    LEFT JOIN source src ON src.id = f.source_id
+    WHERE f.status IN ('approved', 'pending')
+      AND (f.status = 'pending' OR src.name = ANY(:unverified_sources))
+"""
+
+DECKS = text(f"""
+    SELECT CASE WHEN v.code LIKE 'ukr-%' THEN 'ukr' ELSE v.code END AS code,
+           count(*) AS words
+    {UNVERIFIED_FORMS}
+    GROUP BY 1
+    ORDER BY 2 DESC
+""")
+
+CARDS = text("""
+    SELECT f.id AS form_id, f.spelling, v.code AS variety_code, v.kind,
+           v.name_en AS variety_name_en, v.name_uk AS variety_name_uk,
+           c.slug, c.gloss_en, c.gloss_uk,
+           (SELECT s.spelling FROM form s JOIN variety u ON u.id = s.variety_id
+            WHERE s.concept_id = c.id AND u.code = 'ukr' AND s.is_primary
+              AND s.status IN ('approved', 'pending') LIMIT 1) AS standard,
+           (SELECT s.spelling FROM form s JOIN variety u ON u.id = s.variety_id
+            WHERE s.concept_id = c.id AND u.code = 'eng' AND s.is_primary
+              AND s.status IN ('approved', 'pending') LIMIT 1) AS english,
+           coalesce((SELECT array_agg(r.code ORDER BY r.code)
+                     FROM variety_region vr JOIN region r ON r.id = vr.region_id
+                     WHERE vr.variety_id = v.id), '{}') AS region_codes,
+           (SELECT count(*) FROM vote x WHERE x.form_id = f.id) AS votes
+    FROM form f
+    JOIN variety v ON v.id = f.variety_id
+    JOIN concept c ON c.id = f.concept_id AND c.slug IS NOT NULL
+    LEFT JOIN source src ON src.id = f.source_id
+    WHERE f.status IN ('approved', 'pending')
+      AND (f.status = 'pending' OR src.name = ANY(:unverified_sources))
+      AND (CASE WHEN :deck = 'ukr' THEN v.code = 'ukr' OR v.code LIKE 'ukr-%'
+                ELSE v.code = :deck END)
+      AND NOT EXISTS (SELECT 1 FROM vote x WHERE x.form_id = f.id AND x.voter = :voter)
+      AND NOT (f.id = ANY(:skip))
+    ORDER BY votes, random()
+    LIMIT :limit
+""")
+
+
+class Deck(BaseModel):
+    code: str  # "ukr" (Ukrainian with its dialects) or a language code
+    name_en: str
+    name_uk: str | None
+    words: int  # unverified words to check
+
+
+class Card(BaseModel):
+    form_id: int
+    spelling: str
+    variety_code: str
+    kind: str
+    variety_name_en: str
+    variety_name_uk: str | None
+    slug: str
+    gloss_en: str
+    gloss_uk: str | None
+    standard: str | None  # the standard Ukrainian word for the concept
+    english: str | None
+    region_codes: list[str]
+    votes: int
+
+
+@router.get("/check/decks")
+def check_decks(session: SessionDep) -> list[Deck]:
+    """Word sets to check: Ukrainian with its dialects, and every language with unverified words."""
+    names = {
+        code: (en, uk)
+        for code, en, uk in session.execute(text("SELECT code, name_en, name_uk FROM variety"))
+    }
+    return [
+        Deck(code=code, name_en=names[code][0], name_uk=names[code][1], words=words)
+        for code, words in session.execute(DECKS, {"unverified_sources": list(UNVERIFIED_SOURCES)})
+        if code in names
+    ]
+
+
+@router.get("/check/cards")
+def check_cards(
+    session: SessionDep,
+    voter: Annotated[str, Query(min_length=8, max_length=64)],
+    deck: str = UKRAINIAN_DECK,
+    skip: Annotated[list[int], Query()] = [],  # noqa: B006 (FastAPI copies defaults)
+    limit: Annotated[int, Query(ge=1, le=CARDS_MAX)] = 10,
+) -> list[Card]:
+    """Unverified words this browser has not voted on yet, least-voted first."""
+    rows = session.execute(
+        CARDS,
+        {
+            "unverified_sources": list(UNVERIFIED_SOURCES),
+            "deck": deck,
+            "voter": voter_hash(voter),
+            "skip": skip,
+            "limit": limit,
+        },
+    ).mappings()
+    return [Card(**row) for row in rows]

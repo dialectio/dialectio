@@ -96,7 +96,8 @@
     "sources": "Sources",
     "privacy": "Privacy",
     "map": "Map",
-    "dialects": "Dialects"
+    "dialects": "Dialects",
+    "check": "Check words"
   },
   "About": {
     "title": "About",
@@ -156,7 +157,8 @@
     "inDialects": "In dialects:",
     "open": "Show all languages and dialects",
     "dialectsTitle": "Dialect favourites",
-    "dialectsHint": "One concept, different words across Ukraine."
+    "dialectsHint": "One concept, different words across Ukraine.",
+    "checkCta": "Help check words: one click per word →"
   },
   "Dialects": {
     "title": "Dialects of Ukrainian",
@@ -225,5 +227,25 @@
     "cancel": "Cancel",
     "reportThanks": "Thank you! An editor will check it.",
     "error": "Could not send. Please try again."
+  },
+  "Game": {
+    "title": "Check words",
+    "metaDescription": "Help check how people speak in Ukrainian dialects and other languages: one word, one click.",
+    "intro": "Many of our words were collected automatically or are drafts. Help us weed out mistakes: do people really say it like this?",
+    "deck": "Checking:",
+    "ukrainianDeck": "Ukrainian and its dialects",
+    "loading": "Loading…",
+    "error": "Could not load words. Please try again.",
+    "empty": "You have checked everything in this set. Thank you! Pick another one.",
+    "means": "means “{meaning}”",
+    "questionDialect": "Do people say it like this in this dialect?",
+    "questionLanguage": "Is this word right?",
+    "yes": "Yes",
+    "no": "No",
+    "dontKnow": "Don't know",
+    "wordPage": "word page",
+    "checked": "You have checked {count, plural, one {# word} other {# words}}. Thank you!",
+    "howItWorks": "Keys: → yes, ← no, ↓ don't know. Once enough people say yes, a word gets the 👥 mark; an editor makes the final check.",
+    "inEnglish": "in English: “{word}”"
   }
 }

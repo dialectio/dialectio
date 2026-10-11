@@ -1,5 +1,7 @@
 import type { FeatureCollection, Point } from "geojson";
 
+import type { Deck } from "@/lib/feedback";
+
 export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 /** API address for server-side rendering (can be an internal URL in production). */
 const SERVER_API_URL = process.env.API_INTERNAL_URL || API_URL;
@@ -243,4 +245,9 @@ export async function listDialectWords() {
 /** Server-side: a dialect word page, or null when the word is unknown. */
 export function getDialectWord(word: string) {
   return getServerJson<DialectWordDetail>(`/api/dialect-words/${encodeURIComponent(word)}`);
+}
+
+/** Server-side: word sets for the "check words" game. */
+export async function listCheckDecks() {
+  return (await getServerJson<Deck[]>("/api/check/decks")) ?? [];
 }

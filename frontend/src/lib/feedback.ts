@@ -101,3 +101,40 @@ export async function listUkraineRegions(): Promise<RegionOption[]> {
   if (!response.ok) throw new Error(`${response.status} /api/regions/ukraine`);
   return response.json();
 }
+
+export type Deck = { code: string; name_en: string; name_uk: string | null; words: number };
+
+export type Card = {
+  form_id: number;
+  spelling: string;
+  variety_code: string;
+  kind: "language" | "dialect_group" | "dialect";
+  variety_name_en: string;
+  variety_name_uk: string | null;
+  slug: string;
+  gloss_en: string;
+  gloss_uk: string | null;
+  /** Standard Ukrainian and English words for the same concept */
+  standard: string | null;
+  english: string | null;
+  region_codes: string[];
+  votes: number;
+};
+
+/** Words this browser has not voted on yet, least-voted first. */
+export async function loadCards(deck: string, skip: number[], limit = 15): Promise<Card[]> {
+  const params = new URLSearchParams({ voter: voterId(), deck, limit: String(limit) });
+  for (const id of skip) params.append("skip", String(id));
+  const response = await fetch(`${API_URL}/api/check/cards?${params}`);
+  if (!response.ok) throw new Error(`${response.status} /api/check/cards`);
+  return response.json();
+}
+
+const CHECKED_KEY = "dialectio.checked";
+const DECK_KEY = "dialectio.checkDeck";
+
+/** How many words this browser has checked in the game. */
+export const checkedCount = () => Number(read(CHECKED_KEY) ?? 0) || 0;
+export const addChecked = () => write(CHECKED_KEY, String(checkedCount() + 1));
+export const savedDeck = () => read(DECK_KEY);
+export const saveDeck = (code: string) => write(DECK_KEY, code);

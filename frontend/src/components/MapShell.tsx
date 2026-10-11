@@ -28,7 +28,12 @@ export type MapView = {
   onSelectRegion: (region: SelectedRegion) => void;
   /** [west, south, east, north] to zoom to when the page opens */
   bounds?: number[] | null;
+  /** On phones show the panel above the map (pages where the panel is the main thing) */
+  panelFirstOnPhone?: boolean;
 };
+
+/** Ukraine and the neighbouring areas where Ukrainian dialects are spoken. */
+export const UKRAINE_BOUNDS = [19, 44, 41, 53];
 
 const NO_CODES: string[] = [];
 const EMPTY_VIEW: MapView = {
@@ -43,7 +48,14 @@ const MapViewContext = createContext<(view: MapView) => void>(() => {});
 /** Pages call this to put their word on the map (the map itself lives in the layout). */
 export function useMapView(view: MapView) {
   const setView = useContext(MapViewContext);
-  const { highlightCodes, labels, selectedCode, onSelectRegion, bounds = null } = view;
+  const {
+    highlightCodes,
+    labels,
+    selectedCode,
+    onSelectRegion,
+    bounds = null,
+    panelFirstOnPhone = false,
+  } = view;
   const onSelectRef = useRef(onSelectRegion);
   useEffect(() => {
     onSelectRef.current = onSelectRegion;
@@ -54,9 +66,10 @@ export function useMapView(view: MapView) {
       labels,
       selectedCode,
       bounds,
+      panelFirstOnPhone,
       onSelectRegion: (r) => onSelectRef.current(r),
     });
-  }, [setView, highlightCodes, labels, selectedCode, bounds]);
+  }, [setView, highlightCodes, labels, selectedCode, bounds, panelFirstOnPhone]);
   useEffect(() => () => setView(EMPTY_VIEW), [setView]);
 }
 
@@ -118,7 +131,9 @@ export default function MapShell({ children }: { children: ReactNode }) {
           </section>
           <div
             ref={panelRef}
-            className="border-black/10 md:w-96 md:overflow-y-auto md:border-l dark:border-white/15"
+            className={`border-black/10 md:w-96 md:overflow-y-auto md:border-l dark:border-white/15 ${
+              view.panelFirstOnPhone ? "order-first md:order-none" : ""
+            }`}
           >
             {children}
           </div>
