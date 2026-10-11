@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 import ContributeDialog from "@/components/ContributeDialog";
+import { RelatedWords, WordIntro } from "@/components/WordSummary";
 import type { SelectedRegion } from "@/components/WorldMap";
 import {
   type Audio as AudioInfo,
@@ -154,12 +155,16 @@ export default function ConceptPanel({
           onClose={() => setContributing(false)}
         />
       )}
-      <ul className="flex-1 overflow-y-auto px-4">
-        {languages.length === 0 && <li className="py-3 text-sm opacity-60">{t("noWords")}</li>}
-        {languages.map((language) => (
-          <LanguageCard key={language.variety_id} language={language} />
-        ))}
-      </ul>
+      <div className="flex-1 overflow-y-auto px-4">
+        {!region && <WordIntro concept={concept} />}
+        <ul>
+          {languages.length === 0 && <li className="py-3 text-sm opacity-60">{t("noWords")}</li>}
+          {languages.map((language) => (
+            <LanguageCard key={language.variety_id} language={language} />
+          ))}
+        </ul>
+        <RelatedWords concept={concept} />
+      </div>
       <p className="border-t border-black/10 p-3 text-xs opacity-60 dark:border-white/10">
         {t.rich("attribution", {
           wikidata: (chunks) => (

@@ -75,3 +75,5 @@ class ConceptDetail(ConceptSummary):
     languages: list[LanguageForms]
     # GeoJSON FeatureCollection of points: one label per region with its primary spellings
     labels: dict[str, Any]
+    # Other word pages to link to: words with dialect variants, then alphabetical neighbours
+    related: list[ConceptLink] = []

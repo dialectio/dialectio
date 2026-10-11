@@ -145,3 +145,10 @@ def test_featured_concepts_have_several_dialect_words() -> None:
     assert all(len(c["examples"]) >= 2 for c in featured)
     counts = [len(c["examples"]) for c in featured]
     assert counts == sorted(counts, reverse=True)
+
+
+def test_concept_links_to_related_word_pages() -> None:
+    detail = client.get("/api/concepts/by-slug/water").json()
+    slugs = [link["slug"] for link in detail["related"]]
+    assert "water" not in slugs
+    assert len(slugs) == len(set(slugs)) >= 3

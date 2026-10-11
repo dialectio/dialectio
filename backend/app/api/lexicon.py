@@ -210,7 +210,45 @@ def build_detail(session: Session, concept: Concept) -> ConceptDetail:
         **summary.model_dump(),
         languages=sort_languages(list(languages.values())),
         labels=labels,
+        related=related_concepts(session, concept),
     )
+
+
+RELATED_FEATURED = 6
+RELATED_POOL = 40
+NEIGHBOURS = text("""
+    (SELECT slug, gloss_en, gloss_uk FROM concept
+     WHERE slug < :slug ORDER BY slug DESC LIMIT 1)
+    UNION ALL
+    (SELECT slug, gloss_en, gloss_uk FROM concept
+     WHERE slug > :slug ORDER BY slug LIMIT 1)
+""")
+
+
+def related_concepts(session: Session, concept: Concept) -> list[ConceptLink]:
+    """Links from a word page to other word pages.
+
+    Words with dialect variants come first; each page shows a different window of them, so
+    links spread over all of them. The alphabetical neighbours chain every page to the next,
+    so crawlers can reach all of them.
+    """
+    if not concept.slug:
+        return []
+    pool = [
+        row
+        for row in session.execute(FEATURED, {"min_words": 2, "limit": RELATED_POOL}).mappings()
+        if row["id"] != concept.id
+    ]
+    start = concept.id % len(pool) if pool else 0
+    window = (pool[start:] + pool[:start])[:RELATED_FEATURED]
+    related = [
+        ConceptLink(slug=r["slug"], gloss_en=r["gloss_en"], gloss_uk=r["gloss_uk"]) for r in window
+    ]
+    seen = {link.slug for link in related}
+    for row in session.execute(NEIGHBOURS, {"slug": concept.slug}).mappings():
+        if row["slug"] not in seen:
+            related.append(ConceptLink(**row))
+    return related
 
 
 def sort_languages(languages: list[LanguageForms]) -> list[LanguageForms]:

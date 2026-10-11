@@ -56,7 +56,10 @@
   },
   "Word": {
     "title": "{word} in different languages — spelling and pronunciation | Dialectio",
-    "description": "“{word}” in other languages: {examples} and more — {count, plural, one {# language} other {# languages}} on a map, with pronunciation and audio."
+    "description": "“{word}” in other languages: {examples} and more — {count, plural, one {# language} other {# languages}} on a map, with pronunciation and audio.",
+    "dialectIntro": "In Ukrainian dialects, “{word}” also goes by other names: {list}.",
+    "worldIntro": "In other languages: {list}.",
+    "related": "More words"
   },
   "Contribute": {
     "title": "How do you say “{word}”?",

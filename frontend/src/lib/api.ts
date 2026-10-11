@@ -76,6 +76,8 @@ export type LabelProps = {
 export type ConceptDetail = ConceptSummary & {
   languages: LanguageForms[];
   labels: FeatureCollection<Point, LabelProps>;
+  /** Other word pages to link to */
+  related?: ConceptLink[];
 };
 
 /** UI locale -> ISO 639-3 code used to break ties between identical spellings. */

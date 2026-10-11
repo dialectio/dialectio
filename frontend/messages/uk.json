@@ -56,7 +56,10 @@
   },
   "Word": {
     "title": "{word} — як пишеться і звучить різними мовами | Dialectio",
-    "description": "«{word}» різними мовами: {examples} та ще інші — {count, plural, one {# мова} few {# мови} many {# мов} other {# мови}} на карті, з вимовою та аудіо."
+    "description": "«{word}» різними мовами: {examples} та ще інші — {count, plural, one {# мова} few {# мови} many {# мов} other {# мови}} на карті, з вимовою та аудіо.",
+    "dialectIntro": "У говорах української мови «{word}» називають і інакше: {list}.",
+    "worldIntro": "Іншими мовами: {list}.",
+    "related": "Інші слова"
   },
   "Contribute": {
     "title": "Як кажуть «{word}» у вас?",
