@@ -107,7 +107,7 @@ export default function SearchBox({ onSelect }: { onSelect: (hit: SearchHit) => 
           {noResults && <li className="px-3 py-2 text-sm text-black/60">{t("noResults")}</li>}
           {hits.map((hit, i) => {
             const { concept } = hit;
-            const description = localized(locale, concept.description_en, concept.description_uk);
+            const description = localized(locale, concept.description_en, concept.description_uk, concept.descriptions);
             return (
               <li
                 key={concept.id}
@@ -122,13 +122,13 @@ export default function SearchBox({ onSelect }: { onSelect: (hit: SearchHit) => 
                 className={`cursor-pointer px-3 py-2 ${i === active ? "bg-blue-50" : ""}`}
               >
                 <div className="font-medium">
-                  {localized(locale, concept.gloss_en, concept.gloss_uk)}
+                  {localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses)}
                 </div>
                 {description && <div className="text-xs text-black/60">{description}</div>}
                 <div className="text-xs text-black/50">
                   {t("matched", {
                     word: hit.matched_spelling,
-                    language: localized(locale, hit.matched_language_en, hit.matched_language_uk),
+                    language: localized(locale, hit.matched_language_en, hit.matched_language_uk, hit.matched_language_names),
                   })}
                 </div>
               </li>

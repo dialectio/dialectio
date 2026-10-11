@@ -15,12 +15,16 @@ class ConceptSummary(ORMModel):
     gloss_uk: str | None
     description_en: str | None
     description_uk: str | None
+    # Names and descriptions in the other interface languages ({"pl": ..., "de": ...})
+    glosses: dict[str, str] = {}
+    descriptions: dict[str, str] = {}
 
 
 class ConceptLink(ORMModel):
     slug: str
     gloss_en: str
     gloss_uk: str | None
+    glosses: dict[str, str] = {}
 
 
 class FeaturedConcept(BaseModel):
@@ -28,6 +32,7 @@ class FeaturedConcept(BaseModel):
     slug: str
     gloss_en: str
     gloss_uk: str | None
+    glosses: dict[str, str] = {}
     examples: list[str]  # distinct dialect words, most widespread first
 
 
@@ -36,6 +41,7 @@ class SearchHit(BaseModel):
     matched_spelling: str
     matched_language_en: str
     matched_language_uk: str | None
+    matched_language_names: dict[str, str] = {}
 
 
 class AudioOut(ORMModel):
@@ -72,6 +78,7 @@ class LanguageForms(BaseModel):
     iso639_3: str | None
     name_en: str
     name_uk: str | None
+    names: dict[str, str] = {}
     region_codes: list[str]
     forms: list[FormOut]
 

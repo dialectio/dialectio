@@ -23,7 +23,7 @@ function DialectLinks({ dialects }: { dialects: DialectRef[] }) {
         <span key={dialect.code}>
           {i > 0 && ", "}
           <Link href={`/dialects/${dialect.code}`} className="underline-offset-2 hover:underline">
-            {localized(locale, dialect.name_en, dialect.name_uk)}
+            {localized(locale, dialect.name_en, dialect.name_uk, dialect.names)}
           </Link>
         </span>
       ))}
@@ -46,7 +46,7 @@ function DialectUseRow({ use }: { use: DialectUse }) {
     <li className="border-b border-black/5 py-1.5 dark:border-white/10">
       <span className="inline-flex items-baseline gap-1">
         <Link href={`/dialects/${use.code}`} className="underline-offset-2 hover:underline">
-          {localized(locale, use.name_en, use.name_uk)}
+          {localized(locale, use.name_en, use.name_uk, use.names)}
         </Link>
         <TrustMark form={form} counts={counts} />
       </span>

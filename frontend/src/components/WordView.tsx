@@ -20,8 +20,8 @@ function regionFromLabels(
 ): SelectedRegion | null {
   const label = concept.labels.features.find((f) => f.properties.code === code);
   if (!label) return null;
-  const { name_en, name_uk, parent_code } = label.properties;
-  return { code, name: localized(locale, name_en, name_uk), parentCode: parent_code };
+  const { name_en, name_uk, names, parent_code } = label.properties;
+  return { code, name: localized(locale, name_en, name_uk, names), parentCode: parent_code };
 }
 
 /**

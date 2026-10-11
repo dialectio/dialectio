@@ -82,7 +82,7 @@ export function RegionQuestion({ onDone }: { onDone: () => void }) {
               .filter((r) => r.in_ukraine === inUkraine)
               .map((r) => (
                 <option key={r.code} value={r.code}>
-                  {localized(locale, r.name_en, r.name_uk)}
+                  {localized(locale, r.name_en, r.name_uk, r.names)}
                 </option>
               ))}
           </optgroup>

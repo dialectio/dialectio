@@ -2,7 +2,8 @@ import createMiddleware from "next-intl/middleware";
 
 import { routing } from "./i18n/routing";
 
-// Redirects "/" to the visitor's locale ("/uk" or "/en") and keeps the locale prefix on all routes.
+// Redirects "/" to the visitor's locale (from the browser language, e.g. "/pl") and keeps the
+// locale prefix on all routes.
 export default createMiddleware(routing);
 
 export const config = {

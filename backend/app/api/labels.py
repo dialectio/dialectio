@@ -25,7 +25,8 @@ REGION_WORDS = text("""
 """)
 
 REGIONS = text("""
-    SELECT r.id, r.code, r.level, r.name_en, r.name_uk, r.parent_id, parent.code AS parent_code,
+    SELECT r.id, r.code, r.level, r.name_en, r.name_uk, r.names, r.parent_id,
+           parent.code AS parent_code,
            ST_X(point) AS lng, ST_Y(point) AS lat,
            coalesce(r.label_rank, 10) AS rank, ST_Area(r.geom) AS area
     FROM region r
@@ -74,6 +75,7 @@ def build_labels(session: Session, concept_id: int) -> dict[str, Any]:
                 "dialect": dialect,
                 "name_en": region.name_en,
                 "name_uk": region.name_uk,
+                "names": region.names,
                 "rank": region.rank,
             },
             "geometry": {

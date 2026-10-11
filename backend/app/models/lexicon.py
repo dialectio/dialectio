@@ -18,6 +18,7 @@ from sqlalchemy import (
     UniqueConstraint,
     text,
 )
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
@@ -54,6 +55,9 @@ class Concept(Base):
     gloss_uk: Mapped[str | None] = mapped_column(String(200))
     description_en: Mapped[str | None] = mapped_column(String(500))
     description_uk: Mapped[str | None] = mapped_column(String(500))
+    # Names and descriptions in the other interface languages: {"pl": "ziemniak", ...}
+    glosses: Mapped[dict[str, str]] = mapped_column(JSONB, default=dict, server_default="{}")
+    descriptions: Mapped[dict[str, str]] = mapped_column(JSONB, default=dict, server_default="{}")
     wikidata_id: Mapped[str | None] = mapped_column(String(20), unique=True)
     # URL path segment of the concept's page, e.g. "water" or "bark-q38681"
     slug: Mapped[str | None] = mapped_column(String(120), unique=True)
@@ -68,6 +72,8 @@ class Variety(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name_en: Mapped[str] = mapped_column(String(200))
     name_uk: Mapped[str | None] = mapped_column(String(200))
+    # Names in the other interface languages: {"pl": "...", "de": "...", ...}
+    names: Mapped[dict[str, str]] = mapped_column(JSONB, default=dict, server_default="{}")
     # language / dialect_group / dialect
     kind: Mapped[str] = mapped_column(String(20), default="language")
     iso639_3: Mapped[str | None] = mapped_column(String(3), index=True)
@@ -91,6 +97,8 @@ class Region(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     name_en: Mapped[str] = mapped_column(String(200))
     name_uk: Mapped[str | None] = mapped_column(String(200))
+    # Names in the other interface languages: {"pl": "...", "de": "...", ...}
+    names: Mapped[dict[str, str]] = mapped_column(JSONB, default=dict, server_default="{}")
     # country / adm1 / adm2
     level: Mapped[str] = mapped_column(String(10))
     # ISO 3166-1 alpha-3 for countries, geoBoundaries shapeID for subdivisions

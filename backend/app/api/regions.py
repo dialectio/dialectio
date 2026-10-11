@@ -20,6 +20,8 @@ TILE_LAYER = """
     ),
     features AS (
         SELECT r.id, r.code, r.name_en, r.name_uk, parent.code AS parent_code,
+               r.names->>'pl' AS name_pl, r.names->>'de' AS name_de,
+               r.names->>'es' AS name_es, r.names->>'fr' AS name_fr,
                ST_AsMVTGeom(
                    ST_Transform(
                        ST_ClipByBox2D(

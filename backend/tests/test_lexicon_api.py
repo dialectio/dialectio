@@ -198,3 +198,18 @@ def test_concept_names_are_unique_and_readable() -> None:
     assert len({c["gloss_en"] for c in links}) == len(links)
     names = {c["slug"]: c["gloss_uk"] for c in links}
     assert names["duck"] == "качка" and names["butterfly"] == "метелик"
+
+
+def test_names_in_extra_interface_languages() -> None:
+    detail = client.get("/api/concepts/by-slug/potato").json()
+    assert detail["glosses"]["pl"] == "ziemniak"
+    assert detail["glosses"]["de"] == "Kartoffel"
+    ukrainian = next(lang for lang in detail["languages"] if lang["code"] == "ukr")
+    assert ukrainian["names"]["pl"] == "ukraiński"
+    label = next(f for f in detail["labels"]["features"] if f["properties"]["code"] == "POL")
+    assert label["properties"]["names"]["de"] == "Polen"
+
+    hutsul = client.get("/api/dialects/ukr-hutsul").json()
+    assert hutsul["names"]["pl"] == "gwara huculska"
+    lviv = client.get("/api/dialects/ukr-boyko").json()["regions"]
+    assert {r["code"]: r["names"]["pl"] for r in lviv}["UA-46"] == "obwód lwowski"

@@ -157,12 +157,13 @@ class RegionOption(BaseModel):
     code: str
     name_en: str
     name_uk: str | None
+    names: dict[str, str] = {}
     # False for regions abroad where Ukrainian dialects are spoken (Lemko, Hutsul areas...)
     in_ukraine: bool
 
 
 VOTER_REGIONS = text("""
-    SELECT r.code, r.name_en, r.name_uk, r.code LIKE 'UA-%' AS in_ukraine
+    SELECT r.code, r.name_en, r.name_uk, r.names, r.code LIKE 'UA-%' AS in_ukraine
     FROM region r
     WHERE r.level = 'adm1'
       AND (r.code LIKE 'UA-%' OR r.id IN (
@@ -204,7 +205,7 @@ DECKS = text(f"""
 CARDS = text("""
     SELECT f.id AS form_id, f.spelling, v.code AS variety_code, v.kind,
            v.name_en AS variety_name_en, v.name_uk AS variety_name_uk,
-           c.slug, c.gloss_en, c.gloss_uk,
+           v.names AS variety_names, c.slug, c.gloss_en, c.gloss_uk, c.glosses,
            (SELECT s.spelling FROM form s JOIN variety u ON u.id = s.variety_id
             WHERE s.concept_id = c.id AND u.code = 'ukr' AND s.is_primary
               AND s.status IN ('approved', 'pending') LIMIT 1) AS standard,
@@ -234,6 +235,7 @@ class Deck(BaseModel):
     code: str  # "ukr" (Ukrainian with its dialects) or a language code
     name_en: str
     name_uk: str | None
+    names: dict[str, str] = {}
     words: int  # unverified words to check
 
 
@@ -244,9 +246,11 @@ class Card(BaseModel):
     kind: str
     variety_name_en: str
     variety_name_uk: str | None
+    variety_names: dict[str, str] = {}
     slug: str
     gloss_en: str
     gloss_uk: str | None
+    glosses: dict[str, str] = {}
     standard: str | None  # the standard Ukrainian word for the concept
     english: str | None
     region_codes: list[str]
@@ -257,11 +261,19 @@ class Card(BaseModel):
 def check_decks(session: SessionDep) -> list[Deck]:
     """Word sets to check: Ukrainian with its dialects, and every language with unverified words."""
     names = {
-        code: (en, uk)
-        for code, en, uk in session.execute(text("SELECT code, name_en, name_uk FROM variety"))
+        code: (en, uk, local)
+        for code, en, uk, local in session.execute(
+            text("SELECT code, name_en, name_uk, names FROM variety")
+        )
     }
     return [
-        Deck(code=code, name_en=names[code][0], name_uk=names[code][1], words=words)
+        Deck(
+            code=code,
+            name_en=names[code][0],
+            name_uk=names[code][1],
+            names=names[code][2],
+            words=words,
+        )
         for code, words in session.execute(DECKS, {"unverified_sources": list(UNVERIFIED_SOURCES)})
         if code in names
     ]

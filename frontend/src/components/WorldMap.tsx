@@ -50,8 +50,24 @@ type RegionProps = {
   code: string;
   name_en: string;
   name_uk: string | null;
+  // Vector tiles carry the other languages' names as separate properties
+  name_pl?: string;
+  name_de?: string;
+  name_es?: string;
+  name_fr?: string;
   parent_code?: string | null;
 };
+
+/** A region's name in the interface language, from its vector-tile properties. */
+function regionName(locale: string, props: RegionProps): string {
+  const names = { pl: props.name_pl, de: props.name_de, es: props.name_es, fr: props.name_fr };
+  return localized(
+    locale,
+    props.name_en,
+    props.name_uk,
+    Object.fromEntries(Object.entries(names).filter(([, v]) => v)) as Record<string, string>,
+  );
+}
 
 // Minimum free space between two visible word labels, in pixels.
 const LABEL_GAP = 2;
@@ -221,7 +237,7 @@ export default function WorldMap({
           if (props) {
             onSelectRef.current({
               code: props.code,
-              name: localized(localeRef.current, props.name_en, props.name_uk),
+              name: regionName(localeRef.current, props),
               parentCode: props.parent_code || null,
             });
           }
@@ -285,10 +301,10 @@ export default function WorldMap({
       el.dataset.level = level;
       el.addEventListener("click", (e) => {
         e.stopPropagation();
-        const { name_en, name_uk, parent_code } = feature.properties;
+        const { name_en, name_uk, names, parent_code } = feature.properties;
         onSelectRef.current({
           code,
-          name: localized(localeRef.current, name_en, name_uk),
+          name: localized(localeRef.current, name_en, name_uk, names),
           parentCode: parent_code,
         });
       });
@@ -329,7 +345,7 @@ export default function WorldMap({
     };
   }, [loaded, labels]);
 
-  const hoveredName = hovered && localized(locale, hovered.name_en, hovered.name_uk);
+  const hoveredName = hovered && regionName(locale, hovered);
 
   return (
     <div className="relative h-full w-full">

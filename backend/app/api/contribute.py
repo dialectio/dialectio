@@ -58,6 +58,7 @@ class PublicVariety(BaseModel):
     kind: str
     name_en: str
     name_uk: str | None
+    names: dict[str, str] = {}
     parent_code: str | None
     region_codes: list[str]
 
@@ -77,6 +78,7 @@ def list_varieties(session: SessionDep) -> list[PublicVariety]:
             kind=v.kind,
             name_en=v.name_en,
             name_uk=v.name_uk,
+            names=v.names,
             parent_code=v.parent.code if v.parent else None,
             region_codes=sorted(r.code for r in v.regions),
         )

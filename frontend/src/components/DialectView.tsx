@@ -11,7 +11,7 @@ import { capitalize, type DialectDetail, localized } from "@/lib/api";
 function Breadcrumbs({ dialect }: { dialect: DialectDetail }) {
   const locale = useLocale();
   const t = useTranslations("Dialects");
-  const group = localized(locale, dialect.parent_name_en ?? "", dialect.parent_name_uk);
+  const group = localized(locale, dialect.parent_name_en ?? "", dialect.parent_name_uk, dialect.parent_names);
   return (
     <nav className="text-xs opacity-70">
       <Link href="/dialects" className="hover:underline">
@@ -27,7 +27,7 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
   const locale = useLocale();
   const t = useTranslations("Dialects");
   const tInfo = useTranslations("DialectInfo");
-  const name = capitalize(localized(locale, dialect.name_en, dialect.name_uk));
+  const name = capitalize(localized(locale, dialect.name_en, dialect.name_uk, dialect.names));
 
   // One violet label per region of the dialect's area, named after the region.
   const labels = useMemo<MapLabels>(
@@ -41,7 +41,7 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
           level: "adm1",
           parent_code: null,
           dialect: true,
-          text: localized(locale, region.name_en, region.name_uk),
+          text: localized(locale, region.name_en, region.name_uk, region.names),
           name_en: region.name_en,
           name_uk: region.name_uk,
           rank: i,
@@ -58,7 +58,7 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
     bounds: dialect.bounds,
   });
 
-  const territory = dialect.regions.map((r) => localized(locale, r.name_en, r.name_uk));
+  const territory = dialect.regions.map((r) => localized(locale, r.name_en, r.name_uk, r.names));
 
   return (
     <article className="space-y-4 p-4">
@@ -116,7 +116,7 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
                     </td>
                     <td className="py-1.5">
                       <Link href={`/word/${word.slug}`} className="underline-offset-2 hover:underline">
-                        {word.standard ?? localized(locale, word.gloss_en, word.gloss_uk)}
+                        {word.standard ?? localized(locale, word.gloss_en, word.gloss_uk, word.glosses)}
                       </Link>
                     </td>
                   </tr>

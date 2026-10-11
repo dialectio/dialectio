@@ -22,7 +22,7 @@ function examples(concept: ConceptDetail, locale: string): string {
   return [...concept.languages]
     .sort((a, b) => order(a.iso639_3) - order(b.iso639_3))
     .slice(0, DESCRIPTION_EXAMPLES)
-    .map((lang) => `${lang.forms[0].spelling} (${localized(locale, lang.name_en, lang.name_uk)})`)
+    .map((lang) => `${lang.forms[0].spelling} (${localized(locale, lang.name_en, lang.name_uk, lang.names)})`)
     .join(", ");
 }
 
@@ -32,8 +32,8 @@ const TITLE_HINT_LENGTH = 40;
 
 /** The word for titles; homonyms get a short hint from the description so titles stay unique. */
 function titleWord(concept: ConceptDetail, locale: string): string {
-  const word = localized(locale, concept.gloss_en, concept.gloss_uk);
-  const description = inLocale(locale, concept.description_en, concept.description_uk);
+  const word = localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses);
+  const description = inLocale(locale, concept.description_en, concept.description_uk, concept.descriptions);
   if (!description || !HOMONYM_SLUG.test(concept.slug ?? "")) return word;
   const hint =
     description.length > TITLE_HINT_LENGTH
@@ -53,7 +53,7 @@ export async function generateMetadata({
   const concept = await loadConcept(slug);
   if (!concept) return {};
   const t = await getTranslations({ locale, namespace: "Word" });
-  const word = localized(locale, concept.gloss_en, concept.gloss_uk);
+  const word = localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses);
 
   return {
     title: t("title", { word: titleWord(concept, locale) }),

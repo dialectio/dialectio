@@ -25,7 +25,7 @@ const NO_CODES: string[] = [];
 
 /** What the word should mean, in the reader's language. */
 function meaning(card: Card, locale: string): string {
-  if (locale !== "uk") return card.english ?? card.gloss_en;
+  if (locale !== "uk") return localized(locale, card.english ?? card.gloss_en, null, card.glosses);
   return card.standard ?? card.gloss_uk ?? card.gloss_en;
 }
 
@@ -130,7 +130,7 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
   };
 
   const varietyName = card
-    ? capitalize(localized(locale, card.variety_name_en, card.variety_name_uk))
+    ? capitalize(localized(locale, card.variety_name_en, card.variety_name_uk, card.variety_names))
     : "";
 
   return (
@@ -154,7 +154,7 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
             <option key={d.code} value={d.code}>
               {d.code === UKRAINIAN_DECK
                 ? t("ukrainianDeck")
-                : capitalize(localized(locale, d.name_en, d.name_uk))}{" "}
+                : capitalize(localized(locale, d.name_en, d.name_uk, d.names))}{" "}
               ({d.words})
             </option>
           ))}

@@ -1,10 +1,11 @@
-import { API_URL, localized } from "@/lib/api";
+import { API_URL, localized, type Names } from "@/lib/api";
 
 export type Variety = {
   code: string;
   kind: "language" | "dialect";
   name_en: string;
   name_uk: string | null;
+  names?: Names;
   parent_code: string | null;
   /** Oblasts (or countries) where it is spoken */
   region_codes: string[];
@@ -17,7 +18,9 @@ export async function listPublicVarieties(): Promise<Variety[]> {
 }
 
 /** Ukrainian and its dialects first (the project's focus), then other languages by name. */
-export function sortVarieties<T extends Pick<Variety, "code" | "kind" | "name_en" | "name_uk">>(
+export function sortVarieties<
+  T extends Pick<Variety, "code" | "kind" | "name_en" | "name_uk" | "names">,
+>(
   varieties: T[],
   locale: string,
 ): T[] {
@@ -26,6 +29,6 @@ export function sortVarieties<T extends Pick<Variety, "code" | "kind" | "name_en
     (a, b) =>
       focus(a) - focus(b) ||
       Number(a.kind === "dialect") - Number(b.kind === "dialect") ||
-      localized(locale, a.name_en, a.name_uk).localeCompare(localized(locale, b.name_en, b.name_uk)),
+      localized(locale, a.name_en, a.name_uk, a.names).localeCompare(localized(locale, b.name_en, b.name_uk, b.names)),
   );
 }

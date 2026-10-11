@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 
-import { getConceptBySlug, localized } from "@/lib/api";
+import { getConceptBySlug, LOCALE_LANGUAGE, localized } from "@/lib/api";
 import { isDrawable, OG_SIZE, renderCard } from "@/lib/og";
 
 export const size = OG_SIZE;
@@ -20,9 +20,12 @@ export default async function Image({
   const concept = await getConceptBySlug(slug);
   if (!concept) return renderCard({ kicker: "", title: "Dialectio", footer: t("site") });
 
-  const own = locale === "uk" ? "ukr" : "eng";
+  const own = LOCALE_LANGUAGE[locale] ?? "eng";
+  // Dialect words that differ from standard Ukrainian
   const standard = new Set(
-    concept.languages.filter((l) => l.code === own).flatMap((l) => l.forms.map((f) => f.spelling)),
+    concept.languages
+      .filter((l) => l.code === "ukr")
+      .flatMap((l) => l.forms.map((f) => f.spelling.toLowerCase())),
   );
   const dialectWords = [
     ...new Set(
@@ -38,7 +41,7 @@ export default async function Image({
 
   return renderCard({
     kicker: t("wordKicker"),
-    title: localized(locale, concept.gloss_en, concept.gloss_uk),
+    title: localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses),
     highlight: dialectWords.slice(0, SHOWN),
     secondary: world.slice(0, SHOWN),
     footer: t("footer", { count: concept.languages.filter((l) => l.kind === "language").length }),

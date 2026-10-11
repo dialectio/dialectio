@@ -20,7 +20,7 @@ export async function generateMetadata({
   const meanings = entry.meanings.map((m) => meaningOf(m, locale)).join(", ");
   const dialects = [
     ...new Set(
-      entry.meanings.flatMap((m) => m.dialects.map((d) => localized(locale, d.name_en, d.name_uk))),
+      entry.meanings.flatMap((m) => m.dialects.map((d) => localized(locale, d.name_en, d.name_uk, d.names))),
     ),
   ].join(", ");
   return pageMetadata(

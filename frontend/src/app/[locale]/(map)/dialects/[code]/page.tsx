@@ -19,7 +19,7 @@ export async function generateMetadata({
   const dialect = await loadDialect(code);
   if (!dialect) return {};
   const t = await getTranslations({ locale, namespace: "Dialects" });
-  const name = capitalize(localized(locale, dialect.name_en, dialect.name_uk));
+  const name = capitalize(localized(locale, dialect.name_en, dialect.name_uk, dialect.names));
   const examples = dialect.words_list
     .filter((w) => w.standard)
     .slice(0, DESCRIPTION_EXAMPLES)

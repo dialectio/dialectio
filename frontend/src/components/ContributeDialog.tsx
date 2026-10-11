@@ -189,7 +189,7 @@ export default function ContributeDialog({
                 {varieties.map((v) => (
                   <option key={v.code} value={v.code}>
                     {v.kind === "dialect" ? "— " : ""}
-                    {localized(locale, v.name_en, v.name_uk)}
+                    {localized(locale, v.name_en, v.name_uk, v.names)}
                   </option>
                 ))}
               </select>

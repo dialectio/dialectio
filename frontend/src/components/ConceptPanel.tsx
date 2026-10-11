@@ -8,6 +8,7 @@ import ContributeDialog from "@/components/ContributeDialog";
 import WordCheck, { type Counts, TrustMark } from "@/components/WordCheck";
 import { RelatedWords, WordIntro } from "@/components/WordSummary";
 import { Link } from "@/i18n/navigation";
+import { LANGUAGE_FLAGS } from "@/lib/flags";
 import type { SelectedRegion } from "@/components/WorldMap";
 import {
   type Audio as AudioInfo,
@@ -71,14 +72,22 @@ function LanguageCard({ language }: { language: LanguageForms }) {
         language.kind === "dialect" ? "ml-3 border-l-2 border-l-violet-400 pl-3" : ""
       }`}
     >
-      <div className="text-xs uppercase tracking-wide opacity-60">
-        {language.kind === "dialect" ? (
-          <Link href={`/dialects/${language.code}`} className="hover:underline">
-            {localized(locale, language.name_en, language.name_uk)}
-          </Link>
-        ) : (
-          localized(locale, language.name_en, language.name_uk)
+      <div className="flex items-center gap-1.5 text-xs uppercase tracking-wide">
+        {LANGUAGE_FLAGS[language.code] && (
+          <span
+            aria-hidden="true"
+            className={`fi fi-${LANGUAGE_FLAGS[language.code]} shrink-0 rounded-[2px] shadow-sm`}
+          />
         )}
+        <span className="opacity-60">
+          {language.kind === "dialect" ? (
+            <Link href={`/dialects/${language.code}`} className="hover:underline">
+              {localized(locale, language.name_en, language.name_uk, language.names)}
+            </Link>
+          ) : (
+            localized(locale, language.name_en, language.name_uk, language.names)
+          )}
+        </span>
       </div>
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <span className="text-xl font-semibold">{primary.spelling}</span>
@@ -128,7 +137,7 @@ export default function ConceptPanel({
 }) {
   const locale = useLocale();
   const t = useTranslations("Panel");
-  const description = inLocale(locale, concept.description_en, concept.description_uk);
+  const description = inLocale(locale, concept.description_en, concept.description_uk, concept.descriptions);
   const [contributing, setContributing] = useState(false);
 
   // A region shows its own varieties (dialects, regional languages) and its country's languages.
@@ -144,7 +153,7 @@ export default function ConceptPanel({
     <aside className="flex h-full flex-col overflow-hidden">
       <div className="border-b border-black/10 p-4 dark:border-white/10">
         <h1 className="text-lg font-semibold">
-          {localized(locale, concept.gloss_en, concept.gloss_uk)}
+          {localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses)}
         </h1>
         {description && <p className="text-sm opacity-70">{description}</p>}
         <p className="mt-1 text-xs opacity-60">
@@ -170,7 +179,7 @@ export default function ConceptPanel({
       {contributing && (
         <ContributeDialog
           conceptId={concept.id}
-          conceptName={localized(locale, concept.gloss_en, concept.gloss_uk)}
+          conceptName={localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses)}
           regionCode={region?.code ?? null}
           onClose={() => setContributing(false)}
         />

@@ -39,7 +39,7 @@ export default function DialectList({ dialects }: { dialects: DialectSummary[] }
       <p className="text-sm leading-relaxed">{t("intro")}</p>
       {groups.map((group) => (
         <section key={group.code}>
-          <h2 className="mb-1 font-medium">{capitalize(localized(locale, group.name_en, group.name_uk))}</h2>
+          <h2 className="mb-1 font-medium">{capitalize(localized(locale, group.name_en, group.name_uk, group.names))}</h2>
           <ul className="space-y-0.5">
             {members(group.code).map((dialect) => (
               <li key={dialect.code}>
@@ -47,7 +47,7 @@ export default function DialectList({ dialects }: { dialects: DialectSummary[] }
                   href={`/dialects/${dialect.code}`}
                   className="flex justify-between rounded-md px-2 py-1 hover:bg-black/5 dark:hover:bg-white/10"
                 >
-                  <span>{capitalize(localized(locale, dialect.name_en, dialect.name_uk))}</span>
+                  <span>{capitalize(localized(locale, dialect.name_en, dialect.name_uk, dialect.names))}</span>
                   <span className="text-sm opacity-60">{t("words", { count: dialect.words })}</span>
                 </Link>
               </li>

@@ -18,8 +18,10 @@ export type ConceptSummary = {
   slug: string | null;
   gloss_en: string;
   gloss_uk: string | null;
+  glosses?: Names;
   description_en: string | null;
   description_uk: string | null;
+  descriptions?: Names;
 };
 
 export type SearchHit = {
@@ -27,6 +29,7 @@ export type SearchHit = {
   matched_spelling: string;
   matched_language_en: string;
   matched_language_uk: string | null;
+  matched_language_names?: Names;
 };
 
 export type Audio = {
@@ -63,6 +66,7 @@ export type LanguageForms = {
   iso639_3: string | null;
   name_en: string;
   name_uk: string | null;
+  names?: Names;
   region_codes: string[];
   forms: Form[];
 };
@@ -77,6 +81,7 @@ export type LabelProps = {
   text: string;
   name_en: string;
   name_uk: string | null;
+  names?: Names;
   /** Label importance, lower = more important; labels arrive sorted by it. */
   rank: number;
 };
@@ -89,7 +94,14 @@ export type ConceptDetail = ConceptSummary & {
 };
 
 /** UI locale -> ISO 639-3 code used to break ties between identical spellings. */
-export const LOCALE_LANGUAGE: Record<string, string> = { uk: "ukr", en: "eng" };
+export const LOCALE_LANGUAGE: Record<string, string> = {
+  uk: "ukr",
+  en: "eng",
+  pl: "pol",
+  de: "deu",
+  es: "spa",
+  fr: "fra",
+};
 
 async function getJson<T>(path: string, signal?: AbortSignal): Promise<T> {
   const response = await fetch(`${API_URL}${path}`, { signal });
@@ -106,7 +118,12 @@ export function getConcept(id: number, signal?: AbortSignal) {
   return getJson<ConceptDetail>(`/api/concepts/${id}`, signal);
 }
 
-export type ConceptLink = { slug: string; gloss_en: string; gloss_uk: string | null };
+export type ConceptLink = {
+  slug: string;
+  gloss_en: string;
+  gloss_uk: string | null;
+  glosses?: Names;
+};
 
 async function getServerJson<T>(path: string): Promise<T | null> {
   const response = await fetch(`${SERVER_API_URL}${path}`, {
@@ -134,15 +151,43 @@ export function capitalize(text: string): string {
 
 /** The text in the interface language only (no English fallback on Ukrainian pages):
  * for descriptions, where a sentence in another language reads worse than none. */
-export function inLocale(locale: string, en: string | null, uk: string | null): string | null {
-  return locale === "uk" ? uk : en;
+export function inLocale(
+  locale: string,
+  en: string | null,
+  uk: string | null,
+  names?: Names | null,
+): string | null {
+  if (locale === "uk") return uk;
+  if (locale === "en") return en;
+  return names?.[locale] ?? null;
 }
 
-/** Pick the Ukrainian or English variant of a localized field pair. */
-export function localized(locale: string, en: string, uk: string | null): string;
-export function localized(locale: string, en: string | null, uk: string | null): string | null;
-export function localized(locale: string, en: string | null, uk: string | null) {
-  return locale === "uk" ? (uk ?? en) : (en ?? uk);
+/** Names in the other interface languages: {"pl": "...", "de": "...", "es": ..., "fr": ...} */
+export type Names = Record<string, string>;
+
+/** Pick the name in the interface language: Ukrainian and English have their own fields,
+ * other languages are in `names`; falls back to English. */
+export function localized(
+  locale: string,
+  en: string,
+  uk: string | null,
+  names?: Names | null,
+): string;
+export function localized(
+  locale: string,
+  en: string | null,
+  uk: string | null,
+  names?: Names | null,
+): string | null;
+export function localized(
+  locale: string,
+  en: string | null,
+  uk: string | null,
+  names?: Names | null,
+) {
+  if (locale === "uk") return uk ?? en;
+  if (locale === "en") return en ?? uk;
+  return names?.[locale] ?? en ?? uk;
 }
 
 export type SourceStats = {
@@ -180,6 +225,7 @@ export type DialectSummary = {
   kind: "dialect_group" | "dialect";
   name_en: string;
   name_uk: string | null;
+  names?: Names;
   parent_code: string | null;
   words: number;
   region_codes: string[];
@@ -189,6 +235,7 @@ export type DialectWord = {
   slug: string;
   gloss_en: string;
   gloss_uk: string | null;
+  glosses?: Names;
   spelling: string;
   /** The standard Ukrainian word for the same concept */
   standard: string | null;
@@ -199,7 +246,15 @@ export type DialectWord = {
 export type DialectDetail = DialectSummary & {
   parent_name_en: string | null;
   parent_name_uk: string | null;
-  regions: { code: string; name_en: string; name_uk: string | null; lon: number; lat: number }[];
+  parent_names?: Names;
+  regions: {
+    code: string;
+    name_en: string;
+    name_uk: string | null;
+    names?: Names;
+    lon: number;
+    lat: number;
+  }[];
   /** [west, south, east, north] */
   bounds: number[] | null;
   words_list: DialectWord[];
@@ -215,7 +270,12 @@ export function getDialect(code: string) {
   return getServerJson<DialectDetail>(`/api/dialects/${encodeURIComponent(code)}`);
 }
 
-export type DialectRef = { code: string; name_en: string; name_uk: string | null };
+export type DialectRef = {
+  code: string;
+  name_en: string;
+  name_uk: string | null;
+  names?: Names;
+};
 
 /** The dialect word in one dialect: the form visitors vote on. */
 export type DialectUse = DialectRef & {
@@ -230,6 +290,7 @@ export type DialectWordMeaning = {
   slug: string;
   gloss_en: string;
   gloss_uk: string | null;
+  glosses?: Names;
   standard: string | null;
   dialects: DialectUse[];
   unverified: boolean;
@@ -247,9 +308,8 @@ export type DialectWordDetail = {
 
 /** What a dialect word means for the reader: the standard Ukrainian word, or English. */
 export function meaningOf(meaning: DialectWordMeaning, locale: string): string {
-  return locale === "uk"
-    ? (meaning.standard ?? meaning.gloss_uk ?? meaning.gloss_en)
-    : meaning.gloss_en;
+  if (locale === "uk") return meaning.standard ?? meaning.gloss_uk ?? meaning.gloss_en;
+  return localized(locale, meaning.gloss_en, null, meaning.glosses);
 }
 
 /** Server-side: every dialect word that has a page. */

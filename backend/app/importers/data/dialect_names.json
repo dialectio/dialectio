@@ -1,0 +1,21 @@
+{
+ "_comment": "Names of Ukrainian dialect groups and dialects in the extra interface languages.",
+ "ukr-north": {"pl": "dialekty północnoukraińskie", "de": "nordukrainische Dialekte", "es": "dialectos ucranianos del norte", "fr": "dialectes ukrainiens du Nord"},
+ "ukr-southwest": {"pl": "dialekty południowo-zachodnie", "de": "südwestukrainische Dialekte", "es": "dialectos ucranianos del suroeste", "fr": "dialectes ukrainiens du Sud-Ouest"},
+ "ukr-southeast": {"pl": "dialekty południowo-wschodnie", "de": "südostukrainische Dialekte", "es": "dialectos ucranianos del sureste", "fr": "dialectes ukrainiens du Sud-Est"},
+ "ukr-polissia-west": {"pl": "gwara zachodniopoleska", "de": "westpolessischer Dialekt", "es": "dialecto de Polesia occidental", "fr": "dialecte de Polésie occidentale"},
+ "ukr-polissia-central": {"pl": "gwara środkowopoleska", "de": "mittelpolessischer Dialekt", "es": "dialecto de Polesia central", "fr": "dialecte de Polésie centrale"},
+ "ukr-polissia-east": {"pl": "gwara wschodniopoleska", "de": "ostpolessischer Dialekt", "es": "dialecto de Polesia oriental", "fr": "dialecte de Polésie orientale"},
+ "ukr-volhynian": {"pl": "gwara wołyńska", "de": "wolhynischer Dialekt", "es": "dialecto de Volinia", "fr": "dialecte volhynien"},
+ "ukr-podillian": {"pl": "gwara podolska", "de": "podolischer Dialekt", "es": "dialecto de Podolia", "fr": "dialecte podolien"},
+ "ukr-dniester": {"pl": "gwara naddniestrzańska", "de": "Dnister-Dialekt", "es": "dialecto del Dniéster", "fr": "dialecte du Dniestr"},
+ "ukr-nadsian": {"pl": "gwara nadsańska", "de": "San-Dialekt (Nadsjanisch)", "es": "dialecto del San", "fr": "dialecte du San"},
+ "ukr-boyko": {"pl": "gwara bojkowska", "de": "bojkischer Dialekt", "es": "dialecto boiko", "fr": "dialecte boïko"},
+ "ukr-hutsul": {"pl": "gwara huculska", "de": "huzulischer Dialekt", "es": "dialecto hutsul", "fr": "dialecte houtsoule"},
+ "ukr-pokuttia-bukovyna": {"pl": "gwara pokucko-bukowińska", "de": "pokutisch-bukowinischer Dialekt", "es": "dialecto de Pokutia y Bucovina", "fr": "dialecte de Pokoutie et de Bucovine"},
+ "ukr-transcarpathian": {"pl": "gwara zakarpacka", "de": "transkarpatischer Dialekt", "es": "dialecto transcarpático", "fr": "dialecte transcarpatique"},
+ "ukr-lemko": {"pl": "gwara łemkowska", "de": "lemkischer Dialekt", "es": "dialecto lemko", "fr": "dialecte lemko"},
+ "ukr-middle-dnieper": {"pl": "gwara środkowonaddnieprzańska", "de": "mittleres Dnipro-Dialekt", "es": "dialecto del Dniéper medio", "fr": "dialecte du Dniepr moyen"},
+ "ukr-slobozhan": {"pl": "gwara słobodzka", "de": "slobodaukrainischer Dialekt", "es": "dialecto de Slobozhanshchyna", "fr": "dialecte de Slobojanchtchyna"},
+ "ukr-steppe": {"pl": "gwara stepowa", "de": "Steppendialekt", "es": "dialecto de la estepa", "fr": "dialecte des steppes"}
+}

@@ -14,6 +14,7 @@ class DialectSummary(BaseModel):
     kind: str  # "dialect_group" or "dialect"
     name_en: str
     name_uk: str | None
+    names: dict[str, str] = {}
     parent_code: str | None
     words: int
     region_codes: list[str] = []
@@ -23,6 +24,7 @@ class DialectRegion(BaseModel):
     code: str
     name_en: str
     name_uk: str | None
+    names: dict[str, str] = {}
     lon: float
     lat: float
 
@@ -31,6 +33,7 @@ class DialectWord(BaseModel):
     slug: str
     gloss_en: str
     gloss_uk: str | None
+    glosses: dict[str, str] = {}
     spelling: str
     # The standard Ukrainian word for the same concept, if any
     standard: str | None
@@ -41,6 +44,7 @@ class DialectWord(BaseModel):
 class DialectDetail(DialectSummary):
     parent_name_en: str | None
     parent_name_uk: str | None
+    parent_names: dict[str, str] = {}
     regions: list[DialectRegion]
     # [west, south, east, north] of the dialect's territory
     bounds: list[float] | None
@@ -48,7 +52,7 @@ class DialectDetail(DialectSummary):
 
 
 LIST = text("""
-    SELECT v.code, v.kind, v.name_en, v.name_uk, p.code AS parent_code,
+    SELECT v.code, v.kind, v.name_en, v.name_uk, v.names, p.code AS parent_code,
            (SELECT count(*) FROM form f
             WHERE f.variety_id = v.id AND f.status IN ('approved', 'pending')) AS words,
            coalesce((SELECT array_agg(r.code ORDER BY r.code)
@@ -61,7 +65,8 @@ LIST = text("""
 """)
 
 REGIONS = text("""
-    SELECT r.code, r.name_en, r.name_uk, ST_X(r.label_point) AS lon, ST_Y(r.label_point) AS lat
+    SELECT r.code, r.name_en, r.name_uk, r.names,
+           ST_X(r.label_point) AS lon, ST_Y(r.label_point) AS lat
     FROM region r JOIN variety_region vr ON vr.region_id = r.id
     WHERE vr.variety_id = :variety_id
     ORDER BY r.code
@@ -75,7 +80,7 @@ BOUNDS = text("""
 """)
 
 WORDS = text("""
-    SELECT c.slug, c.gloss_en, c.gloss_uk, f.spelling,
+    SELECT c.slug, c.gloss_en, c.gloss_uk, c.glosses, f.spelling,
            (SELECT s.spelling FROM form s JOIN variety u ON u.id = s.variety_id
             WHERE s.concept_id = c.id AND u.code = 'ukr' AND s.is_primary
               AND s.status IN ('approved', 'pending')
@@ -101,8 +106,9 @@ def dialect_detail(session: SessionDep, code: str) -> DialectDetail:
     row = (
         session.execute(
             text("""
-            SELECT v.id, v.code, v.kind, v.name_en, v.name_uk, p.code AS parent_code,
-                   p.name_en AS parent_name_en, p.name_uk AS parent_name_uk
+            SELECT v.id, v.code, v.kind, v.name_en, v.name_uk, v.names, p.code AS parent_code,
+                   p.name_en AS parent_name_en, p.name_uk AS parent_name_uk,
+                   p.names AS parent_names
             FROM variety v LEFT JOIN variety p ON p.id = v.parent_id
             WHERE v.code = :code AND v.kind = 'dialect'
         """),

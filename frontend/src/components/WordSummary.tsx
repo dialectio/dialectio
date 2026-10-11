@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
-import { type ConceptDetail, type LanguageForms, localized } from "@/lib/api";
+import { type ConceptDetail, type LanguageForms, LOCALE_LANGUAGE, localized } from "@/lib/api";
 
 // Languages quoted in the summary, in this order (the most searched ones).
 const SUMMARY_LANGUAGES = ["eng", "ukr", "deu", "fra", "spa", "pol", "ita"];
@@ -25,7 +25,7 @@ function dialectVariants(concept: ConceptDetail, locale: string): Variant[] {
       const word = form.spelling.toLowerCase();
       if (standard.has(word)) continue;
       const names = dialects.get(word) ?? [];
-      names.push(localized(locale, lang.name_en, lang.name_uk));
+      names.push(localized(locale, lang.name_en, lang.name_uk, lang.names));
       dialects.set(word, names);
     }
   }
@@ -36,19 +36,19 @@ function dialectVariants(concept: ConceptDetail, locale: string): Variant[] {
 
 /** The same word in the most searched languages, e.g. "potato (English)". */
 function worldExamples(concept: ConceptDetail, locale: string): string[] {
-  const own = locale === "uk" ? "ukr" : "eng";
+  const own = LOCALE_LANGUAGE[locale] ?? "eng";
   return SUMMARY_LANGUAGES.filter((code) => code !== own)
     .map((code) => concept.languages.find((lang) => lang.code === code))
     .filter((lang): lang is LanguageForms => lang !== undefined && lang.forms.length > 0)
     .slice(0, SUMMARY_EXAMPLES)
-    .map((lang) => `${lang.forms[0].spelling} (${localized(locale, lang.name_en, lang.name_uk)})`);
+    .map((lang) => `${lang.forms[0].spelling} (${localized(locale, lang.name_en, lang.name_uk, lang.names)})`);
 }
 
 /** Readable text about the word, rendered on the server for search engines and people. */
 export function WordIntro({ concept }: { concept: ConceptDetail }) {
   const locale = useLocale();
   const t = useTranslations("Word");
-  const word = localized(locale, concept.gloss_en, concept.gloss_uk);
+  const word = localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses);
   const variants = dialectVariants(concept, locale);
   const examples = worldExamples(concept, locale);
 
@@ -96,7 +96,7 @@ export function RelatedWords({ concept }: { concept: ConceptDetail }) {
               href={`/word/${link.slug}`}
               className="inline-block rounded-full border border-black/15 px-3 py-1 text-sm hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
             >
-              {localized(locale, link.gloss_en, link.gloss_uk)}
+              {localized(locale, link.gloss_en, link.gloss_uk, link.glosses)}
             </Link>
           </li>
         ))}

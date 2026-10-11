@@ -7,6 +7,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { routing } from "@/i18n/routing";
 
+import "flag-icons/css/flag-icons.min.css";
 import "../globals.css";
 
 const geistSans = Geist({

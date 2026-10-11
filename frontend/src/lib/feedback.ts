@@ -1,4 +1,4 @@
-import { API_URL } from "@/lib/api";
+import { API_URL, type Names } from "@/lib/api";
 
 const VOTER_KEY = "dialectio.voter";
 const VOTES_KEY = "dialectio.votes";
@@ -98,6 +98,7 @@ export type RegionOption = {
   code: string;
   name_en: string;
   name_uk: string | null;
+  names?: Names;
   /** False for regions abroad where Ukrainian dialects are spoken */
   in_ukraine: boolean;
 };
@@ -109,7 +110,13 @@ export async function listVoterRegions(): Promise<RegionOption[]> {
   return response.json();
 }
 
-export type Deck = { code: string; name_en: string; name_uk: string | null; words: number };
+export type Deck = {
+  code: string;
+  name_en: string;
+  name_uk: string | null;
+  names?: Names;
+  words: number;
+};
 
 export type Card = {
   form_id: number;
@@ -118,9 +125,11 @@ export type Card = {
   kind: "language" | "dialect_group" | "dialect";
   variety_name_en: string;
   variety_name_uk: string | null;
+  variety_names?: Names;
   slug: string;
   gloss_en: string;
   gloss_uk: string | null;
+  glosses?: Names;
   /** Standard Ukrainian and English words for the same concept */
   standard: string | null;
   english: string | null;

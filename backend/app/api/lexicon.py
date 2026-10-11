@@ -108,6 +108,7 @@ def search(
                 matched_spelling=row.matched,
                 matched_language_en=variety.name_en if variety else "English",
                 matched_language_uk=variety.name_uk if variety else None,
+                matched_language_names=variety.names if variety else {},
             )
         )
     return hits
@@ -124,7 +125,7 @@ def list_concepts(session: SessionDep) -> list[ConceptLink]:
 
 # Concepts whose dialect words differ the most: the home page's word of the day and examples.
 FEATURED = text("""
-    SELECT c.id, c.slug, c.gloss_en,
+    SELECT c.id, c.slug, c.gloss_en, c.glosses,
            -- concepts without a Ukrainian label fall back to the main Ukrainian word
            coalesce(c.gloss_uk, (
                SELECT f.spelling FROM form f JOIN variety v ON v.id = f.variety_id
@@ -211,6 +212,7 @@ def build_detail(session: Session, concept: Concept) -> ConceptDetail:
                 iso639_3=variety.iso639_3,
                 name_en=variety.name_en,
                 name_uk=variety.name_uk,
+                names=variety.names,
                 region_codes=sorted(r.code for r in variety.regions),
                 forms=[],
             )
@@ -246,10 +248,10 @@ def build_detail(session: Session, concept: Concept) -> ConceptDetail:
 RELATED_FEATURED = 6
 RELATED_POOL = 40
 NEIGHBOURS = text("""
-    (SELECT slug, gloss_en, gloss_uk FROM concept
+    (SELECT slug, gloss_en, gloss_uk, glosses FROM concept
      WHERE slug < :slug ORDER BY slug DESC LIMIT 1)
     UNION ALL
-    (SELECT slug, gloss_en, gloss_uk FROM concept
+    (SELECT slug, gloss_en, gloss_uk, glosses FROM concept
      WHERE slug > :slug ORDER BY slug LIMIT 1)
 """)
 
@@ -271,7 +273,10 @@ def related_concepts(session: Session, concept: Concept) -> list[ConceptLink]:
     start = concept.id % len(pool) if pool else 0
     window = (pool[start:] + pool[:start])[:RELATED_FEATURED]
     related = [
-        ConceptLink(slug=r["slug"], gloss_en=r["gloss_en"], gloss_uk=r["gloss_uk"]) for r in window
+        ConceptLink(
+            slug=r["slug"], gloss_en=r["gloss_en"], gloss_uk=r["gloss_uk"], glosses=r["glosses"]
+        )
+        for r in window
     ]
     seen = {link.slug for link in related}
     for row in session.execute(NEIGHBOURS, {"slug": concept.slug}).mappings():

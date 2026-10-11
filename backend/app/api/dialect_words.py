@@ -22,6 +22,7 @@ class DialectRef(BaseModel):
     code: str
     name_en: str
     name_uk: str | None
+    names: dict[str, str] = {}
 
 
 class DialectUse(DialectRef):
@@ -43,6 +44,7 @@ class Meaning(BaseModel):
     slug: str
     gloss_en: str
     gloss_uk: str | None
+    glosses: dict[str, str] = {}
     standard: str | None  # the standard Ukrainian word
     dialects: list[DialectUse]
     unverified: bool
@@ -61,7 +63,7 @@ class DialectWordDetail(BaseModel):
 # Dialect forms that differ from the standard Ukrainian word for their concept.
 DIALECT_FORMS = """
     SELECT f.id, lower(f.spelling) AS word, f.spelling, f.concept_id, f.status,
-           v.id AS variety_id, v.code, v.name_en, v.name_uk, src.name AS source,
+           v.id AS variety_id, v.code, v.name_en, v.name_uk, v.names, src.name AS source,
            (SELECT s.spelling FROM form s JOIN variety u ON u.id = s.variety_id
             WHERE s.concept_id = f.concept_id AND u.code = 'ukr' AND s.is_primary
               AND s.status IN ('approved', 'pending')
@@ -80,14 +82,14 @@ LIST = text(f"""
 """)
 
 FORMS_OF_WORD = text(f"""
-    SELECT d.*, c.slug, c.gloss_en, c.gloss_uk FROM ({DIALECT_FORMS}) d
+    SELECT d.*, c.slug, c.gloss_en, c.gloss_uk, c.glosses FROM ({DIALECT_FORMS}) d
     JOIN concept c ON c.id = d.concept_id AND c.slug IS NOT NULL
     WHERE d.word = :word AND (d.standard IS NULL OR lower(d.standard) <> d.word)
     ORDER BY c.slug, d.code
 """)
 
 OTHER_WORDS = text(f"""
-    SELECT d.word, d.code, d.name_en, d.name_uk FROM ({DIALECT_FORMS}) d
+    SELECT d.word, d.code, d.name_en, d.name_uk, d.names FROM ({DIALECT_FORMS}) d
     WHERE d.concept_id = :concept_id AND d.word <> :word
       AND (d.standard IS NULL OR lower(d.standard) <> d.word)
     ORDER BY d.word, d.code
@@ -110,7 +112,7 @@ VOTES = text("""
 """)
 
 REGIONS = text("""
-    SELECT DISTINCT r.code, r.name_en, r.name_uk,
+    SELECT DISTINCT r.code, r.name_en, r.name_uk, r.names,
            ST_X(r.label_point) AS lon, ST_Y(r.label_point) AS lat
     FROM region r JOIN variety_region vr ON vr.region_id = r.id
     WHERE vr.variety_id = ANY(:variety_ids)
@@ -154,19 +156,26 @@ def dialect_word(session: SessionDep, word: str) -> DialectWordDetail:
             OTHER_WORDS, {"concept_id": concept_id, "word": word}
         ).mappings():
             others.setdefault(other["word"], []).append(
-                DialectRef(code=other["code"], name_en=other["name_en"], name_uk=other["name_uk"])
+                DialectRef(
+                    code=other["code"],
+                    name_en=other["name_en"],
+                    name_uk=other["name_uk"],
+                    names=other["names"],
+                )
             )
         meanings.append(
             Meaning(
                 slug=first["slug"],
                 gloss_en=first["gloss_en"],
                 gloss_uk=first["gloss_uk"],
+                glosses=first["glosses"],
                 standard=first["standard"],
                 dialects=[
                     DialectUse(
                         code=f["code"],
                         name_en=f["name_en"],
                         name_uk=f["name_uk"],
+                        names=f["names"],
                         form_id=f["id"],
                         unverified=f["status"] == "pending" or f["source"] in UNVERIFIED_SOURCES,
                         votes_yes=votes.get(f["id"], (0, 0))[0],

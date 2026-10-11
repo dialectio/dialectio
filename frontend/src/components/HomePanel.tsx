@@ -42,7 +42,7 @@ export default function HomePanel({
             {t("wordOfDay")}
           </h2>
           <p className="mt-1 text-2xl font-semibold">
-            {localized(locale, wordOfDay.gloss_en, wordOfDay.gloss_uk)}
+            {localized(locale, wordOfDay.gloss_en, wordOfDay.gloss_uk, wordOfDay.glosses)}
           </p>
           <p className="mt-1 text-sm">
             <span className="opacity-70">{t("inDialects")} </span>
@@ -71,7 +71,7 @@ export default function HomePanel({
                   className="block rounded-md px-2 py-1.5 hover:bg-black/5 dark:hover:bg-white/10"
                 >
                   <span className="font-medium">
-                    {localized(locale, concept.gloss_en, concept.gloss_uk)}
+                    {localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses)}
                   </span>
                   <span className="text-sm opacity-70">
                     {" — "}
