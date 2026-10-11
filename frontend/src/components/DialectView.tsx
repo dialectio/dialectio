@@ -97,7 +97,16 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
                     className="border-b border-black/5 dark:border-white/10"
                   >
                     <td className="py-1.5 pr-3 font-semibold text-violet-800 dark:text-violet-300">
-                      {word.spelling}
+                      {word.standard?.toLowerCase() === word.spelling.toLowerCase() ? (
+                        word.spelling
+                      ) : (
+                        <Link
+                          href={`/slovo/${encodeURIComponent(word.spelling.toLowerCase())}`}
+                          className="underline-offset-2 hover:underline"
+                        >
+                          {word.spelling}
+                        </Link>
+                      )}
                       {word.unverified && <span className="ml-1 font-normal opacity-60">≈</span>}
                       {word.has_audio && (
                         <span className="ml-1 font-normal opacity-60" title={t("audio")}>

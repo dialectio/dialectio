@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 import { INFO_PAGES } from "@/components/InfoPage";
 import { routing } from "@/i18n/routing";
-import { listConceptLinks, listDialects, SITE_URL } from "@/lib/api";
+import { listConceptLinks, listDialects, listDialectWords, SITE_URL } from "@/lib/api";
 
 // Rebuild the sitemap at most once an hour.
 export const revalidate = 3600;
@@ -14,12 +14,17 @@ function alternates(path: string) {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [concepts, dialects] = await Promise.all([listConceptLinks(), listDialects()]);
+  const [concepts, dialects, dialectWords] = await Promise.all([
+    listConceptLinks(),
+    listDialects(),
+    listDialectWords(),
+  ]);
   const paths = [
     "",
     ...INFO_PAGES.map((page) => `/${page}`),
     ...dialects.filter((d) => d.kind === "dialect").map((d) => `/dialects/${d.code}`),
     ...concepts.map((c) => `/word/${c.slug}`),
+    ...dialectWords.map((word) => `/slovo/${encodeURIComponent(word)}`),
   ];
 
   return paths.flatMap((path) =>

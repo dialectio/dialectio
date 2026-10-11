@@ -167,3 +167,23 @@ def test_dialect_list_and_page() -> None:
     assert hutsul["words"] == len(hutsul["words_list"]) > 0
     assert client.get("/api/dialects/ukr-southwest").status_code == 404  # a group, not a dialect
     assert client.get("/api/dialects/nope").status_code == 404
+
+
+def test_dialect_word_page() -> None:
+    words = client.get("/api/dialect-words").json()
+    assert "бараболя" in words
+    assert "картопля" not in words  # standard Ukrainian words have no dialect-word page
+
+    page = client.get("/api/dialect-words/Бараболя").json()  # case-insensitive
+    meaning = next(m for m in page["meanings"] if m["slug"] == "potato")
+    assert meaning["standard"] == "картопля"
+    assert {"ukr-podillian", "ukr-dniester"} <= {d["code"] for d in meaning["dialects"]}
+    assert "бульба" in {o["word"] for o in meaning["others"]}
+    assert page["regions"] and page["bounds"]
+    assert client.get("/api/dialect-words/немаєтакогослова").status_code == 404
+
+
+def test_dialect_word_audio_is_not_repeated() -> None:
+    for meaning in client.get("/api/dialect-words/бараболя").json()["meanings"]:
+        urls = [a["url"] for a in meaning["audio"]]
+        assert len(urls) == len(set(urls))

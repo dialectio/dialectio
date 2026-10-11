@@ -9,8 +9,10 @@ import { type ConceptDetail, type LanguageForms, localized } from "@/lib/api";
 const SUMMARY_LANGUAGES = ["eng", "ukr", "deu", "fra", "spa", "pol", "ita"];
 const SUMMARY_EXAMPLES = 5;
 
+type Variant = { word: string; dialects: string[] };
+
 /** Dialect words that differ from standard Ukrainian, with the dialects that use them. */
-function dialectVariants(concept: ConceptDetail, locale: string): string[] {
+function dialectVariants(concept: ConceptDetail, locale: string): Variant[] {
   const standard = new Set(
     concept.languages
       .filter((lang) => lang.code === "ukr")
@@ -29,7 +31,7 @@ function dialectVariants(concept: ConceptDetail, locale: string): string[] {
   }
   return [...dialects.entries()]
     .sort((a, b) => b[1].length - a[1].length)
-    .map(([word, names]) => `${word} (${names.join(", ")})`);
+    .map(([word, names]) => ({ word, dialects: names }));
 }
 
 /** The same word in the most searched languages, e.g. "potato (English)". */
@@ -52,7 +54,24 @@ export function WordIntro({ concept }: { concept: ConceptDetail }) {
 
   return (
     <div className="space-y-2 pt-3 text-sm leading-relaxed">
-      {variants.length > 0 && <p>{t("dialectIntro", { word, list: variants.join("; ") })}</p>}
+      {variants.length > 0 && (
+        <p>
+          {t("dialectIntro", { word })}{" "}
+          {variants.map((variant, i) => (
+            <span key={variant.word}>
+              {i > 0 && "; "}
+              <Link
+                href={`/slovo/${encodeURIComponent(variant.word)}`}
+                className="font-semibold text-violet-800 underline-offset-2 hover:underline dark:text-violet-300"
+              >
+                {variant.word}
+              </Link>{" "}
+              ({variant.dialects.join(", ")})
+            </span>
+          ))}
+          .
+        </p>
+      )}
       {examples.length > 0 && (
         <p className="opacity-80">{t("worldIntro", { list: examples.join(", ") })}</p>
       )}

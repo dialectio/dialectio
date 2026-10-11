@@ -22,7 +22,7 @@ function playAudio(url: string) {
   new Audio(src).play().catch((e: unknown) => console.error(e));
 }
 
-function AudioButtons({ audio }: { audio: AudioInfo[] }) {
+export function AudioButtons({ audio }: { audio: AudioInfo[] }) {
   const t = useTranslations("Panel");
   return (
     <span className="inline-flex gap-1">

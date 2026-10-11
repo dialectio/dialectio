@@ -57,7 +57,7 @@
   "Word": {
     "title": "{word} in different languages — spelling and pronunciation | Dialectio",
     "description": "“{word}” in other languages: {examples} and more — {count, plural, one {# language} other {# languages}} on a map, with pronunciation and audio.",
-    "dialectIntro": "In Ukrainian dialects, “{word}” also goes by other names: {list}.",
+    "dialectIntro": "In Ukrainian dialects, “{word}” also goes by other names:",
     "worldIntro": "In other languages: {list}.",
     "related": "More words"
   },
@@ -179,5 +179,15 @@
     "ukr-middle-dnieper": "The Middle Dnieper dialect is spoken in the Kyiv, Cherkasy and Poltava regions. It is the basis of modern standard Ukrainian, so it differs from it the least.",
     "ukr-slobozhan": "The Slobozhan dialect is spoken in the Kharkiv and Sumy regions. Close to the Middle Dnieper dialect, with noticeable Russian influence.",
     "ukr-steppe": "The Steppe dialect is spoken in southern and eastern Ukraine: Zaporizhzhia, Kherson, Mykolaiv, Odesa, Donetsk. The youngest dialect, formed by settlers from many regions."
+  },
+  "DialectWord": {
+    "pageTitle": "{word}: what this Ukrainian dialect word means",
+    "pageDescription": "“{word}” is a Ukrainian dialect word meaning “{meaning}”. Where it is said: {dialects}. Map, pronunciation and other dialect names.",
+    "kicker": "Ukrainian dialect word",
+    "means": "means “{meaning}”",
+    "usedIn": "Where it is said",
+    "others": "Other names in dialects",
+    "allLanguages": "“{meaning}” in other languages and dialects on the map →",
+    "unverified": "≈ Unverified word: a draft not yet checked by an editor."
   }
 }

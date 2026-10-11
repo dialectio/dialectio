@@ -200,3 +200,41 @@ export async function listDialects() {
 export function getDialect(code: string) {
   return getServerJson<DialectDetail>(`/api/dialects/${encodeURIComponent(code)}`);
 }
+
+export type DialectRef = { code: string; name_en: string; name_uk: string | null };
+
+export type DialectWordMeaning = {
+  slug: string;
+  gloss_en: string;
+  gloss_uk: string | null;
+  standard: string | null;
+  dialects: DialectRef[];
+  unverified: boolean;
+  audio: Audio[];
+  /** Other dialect words for the same concept */
+  others: { word: string; dialects: DialectRef[] }[];
+};
+
+export type DialectWordDetail = {
+  word: string;
+  meanings: DialectWordMeaning[];
+  regions: DialectDetail["regions"];
+  bounds: number[] | null;
+};
+
+/** What a dialect word means for the reader: the standard Ukrainian word, or English. */
+export function meaningOf(meaning: DialectWordMeaning, locale: string): string {
+  return locale === "uk"
+    ? (meaning.standard ?? meaning.gloss_uk ?? meaning.gloss_en)
+    : meaning.gloss_en;
+}
+
+/** Server-side: every dialect word that has a page. */
+export async function listDialectWords() {
+  return (await getServerJson<string[]>("/api/dialect-words")) ?? [];
+}
+
+/** Server-side: a dialect word page, or null when the word is unknown. */
+export function getDialectWord(word: string) {
+  return getServerJson<DialectWordDetail>(`/api/dialect-words/${encodeURIComponent(word)}`);
+}
