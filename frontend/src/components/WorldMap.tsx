@@ -40,6 +40,9 @@ const COUNTRIES_LAYER = "countries";
 const REGIONS_LAYER = "regions";
 // From this zoom on, regions (and their dialect words) replace their country.
 const REGIONS_MIN_ZOOM = 5;
+// Region highlights show earlier (the tiles carry regions from zoom 4), so a whole dialect
+// area is visible when the map fits Ukraine and its neighbours.
+const REGION_HIGHLIGHT_MIN_ZOOM = 4;
 
 export type SelectedRegion = { code: string; name: string; parentCode: string | null };
 
@@ -72,11 +75,14 @@ export default function WorldMap({
   labels,
   selectedCode,
   onSelectRegion,
+  bounds = null,
 }: {
   highlightCodes: string[];
   labels: FeatureCollection<Point, LabelProps> | null;
   selectedCode: string | null;
   onSelectRegion: (region: SelectedRegion) => void;
+  /** [west, south, east, north]: zoom to it whenever it changes */
+  bounds?: number[] | null;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
@@ -144,7 +150,7 @@ export default function WorldMap({
           type: "fill",
           source: SOURCE,
           "source-layer": REGIONS_LAYER,
-          minzoom: REGIONS_MIN_ZOOM,
+          minzoom: REGION_HIGHLIGHT_MIN_ZOOM,
           filter: codeFilter([]),
           paint: { "fill-color": "#7c3aed", "fill-opacity": 0.3 },
         });
@@ -239,6 +245,19 @@ export default function WorldMap({
     m.setFilter("countries-selected", selected);
     m.setFilter("regions-selected", selected);
   }, [loaded, highlightCodes, selectedCode]);
+
+  useEffect(() => {
+    const m = mapRef.current;
+    if (!loaded || !m || !bounds || bounds.length !== 4) return;
+    const [west, south, east, north] = bounds;
+    m.fitBounds(
+      [
+        [west, south],
+        [east, north],
+      ],
+      { padding: 40, maxZoom: 7 },
+    );
+  }, [loaded, bounds]);
 
   useEffect(() => {
     const m = mapRef.current;

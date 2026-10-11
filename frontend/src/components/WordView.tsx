@@ -5,7 +5,7 @@ import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import ConceptPanel from "@/components/ConceptPanel";
-import { useMapView } from "@/components/MapShell";
+import { useConceptOnMap } from "@/components/MapShell";
 import type { SelectedRegion } from "@/components/WorldMap";
 import { type ConceptDetail, getConcept, localized } from "@/lib/api";
 
@@ -73,11 +73,7 @@ export default function WordView({ initialConcept }: { initialConcept: ConceptDe
     [initialConcept, locale],
   );
 
-  useMapView({
-    concept,
-    selectedCode: region?.code ?? null,
-    onSelectRegion: selectRegion,
-  });
+  useConceptOnMap(concept, region?.code ?? null, selectRegion);
 
   return (
     <>

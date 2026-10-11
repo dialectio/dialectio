@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 
 import { InfoNav } from "@/components/InfoPage";
-import { useMapView } from "@/components/MapShell";
+import { useConceptOnMap } from "@/components/MapShell";
 import { Link, useRouter } from "@/i18n/navigation";
 import { type ConceptDetail, type FeaturedConcept, localized } from "@/lib/api";
 
@@ -28,12 +28,8 @@ export default function HomePanel({
   const others = featured.filter((c) => c.id !== wordOfDay?.id);
 
   // A click on the map opens the word of the day, filtered to that region.
-  useMapView({
-    concept: preview,
-    selectedCode: null,
-    onSelectRegion: (region) => {
-      if (preview?.slug) router.push(`/word/${preview.slug}?region=${region.code}`);
-    },
+  useConceptOnMap(preview, null, (region) => {
+    if (preview?.slug) router.push(`/word/${preview.slug}?region=${region.code}`);
   });
 
   return (

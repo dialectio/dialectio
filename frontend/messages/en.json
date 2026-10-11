@@ -87,7 +87,8 @@
     "about": "About",
     "sources": "Sources",
     "privacy": "Privacy",
-    "map": "Map"
+    "map": "Map",
+    "dialects": "Dialects"
   },
   "About": {
     "title": "About",
@@ -144,5 +145,39 @@
     "open": "Show all languages and dialects",
     "dialectsTitle": "Dialect favourites",
     "dialectsHint": "One concept, different words across Ukraine."
+  },
+  "Dialects": {
+    "title": "Dialects of Ukrainian",
+    "metaDescription": "Three dialect groups and 15 dialects of Ukrainian: where they are spoken and which words they use, with a map, translations and pronunciation.",
+    "intro": "Ukrainian dialects fall into three groups. Pick a dialect to see its area on the map and its words with standard Ukrainian equivalents.",
+    "words": "{count, plural, one {# word} other {# words}}",
+    "pageTitle": "{name}: words with translations",
+    "pageDescription": "{name}: {examples} and more words with standard Ukrainian equivalents. Its area on the map, pronunciation.",
+    "territory": "Area",
+    "territoryNote": "Areas are approximated by regions; real dialect borders do not follow administrative ones.",
+    "wordsTitle": "Words",
+    "dialectWord": "Dialect",
+    "standardWord": "Standard Ukrainian",
+    "audio": "has a recording",
+    "noWords": "No words for this dialect yet. Open any word and click “Know how it’s said where you live?”.",
+    "unverifiedNote": "≈ — unverified word: a draft not yet checked by an editor.",
+    "allDialects": "All dialects"
+  },
+  "DialectInfo": {
+    "ukr-polissia-west": "The West Polissian dialect is spoken in the Polissia of Volyn and Rivne. It has diphthongs and other vowels in place of old o and e (кунь, нуч for кінь, ніч) and old vocabulary shared with Belarusian dialects.",
+    "ukr-polissia-central": "The Central Polissian dialect is spoken in northern Zhytomyr and Kyiv regions. Stressed old o and e turn into diphthongs: куонь, нуоч.",
+    "ukr-polissia-east": "The East Polissian dialect is spoken in the Chernihiv region and northern Sumy. It has diphthongs like куінь and much in common with neighbouring Russian and Belarusian dialects.",
+    "ukr-volhynian": "The Volhynian dialect is spoken in southern Volyn and Rivne and western Zhytomyr. It is transitional between the Polissian and Podillian dialects.",
+    "ukr-podillian": "The Podillian dialect is spoken in the Vinnytsia and Khmelnytskyi regions. Known for words like пшінка (maize) and бараболя (potato).",
+    "ukr-dniester": "The Dniester dialect is spoken along the Dniester in the Lviv, Ternopil and Ivano-Frankivsk regions. Many loans from Polish and German: ровер (bicycle), шклянка (glass), склеп (shop).",
+    "ukr-nadsian": "The Nadsian dialect is spoken along the San river: western Lviv region and Subcarpathia in Poland. It is close to the Dniester and Lemko dialects.",
+    "ukr-boyko": "The Boyko dialect is spoken in the mountains of the Lviv and Ivano-Frankivsk regions. Typical words: хижа (house), облак (window), ногавиці (trousers).",
+    "ukr-hutsul": "The Hutsul dialect is spoken in the Carpathians: Ivano-Frankivsk, Bukovyna, Transcarpathia and Maramureș in Romania. Known for words like ґазда (master), ватра (fire), полонина (mountain meadow).",
+    "ukr-pokuttia-bukovyna": "The Pokuttia-Bukovyna dialect is spoken in Bukovyna (Chernivtsi region and Suceava in Romania) and Pokuttia. Many Romanian loans: патлажан (tomato), папушой (maize).",
+    "ukr-transcarpathian": "The Transcarpathian dialect is spoken in Transcarpathia. Many Hungarian and Slovak loans: крумплі (potato), уборка (cucumber), погар (glass).",
+    "ukr-lemko": "The Lemko dialect is spoken in Lemkivshchyna: the Polish Carpathians (Lesser Poland, Subcarpathia) and the Prešov region of Slovakia. Written with the letter ы: хыжа, лыжка.",
+    "ukr-middle-dnieper": "The Middle Dnieper dialect is spoken in the Kyiv, Cherkasy and Poltava regions. It is the basis of modern standard Ukrainian, so it differs from it the least.",
+    "ukr-slobozhan": "The Slobozhan dialect is spoken in the Kharkiv and Sumy regions. Close to the Middle Dnieper dialect, with noticeable Russian influence.",
+    "ukr-steppe": "The Steppe dialect is spoken in southern and eastern Ukraine: Zaporizhzhia, Kherson, Mykolaiv, Odesa, Donetsk. The youngest dialect, formed by settlers from many regions."
   }
 }

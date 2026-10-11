@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import ContributeDialog from "@/components/ContributeDialog";
 import { RelatedWords, WordIntro } from "@/components/WordSummary";
+import { Link } from "@/i18n/navigation";
 import type { SelectedRegion } from "@/components/WorldMap";
 import {
   type Audio as AudioInfo,
@@ -67,7 +68,13 @@ function LanguageCard({ language }: { language: LanguageForms }) {
       }`}
     >
       <div className="text-xs uppercase tracking-wide opacity-60">
-        {localized(locale, language.name_en, language.name_uk)}
+        {language.kind === "dialect" ? (
+          <Link href={`/dialects/${language.code}`} className="hover:underline">
+            {localized(locale, language.name_en, language.name_uk)}
+          </Link>
+        ) : (
+          localized(locale, language.name_en, language.name_uk)
+        )}
       </div>
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <span className="text-xl font-semibold">{primary.spelling}</span>

@@ -119,6 +119,11 @@ export async function listConceptLinks() {
   return (await getServerJson<ConceptLink[]>("/api/concepts")) ?? [];
 }
 
+/** First letter in upper case: "гуцульський говір" -> "Гуцульський говір" (for headings). */
+export function capitalize(text: string): string {
+  return text.charAt(0).toLocaleUpperCase() + text.slice(1);
+}
+
 /** Pick the Ukrainian or English variant of a localized field pair. */
 export function localized(locale: string, en: string, uk: string | null): string;
 export function localized(locale: string, en: string | null, uk: string | null): string | null;
@@ -154,4 +159,44 @@ export type FeaturedConcept = ConceptLink & { id: number; examples: string[] };
 /** Server-side: concepts with the most different dialect words (home page). */
 export async function listFeaturedConcepts(limit = 12) {
   return (await getServerJson<FeaturedConcept[]>(`/api/concepts/featured?limit=${limit}`)) ?? [];
+}
+
+export type DialectSummary = {
+  code: string;
+  kind: "dialect_group" | "dialect";
+  name_en: string;
+  name_uk: string | null;
+  parent_code: string | null;
+  words: number;
+  region_codes: string[];
+};
+
+export type DialectWord = {
+  slug: string;
+  gloss_en: string;
+  gloss_uk: string | null;
+  spelling: string;
+  /** The standard Ukrainian word for the same concept */
+  standard: string | null;
+  unverified: boolean;
+  has_audio: boolean;
+};
+
+export type DialectDetail = DialectSummary & {
+  parent_name_en: string | null;
+  parent_name_uk: string | null;
+  regions: { code: string; name_en: string; name_uk: string | null; lon: number; lat: number }[];
+  /** [west, south, east, north] */
+  bounds: number[] | null;
+  words_list: DialectWord[];
+};
+
+/** Server-side: all dialect groups and dialects. */
+export async function listDialects() {
+  return (await getServerJson<DialectSummary[]>("/api/dialects")) ?? [];
+}
+
+/** Server-side: a dialect page, or null when the code does not exist. */
+export function getDialect(code: string) {
+  return getServerJson<DialectDetail>(`/api/dialects/${encodeURIComponent(code)}`);
 }

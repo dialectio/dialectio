@@ -152,3 +152,18 @@ def test_concept_links_to_related_word_pages() -> None:
     slugs = [link["slug"] for link in detail["related"]]
     assert "water" not in slugs
     assert len(slugs) == len(set(slugs)) >= 3
+
+
+def test_dialect_list_and_page() -> None:
+    dialects = client.get("/api/dialects").json()
+    codes = {d["code"] for d in dialects}
+    assert {"ukr-hutsul", "ukr-lemko", "ukr-southwest"} <= codes
+
+    hutsul = client.get("/api/dialects/ukr-hutsul").json()
+    assert hutsul["parent_code"] == "ukr-southwest"
+    assert "UA-26" in {r["code"] for r in hutsul["regions"]}
+    west, south, east, north = hutsul["bounds"]
+    assert west < east and south < north
+    assert hutsul["words"] == len(hutsul["words_list"]) > 0
+    assert client.get("/api/dialects/ukr-southwest").status_code == 404  # a group, not a dialect
+    assert client.get("/api/dialects/nope").status_code == 404

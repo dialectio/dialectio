@@ -6,7 +6,7 @@ import { Link } from "@/i18n/navigation";
 
 export const GITHUB_ISSUES_URL = "https://github.com/gmisha777/dialectio/issues";
 
-export const INFO_PAGES = ["about", "sources", "privacy"] as const;
+export const INFO_PAGES = ["dialects", "about", "sources", "privacy"] as const;
 
 /** Links to the project pages (About, Sources, Privacy). */
 export function InfoNav({ className = "" }: { className?: string }) {
