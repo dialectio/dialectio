@@ -156,14 +156,18 @@ function ReportForm({ form, onClose }: { form: Checkable; onClose: () => void })
 
 /**
  * Under a word: "Do people say it like this? Yes / No" for unverified words, and
- * "Mistake?" for every word.
+ * "Mistake?" for every word. With askUsage, verified words get "Do people say it like this
+ * where you live?" too: their votes don't change any mark, but the votes' regions show
+ * where the word is actually used.
  */
 export default function WordCheck({
   form,
   onCounts,
+  askUsage = false,
 }: {
   form: Checkable;
   onCounts: (counts: Counts) => void;
+  askUsage?: boolean;
 }) {
   const t = useTranslations("Check");
   const [myVote, setMyVote] = useState(0);
@@ -222,9 +226,11 @@ export default function WordCheck({
   return (
     <div className="mt-1 text-xs">
       <div className="flex flex-wrap items-center gap-2">
-        {form.unverified && (
+        {(form.unverified || askUsage) && (
           <>
-            <span className="opacity-60">{t("question")}</span>
+            <span className="opacity-60">
+              {form.unverified ? t("question") : t("usageQuestion")}
+            </span>
             {button(1, t("yes"), counts.yes)}
             {button(-1, t("no"), counts.no)}
           </>

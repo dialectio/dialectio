@@ -152,3 +152,25 @@ def test_check_game_decks_and_cards() -> None:
 
     polish = client.get("/api/check/cards", params={"voter": voter, "deck": "pol"}).json()
     assert polish and all(c["variety_code"] == "pol" for c in polish)
+
+
+def test_votes_on_a_verified_word_are_usage_data() -> None:
+    detail = client.get("/api/concepts/by-slug/water").json()
+    word = next(f for lang in detail["languages"] if lang["code"] == "ukr" for f in lang["forms"])
+    assert not word["unverified"]
+    try:
+        for _ in range(3):
+            vote(word["id"], -1, region="UA-26")
+        items = client.get("/api/editor/feedback", headers={"X-Editor-Token": TOKEN}).json()
+        item = next(i for i in items if i["form"]["id"] == word["id"])
+        assert item["no"] == 3 and item["community"] is None  # not "disputed"
+        assert item["regions"] == {"UA-26": [0, 3]}
+    finally:
+        with SessionLocal() as session:
+            session.execute(delete(Vote).where(Vote.form_id == word["id"]))
+            session.commit()
+
+
+def test_concepts_have_ukrainian_descriptions() -> None:
+    detail = client.get("/api/concepts/by-slug/drinking-glass").json()
+    assert detail["description_uk"]

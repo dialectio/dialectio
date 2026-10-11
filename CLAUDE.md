@@ -26,7 +26,7 @@ Full plan and decisions: [docs/plan.md](docs/plan.md). Communicate with the user
 - Start DB: `docker compose up -d db`
 - Analytics (optional): `docker compose --profile analytics up -d umami` → http://localhost:3001 (Umami, its own `umami` database); the site sends page views only when `NEXT_PUBLIC_UMAMI_SRC` and `NEXT_PUBLIC_UMAMI_WEBSITE_ID` are set in `frontend/.env.local`
 - Backend (from `backend/`): `uv sync`, `uv run uvicorn app.main:app --reload`, `uv run pytest`, `uv run ruff check .`
-- Data import order (from `backend/`, all re-runnable): `natural_earth` (countries) → `natural_earth_admin1` (oblasts) → `wikidata_lexemes` → `dialects` → `suggestions` / `suggestions --machine` → `tts`, each as `uv run python -m app.importers.<name>`; restart the API after region imports (vector tiles are cached in memory)
+- Data import order (from `backend/`, all re-runnable): `natural_earth` (countries) → `natural_earth_admin1` (oblasts) → `wikidata_lexemes` → `descriptions` (our Ukrainian descriptions where Wikidata has none) → `dialects` → `suggestions` / `suggestions --machine` → `tts`, each as `uv run python -m app.importers.<name>`; restart the API after region imports (vector tiles are cached in memory)
 - Machine words (from `backend/`): `uv run python -m app.importers.suggestions --machine <iso> ...` loads `data/machine/<iso>.json`; real Wikidata data replaces them on the next import
 - Word editor: `/uk/editor`, token = `EDITOR_TOKEN` in `.env`; editor words use source "Dialectio editors" and survive Wikidata re-imports
 - Import words (from `backend/`, after countries): `uv run python -m app.importers.wikidata_lexemes` (~10 min, re-runnable); word lists and exclusions live in `backend/app/importers/data/`

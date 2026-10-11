@@ -26,6 +26,7 @@ from sqlalchemy.orm import Session, selectinload
 from app.api.lexicon import MACHINE_SOURCE_NAME
 from app.db.session import SessionLocal
 from app.importers.common import upsert_source
+from app.importers.descriptions import own_descriptions
 from app.importers.languages import LANGUAGES, Language
 from app.models import Audio, Concept, Form, Region, Variety
 from app.slugs import assign_missing_slugs
@@ -502,7 +503,9 @@ def main() -> None:
             concept.gloss_en = english_gloss(usable_label(entry.get("label_en")), lemma_by_qid[qid])
             concept.gloss_uk = usable_label(entry.get("label_uk"))
             concept.description_en = (entry.get("description_en") or "")[:500] or None
-            concept.description_uk = (entry.get("description_uk") or "")[:500] or None
+            concept.description_uk = (entry.get("description_uk") or "")[:500] or (
+                own_descriptions().get(qid)  # ours fill gaps until Wikidata has one
+            )
             concepts[qid] = concept
         session.flush()
 

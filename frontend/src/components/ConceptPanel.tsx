@@ -94,7 +94,12 @@ function LanguageCard({ language }: { language: LanguageForms }) {
           ))}
         </div>
       )}
-      <WordCheck form={primary} onCounts={setCounts} />
+      <WordCheck
+        form={primary}
+        onCounts={setCounts}
+        // Where Ukrainian and dialect words are really used is worth collecting.
+        askUsage={language.code === "ukr" || language.kind === "dialect"}
+      />
     </li>
   );
 }
