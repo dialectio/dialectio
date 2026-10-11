@@ -5,7 +5,7 @@ import { cache } from "react";
 
 import WordView from "@/components/WordView";
 import { routing } from "@/i18n/routing";
-import { type ConceptDetail, getConceptBySlug, localized, SITE_URL } from "@/lib/api";
+import { type ConceptDetail, getConceptBySlug, inLocale, localized, SITE_URL } from "@/lib/api";
 
 // Languages quoted first in the page description (most searched), then the rest.
 const DESCRIPTION_LANGUAGES = ["eng", "ukr", "deu", "fra", "spa", "pol", "ita"];
@@ -33,7 +33,7 @@ const TITLE_HINT_LENGTH = 40;
 /** The word for titles; homonyms get a short hint from the description so titles stay unique. */
 function titleWord(concept: ConceptDetail, locale: string): string {
   const word = localized(locale, concept.gloss_en, concept.gloss_uk);
-  const description = localized(locale, concept.description_en, concept.description_uk);
+  const description = inLocale(locale, concept.description_en, concept.description_uk);
   if (!description || !HOMONYM_SLUG.test(concept.slug ?? "")) return word;
   const hint =
     description.length > TITLE_HINT_LENGTH

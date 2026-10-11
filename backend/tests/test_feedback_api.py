@@ -174,3 +174,21 @@ def test_votes_on_a_verified_word_are_usage_data() -> None:
 def test_concepts_have_ukrainian_descriptions() -> None:
     detail = client.get("/api/concepts/by-slug/drinking-glass").json()
     assert detail["description_uk"]
+
+
+def test_missing_searches_are_counted_for_the_editor() -> None:
+    headers = {"X-Editor-Token": TOKEN}
+    query = f"немаєтакого{uuid.uuid4().hex[:6]}"
+    try:
+        for text_ in (query, f"  {query.upper()} "):
+            assert client.post("/api/missing", json={"q": text_}).status_code == 204
+        assert client.post("/api/missing", json={"q": "12"}).status_code == 204  # ignored
+        items = client.get("/api/editor/missing", headers=headers).json()
+        mine = next(i for i in items if i["query"] == query)
+        assert mine["count"] == 2
+        assert not any(i["query"] == "12" for i in items)
+    finally:
+        assert client.delete(f"/api/editor/missing/{query}", headers=headers).status_code == 204
+    assert not any(
+        i["query"] == query for i in client.get("/api/editor/missing", headers=headers).json()
+    )

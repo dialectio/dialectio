@@ -1,11 +1,15 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import { localized, searchWords, type SearchHit } from "@/lib/api";
+import { recordMissing } from "@/lib/feedback";
 
 const DEBOUNCE_MS = 250;
+// A search with no results is recorded (for the dictionary's to-do list) once the visitor
+// stops typing for this long, so half-typed words are not recorded.
+const MISSING_AFTER_MS = 2000;
 
 export default function SearchBox({ onSelect }: { onSelect: (hit: SearchHit) => void }) {
   const t = useTranslations("Search");
@@ -16,6 +20,23 @@ export default function SearchBox({ onSelect }: { onSelect: (hit: SearchHit) => 
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
   const [error, setError] = useState(false);
+  // The query the current hits belong to (hits of an older query may still be shown)
+  const [resultFor, setResultFor] = useState("");
+  const recorded = useRef(new Set<string>());
+
+  const noResults = !error && hits.length === 0 && resultFor !== "" && resultFor === query.trim();
+
+  const record = (q: string) => {
+    if (recorded.current.has(q)) return;
+    recorded.current.add(q);
+    recordMissing(q).catch(() => {});
+  };
+
+  useEffect(() => {
+    if (!noResults) return;
+    const timer = setTimeout(() => record(resultFor), MISSING_AFTER_MS);
+    return () => clearTimeout(timer);
+  }, [noResults, resultFor]);
 
   useEffect(() => {
     const q = query.trim();
@@ -25,6 +46,7 @@ export default function SearchBox({ onSelect }: { onSelect: (hit: SearchHit) => 
       searchWords(q, locale, controller.signal)
         .then((result) => {
           setHits(result);
+          setResultFor(q);
           setActive(0);
           setError(false);
         })
@@ -70,6 +92,7 @@ export default function SearchBox({ onSelect }: { onSelect: (hit: SearchHit) => 
           if (e.key === "ArrowDown") setActive((i) => Math.min(i + 1, hits.length - 1));
           else if (e.key === "ArrowUp") setActive((i) => Math.max(i - 1, 0));
           else if (e.key === "Enter" && hits[active]) choose(hits[active]);
+          else if (e.key === "Enter" && noResults) record(resultFor);
           else if (e.key === "Escape") setOpen(false);
         }}
         className="w-full rounded-md border border-black/15 bg-transparent px-3 py-1.5 dark:border-white/20"
@@ -81,9 +104,7 @@ export default function SearchBox({ onSelect }: { onSelect: (hit: SearchHit) => 
           className="absolute z-20 mt-1 max-h-96 w-full overflow-auto rounded-md border border-black/10 bg-white text-black shadow-lg"
         >
           {error && <li className="px-3 py-2 text-sm text-red-700">{t("error")}</li>}
-          {!error && hits.length === 0 && (
-            <li className="px-3 py-2 text-sm text-black/60">{t("noResults")}</li>
-          )}
+          {noResults && <li className="px-3 py-2 text-sm text-black/60">{t("noResults")}</li>}
           {hits.map((hit, i) => {
             const { concept } = hit;
             const description = localized(locale, concept.description_en, concept.description_uk);

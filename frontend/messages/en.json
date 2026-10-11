@@ -8,7 +8,7 @@
   "Search": {
     "placeholder": "Type a word in any language…",
     "label": "Search for a word",
-    "noResults": "No results",
+    "noResults": "We don't have this word yet. We noted it and will add it.",
     "error": "Search failed. Please try again.",
     "matched": "{word} ({language})"
   },
@@ -22,7 +22,7 @@
     "alsoSaid": "Also:",
     "play": "Play pronunciation {n}",
     "synthetic": "synthetic voice",
-    "attribution": "Words: <wikidata>Wikidata</wikidata> (CC0). Audio: <commons>Wikimedia Commons</commons>; TTS marks synthetic Piper voices. License and author are in the ▶ button tooltip.",
+    "attribution": "Words: <wikidata>Wikidata</wikidata> (CC0), <wiktionary>Wiktionary</wiktionary> (CC BY-SA). Audio: <commons>Wikimedia Commons</commons>; TTS marks voices synthesized with Piper. License and author are in the ▶ button tooltip.",
     "playSynthetic": "Play synthetic pronunciation",
     "tts": "TTS",
     "unverified": "Unverified word: a draft, the concept's Wikidata label or an automatic translation — may be inaccurate",
@@ -60,7 +60,11 @@
     "confirmedLabel": "👥 confirmed by speakers",
     "disputedLabel": "⚠ disputed",
     "resolve": "Resolved",
-    "openWord": "word page"
+    "openWord": "word page",
+    "moreRows": "Showing {shown} of {total}. Narrow the filter to find a concept.",
+    "missing": "Searched but not found: {count}",
+    "missingHint": "Words missing from the dictionary, most wanted first. Click to search Wiktionary; ✕ removes a word from the list.",
+    "dismiss": "Remove “{word}” from the list"
   },
   "Word": {
     "title": "{word} in different languages — spelling and pronunciation | Dialectio",
@@ -149,7 +153,9 @@
     "statsTitle": "Visit statistics",
     "stats": "To learn which words people find interesting, we count page views with Umami, running on our own server. It uses no cookies, stores no IP addresses and does not follow you across sites: we only see totals — how often a page was opened, from which country and which site.",
     "votesTitle": "When you vote or report a mistake",
-    "votes": "We store your vote (yes or no) and the text of a mistake report. So that one browser has one vote per word, your browser creates a random id; the server keeps only its hash, which cannot be turned back into the id. The region, if you gave it, is stored with the vote and helps refine the dialect map."
+    "votes": "We store your vote (yes or no) and the text of a mistake report. So that one browser has one vote per word, your browser creates a random id; the server keeps only its hash, which cannot be turned back into the id. The region, if you gave it, is stored with the vote and helps refine the dialect map.",
+    "searchTitle": "Search",
+    "search": "When a search finds nothing, we keep the search text and a counter so we can add the word to the dictionary. Nothing about you is stored with it."
   },
   "Home": {
     "intro": "Type a word in any language and see on the map how it is written, pronounced and sounds in the world's languages and Ukrainian dialects. Or start with these examples:",

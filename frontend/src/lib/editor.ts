@@ -116,3 +116,11 @@ export const listFeedback = (token: string) => request<FeedbackItem[]>(token, "/
 
 export const resolveReport = (token: string, id: number) =>
   request<void>(token, `/reports/${id}/resolve`, { method: "POST" });
+
+export type MissingSearch = { query: string; count: number; last_seen: string };
+
+/** What visitors searched for and did not find, most wanted first. */
+export const listMissing = (token: string) => request<MissingSearch[]>(token, "/missing");
+
+export const dismissMissing = (token: string, query: string) =>
+  request<void>(token, `/missing/${encodeURIComponent(query)}`, { method: "DELETE" });

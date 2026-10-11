@@ -4,7 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import InfoPage, { externalLink, GITHUB_ISSUES_URL } from "@/components/InfoPage";
 import { pageMetadata } from "@/lib/metadata";
 
-const SECTIONS = ["stats", "contrib", "votes", "ip", "browser", "third"] as const;
+const SECTIONS = ["stats", "search", "contrib", "votes", "ip", "browser", "third"] as const;
 
 export async function generateMetadata({
   params,

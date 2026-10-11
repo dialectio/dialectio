@@ -7,6 +7,7 @@ memory only, and a honeypot field on reports. Votes never change a word; they ad
 """
 
 import hashlib
+import re
 import time
 from collections import defaultdict, deque
 from typing import Annotated
@@ -17,7 +18,15 @@ from sqlalchemy import func, select, text
 from sqlalchemy.dialects.postgresql import insert
 
 from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
-from app.models import PUBLIC_STATUSES, Form, Region, Report, Vote, community_status
+from app.models import (
+    PUBLIC_STATUSES,
+    Form,
+    MissingSearch,
+    Region,
+    Report,
+    Vote,
+    community_status,
+)
 
 router = APIRouter(prefix="/api", tags=["feedback"])
 
@@ -278,3 +287,30 @@ def check_cards(
         },
     ).mappings()
     return [Card(**row) for row in rows]
+
+
+# --- Searches that found nothing: the dictionary's to-do list ----------------------------
+
+MISSING_LIMIT = (60, 3600)  # recorded searches per IP per hour
+LETTER = re.compile(r"[^\W\d_]", re.UNICODE)
+
+
+class MissingIn(BaseModel):
+    q: str = Field(min_length=2, max_length=50)
+
+
+@router.post("/missing", status_code=status.HTTP_204_NO_CONTENT)
+def record_missing(session: SessionDep, request: Request, data: MissingIn) -> None:
+    """The visitor searched for this and found nothing (sent once they stop typing)."""
+    query = " ".join(data.q.lower().split())
+    if len(query) < 2 or not LETTER.search(query):
+        return
+    check_limit("missing", request, MISSING_LIMIT)
+    statement = insert(MissingSearch).values(query=query)
+    session.execute(
+        statement.on_conflict_do_update(
+            index_elements=[MissingSearch.query],
+            set_={"count": MissingSearch.count + 1, "last_seen": func.now()},
+        )
+    )
+    session.commit()

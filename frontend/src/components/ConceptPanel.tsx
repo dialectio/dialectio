@@ -14,6 +14,7 @@ import {
   API_URL,
   type ConceptDetail,
   type LanguageForms,
+  inLocale,
   localized,
 } from "@/lib/api";
 
@@ -21,6 +22,15 @@ function playAudio(url: string) {
   // Generated audio is served by the API under a relative /media/... path.
   const src = url.startsWith("/") ? `${API_URL}${url}` : url;
   new Audio(src).play().catch((e: unknown) => console.error(e));
+}
+
+const LATIN = /^[\p{Script=Latin}\p{Script=Common}\p{Mark}]+$/u;
+const CYRILLIC = /\p{Script=Cyrillic}/u;
+
+/** Romanization for words in other scripts ("辞書" -> "jisho"); Cyrillic only in English. */
+function showTransliteration(spelling: string, transliteration: string | null, locale: string) {
+  if (!transliteration || LATIN.test(spelling)) return false;
+  return locale !== "uk" || !CYRILLIC.test(spelling);
 }
 
 export function AudioButtons({ audio }: { audio: AudioInfo[] }) {
@@ -72,6 +82,9 @@ function LanguageCard({ language }: { language: LanguageForms }) {
       </div>
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <span className="text-xl font-semibold">{primary.spelling}</span>
+        {showTransliteration(primary.spelling, primary.transliteration, locale) && (
+          <span className="text-sm italic opacity-70">{primary.transliteration}</span>
+        )}
         <TrustMark form={primary} counts={counts} />
         {primary.ipa && <span className="font-mono text-sm opacity-80">{primary.ipa}</span>}
         <AudioButtons audio={primary.audio} />
@@ -115,7 +128,7 @@ export default function ConceptPanel({
 }) {
   const locale = useLocale();
   const t = useTranslations("Panel");
-  const description = localized(locale, concept.description_en, concept.description_uk);
+  const description = inLocale(locale, concept.description_en, concept.description_uk);
   const [contributing, setContributing] = useState(false);
 
   // A region shows its own varieties (dialects, regional languages) and its country's languages.
@@ -176,6 +189,11 @@ export default function ConceptPanel({
         {t.rich("attribution", {
           wikidata: (chunks) => (
             <a className="underline" href="https://www.wikidata.org/wiki/Wikidata:Lexicographical_data">
+              {chunks}
+            </a>
+          ),
+          wiktionary: (chunks) => (
+            <a className="underline" href="https://en.wiktionary.org/">
               {chunks}
             </a>
           ),

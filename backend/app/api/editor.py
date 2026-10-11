@@ -5,6 +5,7 @@ Protected by a shared token (settings.editor_token, sent as the X-Editor-Token h
 """
 
 import secrets
+from collections import defaultdict
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query, status
@@ -24,6 +25,7 @@ from app.models import (
     SUBMITTED,
     Concept,
     Form,
+    MissingSearch,
     Report,
     Variety,
     Vote,
@@ -202,22 +204,30 @@ def list_concepts(
         v.id: v.code
         for v in session.scalars(select(Variety).where(Variety.code.in_(HINT_LANGUAGES)))
     }
-    concepts = session.scalars(
-        select(Concept)
-        .options(selectinload(Concept.forms).selectinload(Form.source))
-        .order_by(Concept.gloss_en)
-    ).all()
+    concepts = session.scalars(select(Concept).order_by(Concept.gloss_en)).all()
+    # Only the words that are shown: the edited variety's and the hint languages' main words
+    # (loading every language's words would mean hundreds of thousands of rows).
+    forms_by_concept: dict[int, list[Form]] = defaultdict(list)
+    for form in session.scalars(
+        select(Form)
+        .where(
+            (Form.variety_id == edited.id) | (Form.variety_id.in_(hint_varieties) & Form.is_primary)
+        )
+        .options(selectinload(Form.source), selectinload(Form.audio))
+    ):
+        forms_by_concept[form.concept_id].append(form)
 
     result = []
     for concept in concepts:
+        concept_forms = forms_by_concept.get(concept.id, [])
         primary = {
             hint_varieties[f.variety_id]: f.spelling
-            for f in concept.forms
+            for f in concept_forms
             if f.is_primary and f.variety_id in hint_varieties
         }
         hints = {lang: primary[lang] for lang in HINT_LANGUAGES if lang in primary}
         forms = sorted(
-            (f for f in concept.forms if f.variety_id == edited.id),
+            (f for f in concept_forms if f.variety_id == edited.id),
             key=lambda f: (f.status != APPROVED, not f.is_primary, f.spelling),
         )
         result.append(
@@ -496,3 +506,31 @@ def resolve_report(session: SessionDep, report_id: int) -> None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Report not found")
     item.resolved = True
     session.commit()
+
+
+class MissingOut(BaseModel):
+    query: str
+    count: int
+    last_seen: str
+
+
+@router.get("/missing")
+def list_missing(session: SessionDep) -> list[MissingOut]:
+    """What visitors searched for and did not find, most wanted first."""
+    rows = session.scalars(
+        select(MissingSearch)
+        .order_by(MissingSearch.count.desc(), MissingSearch.last_seen.desc())
+        .limit(FEEDBACK_LIMIT)
+    )
+    return [
+        MissingOut(query=r.query, count=r.count, last_seen=r.last_seen.isoformat()) for r in rows
+    ]
+
+
+@router.delete("/missing/{query}", status_code=status.HTTP_204_NO_CONTENT)
+def dismiss_missing(session: SessionDep, query: str) -> None:
+    """Remove a query from the list (added to the dictionary, or not worth adding)."""
+    row = session.get(MissingSearch, query)
+    if row is not None:
+        session.delete(row)
+        session.commit()

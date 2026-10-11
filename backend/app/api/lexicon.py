@@ -22,7 +22,12 @@ router = APIRouter(prefix="/api", tags=["lexicon"])
 
 # Sources whose words nobody has checked; shown with an "approximate" mark on the site.
 MACHINE_SOURCE_NAME = "Dialectio machine drafts (unverified)"
-UNVERIFIED_SOURCES = {"Wikidata item labels", MACHINE_SOURCE_NAME}
+UNVERIFIED_SOURCES = {
+    "Wikidata item labels",
+    MACHINE_SOURCE_NAME,
+    # Croatian/Bosnian guessed from Wiktionary's joint Serbo-Croatian table
+    "Wiktionary translations (Serbo-Croatian, unverified)",
+}
 
 SessionDep = Annotated[Session, Depends(get_session)]
 
@@ -33,8 +38,7 @@ SEARCH = text("""
         SELECT f.concept_id, f.spelling AS matched, f.variety_id, f.is_primary
         FROM form f
         WHERE f.status IN ('approved', 'pending')
-          AND (lower(f.spelling) LIKE :prefix ESCAPE '\\'
-               OR similarity(lower(f.spelling), :q) > 0.4)
+          AND (lower(f.spelling) LIKE :prefix ESCAPE '\\' OR lower(f.spelling) % :q)
         UNION ALL
         SELECT c.id, g.gloss, NULL, true
         FROM concept c, LATERAL (VALUES (c.gloss_en), (c.gloss_uk)) AS g(gloss)
@@ -55,6 +59,9 @@ SEARCH = text("""
 """)
 
 
+SIMILARITY = "0.4"  # minimal trigram similarity of a fuzzy match
+
+
 def like_prefix(q: str) -> str:
     escaped = q.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
     return f"{escaped}%"
@@ -73,6 +80,10 @@ def search(
     if not needle:
         return []
     params = {"q": needle, "prefix": like_prefix(needle), "prefer": prefer}
+    # "%" (trigram similarity above this threshold) can use the trigram index on spellings.
+    session.execute(
+        text("SELECT set_config('pg_trgm.similarity_threshold', :t, true)"), {"t": SIMILARITY}
+    )
     rows = session.execute(SEARCH, params).all()
     rows = sorted(rows, key=lambda r: r.score, reverse=True)[:limit]
 

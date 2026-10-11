@@ -64,3 +64,15 @@ def community_status(yes: int, no: int) -> str | None:
     if no >= DISPUTE_MIN and no >= yes:
         return DISPUTED
     return None
+
+
+class MissingSearch(Base):
+    """A search that found nothing: what the dictionary should add next. Only the query
+    text and a counter are kept, nothing about who searched."""
+
+    __tablename__ = "missing_search"
+
+    query: Mapped[str] = mapped_column(String(100), primary_key=True)
+    count: Mapped[int] = mapped_column(default=1, server_default="1")
+    first_seen: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+    last_seen: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

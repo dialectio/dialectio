@@ -10,11 +10,13 @@ from sqlalchemy import (
     Boolean,
     Column,
     ForeignKey,
+    Index,
     SmallInteger,
     String,
     Table,
     Text,
     UniqueConstraint,
+    text,
 )
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -107,7 +109,16 @@ class Region(Base):
 
 class Form(Base):
     __tablename__ = "form"
-    __table_args__ = (UniqueConstraint("concept_id", "variety_id", "spelling"),)
+    __table_args__ = (
+        UniqueConstraint("concept_id", "variety_id", "spelling"),
+        # Word search: prefix (LIKE) and fuzzy (trigram %) matches on lower(spelling)
+        Index(
+            "ix_form_spelling_trgm",
+            text("lower(spelling)"),
+            postgresql_using="gin",
+            postgresql_ops={"lower(spelling)": "gin_trgm_ops"},
+        ),
+    )
 
     id: Mapped[int] = mapped_column(primary_key=True)
     concept_id: Mapped[int] = mapped_column(ForeignKey("concept.id"), index=True)

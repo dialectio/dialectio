@@ -132,6 +132,12 @@ export function capitalize(text: string): string {
   return text.charAt(0).toLocaleUpperCase() + text.slice(1);
 }
 
+/** The text in the interface language only (no English fallback on Ukrainian pages):
+ * for descriptions, where a sentence in another language reads worse than none. */
+export function inLocale(locale: string, en: string | null, uk: string | null): string | null {
+  return locale === "uk" ? uk : en;
+}
+
 /** Pick the Ukrainian or English variant of a localized field pair. */
 export function localized(locale: string, en: string, uk: string | null): string;
 export function localized(locale: string, en: string | null, uk: string | null): string | null;

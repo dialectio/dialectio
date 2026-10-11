@@ -145,3 +145,13 @@ export const checkedCount = () => Number(read(CHECKED_KEY) ?? 0) || 0;
 export const addChecked = () => write(CHECKED_KEY, String(checkedCount() + 1));
 export const savedDeck = () => read(DECK_KEY);
 export const saveDeck = (code: string) => write(DECK_KEY, code);
+
+/** A search that found nothing: added to the editors' list of words to add. */
+export async function recordMissing(q: string): Promise<void> {
+  const response = await fetch(`${API_URL}/api/missing`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ q }),
+  });
+  if (!response.ok) throw new Error(`${response.status} /api/missing`);
+}

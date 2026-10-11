@@ -12,9 +12,12 @@ import {
   type EditorConcept,
   EditorError,
   type EditorForm,
+  dismissMissing,
   type FeedbackItem,
   listConcepts,
   listFeedback,
+  listMissing,
+  type MissingSearch,
   listSubmissions,
   listVarieties,
   resolveReport,
@@ -26,6 +29,8 @@ import { listVoterRegions } from "@/lib/feedback";
 import { sortVarieties } from "@/lib/varieties";
 
 const DEFAULT_VARIETY = "ukr";
+// Rows rendered at once; thousands of rows with inputs make the page sluggish.
+const MAX_ROWS = 200;
 const TOKEN_KEY = "dialectio.editorToken";
 
 const isApproved = (form: EditorForm) => form.status === "approved";
@@ -422,6 +427,67 @@ function Feedback({ token }: { token: string }) {
   );
 }
 
+function Missing({ token }: { token: string }) {
+  const t = useTranslations("Editor");
+  const [items, setItems] = useState<MissingSearch[]>([]);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    listMissing(token)
+      .then((result) => !cancelled && setItems(result))
+      .catch(() => !cancelled && setError(true));
+    return () => {
+      cancelled = true;
+    };
+  }, [token]);
+
+  const dismiss = async (query: string) => {
+    setError(false);
+    try {
+      await dismissMissing(token, query);
+      setItems((all) => all.filter((i) => i.query !== query));
+    } catch {
+      setError(true);
+    }
+  };
+
+  if (items.length === 0 && !error) return null;
+  return (
+    <section className="mb-6 rounded-lg border border-amber-500/40 bg-amber-500/5 p-3">
+      <h2 className="font-semibold">{t("missing", { count: items.length })}</h2>
+      <p className="mb-2 text-xs opacity-70">{t("missingHint")}</p>
+      {error && <p className="text-sm text-red-600">{t("saveError")}</p>}
+      <ul className="flex flex-wrap gap-2">
+        {items.map((item) => (
+          <li
+            key={item.query}
+            className="inline-flex items-center gap-1 rounded bg-black/5 px-2 py-0.5 text-sm dark:bg-white/10"
+          >
+            <a
+              href={`https://en.wiktionary.org/wiki/Special:Search?search=${encodeURIComponent(item.query)}`}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:underline"
+            >
+              {item.query}
+            </a>
+            <span className="text-xs opacity-60">×{item.count}</span>
+            <button
+              type="button"
+              onClick={() => dismiss(item.query)}
+              aria-label={t("dismiss", { word: item.query })}
+              className="opacity-60 hover:opacity-100"
+            >
+              ✕
+            </button>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 function Submissions({ token }: { token: string }) {
   const t = useTranslations("Editor");
   const locale = useLocale();
@@ -584,6 +650,7 @@ export default function WordEditor() {
 
       {token && !error && <Submissions token={token} />}
       {token && !error && <Feedback token={token} />}
+      {token && !error && <Missing token={token} />}
 
       {concepts && (
         <>
@@ -630,7 +697,7 @@ export default function WordEditor() {
             />
           </div>
           <ul>
-            {visible.map((concept) => (
+            {visible.slice(0, MAX_ROWS).map((concept) => (
               <ConceptRow
                 key={concept.id}
                 concept={concept}
@@ -644,6 +711,11 @@ export default function WordEditor() {
               />
             ))}
           </ul>
+          {visible.length > MAX_ROWS && (
+            <p className="py-4 text-sm opacity-70">
+              {t("moreRows", { shown: MAX_ROWS, total: visible.length })}
+            </p>
+          )}
           {visible.length === 0 && <p className="py-4 opacity-70">{t("allDone")}</p>}
         </>
       )}
