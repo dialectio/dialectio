@@ -52,7 +52,10 @@
     "variety": "Language or dialect",
     "submissions": "From visitors: {count}",
     "makePrimary": "Make it the main word",
-    "makePrimaryWord": "Make “{word}” the main word"
+    "makePrimaryWord": "Make “{word}” the main word",
+    "edit": "Fix the spelling of “{word}”",
+    "saveSpelling": "Save",
+    "cancelEdit": "Cancel"
   },
   "Word": {
     "title": "{word} in different languages — spelling and pronunciation | Dialectio",

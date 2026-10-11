@@ -100,6 +100,17 @@ class NewForm(BaseModel):
         return value or None
 
 
+class SpellingChange(BaseModel):
+    spelling: str = Field(min_length=1, max_length=200)
+    ipa: str | None = Field(default=None, max_length=200)
+
+    @field_validator("spelling", "ipa")
+    @classmethod
+    def strip(cls, value: str | None) -> str | None:
+        value = value.strip() if value else value
+        return value or None
+
+
 def get_variety(session: Session, code: str) -> Variety:
     variety = session.scalar(select(Variety).where(Variety.code == code))
     if variety is None:
@@ -309,6 +320,33 @@ def set_primary(session: SessionDep, form_id: int) -> EditorForm:
     for other in others:
         other.is_primary = False
     form.is_primary = True
+    session.commit()
+    return to_editor_form(form)
+
+
+@router.post("/forms/{form_id}/spelling")
+def change_spelling(session: SessionDep, form_id: int, change: SpellingChange) -> EditorForm:
+    """Fix a word's spelling (typo, capital letter) without losing its recordings."""
+    form = get_own_form(session, form_id)
+    if change.spelling is None:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, "Spelling is empty")
+    duplicate = session.scalar(
+        select(Form.id).where(
+            Form.concept_id == form.concept_id,
+            Form.variety_id == form.variety_id,
+            Form.spelling == change.spelling,
+            Form.id != form.id,
+        )
+    )
+    if duplicate is not None:
+        raise HTTPException(status.HTTP_409_CONFLICT, "This word already exists")
+    if change.spelling != form.spelling:
+        # Synthetic audio says the old spelling; the TTS importer makes a new one later.
+        # Real recordings stay: the speaker said the word, only its spelling was wrong.
+        for audio in [a for a in form.audio if a.is_synthetic]:
+            form.audio.remove(audio)
+    form.spelling = change.spelling
+    form.ipa = change.ipa
     session.commit()
     return to_editor_form(form)
 

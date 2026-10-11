@@ -52,7 +52,10 @@
     "variety": "Мова або говір",
     "submissions": "Від відвідувачів: {count}",
     "makePrimary": "Зробити основним словом",
-    "makePrimaryWord": "Зробити «{word}» основним словом"
+    "makePrimaryWord": "Зробити «{word}» основним словом",
+    "edit": "Змінити написання «{word}»",
+    "saveSpelling": "Зберегти",
+    "cancelEdit": "Скасувати"
   },
   "Word": {
     "title": "{word} — як пишеться і звучить різними мовами | Dialectio",

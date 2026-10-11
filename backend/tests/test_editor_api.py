@@ -152,3 +152,41 @@ def test_new_word_is_added_as_variant_and_star_makes_it_main() -> None:
         client.delete(f"/api/editor/forms/{created['id']}", headers=auth())
     # deleting the main word gives the role back to the draft
     assert forms()[draft["id"]]["is_primary"]
+
+
+def test_change_spelling_keeps_the_word() -> None:
+    missing = next(c for c in concepts("ukr-hutsul") if not c["forms"])
+    form = client.post(
+        "/api/editor/forms",
+        json={"concept_id": missing["id"], "variety": "ukr-hutsul", "spelling": "Тестслово"},
+        headers=auth(),
+    ).json()
+    try:
+        changed = client.post(
+            f"/api/editor/forms/{form['id']}/spelling",
+            json={"spelling": " тестслово ", "ipa": "test"},
+            headers=auth(),
+        )
+        assert changed.status_code == 200
+        assert changed.json()["spelling"] == "тестслово"
+        assert changed.json()["ipa"] == "test"
+        assert changed.json()["id"] == form["id"]
+        assert changed.json()["is_primary"]
+
+        empty = client.post(
+            f"/api/editor/forms/{form['id']}/spelling", json={"spelling": "  "}, headers=auth()
+        )
+        assert empty.status_code == 422
+    finally:
+        client.delete(f"/api/editor/forms/{form['id']}", headers=auth())
+
+
+def test_cannot_change_spelling_of_imported_word() -> None:
+    water = next(c for c in concepts() if c["wikidata_id"] == "Q283")
+    form_id = water["forms"][0]["id"]
+    response = client.post(
+        f"/api/editor/forms/{form_id}/spelling", json={"spelling": "вода!"}, headers=auth()
+    )
+    assert response.status_code == 403
+    response = client.post("/api/editor/forms/{0}/spelling", json={"spelling": "x"}, headers=auth())
+    assert response.status_code == 422  # not an id

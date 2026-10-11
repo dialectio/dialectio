@@ -84,5 +84,12 @@ export const approveForm = (token: string, id: number) =>
 export const setPrimaryForm = (token: string, id: number) =>
   request<EditorForm>(token, `/forms/${id}/primary`, { method: "POST" });
 
+/** Fix a word's spelling (and IPA); recordings stay with the word. */
+export const changeSpelling = (token: string, id: number, spelling: string, ipa: string | null) =>
+  request<EditorForm>(token, `/forms/${id}/spelling`, {
+    method: "POST",
+    body: JSON.stringify({ spelling, ipa }),
+  });
+
 export const deleteForm = (token: string, id: number) =>
   request<void>(token, `/forms/${id}`, { method: "DELETE" });

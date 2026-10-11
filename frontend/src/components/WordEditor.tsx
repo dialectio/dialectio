@@ -7,6 +7,7 @@ import { API_URL, localized } from "@/lib/api";
 import {
   addForm,
   approveForm,
+  changeSpelling,
   deleteForm,
   type EditorConcept,
   EditorError,
@@ -58,6 +59,21 @@ function ConceptRow({
   const [ipa, setIpa] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // The word whose spelling is being fixed, and the new spelling
+  const [editing, setEditing] = useState<{ id: number; spelling: string } | null>(null);
+
+  const saveSpelling = async (e: FormEvent, form: EditorForm) => {
+    e.preventDefault();
+    if (!editing || !editing.spelling.trim()) return;
+    setError(null);
+    try {
+      const updated = await changeSpelling(token, form.id, editing.spelling, form.ipa);
+      onChange(concept.forms.map((f) => (f.id === form.id ? updated : f)));
+      setEditing(null);
+    } catch (err) {
+      setError(err instanceof EditorError && err.status === 409 ? t("duplicate") : t("saveError"));
+    }
+  };
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -159,8 +175,43 @@ function ConceptRow({
                     : "bg-black/5 dark:bg-white/10"
               }`}
             >
-              {form.spelling}
+              {editing?.id === form.id ? (
+                <form onSubmit={(e) => saveSpelling(e, form)} className="inline-flex gap-1">
+                  <input
+                    autoFocus
+                    value={editing.spelling}
+                    onChange={(e) => setEditing({ id: form.id, spelling: e.target.value })}
+                    onKeyDown={(e) => e.key === "Escape" && setEditing(null)}
+                    aria-label={t("edit", { word: form.spelling })}
+                    className="w-32 rounded border border-black/20 bg-white px-1 text-black"
+                  />
+                  <button type="submit" title={t("saveSpelling")} className="text-green-700">
+                    ✓
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setEditing(null)}
+                    title={t("cancelEdit")}
+                    className="opacity-60"
+                  >
+                    ↺
+                  </button>
+                </form>
+              ) : (
+                form.spelling
+              )}
               {form.ipa && <span className="font-mono text-xs opacity-70">{form.ipa}</span>}
+              {form.editable && editing?.id !== form.id && (
+                <button
+                  type="button"
+                  onClick={() => setEditing({ id: form.id, spelling: form.spelling })}
+                  title={t("edit", { word: form.spelling })}
+                  aria-label={t("edit", { word: form.spelling })}
+                  className="opacity-50 hover:opacity-100"
+                >
+                  ✎
+                </button>
+              )}
               {form.editable && !form.is_primary && form.status !== "submitted" && (
                 <button
                   type="button"
