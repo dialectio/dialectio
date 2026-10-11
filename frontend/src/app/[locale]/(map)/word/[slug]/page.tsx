@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { cache } from "react";
 
-import Explorer from "@/components/Explorer";
+import WordView from "@/components/WordView";
 import { routing } from "@/i18n/routing";
 import { type ConceptDetail, getConceptBySlug, localized, SITE_URL } from "@/lib/api";
 
@@ -78,5 +78,5 @@ export default async function WordPage({ params }: PageProps<"/[locale]/word/[sl
   const concept = await loadConcept(slug);
   if (!concept) notFound();
 
-  return <Explorer key={slug} initialConcept={concept} />;
+  return <WordView key={slug} initialConcept={concept} />;
 }

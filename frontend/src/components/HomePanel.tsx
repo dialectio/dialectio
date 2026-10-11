@@ -3,24 +3,38 @@
 import { useLocale, useTranslations } from "next-intl";
 
 import { InfoNav } from "@/components/InfoPage";
-import { type FeaturedConcept, localized } from "@/lib/api";
+import { useMapView } from "@/components/MapShell";
+import { Link, useRouter } from "@/i18n/navigation";
+import { type ConceptDetail, type FeaturedConcept, localized } from "@/lib/api";
 
 const EXAMPLES_SHOWN = 5;
 
-/** Side panel of the home page: what the site is, the word of the day, dialect examples. */
+/**
+ * Home page panel: what the site is, the word of the day (also shown on the map), dialect
+ * examples. Every word links to its own page.
+ */
 export default function HomePanel({
   featured,
-  wordOfDay,
-  onOpen,
+  preview,
 }: {
   featured: FeaturedConcept[];
-  /** Shown on the map until the visitor picks another word. */
-  wordOfDay: FeaturedConcept | null;
-  onOpen: (concept: FeaturedConcept) => void;
+  /** The word of the day with its map data. */
+  preview: ConceptDetail | null;
 }) {
   const locale = useLocale();
   const t = useTranslations("Home");
+  const router = useRouter();
+  const wordOfDay = featured.find((c) => c.id === preview?.id) ?? null;
   const others = featured.filter((c) => c.id !== wordOfDay?.id);
+
+  // A click on the map opens the word of the day, filtered to that region.
+  useMapView({
+    concept: preview,
+    selectedCode: null,
+    onSelectRegion: (region) => {
+      if (preview?.slug) router.push(`/word/${preview.slug}?region=${region.code}`);
+    },
+  });
 
   return (
     <aside className="space-y-6 p-4">
@@ -40,13 +54,12 @@ export default function HomePanel({
               {wordOfDay.examples.slice(0, EXAMPLES_SHOWN).join(", ")}
             </span>
           </p>
-          <button
-            type="button"
-            onClick={() => onOpen(wordOfDay)}
-            className="mt-3 rounded-md bg-violet-600 px-3 py-1.5 text-sm text-white hover:bg-violet-700"
+          <Link
+            href={`/word/${wordOfDay.slug}`}
+            className="mt-3 inline-block rounded-md bg-violet-600 px-3 py-1.5 text-sm text-white hover:bg-violet-700"
           >
             {t("open")}
-          </button>
+          </Link>
         </section>
       )}
 
@@ -57,10 +70,9 @@ export default function HomePanel({
           <ul className="space-y-1">
             {others.map((concept) => (
               <li key={concept.id}>
-                <button
-                  type="button"
-                  onClick={() => onOpen(concept)}
-                  className="w-full rounded-md px-2 py-1.5 text-left hover:bg-black/5 dark:hover:bg-white/10"
+                <Link
+                  href={`/word/${concept.slug}`}
+                  className="block rounded-md px-2 py-1.5 hover:bg-black/5 dark:hover:bg-white/10"
                 >
                   <span className="font-medium">
                     {localized(locale, concept.gloss_en, concept.gloss_uk)}
@@ -69,7 +81,7 @@ export default function HomePanel({
                     {" — "}
                     {concept.examples.slice(0, EXAMPLES_SHOWN).join(", ")}
                   </span>
-                </button>
+                </Link>
               </li>
             ))}
           </ul>

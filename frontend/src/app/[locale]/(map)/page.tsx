@@ -1,6 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
 
-import Explorer from "@/components/Explorer";
+import HomePanel from "@/components/HomePanel";
 import { getConceptBySlug, listFeaturedConcepts } from "@/lib/api";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -19,5 +19,5 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
   const wordOfDay = featured.length > 0 ? featured[dayNumber() % featured.length] : null;
   const preview = wordOfDay ? await getConceptBySlug(wordOfDay.slug).catch(() => null) : null;
 
-  return <Explorer featured={featured} preview={preview} />;
+  return <HomePanel featured={featured} preview={preview} />;
 }
