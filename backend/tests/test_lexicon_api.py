@@ -179,6 +179,7 @@ def test_dialect_word_page() -> None:
     assert meaning["standard"] == "картопля"
     assert {"ukr-podillian", "ukr-dniester"} <= {d["code"] for d in meaning["dialects"]}
     assert "бульба" in {o["word"] for o in meaning["others"]}
+    assert all(isinstance(d["form_id"], int) and "votes_yes" in d for d in meaning["dialects"])
     assert page["regions"] and page["bounds"]
     assert client.get("/api/dialect-words/немаєтакогослова").status_code == 404
 

@@ -7,7 +7,7 @@ import type { Form } from "@/lib/api";
 import { localized } from "@/lib/api";
 import {
   ABROAD,
-  listUkraineRegions,
+  listVoterRegions,
   myRegion,
   myVotes,
   type RegionOption,
@@ -19,8 +19,11 @@ import {
 
 export type Counts = Pick<VoteCounts, "yes" | "no" | "community">;
 
+/** What voting needs to know about a word. */
+export type Checkable = Pick<Form, "id" | "unverified" | "votes_yes" | "votes_no" | "community">;
+
 /** The word's trust mark: speakers confirmed it, disputed it, or nobody checked it yet (≈). */
-export function TrustMark({ form, counts }: { form: Form; counts?: Counts }) {
+export function TrustMark({ form, counts }: { form: Checkable; counts?: Counts }) {
   const t = useTranslations("Check");
   const tPanel = useTranslations("Panel");
   const { yes, no, community } = counts ?? {
@@ -49,7 +52,7 @@ export function RegionQuestion({ onDone }: { onDone: () => void }) {
   const [regions, setRegions] = useState<RegionOption[]>([]);
 
   useEffect(() => {
-    listUkraineRegions()
+    listVoterRegions()
       .then(setRegions)
       .catch(() => {});
   }, []);
@@ -73,10 +76,16 @@ export function RegionQuestion({ onDone }: { onDone: () => void }) {
         <option value="" disabled>
           …
         </option>
-        {regions.map((r) => (
-          <option key={r.code} value={r.code}>
-            {localized(locale, r.name_en, r.name_uk)}
-          </option>
+        {[true, false].map((inUkraine) => (
+          <optgroup key={String(inUkraine)} label={inUkraine ? t("ukraine") : t("neighbours")}>
+            {regions
+              .filter((r) => r.in_ukraine === inUkraine)
+              .map((r) => (
+                <option key={r.code} value={r.code}>
+                  {localized(locale, r.name_en, r.name_uk)}
+                </option>
+              ))}
+          </optgroup>
         ))}
         <option value={ABROAD}>{t("abroad")}</option>
       </select>
@@ -87,7 +96,7 @@ export function RegionQuestion({ onDone }: { onDone: () => void }) {
   );
 }
 
-function ReportForm({ form, onClose }: { form: Form; onClose: () => void }) {
+function ReportForm({ form, onClose }: { form: Checkable; onClose: () => void }) {
   const t = useTranslations("Check");
   const [message, setMessage] = useState("");
   const [website, setWebsite] = useState("");
@@ -153,7 +162,7 @@ export default function WordCheck({
   form,
   onCounts,
 }: {
-  form: Form;
+  form: Checkable;
   onCounts: (counts: Counts) => void;
 }) {
   const t = useTranslations("Check");

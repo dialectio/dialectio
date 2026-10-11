@@ -148,17 +148,26 @@ class RegionOption(BaseModel):
     code: str
     name_en: str
     name_uk: str | None
+    # False for regions abroad where Ukrainian dialects are spoken (Lemko, Hutsul areas...)
+    in_ukraine: bool
 
 
-@router.get("/regions/ukraine")
-def ukraine_regions(session: SessionDep) -> list[RegionOption]:
-    """Oblasts for "where do you live?" (sorted by Ukrainian name)."""
-    rows = session.scalars(
-        select(Region)
-        .where(Region.level == "adm1", Region.code.like("UA-%"))
-        .order_by(func.coalesce(Region.name_uk, Region.name_en))
-    )
-    return [RegionOption(code=r.code, name_en=r.name_en, name_uk=r.name_uk) for r in rows]
+VOTER_REGIONS = text("""
+    SELECT r.code, r.name_en, r.name_uk, r.code LIKE 'UA-%' AS in_ukraine
+    FROM region r
+    WHERE r.level = 'adm1'
+      AND (r.code LIKE 'UA-%' OR r.id IN (
+          SELECT vr.region_id FROM variety_region vr
+          JOIN variety v ON v.id = vr.variety_id AND v.kind = 'dialect'))
+    ORDER BY in_ukraine DESC, coalesce(r.name_uk, r.name_en)
+""")
+
+
+@router.get("/regions/voter")
+def voter_regions(session: SessionDep) -> list[RegionOption]:
+    """Answers to "where do you live?": Ukraine's oblasts, then the regions abroad where
+    Ukrainian dialects are spoken."""
+    return [RegionOption(**row) for row in session.execute(VOTER_REGIONS).mappings()]
 
 
 # --- "Check words" game: cards of unverified words to vote on -----------------------------

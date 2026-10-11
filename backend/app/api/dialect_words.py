@@ -13,6 +13,7 @@ from sqlalchemy import text
 from app.api.dialects import DialectRegion
 from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
 from app.api.schemas import AudioOut
+from app.models import community_status
 
 router = APIRouter(prefix="/api/dialect-words", tags=["dialect words"])
 
@@ -21,6 +22,16 @@ class DialectRef(BaseModel):
     code: str
     name_en: str
     name_uk: str | None
+
+
+class DialectUse(DialectRef):
+    """The word in one dialect: the form visitors vote on."""
+
+    form_id: int
+    unverified: bool
+    votes_yes: int = 0
+    votes_no: int = 0
+    community: str | None = None
 
 
 class OtherWord(BaseModel):
@@ -33,7 +44,7 @@ class Meaning(BaseModel):
     gloss_en: str
     gloss_uk: str | None
     standard: str | None  # the standard Ukrainian word
-    dialects: list[DialectRef]
+    dialects: list[DialectUse]
     unverified: bool
     audio: list[AudioOut]
     # Other dialect words for the same concept (each has its own page)
@@ -92,6 +103,12 @@ AUDIO = text("""
     ORDER BY is_synthetic, id
 """)
 
+VOTES = text("""
+    SELECT form_id, count(*) FILTER (WHERE value > 0), count(*) FILTER (WHERE value < 0)
+    FROM vote WHERE form_id = ANY(:form_ids)
+    GROUP BY form_id
+""")
+
 REGIONS = text("""
     SELECT DISTINCT r.code, r.name_en, r.name_uk,
            ST_X(r.label_point) AS lon, ST_Y(r.label_point) AS lat
@@ -121,6 +138,10 @@ def dialect_word(session: SessionDep, word: str) -> DialectWordDetail:
     if not rows:
         raise HTTPException(status_code=404, detail="Dialect word not found")
 
+    votes = {
+        form_id: (yes, no)
+        for form_id, yes, no in session.execute(VOTES, {"form_ids": [r["id"] for r in rows]})
+    }
     by_concept: dict[int, list] = {}
     for row in rows:
         by_concept.setdefault(row["concept_id"], []).append(row)
@@ -142,7 +163,16 @@ def dialect_word(session: SessionDep, word: str) -> DialectWordDetail:
                 gloss_uk=first["gloss_uk"],
                 standard=first["standard"],
                 dialects=[
-                    DialectRef(code=f["code"], name_en=f["name_en"], name_uk=f["name_uk"])
+                    DialectUse(
+                        code=f["code"],
+                        name_en=f["name_en"],
+                        name_uk=f["name_uk"],
+                        form_id=f["id"],
+                        unverified=f["status"] == "pending" or f["source"] in UNVERIFIED_SOURCES,
+                        votes_yes=votes.get(f["id"], (0, 0))[0],
+                        votes_no=votes.get(f["id"], (0, 0))[1],
+                        community=community_status(*votes.get(f["id"], (0, 0))),
+                    )
                     for f in forms
                 ],
                 unverified=all(

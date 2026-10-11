@@ -1,12 +1,19 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { AudioButtons } from "@/components/ConceptPanel";
 import { type MapLabels, useMapView } from "@/components/MapShell";
+import WordCheck, { type Counts, TrustMark } from "@/components/WordCheck";
 import { Link } from "@/i18n/navigation";
-import { type DialectRef, type DialectWordDetail, localized, meaningOf } from "@/lib/api";
+import {
+  type DialectRef,
+  type DialectUse,
+  type DialectWordDetail,
+  localized,
+  meaningOf,
+} from "@/lib/api";
 
 function DialectLinks({ dialects }: { dialects: DialectRef[] }) {
   const locale = useLocale();
@@ -21,6 +28,30 @@ function DialectLinks({ dialects }: { dialects: DialectRef[] }) {
         </span>
       ))}
     </>
+  );
+}
+
+/** One dialect that uses the word, with "do people say it like this here?" voting. */
+function DialectUseRow({ use }: { use: DialectUse }) {
+  const locale = useLocale();
+  const [counts, setCounts] = useState<Counts>();
+  const form = {
+    id: use.form_id,
+    unverified: use.unverified,
+    votes_yes: use.votes_yes,
+    votes_no: use.votes_no,
+    community: use.community,
+  };
+  return (
+    <li className="border-b border-black/5 py-1.5 dark:border-white/10">
+      <span className="inline-flex items-baseline gap-1">
+        <Link href={`/dialects/${use.code}`} className="underline-offset-2 hover:underline">
+          {localized(locale, use.name_en, use.name_uk)}
+        </Link>
+        <TrustMark form={form} counts={counts} />
+      </span>
+      <WordCheck form={form} onCounts={setCounts} />
+    </li>
   );
 }
 
@@ -79,9 +110,11 @@ export default function DialectWordView({ entry }: { entry: DialectWordDetail })
             </p>
             <div className="text-sm">
               <h2 className="font-medium">{t("usedIn")}</h2>
-              <p>
-                <DialectLinks dialects={meaning.dialects} />
-              </p>
+              <ul>
+                {meaning.dialects.map((use) => (
+                  <DialectUseRow key={use.form_id} use={use} />
+                ))}
+              </ul>
             </div>
             {meaning.others.length > 0 && (
               <div className="text-sm">

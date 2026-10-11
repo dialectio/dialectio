@@ -94,11 +94,18 @@ export function sendReport(formId: number, message: string, website: string) {
   });
 }
 
-export type RegionOption = { code: string; name_en: string; name_uk: string | null };
+export type RegionOption = {
+  code: string;
+  name_en: string;
+  name_uk: string | null;
+  /** False for regions abroad where Ukrainian dialects are spoken */
+  in_ukraine: boolean;
+};
 
-export async function listUkraineRegions(): Promise<RegionOption[]> {
-  const response = await fetch(`${API_URL}/api/regions/ukraine`);
-  if (!response.ok) throw new Error(`${response.status} /api/regions/ukraine`);
+/** Answers to "where do you live?": oblasts, then dialect areas abroad. */
+export async function listVoterRegions(): Promise<RegionOption[]> {
+  const response = await fetch(`${API_URL}/api/regions/voter`);
+  if (!response.ok) throw new Error(`${response.status} /api/regions/voter`);
   return response.json();
 }
 

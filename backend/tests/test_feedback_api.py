@@ -116,10 +116,13 @@ def test_report_reaches_the_editor_and_can_be_resolved(form: dict) -> None:
     assert item["reports"] == []
 
 
-def test_ukraine_regions_for_the_voter() -> None:
-    regions = client.get("/api/regions/ukraine").json()
-    assert len(regions) >= 25
-    assert all(r["code"].startswith("UA-") for r in regions)
+def test_regions_for_the_voter() -> None:
+    regions = client.get("/api/regions/voter").json()
+    in_ukraine = [r["code"] for r in regions if r["in_ukraine"]]
+    abroad = [r["code"] for r in regions if not r["in_ukraine"]]
+    assert len(in_ukraine) >= 25 and all(code.startswith("UA-") for code in in_ukraine)
+    assert {"PL-PK", "SK-PV", "RO-MM"} <= set(abroad)  # Lemko, Hutsul areas
+    assert regions.index(next(r for r in regions if not r["in_ukraine"])) == len(in_ukraine)
 
 
 def test_check_game_decks_and_cards() -> None:

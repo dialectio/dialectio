@@ -219,14 +219,16 @@
     "confirmed": "Confirmed by speakers: {yes} yes, {no} no",
     "disputed": "Disputed: visitors say people don't say it like this ({no} no, {yes} yes)",
     "whereLive": "Where do you live? It helps refine the dialect map:",
-    "abroad": "Not in Ukraine",
+    "abroad": "Elsewhere",
     "skip": "Skip",
     "report": "Mistake?",
     "reportPlaceholder": "What is wrong? What is right?",
     "send": "Send",
     "cancel": "Cancel",
     "reportThanks": "Thank you! An editor will check it.",
-    "error": "Could not send. Please try again."
+    "error": "Could not send. Please try again.",
+    "ukraine": "Ukraine",
+    "neighbours": "Other countries (with Ukrainian dialects)"
   },
   "Game": {
     "title": "Check words",

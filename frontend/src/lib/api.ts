@@ -211,12 +211,21 @@ export function getDialect(code: string) {
 
 export type DialectRef = { code: string; name_en: string; name_uk: string | null };
 
+/** The dialect word in one dialect: the form visitors vote on. */
+export type DialectUse = DialectRef & {
+  form_id: number;
+  unverified: boolean;
+  votes_yes: number;
+  votes_no: number;
+  community: "confirmed" | "disputed" | null;
+};
+
 export type DialectWordMeaning = {
   slug: string;
   gloss_en: string;
   gloss_uk: string | null;
   standard: string | null;
-  dialects: DialectRef[];
+  dialects: DialectUse[];
   unverified: boolean;
   audio: Audio[];
   /** Other dialect words for the same concept */

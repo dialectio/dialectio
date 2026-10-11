@@ -22,7 +22,7 @@ import {
   type EditorVariety,
   type Submission,
 } from "@/lib/editor";
-import { listUkraineRegions } from "@/lib/feedback";
+import { listVoterRegions } from "@/lib/feedback";
 import { sortVarieties } from "@/lib/varieties";
 
 const DEFAULT_VARIETY = "ukr";
@@ -291,7 +291,7 @@ function Feedback({ token }: { token: string }) {
     listFeedback(token)
       .then((result) => !cancelled && setItems(result))
       .catch(() => !cancelled && setError(true));
-    listUkraineRegions()
+    listVoterRegions()
       .then(
         (regions) =>
           !cancelled &&
