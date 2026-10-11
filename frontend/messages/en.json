@@ -189,5 +189,13 @@
     "others": "Other names in dialects",
     "allLanguages": "“{meaning}” in other languages and dialects on the map →",
     "unverified": "≈ Unverified word: a draft not yet checked by an editor."
+  },
+  "Og": {
+    "site": "How words sound in the world's languages and dialects, on a map",
+    "wordKicker": "How to write and say",
+    "dialectWordKicker": "Ukrainian dialect word · means “{meaning}”",
+    "dialectKicker": "Dialect of Ukrainian",
+    "footer": "{count, plural, one {# language} other {# languages}} on the map · pronunciation · dialects",
+    "exampleTitle": "potato"
   }
 }
