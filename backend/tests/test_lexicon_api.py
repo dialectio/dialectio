@@ -220,3 +220,19 @@ def test_search_ignores_accents_and_script() -> None:
     assert search("zrodlo")[0]["matched_spelling"] == "źródło"
     assert search("kartoplia")[0]["concept"]["slug"] == "potato"  # Latin for "картопля"
     assert search("картопля")[0]["matched_spelling"] == "картопля"  # exact spelling first
+
+
+def test_false_friends() -> None:
+    from app.api.false_friends import sound_key
+
+    assert sound_key("pol", "dywan") == sound_key("ukr", "диван")
+    assert sound_key("rus", "неделя") == sound_key("ukr", "неділя")
+
+    languages = {lang["code"]: lang["count"] for lang in client.get("/api/false-friends").json()}
+    assert languages["pol"] > 10 and languages["rus"] > 5
+    pairs = client.get("/api/false-friends/rus").json()["pairs"]
+    words = {(p["foreign"]["spelling"], p["ukrainian"]["spelling"]) for p in pairs}
+    assert ("неделя", "неділя") in words
+    assert not any(f == "рука" for f, _ in words)  # one Ukrainian word for both concepts
+    assert len(words) == len(pairs)  # no repeated pairs
+    assert client.get("/api/false-friends/eng").status_code == 404

@@ -103,7 +103,8 @@
     "dialects": "Dialekte",
     "check": "Wörter prüfen",
     "terms": "Nutzungsbedingungen",
-    "imprint": "Impressum"
+    "imprint": "Impressum",
+    "false-friends": "Falsche Freunde"
   },
   "About": {
     "title": "Über das Projekt",
@@ -293,5 +294,18 @@
     "email": "E-Mail",
     "notConfigured": "Die Kontaktdaten des Betreibers wurden noch nicht hinterlegt.",
     "contentNote": "Verantwortlich für den Inhalt ist der Betreiber der Website. Beiträge von Besuchern werden nach Prüfung veröffentlicht."
+  },
+  "FalseFriends": {
+    "title": "Falsche Freunde mit dem Ukrainischen",
+    "metaDescription": "Wörter anderer slawischer Sprachen, die wie ukrainische klingen, aber etwas anderes bedeuten: polnisch „lis“, bulgarisch „гора“, russisch „неделя“.",
+    "intro": "Manche Wörter anderer Sprachen klingen fast wie ukrainische, bedeuten aber etwas ganz anderes. Polnisch „lis“ ist ein Fuchs, kein Wald (ukrainisch „ліс“); bulgarisch „гора“ ist ein Wald; russisch „неделя“ ist eine Woche. Wähle eine Sprache:",
+    "pairs": "{count, plural, one {# Paar} other {# Paare}}",
+    "langTitle": "{language} und Ukrainisch: falsche Freunde",
+    "langDescription": "Wörter, die wie ukrainische klingen, aber etwas anderes bedeuten: {examples}. Bedeutungen und Übersetzungen.",
+    "langIntro": "Diese Wörter ({language}) sehen aus oder klingen wie ukrainische, bedeuten aber etwas anderes. Sie wurden automatisch nach dem Klang gefunden, daher sind auch zufällige Ähnlichkeiten dabei.",
+    "means": "bedeutet „{meaning}“",
+    "inLanguage": "{language}: {word}",
+    "allLanguages": "Alle Sprachen",
+    "ukrainian": "Ukrainisch"
   }
 }

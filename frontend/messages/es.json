@@ -103,7 +103,8 @@
     "dialects": "Dialectos",
     "check": "Revisa palabras",
     "terms": "Condiciones de uso",
-    "imprint": "Aviso legal"
+    "imprint": "Aviso legal",
+    "false-friends": "Falsos amigos"
   },
   "About": {
     "title": "Acerca del proyecto",
@@ -293,5 +294,18 @@
     "email": "Correo electrónico",
     "notConfigured": "Aún no se han añadido los datos de contacto del titular.",
     "contentNote": "El titular del sitio es responsable de su contenido. Las aportaciones de los visitantes se publican tras su revisión."
+  },
+  "FalseFriends": {
+    "title": "Falsos amigos del ucraniano",
+    "metaDescription": "Palabras de otras lenguas eslavas que suenan como palabras ucranianas pero significan otra cosa: el polaco «lis», el búlgaro «гора», el ruso «неделя».",
+    "intro": "Algunas palabras de otros idiomas suenan casi como palabras ucranianas, pero significan algo muy distinto. El polaco «lis» es un zorro, no un bosque (en ucraniano «ліс»); el búlgaro «гора» es un bosque; el ruso «неделя» es una semana. Elige un idioma:",
+    "pairs": "{count, plural, one {# par} other {# pares}}",
+    "langTitle": "{language} y ucraniano: falsos amigos",
+    "langDescription": "Palabras que suenan como ucranianas pero significan otra cosa: {examples}. Significados y traducciones.",
+    "langIntro": "Estas palabras ({language}) se parecen por escrito o al oído a palabras ucranianas, pero significan otra cosa. Se encontraron automáticamente por su sonido, así que hay coincidencias casuales.",
+    "means": "significa «{meaning}»",
+    "inLanguage": "{language}: {word}",
+    "allLanguages": "Todos los idiomas",
+    "ukrainian": "ucraniano"
   }
 }

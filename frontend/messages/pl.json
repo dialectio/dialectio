@@ -103,7 +103,8 @@
     "dialects": "Gwary",
     "check": "Sprawdź słowa",
     "terms": "Regulamin",
-    "imprint": "Nota prawna"
+    "imprint": "Nota prawna",
+    "false-friends": "Fałszywi przyjaciele"
   },
   "About": {
     "title": "O projekcie",
@@ -293,5 +294,18 @@
     "email": "E-mail",
     "notConfigured": "Dane kontaktowe właściciela nie zostały jeszcze dodane.",
     "contentNote": "Za treść strony odpowiada jej właściciel. Zgłoszenia odwiedzających są publikowane po sprawdzeniu."
+  },
+  "FalseFriends": {
+    "title": "Fałszywi przyjaciele z ukraińskim",
+    "metaDescription": "Słowa w innych językach słowiańskich, które brzmią jak ukraińskie, ale znaczą coś innego: polskie „lis”, bułgarskie „гора”, rosyjskie „неделя”.",
+    "intro": "Niektóre słowa w innych językach brzmią prawie jak ukraińskie, ale znaczą coś zupełnie innego. Ukraińskie „ліс” to las, a nie lis; bułgarskie „гора” to las; rosyjskie „неделя” to tydzień. Wybierz język:",
+    "pairs": "{count, plural, one {# para} few {# pary} many {# par} other {# pary}}",
+    "langTitle": "{language} i ukraiński: fałszywi przyjaciele",
+    "langDescription": "Słowa, które brzmią jak ukraińskie, ale znaczą coś innego: {examples}. Znaczenia i tłumaczenia.",
+    "langIntro": "Te słowa ({language}) wyglądają lub brzmią jak ukraińskie, ale znaczą coś innego. Znaleziono je automatycznie według brzmienia, więc zdarzają się przypadkowe zbieżności.",
+    "means": "znaczy „{meaning}”",
+    "inLanguage": "{language}: {word}",
+    "allLanguages": "Wszystkie języki",
+    "ukrainian": "ukraiński"
   }
 }

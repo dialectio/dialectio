@@ -3,7 +3,13 @@ import { connection } from "next/server";
 
 import { INFO_PAGES } from "@/components/InfoPage";
 import { routing } from "@/i18n/routing";
-import { listConceptLinks, listDialects, listDialectWords, SITE_URL } from "@/lib/api";
+import {
+  listConceptLinks,
+  listDialects,
+  listDialectWords,
+  listFalseFriendLanguages,
+  SITE_URL,
+} from "@/lib/api";
 
 function alternates(path: string) {
   return {
@@ -13,10 +19,11 @@ function alternates(path: string) {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   await connection(); // needs the API: render per request, not at build time
-  const [concepts, dialects, dialectWords] = await Promise.all([
+  const [concepts, dialects, dialectWords, falseFriends] = await Promise.all([
     listConceptLinks(),
     listDialects(),
     listDialectWords(),
+    listFalseFriendLanguages(),
   ]);
   const paths = [
     "",
@@ -24,6 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...dialects.filter((d) => d.kind === "dialect").map((d) => `/dialects/${d.code}`),
     ...concepts.map((c) => `/word/${c.slug}`),
     ...dialectWords.map((word) => `/slovo/${encodeURIComponent(word)}`),
+    ...falseFriends.map((language) => `/false-friends/${language.code}`),
   ];
 
   return paths.flatMap((path) =>

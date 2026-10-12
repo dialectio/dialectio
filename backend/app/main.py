@@ -5,7 +5,17 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
 from sqlalchemy.exc import OperationalError
 
-from app.api import contribute, dialect_words, dialects, editor, feedback, lexicon, regions, stats
+from app.api import (
+    contribute,
+    dialect_words,
+    dialects,
+    editor,
+    false_friends,
+    feedback,
+    lexicon,
+    regions,
+    stats,
+)
 from app.config import MEDIA_DIR, MEDIA_URL_PREFIX, settings
 from app.db.session import engine
 
@@ -20,6 +30,7 @@ app.include_router(stats.router)
 app.include_router(dialects.router)
 app.include_router(dialect_words.router)
 app.include_router(feedback.router)
+app.include_router(false_friends.router)
 
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(

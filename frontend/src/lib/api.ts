@@ -326,3 +326,36 @@ export function getDialectWord(word: string) {
 export async function listCheckDecks() {
   return (await getServerJson<Deck[]>("/api/check/decks")) ?? [];
 }
+
+export type FalseFriendWord = {
+  spelling: string;
+  slug: string;
+  gloss_en: string;
+  gloss_uk: string | null;
+  glosses?: Names;
+  /** The concept's word in the other language of the pair */
+  translation: string | null;
+};
+
+export type FalseFriendLanguage = {
+  code: string;
+  name_en: string;
+  name_uk: string | null;
+  names?: Names;
+};
+
+export type FalseFriendPair = { foreign: FalseFriendWord; ukrainian: FalseFriendWord };
+
+/** Server-side: languages with false-friend pages and their number of pairs. */
+export async function listFalseFriendLanguages() {
+  return (
+    (await getServerJson<(FalseFriendLanguage & { count: number })[]>("/api/false-friends")) ?? []
+  );
+}
+
+/** Server-side: a language's false friends with Ukrainian, or null for other languages. */
+export function getFalseFriends(code: string) {
+  return getServerJson<FalseFriendLanguage & { pairs: FalseFriendPair[] }>(
+    `/api/false-friends/${encodeURIComponent(code)}`,
+  );
+}

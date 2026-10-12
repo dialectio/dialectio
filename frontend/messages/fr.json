@@ -103,7 +103,8 @@
     "dialects": "Dialectes",
     "check": "Vérifier des mots",
     "terms": "Conditions d'utilisation",
-    "imprint": "Mentions légales"
+    "imprint": "Mentions légales",
+    "false-friends": "Faux amis"
   },
   "About": {
     "title": "À propos",
@@ -293,5 +294,18 @@
     "email": "E-mail",
     "notConfigured": "Les coordonnées de l'éditeur n'ont pas encore été ajoutées.",
     "contentNote": "L'éditeur du site est responsable de son contenu. Les contributions des visiteurs sont publiées après vérification."
+  },
+  "FalseFriends": {
+    "title": "Faux amis de l'ukrainien",
+    "metaDescription": "Des mots d'autres langues slaves qui sonnent comme des mots ukrainiens mais veulent dire autre chose : le polonais « lis », le bulgare « гора », le russe « неделя ».",
+    "intro": "Certains mots d'autres langues sonnent presque comme des mots ukrainiens mais veulent dire tout autre chose. Le polonais « lis » est un renard, pas une forêt (en ukrainien « ліс ») ; le bulgare « гора » est une forêt ; le russe « неделя » est une semaine. Choisissez une langue :",
+    "pairs": "{count, plural, one {# paire} other {# paires}}",
+    "langTitle": "{language} et ukrainien : faux amis",
+    "langDescription": "Des mots qui sonnent comme des mots ukrainiens mais veulent dire autre chose : {examples}. Sens et traductions.",
+    "langIntro": "Ces mots ({language}) ressemblent à des mots ukrainiens à l'écrit ou à l'oral, mais veulent dire autre chose. Ils ont été trouvés automatiquement d'après le son, certains sont donc des coïncidences.",
+    "means": "signifie « {meaning} »",
+    "inLanguage": "{language} : {word}",
+    "allLanguages": "Toutes les langues",
+    "ukrainian": "ukrainien"
   }
 }
