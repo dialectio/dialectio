@@ -7,7 +7,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dialectio}
       POSTGRES_DB: ${POSTGRES_DB:-dialectio}
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5432:5432"  # this machine only: the dev password is public
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./docker/initdb:/docker-entrypoint-initdb.d:ro
@@ -26,7 +26,7 @@ services:
       DATABASE_URL: postgresql://${POSTGRES_USER:-dialectio}:${POSTGRES_PASSWORD:-dialectio}@db:5432/umami
       APP_SECRET: ${UMAMI_APP_SECRET:-change-me}
     ports:
-      - "3001:3000"
+      - "127.0.0.1:3001:3000"
     depends_on:
       db:
         condition: service_healthy
