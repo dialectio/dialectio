@@ -198,3 +198,16 @@ def test_missing_searches_are_counted_for_the_editor() -> None:
     assert not any(
         i["query"] == query for i in client.get("/api/editor/missing", headers=headers).json()
     )
+
+
+def test_community_page_counts_votes_by_region(form: dict) -> None:
+    before = client.get("/api/community").json()
+    vote(form["id"], 1, region="UA-26")
+    after = client.get("/api/community").json()
+    assert after["totals"]["votes"] == before["totals"]["votes"] + 1
+    assert after["totals"]["voters"] == before["totals"]["voters"] + 1
+    regions = {r["code"]: r["votes"] for r in after["regions"]}
+    old = {r["code"]: r["votes"] for r in before["regions"]}
+    assert regions["UA-26"] == old.get("UA-26", 0) + 1
+    # The word is a dialect word, so its dialect is among the most checked ones
+    assert after["dialects"] and after["dialects"][0]["votes"] >= 1

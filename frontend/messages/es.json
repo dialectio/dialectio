@@ -104,7 +104,8 @@
     "check": "Revisa palabras",
     "terms": "Condiciones de uso",
     "imprint": "Aviso legal",
-    "false-friends": "Falsos amigos"
+    "false-friends": "Falsos amigos",
+    "community": "Comunidad"
   },
   "About": {
     "title": "Acerca del proyecto",
@@ -321,5 +322,30 @@
     "languages": "{count, plural, one {# idioma} other {# idiomas}}",
     "note": "Los grupos son automáticos — por palabras parecidas, no de un diccionario etimológico.",
     "snapshotSubtitle": "Cómo suena esta palabra en distintos idiomas"
+  },
+  "Community": {
+    "title": "Aportes de la comunidad",
+    "metaDescription": "Cuántas palabras han revisado y añadido los visitantes de Dialectio, de dónde son y quién ha grabado sus dialectos.",
+    "intro": "Dialectio lo construyen y revisan personas: los hablantes votan si de verdad se dice así, añaden palabras y graban su pronunciación. Esto es lo que hemos hecho juntos.",
+    "totals": {
+      "votes": "votos «¿se dice así?»",
+      "voters": "participantes",
+      "confirmed": "palabras confirmadas por hablantes 👥",
+      "words": "palabras añadidas por visitantes",
+      "recordings": "grabaciones de pronunciación",
+      "reports": "avisos de errores"
+    },
+    "recent": "En los últimos {days} días: {count, plural, one {# voto} other {# votos}}.",
+    "regionsTitle": "De dónde son los participantes",
+    "regionsNote": "Según la región que cada participante indicó (opcional). Cuanto más oscuro en el mapa, más votos.",
+    "noRegions": "Nadie ha indicado aún su región. ¡Sé el primero!",
+    "votes": "{count, plural, one {# voto} other {# votos}}",
+    "dialectsTitle": "Lo más revisado",
+    "thanksTitle": "Gracias",
+    "thanksIntro": "A estas personas que añadieron palabras o grabaron su pronunciación y las firmaron:",
+    "noContributors": "Aquí aparecerán los nombres de quienes añadan una palabra o una grabación y la firmen.",
+    "contribution": "Palabras: {words}, grabaciones: {recordings}",
+    "ctaCheck": "Revisar palabras →",
+    "ctaAdd": "Añadir una palabra de tu dialecto"
   }
 }

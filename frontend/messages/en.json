@@ -104,7 +104,8 @@
     "check": "Check words",
     "terms": "Terms of use",
     "imprint": "Legal notice",
-    "false-friends": "False friends"
+    "false-friends": "False friends",
+    "community": "Community"
   },
   "About": {
     "title": "About",
@@ -321,5 +322,30 @@
     "languages": "{count, plural, one {# language} other {# languages}}",
     "note": "Groups are automatic — by similar words, not from an etymological dictionary.",
     "snapshotSubtitle": "How this word sounds in different languages"
+  },
+  "Community": {
+    "title": "Community contributions",
+    "metaDescription": "How many words Dialectio visitors have checked and added, where they are from, and who recorded their dialects.",
+    "intro": "Dialectio is built and checked by people: speakers vote on whether words are really said that way, add words and record how they sound. Here is what has been done together.",
+    "totals": {
+      "votes": "“do people say it?” votes",
+      "voters": "participants",
+      "confirmed": "words confirmed by speakers 👥",
+      "words": "words added by visitors",
+      "recordings": "pronunciation recordings",
+      "reports": "error reports"
+    },
+    "recent": "In the last {days} days: {count, plural, one {# vote} other {# votes}}.",
+    "regionsTitle": "Where participants live",
+    "regionsNote": "By the region participants chose themselves (optional). The darker on the map, the more votes.",
+    "noRegions": "Nobody has told us their region yet. Be the first!",
+    "votes": "{count, plural, one {# vote} other {# votes}}",
+    "dialectsTitle": "Most checked",
+    "thanksTitle": "Thank you",
+    "thanksIntro": "To these people who added words or recorded their pronunciation and signed them:",
+    "noContributors": "The names of people who add a word or a recording and sign it will appear here.",
+    "contribution": "Words: {words}, recordings: {recordings}",
+    "ctaCheck": "Check words →",
+    "ctaAdd": "Add a word from your dialect"
   }
 }

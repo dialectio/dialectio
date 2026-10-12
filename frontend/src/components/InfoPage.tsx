@@ -9,6 +9,7 @@ export const GITHUB_ISSUES_URL = "https://github.com/gmisha777/dialectio/issues"
 export const INFO_PAGES = [
   "dialects",
   "check",
+  "community",
   "false-friends",
   "about",
   "sources",

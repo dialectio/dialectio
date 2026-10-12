@@ -104,7 +104,8 @@
     "check": "Sprawdź słowa",
     "terms": "Regulamin",
     "imprint": "Nota prawna",
-    "false-friends": "Fałszywi przyjaciele"
+    "false-friends": "Fałszywi przyjaciele",
+    "community": "Społeczność"
   },
   "About": {
     "title": "O projekcie",
@@ -321,5 +322,30 @@
     "languages": "{count, plural, one {# język} few {# języki} many {# języków} other {# języka}}",
     "note": "Grupy są automatyczne — według podobieństwa słów, a nie ze słownika etymologicznego.",
     "snapshotSubtitle": "Jak brzmi to słowo w różnych językach"
+  },
+  "Community": {
+    "title": "Wkład społeczności",
+    "metaDescription": "Ile słów sprawdzili i dodali odwiedzający Dialectio, skąd pochodzą i kto nagrał swoje gwary.",
+    "intro": "Dialectio tworzą i sprawdzają ludzie: użytkownicy gwar głosują, czy naprawdę tak się mówi, dodają słowa i nagrywają wymowę. Oto, co zrobiliśmy razem.",
+    "totals": {
+      "votes": "głosów „czy tak się mówi?”",
+      "voters": "uczestników",
+      "confirmed": "słów potwierdzonych przez użytkowników 👥",
+      "words": "słów dodanych przez odwiedzających",
+      "recordings": "nagrań wymowy",
+      "reports": "zgłoszeń błędów"
+    },
+    "recent": "W ostatnich {days} dniach: {count, plural, one {# głos} few {# głosy} many {# głosów} other {# głosu}}.",
+    "regionsTitle": "Skąd są uczestnicy",
+    "regionsNote": "Według regionu, który uczestnik wskazał sam (opcjonalnie). Im ciemniej na mapie, tym więcej głosów.",
+    "noRegions": "Nikt jeszcze nie podał swojego regionu. Bądź pierwszy!",
+    "votes": "{count, plural, one {# głos} few {# głosy} many {# głosów} other {# głosu}}",
+    "dialectsTitle": "Najczęściej sprawdzane",
+    "thanksTitle": "Dziękujemy",
+    "thanksIntro": "Tym osobom, które dodały słowa lub nagrały wymowę i się podpisały:",
+    "noContributors": "Tu pojawią się imiona osób, które dodadzą słowo lub nagranie i się podpiszą.",
+    "contribution": "Słowa: {words}, nagrania: {recordings}",
+    "ctaCheck": "Sprawdź słowa →",
+    "ctaAdd": "Dodaj słowo ze swojej gwary"
   }
 }

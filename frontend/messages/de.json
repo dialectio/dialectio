@@ -104,7 +104,8 @@
     "check": "Wörter prüfen",
     "terms": "Nutzungsbedingungen",
     "imprint": "Impressum",
-    "false-friends": "Falsche Freunde"
+    "false-friends": "Falsche Freunde",
+    "community": "Gemeinschaft"
   },
   "About": {
     "title": "Über das Projekt",
@@ -321,5 +322,30 @@
     "languages": "{count, plural, one {# Sprache} other {# Sprachen}}",
     "note": "Die Gruppen sind automatisch — nach ähnlichen Wörtern, nicht aus einem etymologischen Wörterbuch.",
     "snapshotSubtitle": "Wie dieses Wort in verschiedenen Sprachen klingt"
+  },
+  "Community": {
+    "title": "Beiträge der Gemeinschaft",
+    "metaDescription": "Wie viele Wörter Besucher von Dialectio geprüft und hinzugefügt haben, woher sie kommen und wer seine Dialekte aufgenommen hat.",
+    "intro": "Dialectio wird von Menschen gefüllt und geprüft: Sprecher stimmen ab, ob man wirklich so sagt, fügen Wörter hinzu und nehmen die Aussprache auf. Das haben wir gemeinsam geschafft.",
+    "totals": {
+      "votes": "Stimmen „Sagt man so?“",
+      "voters": "Teilnehmende",
+      "confirmed": "von Sprechern bestätigte Wörter 👥",
+      "words": "von Besuchern hinzugefügte Wörter",
+      "recordings": "Aussprache-Aufnahmen",
+      "reports": "Fehlermeldungen"
+    },
+    "recent": "In den letzten {days} Tagen: {count, plural, one {# Stimme} other {# Stimmen}}.",
+    "regionsTitle": "Woher die Teilnehmenden kommen",
+    "regionsNote": "Nach der Region, die Teilnehmende selbst angegeben haben (freiwillig). Je dunkler auf der Karte, desto mehr Stimmen.",
+    "noRegions": "Noch hat niemand seine Region angegeben. Seien Sie die Ersten!",
+    "votes": "{count, plural, one {# Stimme} other {# Stimmen}}",
+    "dialectsTitle": "Am häufigsten geprüft",
+    "thanksTitle": "Danke",
+    "thanksIntro": "An diese Menschen, die Wörter hinzugefügt oder die Aussprache aufgenommen und unterschrieben haben:",
+    "noContributors": "Hier erscheinen die Namen derer, die ein Wort oder eine Aufnahme hinzufügen und unterschreiben.",
+    "contribution": "Wörter: {words}, Aufnahmen: {recordings}",
+    "ctaCheck": "Wörter prüfen →",
+    "ctaAdd": "Ein Wort aus Ihrem Dialekt hinzufügen"
   }
 }

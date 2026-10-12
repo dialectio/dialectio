@@ -361,3 +361,31 @@ export function getFalseFriends(code: string) {
     `/api/false-friends/${encodeURIComponent(code)}`,
   );
 }
+
+export type CommunityActivity = {
+  code: string;
+  name_en: string;
+  name_uk: string | null;
+  names?: Record<string, string>;
+  votes: number;
+};
+
+export type Community = {
+  totals: {
+    votes: number;
+    voters: number;
+    recent_votes: number;
+    reports: number;
+    confirmed: number;
+    words: number;
+    recordings: number;
+  };
+  recent_days: number;
+  regions: CommunityActivity[];
+  dialects: CommunityActivity[];
+  contributors: { name: string; words: number; recordings: number }[];
+};
+
+export function getCommunity() {
+  return getServerJson<Community>("/api/community");
+}

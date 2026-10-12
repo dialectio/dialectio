@@ -104,7 +104,8 @@
     "check": "Vérifier des mots",
     "terms": "Conditions d'utilisation",
     "imprint": "Mentions légales",
-    "false-friends": "Faux amis"
+    "false-friends": "Faux amis",
+    "community": "Communauté"
   },
   "About": {
     "title": "À propos",
@@ -321,5 +322,30 @@
     "languages": "{count, plural, one {# langue} other {# langues}}",
     "note": "Les groupes sont automatiques — d'après des mots semblables, pas d'un dictionnaire étymologique.",
     "snapshotSubtitle": "Comment ce mot sonne dans différentes langues"
+  },
+  "Community": {
+    "title": "Contributions de la communauté",
+    "metaDescription": "Combien de mots les visiteurs de Dialectio ont vérifiés et ajoutés, d'où ils viennent et qui a enregistré ses dialectes.",
+    "intro": "Dialectio est construit et vérifié par des personnes : les locuteurs votent pour dire si l'on parle vraiment ainsi, ajoutent des mots et enregistrent leur prononciation. Voici ce que nous avons fait ensemble.",
+    "totals": {
+      "votes": "votes « ça se dit ? »",
+      "voters": "participants",
+      "confirmed": "mots confirmés par des locuteurs 👥",
+      "words": "mots ajoutés par les visiteurs",
+      "recordings": "enregistrements de prononciation",
+      "reports": "signalements d'erreurs"
+    },
+    "recent": "Ces {days} derniers jours : {count, plural, one {# vote} other {# votes}}.",
+    "regionsTitle": "D'où viennent les participants",
+    "regionsNote": "Selon la région indiquée par chaque participant (facultatif). Plus c'est foncé sur la carte, plus il y a de votes.",
+    "noRegions": "Personne n'a encore indiqué sa région. Soyez le premier !",
+    "votes": "{count, plural, one {# vote} other {# votes}}",
+    "dialectsTitle": "Les plus vérifiés",
+    "thanksTitle": "Merci",
+    "thanksIntro": "À ces personnes qui ont ajouté des mots ou enregistré leur prononciation et les ont signés :",
+    "noContributors": "Ici apparaîtront les noms de celles et ceux qui ajoutent un mot ou un enregistrement et le signent.",
+    "contribution": "Mots : {words}, enregistrements : {recordings}",
+    "ctaCheck": "Vérifier des mots →",
+    "ctaAdd": "Ajouter un mot de votre dialecte"
   }
 }

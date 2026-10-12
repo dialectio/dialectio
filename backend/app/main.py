@@ -6,6 +6,7 @@ from sqlalchemy import text
 from sqlalchemy.exc import OperationalError
 
 from app.api import (
+    community,
     contribute,
     dialect_words,
     dialects,
@@ -31,6 +32,7 @@ app.include_router(dialects.router)
 app.include_router(dialect_words.router)
 app.include_router(feedback.router)
 app.include_router(false_friends.router)
+app.include_router(community.router)
 
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(
