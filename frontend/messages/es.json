@@ -101,7 +101,9 @@
     "privacy": "Privacidad",
     "map": "Mapa",
     "dialects": "Dialectos",
-    "check": "Revisa palabras"
+    "check": "Revisa palabras",
+    "terms": "Condiciones de uso",
+    "imprint": "Aviso legal"
   },
   "About": {
     "title": "Acerca del proyecto",
@@ -256,5 +258,40 @@
     "checked": "Ya has revisado {count, plural, one {# palabra} other {# palabras}}. ¡Gracias!",
     "howItWorks": "Teclas: → sí, ← no, ↓ no lo sé. Cuando suficientes personas dicen que sí, la palabra recibe la marca 👥; la revisión final la hace un editor.",
     "inEnglish": "en inglés: «{word}»"
+  },
+  "NotFound": {
+    "title": "Página no encontrada",
+    "text": "Esta página no existe. Puede que la dirección haya cambiado o que la palabra aún no se haya añadido. Usa el buscador de arriba o empieza en la página principal.",
+    "home": "Página principal",
+    "dialects": "Dialectos",
+    "check": "Revisa palabras"
+  },
+  "Terms": {
+    "title": "Condiciones de uso",
+    "metaDescription": "Normas de uso de Dialectio: datos, aportaciones, responsabilidad.",
+    "updated": "Actualizado: 12 de octubre de 2026",
+    "serviceTitle": "Qué es Dialectio",
+    "service": "Dialectio es un sitio de divulgación que muestra en un mapa cómo suenan las palabras en distintos idiomas y dialectos. Algunas palabras se recogieron automáticamente o son borradores sin verificar (marca «≈»), por lo que los datos pueden contener errores. El sitio no sustituye a un diccionario ni a una obra de referencia científica.",
+    "contentTitle": "Uso de los contenidos",
+    "content": "Cada palabra y grabación conserva su fuente y su licencia (ver «Fuentes»). Los datos de Wikidata son CC0, las traducciones de Wikcionario CC BY-SA 4.0 (citando la fuente y compartiendo igual), el audio de Wikimedia Commons sigue la licencia de cada archivo. Los datos propios de Dialectio (palabras de los editores, borradores, descripciones, dialectos) están protegidos por derechos de autor; se permite citarlos con un enlace al sitio.",
+    "contributionsTitle": "Tus aportaciones",
+    "contributions": "Al enviar una palabra o una grabación de voz, confirmas que tienes derecho a hacerlo y concedes a Dialectio permiso indefinido y gratuito para usar y publicar la aportación, también con fines comerciales. Las aportaciones aparecen tras la revisión; podemos rechazarlas, corregir su escritura o eliminarlas.",
+    "conductTitle": "Normas de conducta",
+    "conduct": "No envíes contenido ofensivo, falso o ajeno, publicidad ni spam, y no intentes manipular los votos ni sobrecargar el sitio. Podemos limitar el acceso a quien incumpla estas normas.",
+    "liabilityTitle": "Responsabilidad",
+    "liability": "El sitio se ofrece «tal cual», sin garantía de exactitud ni de disponibilidad. No respondemos de las consecuencias del uso de los datos. Los enlaces a otros sitios llevan a recursos de los que son responsables sus propietarios.",
+    "changesTitle": "Cambios",
+    "changes": "Podemos actualizar estas condiciones; la fecha de la última actualización figura al principio de la página.",
+    "contact": "Preguntas y reclamaciones: <link>GitHub</link>."
+  },
+  "Imprint": {
+    "title": "Aviso legal",
+    "metaDescription": "Quién es responsable del sitio Dialectio.",
+    "intro": "Datos del titular del sitio (Impressum) conforme a la legislación de la UE, en particular el §5 DDG (Alemania).",
+    "name": "Responsable",
+    "address": "Dirección",
+    "email": "Correo electrónico",
+    "notConfigured": "Aún no se han añadido los datos de contacto del titular.",
+    "contentNote": "El titular del sitio es responsable de su contenido. Las aportaciones de los visitantes se publican tras su revisión."
   }
 }

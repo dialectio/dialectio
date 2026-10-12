@@ -101,7 +101,9 @@
     "privacy": "Confidentialité",
     "map": "Carte",
     "dialects": "Dialectes",
-    "check": "Vérifier des mots"
+    "check": "Vérifier des mots",
+    "terms": "Conditions d'utilisation",
+    "imprint": "Mentions légales"
   },
   "About": {
     "title": "À propos",
@@ -256,5 +258,40 @@
     "checked": "Vous avez déjà vérifié {count, plural, one {# mot} other {# mots}}. Merci !",
     "howItWorks": "Touches : → oui, ← non, ↓ je ne sais pas. Quand assez de personnes disent oui, le mot reçoit le signe 👥 ; la vérification finale revient à un éditeur.",
     "inEnglish": "en anglais : « {word} »"
+  },
+  "NotFound": {
+    "title": "Page introuvable",
+    "text": "Cette page n'existe pas. L'adresse a peut-être changé ou le mot n'a pas encore été ajouté. Utilisez la recherche ci-dessus ou commencez par la page d'accueil.",
+    "home": "Accueil",
+    "dialects": "Dialectes",
+    "check": "Vérifier des mots"
+  },
+  "Terms": {
+    "title": "Conditions d'utilisation",
+    "metaDescription": "Règles d'utilisation de Dialectio : données, contributions, responsabilité.",
+    "updated": "Mise à jour : 12 octobre 2026",
+    "serviceTitle": "Ce qu'est Dialectio",
+    "service": "Dialectio est un site de vulgarisation qui montre sur une carte comment les mots sonnent dans différentes langues et différents dialectes. Une partie des mots a été collectée automatiquement ou sont des brouillons non vérifiés (signe « ≈ »), les données peuvent donc contenir des erreurs. Le site ne remplace ni un dictionnaire ni un ouvrage scientifique.",
+    "contentTitle": "Utilisation des contenus",
+    "content": "Chaque mot et chaque enregistrement conserve sa source et sa licence (voir « Sources »). Les données Wikidata sont sous CC0, les traductions du Wiktionnaire sous CC BY-SA 4.0 (en citant la source et à l'identique), l'audio de Wikimedia Commons sous la licence de chaque fichier. Les données propres de Dialectio (mots des éditeurs, brouillons, descriptions, dialectes) sont protégées par le droit d'auteur ; la citation avec un lien vers le site est autorisée.",
+    "contributionsTitle": "Vos contributions",
+    "contributions": "En envoyant un mot ou un enregistrement de voix, vous confirmez en avoir le droit et accordez à Dialectio l'autorisation permanente et gratuite d'utiliser et de publier la contribution, y compris à des fins commerciales. Les contributions apparaissent après vérification ; nous pouvons les refuser, en corriger l'orthographe ou les supprimer.",
+    "conductTitle": "Règles de conduite",
+    "conduct": "N'envoyez pas de contenus offensants, faux ou appartenant à autrui, ni publicité ni spam, et n'essayez pas de manipuler les votes ou de surcharger le site. Nous pouvons restreindre l'accès de quiconque enfreint ces règles.",
+    "liabilityTitle": "Responsabilité",
+    "liability": "Le site est fourni « en l'état », sans garantie d'exactitude ni de disponibilité. Nous ne sommes pas responsables des conséquences de l'utilisation des données. Les liens vers d'autres sites mènent à des ressources sous la responsabilité de leurs propriétaires.",
+    "changesTitle": "Modifications",
+    "changes": "Nous pouvons mettre à jour ces conditions ; la date de la dernière mise à jour figure en haut de la page.",
+    "contact": "Questions et réclamations : <link>GitHub</link>."
+  },
+  "Imprint": {
+    "title": "Mentions légales",
+    "metaDescription": "Qui est responsable du site Dialectio.",
+    "intro": "Informations sur l'éditeur du site (Impressum) conformément au droit de l'UE, notamment au §5 DDG (Allemagne).",
+    "name": "Responsable",
+    "address": "Adresse",
+    "email": "E-mail",
+    "notConfigured": "Les coordonnées de l'éditeur n'ont pas encore été ajoutées.",
+    "contentNote": "L'éditeur du site est responsable de son contenu. Les contributions des visiteurs sont publiées après vérification."
   }
 }

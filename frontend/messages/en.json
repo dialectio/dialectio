@@ -101,7 +101,9 @@
     "privacy": "Privacy",
     "map": "Map",
     "dialects": "Dialects",
-    "check": "Check words"
+    "check": "Check words",
+    "terms": "Terms of use",
+    "imprint": "Legal notice"
   },
   "About": {
     "title": "About",
@@ -256,5 +258,40 @@
     "checked": "You have checked {count, plural, one {# word} other {# words}}. Thank you!",
     "howItWorks": "Keys: → yes, ← no, ↓ don't know. Once enough people say yes, a word gets the 👥 mark; an editor makes the final check.",
     "inEnglish": "in English: “{word}”"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "text": "This page doesn't exist. The address may have changed or the word hasn't been added yet. Try the search above or start from the home page.",
+    "home": "Home page",
+    "dialects": "Dialects",
+    "check": "Check words"
+  },
+  "Terms": {
+    "title": "Terms of use",
+    "metaDescription": "Rules for using Dialectio: data, contributions, liability.",
+    "updated": "Updated: 12 October 2026",
+    "serviceTitle": "What Dialectio is",
+    "service": "Dialectio is a popular-science site that shows on a map how words sound in different languages and dialects. Some words were collected automatically or are unverified drafts (marked “≈”), so the data may contain mistakes. The site does not replace a dictionary or a scholarly reference.",
+    "contentTitle": "Using the site's content",
+    "content": "Every word and recording keeps its source and license (see “Sources”). Wikidata data is CC0, Wiktionary translations are CC BY-SA 4.0 (credit the source and share alike), Wikimedia Commons audio follows each file's license. Dialectio's own data (editors' words, drafts, descriptions, dialects) is protected by copyright; quoting with a link to the site is allowed.",
+    "contributionsTitle": "Your contributions",
+    "contributions": "By sending a word or a voice recording, you confirm that you have the right to do so and give Dialectio permanent, free permission to use and publish the contribution, including commercially. Contributions appear after review; we may reject, correct the spelling of or delete a contribution.",
+    "conductTitle": "Conduct",
+    "conduct": "Do not send offensive, false or other people's material, advertising or spam, and do not try to manipulate votes or overload the site. We may restrict access for anyone who breaks these rules.",
+    "liabilityTitle": "Liability",
+    "liability": "The site is provided “as is”, without any guarantee of accuracy or availability. We are not liable for consequences of using the data. Links to other sites lead to resources their owners are responsible for.",
+    "changesTitle": "Changes",
+    "changes": "We may update these terms; the date of the last update is shown at the top of the page.",
+    "contact": "Questions and complaints: <link>GitHub</link>."
+  },
+  "Imprint": {
+    "title": "Legal notice",
+    "metaDescription": "Who is responsible for the Dialectio website.",
+    "intro": "Details of the site operator (Impressum) as required by EU law, in particular §5 DDG (Germany).",
+    "name": "Responsible person",
+    "address": "Address",
+    "email": "Email",
+    "notConfigured": "The operator's contact details have not been added yet.",
+    "contentNote": "The site operator is responsible for the content. Visitors' contributions are published after review."
   }
 }

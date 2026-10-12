@@ -1,10 +1,13 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy import text
+from sqlalchemy.exc import OperationalError
 
 from app.api import contribute, dialect_words, dialects, editor, feedback, lexicon, regions, stats
 from app.config import MEDIA_DIR, MEDIA_URL_PREFIX, settings
+from app.db.session import engine
 
 app = FastAPI(title="Dialectio API", version="0.1.0")
 MEDIA_DIR.mkdir(parents=True, exist_ok=True)
@@ -28,5 +31,12 @@ app.add_middleware(
 
 
 @app.get("/health")
-def health() -> dict[str, str]:
+def health(response: Response) -> dict[str, str]:
+    """For uptime monitoring: also checks that the database answers."""
+    try:
+        with engine.connect() as connection:
+            connection.execute(text("SELECT 1"))
+    except OperationalError:
+        response.status_code = status.HTTP_503_SERVICE_UNAVAILABLE
+        return {"status": "database unavailable"}
     return {"status": "ok"}

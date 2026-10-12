@@ -36,6 +36,9 @@ nano .env.prod   # домен, паролі (див. нижче)
 
 Паролі й секрети в `.env.prod` — випадкові рядки, наприклад з `openssl rand -base64 24`. `EDITOR_TOKEN` — новий, не той, що локально.
 
+Заповни також `IMPRINT_NAME`, `IMPRINT_ADDRESS` (рядки розділяй `
+`) та `IMPRINT_EMAIL`: це сторінка Impressum (`/imprint`). Для сайту з німецькою версією й рекламою вона обов'язкова за §5 DDG. Ці дані лишаються лише на сервері, у git їх немає.
+
 ## 3. Перенесення даних з комп'ютера
 
 База і аудіо не лежать у git, їх треба скопіювати.
@@ -79,11 +82,24 @@ crontab -e
 0 3 * * * /srv/dialectio/deploy/backup.sh >> /srv/dialectio/backups/backup.log 2>&1
 ```
 
-Щодня о 3:00 у `backups/` зберігаються дампи обох баз і архів аудіо за 14 днів. Бекап на тому ж сервері не захищає від втрати сервера, тож варто:
-- увімкнути **Backups** у Hetzner Cloud (+20 % ціни сервера);
-- або раз на тиждень копіювати `backups/` до себе (`scp -r root@<IP>:/srv/dialectio/backups .`).
+Щодня о 3:00 у `backups/` зберігаються дампи обох баз і архів аудіо за 14 днів. Бекап на тому ж сервері не захищає від втрати сервера, тому копії варто відправляти ще й деінде:
 
-## 7. Пошукові системи
+1. Замовити **Hetzner Storage Box** (BX11, ~3,5 €/міс, 1 ТБ) і в його налаштуваннях увімкнути SSH.
+2. На сервері створити ключ і додати його до Storage Box:
+   ```bash
+   ssh-keygen -t ed25519 -N "" -f ~/.ssh/id_ed25519
+   cat ~/.ssh/id_ed25519.pub | ssh -p 23 u123456@u123456.your-storagebox.de install-ssh-key
+   ```
+3. У `.env.prod` вписати `BACKUP_REMOTE=u123456@u123456.your-storagebox.de:dialectio`.
+4. Перевірити: `deploy/backup.sh` — наприкінці має з'явитися `copied to ...`.
+
+Додатково можна ввімкнути **Backups** у Hetzner Cloud (+20 % ціни сервера): це знімок усього сервера.
+
+## 7. Моніторинг
+
+[UptimeRobot](https://uptimerobot.com) (безкоштовно, 50 перевірок): додати HTTP-монітор на `https://<домен>/health` з інтервалом 5 хвилин і сповіщенням на email чи в Telegram. Адреса `/health` перевіряє і API, і базу: якщо щось ляже, прийде лист.
+
+## 8. Пошукові системи
 
 1. [Google Search Console](https://search.google.com/search-console): додати домен (підтвердження через DNS-запис TXT), надіслати `https://<домен>/sitemap.xml`.
 2. [Bing Webmaster Tools](https://www.bing.com/webmasters): імпортувати сайт із Search Console.

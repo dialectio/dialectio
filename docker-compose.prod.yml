@@ -46,6 +46,10 @@ services:
     environment:
       # Server-side rendering talks to the API inside the Docker network.
       API_INTERNAL_URL: http://backend:8000
+      # Legal notice (/imprint)
+      IMPRINT_NAME: ${IMPRINT_NAME:-}
+      IMPRINT_ADDRESS: ${IMPRINT_ADDRESS:-}
+      IMPRINT_EMAIL: ${IMPRINT_EMAIL:-}
     depends_on:
       - backend
 

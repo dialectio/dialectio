@@ -14,4 +14,11 @@ done
 tar -czf "$BACKUPS/media-$STAMP.tar.gz" data/media
 find "$BACKUPS" -name '*.dump' -mtime +14 -delete
 find "$BACKUPS" -name 'media-*.tar.gz' -mtime +14 -delete
+# Copy off the server (a server's own disk does not protect against losing the server).
+# BACKUP_REMOTE, e.g. u123456@u123456.your-storagebox.de:dialectio (Hetzner Storage Box, SSH
+# port 23); the server's SSH key must be added to the remote account.
+if [ -n "${BACKUP_REMOTE:-}" ]; then
+  rsync -az --delete -e "ssh -p ${BACKUP_SSH_PORT:-23}" "$BACKUPS/" "$BACKUP_REMOTE/"
+  echo "$(date -Is) copied to $BACKUP_REMOTE"
+fi
 echo "$(date -Is) backup done"

@@ -101,7 +101,9 @@
     "privacy": "Datenschutz",
     "map": "Karte",
     "dialects": "Dialekte",
-    "check": "Wörter prüfen"
+    "check": "Wörter prüfen",
+    "terms": "Nutzungsbedingungen",
+    "imprint": "Impressum"
   },
   "About": {
     "title": "Über das Projekt",
@@ -256,5 +258,40 @@
     "checked": "Du hast schon {count, plural, one {# Wort} other {# Wörter}} geprüft. Danke!",
     "howItWorks": "Tasten: → ja, ← nein, ↓ weiß nicht. Wenn genug Leute „ja“ sagen, erhält ein Wort das Zeichen 👥; die endgültige Prüfung macht die Redaktion.",
     "inEnglish": "auf Englisch: „{word}“"
+  },
+  "NotFound": {
+    "title": "Seite nicht gefunden",
+    "text": "Diese Seite gibt es nicht. Vielleicht hat sich die Adresse geändert oder das Wort wurde noch nicht hinzugefügt. Nutze die Suche oben oder beginne auf der Startseite.",
+    "home": "Startseite",
+    "dialects": "Dialekte",
+    "check": "Wörter prüfen"
+  },
+  "Terms": {
+    "title": "Nutzungsbedingungen",
+    "metaDescription": "Regeln für die Nutzung von Dialectio: Daten, Beiträge, Haftung.",
+    "updated": "Stand: 12. Oktober 2026",
+    "serviceTitle": "Was Dialectio ist",
+    "service": "Dialectio ist eine populärwissenschaftliche Website, die auf einer Karte zeigt, wie Wörter in verschiedenen Sprachen und Dialekten klingen. Ein Teil der Wörter wurde automatisch gesammelt oder sind ungeprüfte Entwürfe (Zeichen „≈“), daher können die Daten Fehler enthalten. Die Website ersetzt kein Wörterbuch und kein wissenschaftliches Nachschlagewerk.",
+    "contentTitle": "Nutzung der Inhalte",
+    "content": "Jedes Wort und jede Aufnahme behält ihre Quelle und Lizenz (siehe „Quellen“). Wikidata-Daten stehen unter CC0, Übersetzungen aus Wiktionary unter CC BY-SA 4.0 (mit Quellenangabe und unter gleichen Bedingungen), Audio von Wikimedia Commons unter der Lizenz der jeweiligen Datei. Eigene Daten von Dialectio (Wörter der Redaktion, Entwürfe, Beschreibungen, Dialekte) sind urheberrechtlich geschützt; Zitate mit Link zur Website sind erlaubt.",
+    "contributionsTitle": "Deine Beiträge",
+    "contributions": "Mit dem Senden eines Wortes oder einer Sprachaufnahme bestätigst du, dass du dazu berechtigt bist, und erteilst Dialectio die unbefristete, unentgeltliche Erlaubnis, den Beitrag zu nutzen und zu veröffentlichen, auch kommerziell. Beiträge erscheinen nach Prüfung; wir können sie ablehnen, die Schreibung korrigieren oder löschen.",
+    "conductTitle": "Verhaltensregeln",
+    "conduct": "Sende keine beleidigenden, falschen oder fremden Inhalte, keine Werbung und keinen Spam, und versuche nicht, Abstimmungen zu manipulieren oder die Website zu überlasten. Wer gegen diese Regeln verstößt, kann gesperrt werden.",
+    "liabilityTitle": "Haftung",
+    "liability": "Die Website wird „wie besehen“ bereitgestellt, ohne Gewähr für Richtigkeit oder Verfügbarkeit. Für Folgen der Nutzung der Daten haften wir nicht, soweit gesetzlich zulässig. Für verlinkte fremde Websites sind deren Betreiber verantwortlich.",
+    "changesTitle": "Änderungen",
+    "changes": "Wir können diese Bedingungen aktualisieren; das Datum der letzten Änderung steht oben auf der Seite.",
+    "contact": "Fragen und Beschwerden: <link>GitHub</link>."
+  },
+  "Imprint": {
+    "title": "Impressum",
+    "metaDescription": "Wer für die Website Dialectio verantwortlich ist.",
+    "intro": "Angaben gemäß § 5 DDG.",
+    "name": "Verantwortlich",
+    "address": "Anschrift",
+    "email": "E-Mail",
+    "notConfigured": "Die Kontaktdaten des Betreibers wurden noch nicht hinterlegt.",
+    "contentNote": "Verantwortlich für den Inhalt ist der Betreiber der Website. Beiträge von Besuchern werden nach Prüfung veröffentlicht."
   }
 }

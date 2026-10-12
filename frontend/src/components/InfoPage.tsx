@@ -6,14 +6,30 @@ import { Link } from "@/i18n/navigation";
 
 export const GITHUB_ISSUES_URL = "https://github.com/gmisha777/dialectio/issues";
 
-export const INFO_PAGES = ["dialects", "check", "about", "sources", "privacy"] as const;
+export const INFO_PAGES = [
+  "dialects",
+  "check",
+  "about",
+  "sources",
+  "privacy",
+  "terms",
+  "imprint",
+] as const;
+/** The header has room only for these; the legal pages are linked from footers and panels. */
+export const HEADER_PAGES = INFO_PAGES.slice(0, 5);
 
-/** Links to the project pages (About, Sources, Privacy). */
-export function InfoNav({ className = "" }: { className?: string }) {
+/** Links to the project pages (dialects, game, about, sources, legal pages). */
+export function InfoNav({
+  className = "",
+  pages = INFO_PAGES,
+}: {
+  className?: string;
+  pages?: readonly (typeof INFO_PAGES)[number][];
+}) {
   const t = useTranslations("Nav");
   return (
     <nav className={`flex flex-wrap gap-x-4 gap-y-1 text-sm ${className}`}>
-      {INFO_PAGES.map((page) => (
+      {pages.map((page) => (
         <Link key={page} href={`/${page}`} className="opacity-70 hover:underline hover:opacity-100">
           {t(page)}
         </Link>

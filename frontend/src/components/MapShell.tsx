@@ -11,7 +11,7 @@ import {
   useState,
 } from "react";
 
-import { InfoNav } from "@/components/InfoPage";
+import { HEADER_PAGES, InfoNav } from "@/components/InfoPage";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import SearchBox from "@/components/SearchBox";
 import WorldMap, { type SelectedRegion } from "@/components/WorldMap";
@@ -116,7 +116,7 @@ export default function MapShell({ children }: { children: ReactNode }) {
             Dialectio
           </Link>
           <SearchBox onSelect={openHit} />
-          <InfoNav className="hidden shrink-0 lg:flex" />
+          <InfoNav className="hidden shrink-0 lg:flex" pages={HEADER_PAGES} />
           <LocaleSwitcher />
         </header>
         <div className="flex min-h-0 flex-1 flex-col md:flex-row">

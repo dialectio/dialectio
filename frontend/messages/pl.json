@@ -101,7 +101,9 @@
     "privacy": "Prywatność",
     "map": "Mapa",
     "dialects": "Gwary",
-    "check": "Sprawdź słowa"
+    "check": "Sprawdź słowa",
+    "terms": "Regulamin",
+    "imprint": "Nota prawna"
   },
   "About": {
     "title": "O projekcie",
@@ -256,5 +258,40 @@
     "checked": "Sprawdziłeś już {count, plural, one {# słowo} few {# słowa} many {# słów} other {# słowa}}. Dziękujemy!",
     "howItWorks": "Klawisze: → tak, ← nie, ↓ nie wiem. Gdy wystarczająco wiele osób odpowie „tak”, słowo dostanie znak 👥; ostatecznie sprawdza je redaktor.",
     "inEnglish": "po angielsku: „{word}”"
+  },
+  "NotFound": {
+    "title": "Nie znaleziono strony",
+    "text": "Taka strona nie istnieje. Być może adres się zmienił albo słowa jeszcze nie dodano. Skorzystaj z wyszukiwarki u góry albo zacznij od strony głównej.",
+    "home": "Strona główna",
+    "dialects": "Gwary",
+    "check": "Sprawdź słowa"
+  },
+  "Terms": {
+    "title": "Regulamin",
+    "metaDescription": "Zasady korzystania z Dialectio: dane, zgłoszenia, odpowiedzialność.",
+    "updated": "Aktualizacja: 12 października 2026 r.",
+    "serviceTitle": "Czym jest Dialectio",
+    "service": "Dialectio to popularnonaukowa strona, która pokazuje na mapie, jak brzmią słowa w różnych językach i gwarach. Część słów zebrano automatycznie lub to niezweryfikowane szkice (znak „≈”), więc dane mogą zawierać błędy. Strona nie zastępuje słownika ani opracowania naukowego.",
+    "contentTitle": "Korzystanie z treści strony",
+    "content": "Każde słowo i nagranie ma swoje źródło i licencję (zob. „Źródła”). Dane Wikidata — CC0, tłumaczenia z Wikisłownika — CC BY-SA 4.0 (z podaniem źródła i na tych samych warunkach), nagrania Wikimedia Commons — na licencji każdego pliku. Własne dane Dialectio (słowa redaktorów, szkice, opisy, gwary) są chronione prawem autorskim; cytowanie z linkiem do strony jest dozwolone.",
+    "contributionsTitle": "Twoje zgłoszenia",
+    "contributions": "Wysyłając słowo lub nagranie głosu, potwierdzasz, że masz do tego prawo, i udzielasz Dialectio bezterminowej, nieodpłatnej zgody na wykorzystanie i publikację zgłoszenia, także w celach zarobkowych. Zgłoszenia pojawiają się po sprawdzeniu; możemy je odrzucić, poprawić pisownię lub usunąć.",
+    "conductTitle": "Zasady zachowania",
+    "conduct": "Nie wysyłaj treści obraźliwych, fałszywych ani cudzych, reklam i spamu, nie próbuj manipulować głosami ani przeciążać strony. Możemy ograniczyć dostęp osobom łamiącym te zasady.",
+    "liabilityTitle": "Odpowiedzialność",
+    "liability": "Strona jest udostępniana „tak jak jest”, bez gwarancji dokładności ani ciągłości działania. Nie odpowiadamy za skutki korzystania z danych. Linki do innych stron prowadzą do zasobów, za które odpowiadają ich właściciele.",
+    "changesTitle": "Zmiany regulaminu",
+    "changes": "Możemy aktualizować ten regulamin; data aktualizacji jest podana na górze strony.",
+    "contact": "Pytania i skargi: <link>GitHub</link>."
+  },
+  "Imprint": {
+    "title": "Nota prawna",
+    "metaDescription": "Kto odpowiada za stronę Dialectio.",
+    "intro": "Dane właściciela strony (Impressum) zgodnie z wymogami prawa UE, w szczególności §5 DDG (Niemcy).",
+    "name": "Osoba odpowiedzialna",
+    "address": "Adres",
+    "email": "E-mail",
+    "notConfigured": "Dane kontaktowe właściciela nie zostały jeszcze dodane.",
+    "contentNote": "Za treść strony odpowiada jej właściciel. Zgłoszenia odwiedzających są publikowane po sprawdzeniu."
   }
 }
