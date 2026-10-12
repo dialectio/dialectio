@@ -119,12 +119,13 @@ class Form(Base):
     __tablename__ = "form"
     __table_args__ = (
         UniqueConstraint("concept_id", "variety_id", "spelling"),
-        # Word search: prefix (LIKE) and fuzzy (trigram %) matches on lower(spelling)
+        # Word search: prefix (LIKE) and fuzzy (trigram %) matches on search_key(spelling),
+        # the spelling without accents and in Latin script (SQL function, see migrations)
         Index(
-            "ix_form_spelling_trgm",
-            text("lower(spelling)"),
+            "ix_form_search_key_trgm",
+            text("search_key(spelling)"),
             postgresql_using="gin",
-            postgresql_ops={"lower(spelling)": "gin_trgm_ops"},
+            postgresql_ops={"search_key(spelling)": "gin_trgm_ops"},
         ),
     )
 

@@ -31,24 +31,30 @@ UNVERIFIED_SOURCES = {
 
 SessionDep = Annotated[Session, Depends(get_session)]
 
-# Rank: exact match 3, prefix match 2, otherwise trigram similarity (0..1).
+# Rank: exact spelling 3, the same word without accents or in Latin script ("Worterbuch",
+# "kartoplia") 2.8, prefix 2.5, prefix ignoring accents/script 2, else trigram similarity.
+# Matching uses search_key() (SQL function: no accents, Latin script; indexed on spellings).
 # Matches word spellings in any language and concept glosses (en/uk).
 SEARCH = text("""
     WITH candidates AS (
         SELECT f.concept_id, f.spelling AS matched, f.variety_id, f.is_primary
         FROM form f
         WHERE f.status IN ('approved', 'pending')
-          AND (lower(f.spelling) LIKE :prefix ESCAPE '\\' OR lower(f.spelling) % :q)
+          AND (search_key(f.spelling) LIKE :key_prefix ESCAPE '\\'
+               OR search_key(f.spelling) % :key)
         UNION ALL
         SELECT c.id, g.gloss, NULL, true
         FROM concept c, LATERAL (VALUES (c.gloss_en), (c.gloss_uk)) AS g(gloss)
         WHERE g.gloss IS NOT NULL
-          AND (lower(g.gloss) LIKE :prefix ESCAPE '\\' OR similarity(lower(g.gloss), :q) > 0.4)
+          AND (search_key(g.gloss) LIKE :key_prefix ESCAPE '\\'
+               OR similarity(search_key(g.gloss), :key) > 0.4)
     ), scored AS (
         SELECT *,
                CASE WHEN lower(matched) = :q THEN 3
-                    WHEN lower(matched) LIKE :prefix ESCAPE '\\' THEN 2
-                    ELSE similarity(lower(matched), :q) END AS score
+                    WHEN search_key(matched) = :key THEN 2.8
+                    WHEN lower(matched) LIKE :prefix ESCAPE '\\' THEN 2.5
+                    WHEN search_key(matched) LIKE :key_prefix ESCAPE '\\' THEN 2
+                    ELSE similarity(search_key(matched), :key) END AS score
         FROM candidates
     )
     SELECT DISTINCT ON (concept_id) concept_id, matched, variety_id, score
@@ -79,7 +85,14 @@ def search(
     needle = q.strip().lower()
     if not needle:
         return []
-    params = {"q": needle, "prefix": like_prefix(needle), "prefer": prefer}
+    key = session.scalar(text("SELECT search_key(:q)"), {"q": needle}) or needle
+    params = {
+        "q": needle,
+        "prefix": like_prefix(needle),
+        "key": key,
+        "key_prefix": like_prefix(key),
+        "prefer": prefer,
+    }
     # "%" (trigram similarity above this threshold) can use the trigram index on spellings.
     session.execute(
         text("SELECT set_config('pg_trgm.similarity_threshold', :t, true)"), {"t": SIMILARITY}

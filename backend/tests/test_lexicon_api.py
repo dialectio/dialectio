@@ -213,3 +213,10 @@ def test_names_in_extra_interface_languages() -> None:
     assert hutsul["names"]["pl"] == "gwara huculska"
     lviv = client.get("/api/dialects/ukr-boyko").json()["regions"]
     assert {r["code"]: r["names"]["pl"] for r in lviv}["UA-46"] == "obwód lwowski"
+
+
+def test_search_ignores_accents_and_script() -> None:
+    assert search("Worterbuch")[0]["matched_spelling"] == "Wörterbuch"
+    assert search("zrodlo")[0]["matched_spelling"] == "źródło"
+    assert search("kartoplia")[0]["concept"]["slug"] == "potato"  # Latin for "картопля"
+    assert search("картопля")[0]["matched_spelling"] == "картопля"  # exact spelling first
