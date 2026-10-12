@@ -236,3 +236,25 @@ def test_false_friends() -> None:
     assert not any(f == "рука" for f, _ in words)  # one Ukrainian word for both concepts
     assert len(words) == len(pairs)  # no repeated pairs
     assert client.get("/api/false-friends/eng").status_code == 404
+
+
+def test_word_families_colour_the_map_by_origin() -> None:
+    from app.api.families import latin_form, word_families
+
+    words = {
+        code: latin_form(code, word, None)
+        for code, word in {
+            "eng": "tea",
+            "nob": "te",  # links tea and Tee, as in the real data
+            "deu": "Tee",
+            "ukr": "чай",
+            "tur": "çay",
+            "ces": "čaj",
+        }.items()
+    }
+    families = word_families(words)
+    assert families["eng"] == families["deu"] != families["ukr"]
+    assert families["ukr"] == families["tur"] == families["ces"]
+
+    tea = client.get("/api/concepts/by-slug/tea").json()
+    assert any(lang["family"] is not None for lang in tea["languages"])

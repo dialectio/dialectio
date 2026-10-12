@@ -16,6 +16,7 @@ from pydantic import BaseModel
 from sqlalchemy import text
 
 from app.api.lexicon import SessionDep
+from app.romanize import OTHER_CYRILLIC, UKRAINIAN
 
 router = APIRouter(prefix="/api/false-friends", tags=["false friends"])
 
@@ -25,62 +26,6 @@ MIN_LENGTH = 3  # letters in the key: shorter words match by chance
 MAX_PAIRS = 200
 CACHE_SECONDS = 3600
 
-UKRAINIAN = {
-    "а": "a",
-    "б": "b",
-    "в": "v",
-    "г": "h",
-    "ґ": "g",
-    "д": "d",
-    "е": "e",
-    "є": "ie",
-    "ж": "zh",
-    "з": "z",
-    "и": "y",
-    "і": "i",
-    "ї": "i",
-    "й": "i",
-    "к": "k",
-    "л": "l",
-    "м": "m",
-    "н": "n",
-    "о": "o",
-    "п": "p",
-    "р": "r",
-    "с": "s",
-    "т": "t",
-    "у": "u",
-    "ф": "f",
-    "х": "kh",
-    "ц": "ts",
-    "ч": "ch",
-    "ш": "sh",
-    "щ": "shch",
-    "ь": "",
-    "ю": "iu",
-    "я": "ia",
-    "'": "",
-    "’": "",
-    "ʼ": "",
-}
-# Other Cyrillic alphabets: as Ukrainian, but "и" sounds like Ukrainian "і"
-OTHER_CYRILLIC = UKRAINIAN | {
-    "и": "i",
-    "ы": "y",
-    "э": "e",
-    "ё": "io",
-    "ъ": "",
-    "ў": "u",
-    "ј": "i",
-    "љ": "l",
-    "њ": "n",
-    "ћ": "ch",
-    "ђ": "dzh",
-    "џ": "dzh",
-    "ѓ": "g",
-    "ќ": "k",
-    "ѕ": "dz",
-}
 # Latin alphabets: letters and digraphs spelled for the same sound as the Ukrainian romanization
 LATIN = {
     "pol": [

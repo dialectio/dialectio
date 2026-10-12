@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy import func, select, text
 from sqlalchemy.orm import Session, selectinload
 
+from app.api.families import latin_form, word_families
 from app.api.labels import build_labels
 from app.api.schemas import (
     AudioOut,
@@ -247,6 +248,16 @@ def build_detail(session: Session, concept: Concept) -> ConceptDetail:
                 audio=[AudioOut.model_validate(a) for a in form.audio],
             )
         )
+
+    # Word families among languages (not dialects): colours for the "by origin" map.
+    latin = {
+        lang.code: word
+        for lang in languages.values()
+        if lang.kind == "language"
+        and (word := latin_form(lang.code, lang.forms[0].spelling, lang.forms[0].transliteration))
+    }
+    for code, family in word_families(latin).items():
+        next(lang for lang in languages.values() if lang.code == code).family = family
 
     labels = build_labels(session, concept.id)
     summary = ConceptSummary.model_validate(concept)

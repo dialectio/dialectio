@@ -4,6 +4,7 @@ import type { FeatureCollection, Point } from "geojson";
 import {
   createContext,
   type ReactNode,
+  type RefObject,
   useContext,
   useEffect,
   useMemo,
@@ -14,7 +15,10 @@ import {
 import { HEADER_PAGES, InfoNav } from "@/components/InfoPage";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import SearchBox from "@/components/SearchBox";
-import WorldMap, { type SelectedRegion } from "@/components/WorldMap";
+import WorldMap, {
+  type SelectedRegion,
+  type SnapshotFn,
+} from "@/components/WorldMap";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { ConceptDetail, LabelProps, SearchHit } from "@/lib/api";
 
@@ -30,6 +34,8 @@ export type MapView = {
   bounds?: number[] | null;
   /** On phones show the panel above the map (pages where the panel is the main thing) */
   panelFirstOnPhone?: boolean;
+  /** Fill colours by country/region code instead of the plain highlight */
+  colors?: Record<string, string> | null;
 };
 
 /** Ukraine and the neighbouring areas where Ukrainian dialects are spoken. */
@@ -44,6 +50,17 @@ const EMPTY_VIEW: MapView = {
 };
 
 const MapViewContext = createContext<(view: MapView) => void>(() => {});
+const SnapshotContext = createContext<RefObject<SnapshotFn | null> | null>(
+  null,
+);
+
+/** Saves the shared map as an image (null until the map is ready). */
+export function useMapSnapshot(): SnapshotFn | null {
+  const ref = useContext(SnapshotContext);
+  return ref
+    ? (text) => (ref.current ? ref.current(text) : Promise.resolve(null))
+    : null;
+}
 
 /** Pages call this to put their word on the map (the map itself lives in the layout). */
 export function useMapView(view: MapView) {
@@ -55,6 +72,7 @@ export function useMapView(view: MapView) {
     onSelectRegion,
     bounds = null,
     panelFirstOnPhone = false,
+    colors = null,
   } = view;
   const onSelectRef = useRef(onSelectRegion);
   useEffect(() => {
@@ -67,9 +85,18 @@ export function useMapView(view: MapView) {
       selectedCode,
       bounds,
       panelFirstOnPhone,
+      colors,
       onSelectRegion: (r) => onSelectRef.current(r),
     });
-  }, [setView, highlightCodes, labels, selectedCode, bounds, panelFirstOnPhone]);
+  }, [
+    setView,
+    highlightCodes,
+    labels,
+    selectedCode,
+    bounds,
+    panelFirstOnPhone,
+    colors,
+  ]);
   useEffect(() => () => setView(EMPTY_VIEW), [setView]);
 }
 
@@ -78,12 +105,22 @@ export function useConceptOnMap(
   concept: ConceptDetail | null,
   selectedCode: string | null,
   onSelectRegion: (region: SelectedRegion) => void,
+  colors: Record<string, string> | null = null,
 ) {
   const highlightCodes = useMemo(
-    () => (concept ? concept.languages.flatMap((lang) => lang.region_codes) : NO_CODES),
+    () =>
+      concept
+        ? concept.languages.flatMap((lang) => lang.region_codes)
+        : NO_CODES,
     [concept],
   );
-  useMapView({ highlightCodes, labels: concept?.labels ?? null, selectedCode, onSelectRegion });
+  useMapView({
+    highlightCodes,
+    labels: concept?.labels ?? null,
+    selectedCode,
+    onSelectRegion,
+    colors,
+  });
 }
 
 /**
@@ -95,6 +132,7 @@ export default function MapShell({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [view, setView] = useState<MapView>(EMPTY_VIEW);
   const panelRef = useRef<HTMLDivElement>(null);
+  const snapshotRef = useRef<SnapshotFn | null>(null);
 
   const selectRegion = (region: SelectedRegion) => {
     view.onSelectRegion(region);
@@ -110,35 +148,39 @@ export default function MapShell({ children }: { children: ReactNode }) {
 
   return (
     <MapViewContext.Provider value={setView}>
-      <main className="flex h-full flex-col">
-        <header className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-black/10 px-4 py-3 dark:border-white/15">
-          <Link href="/" className="text-xl font-semibold">
-            Dialectio
-          </Link>
-          <SearchBox onSelect={openHit} />
-          <InfoNav className="hidden shrink-0 lg:flex" pages={HEADER_PAGES} />
-          <LocaleSwitcher />
-        </header>
-        <div className="flex min-h-0 flex-1 flex-col md:flex-row">
-          <section className="relative min-h-[50vh] flex-1">
-            <WorldMap
-              highlightCodes={view.highlightCodes}
-              labels={view.labels}
-              selectedCode={view.selectedCode}
-              bounds={view.bounds ?? null}
-              onSelectRegion={selectRegion}
-            />
-          </section>
-          <div
-            ref={panelRef}
-            className={`border-black/10 md:w-96 md:overflow-y-auto md:border-l dark:border-white/15 ${
-              view.panelFirstOnPhone ? "order-first md:order-none" : ""
-            }`}
-          >
-            {children}
+      <SnapshotContext.Provider value={snapshotRef}>
+        <main className="flex h-full flex-col">
+          <header className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-black/10 px-4 py-3 dark:border-white/15">
+            <Link href="/" className="text-xl font-semibold">
+              Dialectio
+            </Link>
+            <SearchBox onSelect={openHit} />
+            <InfoNav className="hidden shrink-0 lg:flex" pages={HEADER_PAGES} />
+            <LocaleSwitcher />
+          </header>
+          <div className="flex min-h-0 flex-1 flex-col md:flex-row">
+            <section className="relative min-h-[50vh] flex-1">
+              <WorldMap
+                highlightCodes={view.highlightCodes}
+                labels={view.labels}
+                selectedCode={view.selectedCode}
+                bounds={view.bounds ?? null}
+                colors={view.colors ?? null}
+                snapshotRef={snapshotRef}
+                onSelectRegion={selectRegion}
+              />
+            </section>
+            <div
+              ref={panelRef}
+              className={`border-black/10 md:w-96 md:overflow-y-auto md:border-l dark:border-white/15 ${
+                view.panelFirstOnPhone ? "order-first md:order-none" : ""
+              }`}
+            >
+              {children}
+            </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </SnapshotContext.Provider>
     </MapViewContext.Provider>
   );
 }

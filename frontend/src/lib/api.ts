@@ -69,6 +69,8 @@ export type LanguageForms = {
   names?: Names;
   region_codes: string[];
   forms: Form[];
+  /** Word family (languages whose words look related; 0 = largest), for the "by origin" map */
+  family?: number | null;
 };
 
 export type LabelProps = {

@@ -1,11 +1,12 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import ConceptPanel from "@/components/ConceptPanel";
 import { useConceptOnMap } from "@/components/MapShell";
+import OriginTools, { familyColors } from "@/components/OriginTools";
 import type { SelectedRegion } from "@/components/WorldMap";
 import { type ConceptDetail, getConcept, localized } from "@/lib/api";
 
@@ -52,6 +53,8 @@ export default function WordView({ initialConcept }: { initialConcept: ConceptDe
   const locale = useLocale();
   const [concept, setConcept] = useState(initialConcept);
   const [region, setRegion] = useState<SelectedRegion | null>(null);
+  const [byOrigin, setByOrigin] = useState(false);
+  const colors = useMemo(() => (byOrigin ? familyColors(concept) : null), [byOrigin, concept]);
 
   // The server-rendered page may be a few minutes old (cache); load the current data so
   // edits and newly approved words show up immediately.
@@ -73,14 +76,19 @@ export default function WordView({ initialConcept }: { initialConcept: ConceptDe
     [initialConcept, locale],
   );
 
-  useConceptOnMap(concept, region?.code ?? null, selectRegion);
+  useConceptOnMap(concept, region?.code ?? null, selectRegion, colors);
 
   return (
     <>
       <Suspense fallback={null}>
         <RegionFromUrl onRegion={regionFromUrl} />
       </Suspense>
-      <ConceptPanel concept={concept} region={region} onClearRegion={() => selectRegion(null)} />
+      <ConceptPanel
+        concept={concept}
+        region={region}
+        onClearRegion={() => selectRegion(null)}
+        tools={<OriginTools concept={concept} byOrigin={byOrigin} onByOrigin={setByOrigin} />}
+      />
     </>
   );
 }

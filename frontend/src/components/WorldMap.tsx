@@ -12,9 +12,15 @@ import type {
   Marker,
 } from "maplibre-gl";
 import { useLocale } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { type RefObject, useEffect, useRef, useState } from "react";
 
 import { API_URL, type LabelProps, localized } from "@/lib/api";
+import { snapshotMap, type SnapshotText } from "@/lib/snapshot";
+
+export type SnapshotFn = (text: SnapshotText) => Promise<Blob | null>;
+
+const HIGHLIGHT_COLORS = { countries: "#2563eb", regions: "#7c3aed" };
+const OTHER_FAMILY = "#9ca3af";
 
 // Basemap: OpenFreeMap vector tiles (free, no key, commercial use allowed); its tiles bring
 // the required OpenFreeMap / OpenMapTiles / OpenStreetMap attribution.
@@ -92,6 +98,8 @@ export default function WorldMap({
   selectedCode,
   onSelectRegion,
   bounds = null,
+  colors = null,
+  snapshotRef,
 }: {
   highlightCodes: string[];
   labels: FeatureCollection<Point, LabelProps> | null;
@@ -99,6 +107,10 @@ export default function WorldMap({
   onSelectRegion: (region: SelectedRegion) => void;
   /** [west, south, east, north]: zoom to it whenever it changes */
   bounds?: number[] | null;
+  /** Fill colours by country/region code (the "by origin" map); others get a neutral grey */
+  colors?: Record<string, string> | null;
+  /** Filled with a function that saves the map as an image */
+  snapshotRef?: RefObject<SnapshotFn | null>;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
@@ -262,6 +274,38 @@ export default function WorldMap({
     m.setFilter("countries-selected", selected);
     m.setFilter("regions-selected", selected);
   }, [loaded, highlightCodes, selectedCode]);
+
+  useEffect(() => {
+    const m = mapRef.current;
+    if (!loaded || !m) return;
+    const entries = Object.entries(colors ?? {});
+    for (const [layer, plain] of [
+      ["countries-highlight", HIGHLIGHT_COLORS.countries],
+      ["regions-highlight", HIGHLIGHT_COLORS.regions],
+    ] as const) {
+      if (entries.length === 0) {
+        m.setPaintProperty(layer, "fill-color", plain);
+        m.setPaintProperty(layer, "fill-opacity", layer === "countries-highlight" ? 0.35 : 0.3);
+      } else {
+        m.setPaintProperty(layer, "fill-color", [
+          "match",
+          ["get", "code"],
+          ...entries.flat(),
+          OTHER_FAMILY,
+        ] as unknown as string);
+        m.setPaintProperty(layer, "fill-opacity", 0.55);
+      }
+    }
+  }, [loaded, colors]);
+
+  useEffect(() => {
+    if (!snapshotRef) return;
+    snapshotRef.current = (text) => {
+      const m = mapRef.current;
+      const container = containerRef.current;
+      return m && container ? snapshotMap(m, container, text) : Promise.resolve(null);
+    };
+  }, [snapshotRef]);
 
   useEffect(() => {
     const m = mapRef.current;

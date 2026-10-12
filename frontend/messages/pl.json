@@ -307,5 +307,13 @@
     "inLanguage": "{language}: {word}",
     "allLanguages": "Wszystkie języki",
     "ukrainian": "ukraiński"
+  },
+  "Origin": {
+    "toggle": "Kolory według pochodzenia słowa",
+    "save": "Zapisz jako obraz",
+    "saving": "Zapisywanie…",
+    "languages": "{count, plural, one {# język} few {# języki} many {# języków} other {# języka}}",
+    "note": "Grupy są automatyczne — według podobieństwa słów, a nie ze słownika etymologicznego.",
+    "snapshotSubtitle": "Jak brzmi to słowo w różnych językach"
   }
 }

@@ -307,5 +307,13 @@
     "inLanguage": "{language}: {word}",
     "allLanguages": "Усі мови",
     "ukrainian": "українська"
+  },
+  "Origin": {
+    "toggle": "Кольори за походженням слова",
+    "save": "Зберегти картинку",
+    "saving": "Збереження…",
+    "languages": "{count, plural, one {# мова} few {# мови} many {# мов} other {# мови}}",
+    "note": "Групи автоматичні — за схожістю слів, а не з етимологічного словника.",
+    "snapshotSubtitle": "Як звучить це слово різними мовами"
   }
 }

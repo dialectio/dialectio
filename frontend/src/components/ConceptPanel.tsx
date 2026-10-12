@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import ContributeDialog from "@/components/ContributeDialog";
 import WordCheck, { type Counts, TrustMark } from "@/components/WordCheck";
@@ -130,10 +130,13 @@ export default function ConceptPanel({
   concept,
   region,
   onClearRegion,
+  tools,
 }: {
   concept: ConceptDetail;
   region: SelectedRegion | null;
   onClearRegion: () => void;
+  /** Extra controls under the heading (colour by origin, save as image) */
+  tools?: ReactNode;
 }) {
   const locale = useLocale();
   const t = useTranslations("Panel");
@@ -168,6 +171,7 @@ export default function ConceptPanel({
             {region.name} ✕
           </button>
         )}
+        {tools}
       </div>
       <button
         type="button"
