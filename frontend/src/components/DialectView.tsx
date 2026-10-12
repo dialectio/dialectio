@@ -72,6 +72,15 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
         <p className="mt-1 text-xs opacity-60">{t("territoryNote")}</p>
       </section>
 
+      <p>
+        <Link
+          href={`/check?deck=${dialect.code}`}
+          className="inline-block rounded-md bg-violet-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-violet-700"
+        >
+          {t("checkCta")}
+        </Link>
+      </p>
+
       <section>
         <h2 className="mb-2 font-medium">
           {t("wordsTitle")}{" "}

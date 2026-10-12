@@ -184,7 +184,8 @@
     "audio": "has a recording",
     "noWords": "No words for this dialect yet. Open any word and click “Know how it’s said where you live?”.",
     "unverifiedNote": "≈ — unverified word: a draft not yet checked by an editor.",
-    "allDialects": "All dialects"
+    "allDialects": "All dialects",
+    "checkCta": "Know this dialect? Check its words →"
   },
   "DialectInfo": {
     "ukr-polissia-west": "The West Polissian dialect is spoken in the Polissia of Volyn and Rivne. It has diphthongs and other vowels in place of old o and e (кунь, нуч for кінь, ніч) and old vocabulary shared with Belarusian dialects.",
@@ -258,7 +259,12 @@
     "wordPage": "word page",
     "checked": "You have checked {count, plural, one {# word} other {# words}}. Thank you!",
     "howItWorks": "Keys: → yes, ← no, ↓ don't know. Once enough people say yes, a word gets the 👥 mark; an editor makes the final check.",
-    "inEnglish": "in English: “{word}”"
+    "inEnglish": "in English: “{word}”",
+    "dialectDecks": "Dialects",
+    "languageDecks": "Other languages",
+    "share": "Share my result",
+    "shareKicker": "Helping to map how people really speak",
+    "shareTitle": "I checked {count} words: {deck}"
   },
   "NotFound": {
     "title": "Page not found",

@@ -186,20 +186,29 @@ def voter_regions(session: SessionDep) -> list[RegionOption]:
 UKRAINIAN_DECK = "ukr"
 CARDS_MAX = 30
 
+# Words to check: unverified ones, and every dialect word (for dialects even checked words are
+# worth a vote: the voters' regions show where the word is really used)
 UNVERIFIED_FORMS = """
     FROM form f
     JOIN variety v ON v.id = f.variety_id
     LEFT JOIN source src ON src.id = f.source_id
     WHERE f.status IN ('approved', 'pending')
-      AND (f.status = 'pending' OR src.name = ANY(:unverified_sources))
+      AND (f.status = 'pending' OR src.name = ANY(:unverified_sources) OR v.kind = 'dialect')
 """
 
+# Ukrainian with all its dialects, each language, and each dialect on its own
 DECKS = text(f"""
-    SELECT CASE WHEN v.code LIKE 'ukr-%' THEN 'ukr' ELSE v.code END AS code,
-           count(*) AS words
-    {UNVERIFIED_FORMS}
-    GROUP BY 1
-    ORDER BY 2 DESC
+    SELECT code, words FROM (
+        SELECT CASE WHEN v.code LIKE 'ukr-%' THEN 'ukr' ELSE v.code END AS code,
+               count(*) AS words
+        {UNVERIFIED_FORMS}
+        GROUP BY 1
+        UNION ALL
+        SELECT v.code, count(*) AS words
+        {UNVERIFIED_FORMS} AND v.kind = 'dialect'
+        GROUP BY 1
+    ) decks
+    ORDER BY words DESC
 """)
 
 CARDS = text("""
@@ -221,7 +230,7 @@ CARDS = text("""
     JOIN concept c ON c.id = f.concept_id AND c.slug IS NOT NULL
     LEFT JOIN source src ON src.id = f.source_id
     WHERE f.status IN ('approved', 'pending')
-      AND (f.status = 'pending' OR src.name = ANY(:unverified_sources))
+      AND (f.status = 'pending' OR src.name = ANY(:unverified_sources) OR v.kind = 'dialect')
       AND (CASE WHEN :deck = 'ukr' THEN v.code = 'ukr' OR v.code LIKE 'ukr-%'
                 ELSE v.code = :deck END)
       AND NOT EXISTS (SELECT 1 FROM vote x WHERE x.form_id = f.id AND x.voter = :voter)
@@ -232,7 +241,8 @@ CARDS = text("""
 
 
 class Deck(BaseModel):
-    code: str  # "ukr" (Ukrainian with its dialects) or a language code
+    code: str  # "ukr" (Ukrainian with its dialects), a language or a dialect code
+    kind: str  # "language" or "dialect"
     name_en: str
     name_uk: str | None
     names: dict[str, str] = {}
@@ -261,14 +271,15 @@ class Card(BaseModel):
 def check_decks(session: SessionDep) -> list[Deck]:
     """Word sets to check: Ukrainian with its dialects, and every language with unverified words."""
     names = {
-        code: (en, uk, local)
-        for code, en, uk, local in session.execute(
-            text("SELECT code, name_en, name_uk, names FROM variety")
+        code: (en, uk, local, kind)
+        for code, en, uk, local, kind in session.execute(
+            text("SELECT code, name_en, name_uk, names, kind FROM variety")
         )
     }
     return [
         Deck(
             code=code,
+            kind=names[code][3],
             name_en=names[code][0],
             name_uk=names[code][1],
             names=names[code][2],

@@ -184,7 +184,8 @@
     "audio": "avec enregistrement",
     "noWords": "Pas encore de mots pour ce dialecte. Ouvrez n'importe quel mot et cliquez sur « Vous savez comment on le dit chez vous ? ».",
     "unverifiedNote": "≈ — mot non vérifié : un brouillon qu'un éditeur n'a pas encore vérifié.",
-    "allDialects": "Tous les dialectes"
+    "allDialects": "Tous les dialectes",
+    "checkCta": "Vous connaissez ce dialecte ? Vérifiez ses mots →"
   },
   "DialectInfo": {
     "ukr-polissia-west": "Le dialecte de Polésie occidentale est parlé dans la Polésie de Volhynie et de Rivne. Il a des diphtongues et d'autres voyelles à la place des anciens o et e (кунь, нуч au lieu de кінь, ніч) et un vocabulaire ancien partagé avec les dialectes biélorusses.",
@@ -258,7 +259,12 @@
     "wordPage": "page du mot",
     "checked": "Vous avez déjà vérifié {count, plural, one {# mot} other {# mots}}. Merci !",
     "howItWorks": "Touches : → oui, ← non, ↓ je ne sais pas. Quand assez de personnes disent oui, le mot reçoit le signe 👥 ; la vérification finale revient à un éditeur.",
-    "inEnglish": "en anglais : « {word} »"
+    "inEnglish": "en anglais : « {word} »",
+    "dialectDecks": "Dialectes",
+    "languageDecks": "Autres langues",
+    "share": "Partager mon résultat",
+    "shareKicker": "J'aide à montrer comment les gens parlent vraiment",
+    "shareTitle": "J'ai vérifié {count} mots : {deck}"
   },
   "NotFound": {
     "title": "Page introuvable",

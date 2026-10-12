@@ -184,7 +184,8 @@
     "audio": "tiene grabación",
     "noWords": "Todavía no hay palabras para este dialecto. Abre cualquier palabra y haz clic en «¿Sabes cómo se dice donde vives?».",
     "unverifiedNote": "≈ — palabra sin verificar: un borrador que un editor aún no ha revisado.",
-    "allDialects": "Todos los dialectos"
+    "allDialects": "Todos los dialectos",
+    "checkCta": "¿Conoces este dialecto? Revisa sus palabras →"
   },
   "DialectInfo": {
     "ukr-polissia-west": "El dialecto de Polesia occidental se habla en la Polesia de Volinia y Rivne. Tiene diptongos y otras vocales en lugar de las antiguas o y e (кунь, нуч en vez de кінь, ніч) y vocabulario antiguo compartido con los dialectos bielorrusos.",
@@ -258,7 +259,12 @@
     "wordPage": "página de la palabra",
     "checked": "Ya has revisado {count, plural, one {# palabra} other {# palabras}}. ¡Gracias!",
     "howItWorks": "Teclas: → sí, ← no, ↓ no lo sé. Cuando suficientes personas dicen que sí, la palabra recibe la marca 👥; la revisión final la hace un editor.",
-    "inEnglish": "en inglés: «{word}»"
+    "inEnglish": "en inglés: «{word}»",
+    "dialectDecks": "Dialectos",
+    "languageDecks": "Otros idiomas",
+    "share": "Compartir mi resultado",
+    "shareKicker": "Ayudo a mostrar cómo habla realmente la gente",
+    "shareTitle": "He revisado {count} palabras: {deck}"
   },
   "NotFound": {
     "title": "Página no encontrada",

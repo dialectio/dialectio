@@ -184,7 +184,8 @@
     "audio": "mit Aufnahme",
     "noWords": "Für diesen Dialekt gibt es noch keine Wörter. Öffne ein beliebiges Wort und klicke auf „Weißt du, wie man es bei euch sagt?“.",
     "unverifiedNote": "≈ — ungeprüftes Wort: ein Entwurf, den die Redaktion noch nicht geprüft hat.",
-    "allDialects": "Alle Dialekte"
+    "allDialects": "Alle Dialekte",
+    "checkCta": "Kennen Sie diesen Dialekt? Prüfen Sie seine Wörter →"
   },
   "DialectInfo": {
     "ukr-polissia-west": "Der westpolessische Dialekt wird im Polesien der Oblaste Wolyn und Riwne gesprochen. Er hat Diphthonge und andere Vokale anstelle der alten o und e (кунь, нуч statt кінь, ніч) sowie alten Wortschatz, den er mit belarussischen Dialekten teilt.",
@@ -258,7 +259,12 @@
     "wordPage": "Wortseite",
     "checked": "Du hast schon {count, plural, one {# Wort} other {# Wörter}} geprüft. Danke!",
     "howItWorks": "Tasten: → ja, ← nein, ↓ weiß nicht. Wenn genug Leute „ja“ sagen, erhält ein Wort das Zeichen 👥; die endgültige Prüfung macht die Redaktion.",
-    "inEnglish": "auf Englisch: „{word}“"
+    "inEnglish": "auf Englisch: „{word}“",
+    "dialectDecks": "Dialekte",
+    "languageDecks": "Andere Sprachen",
+    "share": "Ergebnis teilen",
+    "shareKicker": "Ich helfe zu zeigen, wie Menschen wirklich sprechen",
+    "shareTitle": "Ich habe {count} Wörter geprüft: {deck}"
   },
   "NotFound": {
     "title": "Seite nicht gefunden",

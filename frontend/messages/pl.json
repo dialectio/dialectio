@@ -184,7 +184,8 @@
     "audio": "jest nagranie wymowy",
     "noWords": "Dla tej gwary nie ma jeszcze słów. Otwórz dowolne słowo i kliknij „Wiesz, jak to się mówi u was?”.",
     "unverifiedNote": "≈ — słowo niezweryfikowane: szkic, którego redaktor jeszcze nie sprawdził.",
-    "allDialects": "Wszystkie gwary"
+    "allDialects": "Wszystkie gwary",
+    "checkCta": "Znasz tę gwarę? Sprawdź jej słowa →"
   },
   "DialectInfo": {
     "ukr-polissia-west": "Gwara zachodniopoleska — na Polesiu wołyńskim i rówieńskim. Ma dyftongi i inne samogłoski w miejscu dawnych o, e (кунь, нуч zamiast кінь, ніч) oraz dawne słownictwo wspólne z gwarami białoruskimi.",
@@ -258,7 +259,12 @@
     "wordPage": "strona słowa",
     "checked": "Sprawdziłeś już {count, plural, one {# słowo} few {# słowa} many {# słów} other {# słowa}}. Dziękujemy!",
     "howItWorks": "Klawisze: → tak, ← nie, ↓ nie wiem. Gdy wystarczająco wiele osób odpowie „tak”, słowo dostanie znak 👥; ostatecznie sprawdza je redaktor.",
-    "inEnglish": "po angielsku: „{word}”"
+    "inEnglish": "po angielsku: „{word}”",
+    "dialectDecks": "Gwary",
+    "languageDecks": "Inne języki",
+    "share": "Udostępnij wynik",
+    "shareKicker": "Pomagam pokazać, jak naprawdę mówią ludzie",
+    "shareTitle": "Sprawdziłem/am {count} słów: {deck}"
   },
   "NotFound": {
     "title": "Nie znaleziono strony",
