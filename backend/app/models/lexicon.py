@@ -58,6 +58,12 @@ class Concept(Base):
     # Names and descriptions in the other interface languages: {"pl": "ziemniak", ...}
     glosses: Mapped[dict[str, str]] = mapped_column(JSONB, default=dict, server_default="{}")
     descriptions: Mapped[dict[str, str]] = mapped_column(JSONB, default=dict, server_default="{}")
+    # Where our own descriptions in `descriptions` come from, by locale: "wiktionary" (that
+    # language's Wiktionary) or "machine" (machine translation of the English description).
+    # Descriptions from Wikidata have no entry.
+    description_origins: Mapped[dict[str, str]] = mapped_column(
+        JSONB, default=dict, server_default="{}"
+    )
     wikidata_id: Mapped[str | None] = mapped_column(String(20), unique=True)
     # URL path segment of the concept's page, e.g. "water" or "bark-q38681"
     slug: Mapped[str | None] = mapped_column(String(120), unique=True)

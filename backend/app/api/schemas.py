@@ -18,6 +18,7 @@ class ConceptSummary(ORMModel):
     # Names and descriptions in the other interface languages ({"pl": ..., "de": ...})
     glosses: dict[str, str] = {}
     descriptions: dict[str, str] = {}
+    description_origins: dict[str, str] = {}
 
 
 class ConceptLink(ORMModel):

@@ -145,7 +145,19 @@ def main() -> None:
         qids = [c.wikidata_id for c in concepts if c.wikidata_id]
         descriptions = wikidata_descriptions(qids)
         for concept in concepts:
-            concept.descriptions = descriptions.get(concept.wikidata_id or "", {})
+            found = descriptions.get(concept.wikidata_id or "", {})
+            # Ours (app.importers.definitions) stay where Wikidata has none
+            ours = {
+                locale: text
+                for locale, text in (concept.descriptions or {}).items()
+                if locale in (concept.description_origins or {}) and locale not in found
+            }
+            concept.descriptions = ours | found
+            concept.description_origins = {
+                locale: origin
+                for locale, origin in (concept.description_origins or {}).items()
+                if locale in ours
+            }
         session.commit()
         print(f"Descriptions from Wikidata for {len(descriptions)} of {len(qids)} concepts")
 

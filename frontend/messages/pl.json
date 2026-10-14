@@ -26,7 +26,9 @@
     "playSynthetic": "Odtwórz syntetyczną wymowę",
     "tts": "TTS",
     "unverified": "Niezweryfikowane słowo: szkic, nazwa pojęcia z Wikidata albo tłumaczenie automatyczne — może być niedokładne",
-    "contribute": "🎙 Wiesz, jak to się mówi u was? Dodaj słowo"
+    "contribute": "🎙 Wiesz, jak to się mówi u was? Dodaj słowo",
+    "machineTranslation": "tłumaczenie maszynowe",
+    "wiktionary": "Wikisłownik"
   },
   "Editor": {
     "title": "Word editor: {variety}",

@@ -26,7 +26,9 @@
     "playSynthetic": "Écouter la prononciation synthétique",
     "tts": "TTS",
     "unverified": "Mot non vérifié : un brouillon, le libellé Wikidata du concept ou une traduction automatique — peut être inexact",
-    "contribute": "🎙 Vous savez comment on le dit chez vous ? Ajoutez le mot"
+    "contribute": "🎙 Vous savez comment on le dit chez vous ? Ajoutez le mot",
+    "machineTranslation": "traduction automatique",
+    "wiktionary": "Wiktionnaire"
   },
   "Editor": {
     "title": "Word editor: {variety}",

@@ -126,6 +126,30 @@ function LanguageCard({ language }: { language: LanguageForms }) {
   );
 }
 
+/** Credit for a description from Wiktionary, or a note that it was machine-translated. */
+function DescriptionOrigin({ concept, locale }: { concept: ConceptDetail; locale: string }) {
+  const t = useTranslations("Panel");
+  const origin = concept.description_origins?.[locale];
+  if (origin === "machine") {
+    return <span className="ml-1 text-xs italic">({t("machineTranslation")})</span>;
+  }
+  if (origin === "wiktionary") {
+    // The concept's name in this language is its main word, maybe with a hint in brackets
+    const word = (concept.glosses?.[locale] ?? "").replace(/\s*\(.*\)$/, "");
+    return (
+      <a
+        href={`https://${locale}.wiktionary.org/wiki/${encodeURIComponent(word)}`}
+        target="_blank"
+        rel="noopener"
+        className="ml-1 text-xs underline-offset-2 hover:underline"
+      >
+        ({t("wiktionary")})
+      </a>
+    );
+  }
+  return null;
+}
+
 export default function ConceptPanel({
   concept,
   region,
@@ -158,7 +182,12 @@ export default function ConceptPanel({
         <h1 className="text-lg font-semibold">
           {localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses)}
         </h1>
-        {description && <p className="text-sm opacity-70">{description}</p>}
+        {description && (
+          <p className="text-sm opacity-70">
+            {description}
+            <DescriptionOrigin concept={concept} locale={locale} />
+          </p>
+        )}
         <p className="mt-1 text-xs opacity-60">
           {t("languageCount", { count: concept.languages.filter((l) => l.kind === "language").length })}
         </p>

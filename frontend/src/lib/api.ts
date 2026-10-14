@@ -22,6 +22,8 @@ export type ConceptSummary = {
   description_en: string | null;
   description_uk: string | null;
   descriptions?: Names;
+  /** Where our descriptions come from, by locale: "wiktionary" or "machine" (translation) */
+  description_origins?: Names;
 };
 
 export type SearchHit = {
