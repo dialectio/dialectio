@@ -19,21 +19,33 @@ export async function generateMetadata({
   const dialect = await loadDialect(code);
   if (!dialect) return {};
   const t = await getTranslations({ locale, namespace: "Dialects" });
-  const name = capitalize(localized(locale, dialect.name_en, dialect.name_uk, dialect.names));
+  const name = capitalize(
+    localized(locale, dialect.name_en, dialect.name_uk, dialect.names),
+  );
+  const regional = dialect.kind === "regional";
+  // Dialect words next to the standard Ukrainian word; regional words next to their meaning
   const examples = dialect.words_list
-    .filter((w) => w.standard)
+    .filter((w) => regional || w.standard)
     .slice(0, DESCRIPTION_EXAMPLES)
-    .map((w) => `${w.spelling} — ${w.standard}`)
+    .map(
+      (w) =>
+        `${w.spelling} — ${regional ? localized(locale, w.gloss_en, w.gloss_uk, w.glosses) : w.standard}`,
+    )
     .join(", ");
   return pageMetadata(
     locale,
     `/dialects/${code}`,
     t("pageTitle", { name }),
-    t("pageDescription", { name, examples }),
+    t(regional ? "regionalPageDescription" : "pageDescription", {
+      name,
+      examples,
+    }),
   );
 }
 
-export default async function DialectPage({ params }: PageProps<"/[locale]/dialects/[code]">) {
+export default async function DialectPage({
+  params,
+}: PageProps<"/[locale]/dialects/[code]">) {
   const { locale, code } = await params;
   setRequestLocale(locale);
   const dialect = await loadDialect(code);

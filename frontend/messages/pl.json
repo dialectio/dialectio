@@ -192,7 +192,15 @@
     "noWords": "Dla tej gwary nie ma jeszcze słów. Otwórz dowolne słowo i kliknij „Wiesz, jak to się mówi u was?”.",
     "unverifiedNote": "≈ — słowo niezweryfikowane: szkic, którego redaktor jeszcze nie sprawdził.",
     "allDialects": "Wszystkie gwary",
-    "checkCta": "Znasz tę gwarę? Sprawdź jej słowa →"
+    "checkCta": "Znasz tę gwarę? Sprawdź jej słowa →",
+    "regionalTitle": "Języki regionalne Europy",
+    "regionalIntro": "Języki, którymi mówi się w poszczególnych regionach: walijski w Walii, bretoński w Bretanii, sycylijski na Sycylii. Otwórz język, aby zobaczyć jego region na mapie i słowa.",
+    "regionalWord": "Słowo",
+    "meaning": "Znaczenie",
+    "languageWordsTitle": "Słowa",
+    "shownOf": "Pokazano {shown} z {total} słów; pozostałe są na stronach słów.",
+    "checkCtaLanguage": "Znasz ten język? Sprawdź jego słowa →",
+    "regionalPageDescription": "{name}: {examples} i inne słowa z tłumaczeniem. Gdzie się nim mówi — na mapie."
   },
   "DialectInfo": {
     "ukr-polissia-west": "Gwara zachodniopoleska — na Polesiu wołyńskim i rówieńskim. Ma dyftongi i inne samogłoski w miejscu dawnych o, e (кунь, нуч zamiast кінь, ніч) oraz dawne słownictwo wspólne z gwarami białoruskimi.",
@@ -270,7 +278,9 @@
     "languageDecks": "Inne języki",
     "share": "Udostępnij wynik",
     "shareKicker": "Pomagam pokazać, jak naprawdę mówią ludzie",
-    "shareTitle": "Sprawdziłem/am {count} słów: {deck}"
+    "shareTitle": "Sprawdziłem/am {count} słów: {deck}",
+    "regionalDecks": "Języki regionalne",
+    "shareKickerWorld": "Pomagam pokazać, jak naprawdę mówi świat"
   },
   "NotFound": {
     "title": "Nie znaleziono strony",

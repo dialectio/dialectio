@@ -214,3 +214,12 @@ def test_community_page_counts_votes_by_region(form: dict) -> None:
     assert regions["UA-26"] == old.get("UA-26", 0) + 1
     # The word is a dialect word, so its dialect is among the most checked ones
     assert after["dialects"] and after["dialects"][0]["votes"] >= 1
+
+
+def test_regional_languages_are_decks() -> None:
+    decks = {d["code"]: d for d in client.get("/api/check/decks").json()}
+    assert decks["cym"]["kind"] == "regional" and decks["cym"]["words"] > 100
+    cards = client.get(
+        "/api/check/cards", params={"voter": uuid.uuid4().hex, "deck": "cym", "limit": 5}
+    ).json()
+    assert len(cards) == 5 and all(c["variety_code"] == "cym" for c in cards)

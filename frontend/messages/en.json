@@ -192,7 +192,15 @@
     "noWords": "No words for this dialect yet. Open any word and click “Know how it’s said where you live?”.",
     "unverifiedNote": "≈ — unverified word: a draft not yet checked by an editor.",
     "allDialects": "All dialects",
-    "checkCta": "Know this dialect? Check its words →"
+    "checkCta": "Know this dialect? Check its words →",
+    "regionalTitle": "Regional languages of Europe",
+    "regionalIntro": "Languages spoken in particular regions: Welsh in Wales, Breton in Brittany, Sicilian in Sicily. Open one to see where it is spoken and its words.",
+    "regionalWord": "Word",
+    "meaning": "Meaning",
+    "languageWordsTitle": "Words",
+    "shownOf": "Showing {shown} of {total} words; the rest are on the word pages.",
+    "checkCtaLanguage": "Speak this language? Check its words →",
+    "regionalPageDescription": "{name}: {examples} and other words with translations. Where it is spoken, on the map."
   },
   "DialectInfo": {
     "ukr-polissia-west": "The West Polissian dialect is spoken in the Polissia of Volyn and Rivne. It has diphthongs and other vowels in place of old o and e (кунь, нуч for кінь, ніч) and old vocabulary shared with Belarusian dialects.",
@@ -270,7 +278,9 @@
     "languageDecks": "Other languages",
     "share": "Share my result",
     "shareKicker": "Helping to map how people really speak",
-    "shareTitle": "I checked {count} words: {deck}"
+    "shareTitle": "I checked {count} words: {deck}",
+    "regionalDecks": "Regional languages",
+    "shareKickerWorld": "Helping to show how the world really speaks"
   },
   "NotFound": {
     "title": "Page not found",

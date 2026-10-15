@@ -11,7 +11,21 @@ import { capitalize, type DialectDetail, localized } from "@/lib/api";
 function Breadcrumbs({ dialect }: { dialect: DialectDetail }) {
   const locale = useLocale();
   const t = useTranslations("Dialects");
-  const group = localized(locale, dialect.parent_name_en ?? "", dialect.parent_name_uk, dialect.parent_names);
+  // A dialect's group; for a regional language, its country
+  const group =
+    dialect.kind === "regional"
+      ? localized(
+          locale,
+          dialect.country_en ?? "",
+          dialect.country_uk ?? null,
+          dialect.country_names ?? undefined,
+        )
+      : localized(
+          locale,
+          dialect.parent_name_en ?? "",
+          dialect.parent_name_uk,
+          dialect.parent_names,
+        );
   return (
     <nav className="text-xs opacity-70">
       <Link href="/dialects" className="hover:underline">
@@ -27,7 +41,9 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
   const locale = useLocale();
   const t = useTranslations("Dialects");
   const tInfo = useTranslations("DialectInfo");
-  const name = capitalize(localized(locale, dialect.name_en, dialect.name_uk, dialect.names));
+  const name = capitalize(
+    localized(locale, dialect.name_en, dialect.name_uk, dialect.names),
+  );
 
   // One violet label per region of the dialect's area, named after the region.
   const labels = useMemo<MapLabels>(
@@ -58,13 +74,18 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
     bounds: dialect.bounds,
   });
 
-  const territory = dialect.regions.map((r) => localized(locale, r.name_en, r.name_uk, r.names));
+  const territory = dialect.regions.map((r) =>
+    localized(locale, r.name_en, r.name_uk, r.names),
+  );
+  const regional = dialect.kind === "regional";
 
   return (
     <article className="space-y-4 p-4">
       <Breadcrumbs dialect={dialect} />
       <h1 className="font-serif text-2xl font-semibold">{name}</h1>
-      {tInfo.has(dialect.code) && <p className="text-sm leading-relaxed">{tInfo(dialect.code)}</p>}
+      {tInfo.has(dialect.code) && (
+        <p className="text-sm leading-relaxed">{tInfo(dialect.code)}</p>
+      )}
 
       <section className="text-sm">
         <h2 className="font-medium">{t("territory")}</h2>
@@ -77,13 +98,13 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
           href={`/check?deck=${dialect.code}`}
           className="inline-block rounded-md bg-violet-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-violet-700"
         >
-          {t("checkCta")}
+          {regional ? t("checkCtaLanguage") : t("checkCta")}
         </Link>
       </p>
 
       <section>
         <h2 className="mb-2 font-medium">
-          {t("wordsTitle")}{" "}
+          {regional ? t("languageWordsTitle") : t("wordsTitle")}{" "}
           <span className="text-sm font-normal opacity-60">
             ({t("words", { count: dialect.words })})
           </span>
@@ -95,8 +116,12 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
             <table className="w-full text-left text-sm">
               <thead className="border-b border-black/15 dark:border-white/20">
                 <tr>
-                  <th className="py-1.5 pr-3 font-medium">{t("dialectWord")}</th>
-                  <th className="py-1.5 font-medium">{t("standardWord")}</th>
+                  <th className="py-1.5 pr-3 font-medium">
+                    {regional ? t("regionalWord") : t("dialectWord")}
+                  </th>
+                  <th className="py-1.5 font-medium">
+                    {regional ? t("meaning") : t("standardWord")}
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -106,7 +131,15 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
                     className="border-b border-black/5 dark:border-white/10"
                   >
                     <td className="py-1.5 pr-3 font-semibold text-violet-800 dark:text-violet-300">
-                      {word.standard?.toLowerCase() === word.spelling.toLowerCase() ? (
+                      {regional ? (
+                        <Link
+                          href={`/word/${word.slug}`}
+                          className="underline-offset-2 hover:underline"
+                        >
+                          {word.spelling}
+                        </Link>
+                      ) : word.standard?.toLowerCase() ===
+                        word.spelling.toLowerCase() ? (
                         word.spelling
                       ) : (
                         <Link
@@ -116,22 +149,44 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
                           {word.spelling}
                         </Link>
                       )}
-                      {word.unverified && <span className="ml-1 font-normal opacity-60">≈</span>}
+                      {word.unverified && (
+                        <span className="ml-1 font-normal opacity-60">≈</span>
+                      )}
                       {word.has_audio && (
-                        <span className="ml-1 font-normal opacity-60" title={t("audio")}>
+                        <span
+                          className="ml-1 font-normal opacity-60"
+                          title={t("audio")}
+                        >
                           ▶
                         </span>
                       )}
                     </td>
                     <td className="py-1.5">
-                      <Link href={`/word/${word.slug}`} className="underline-offset-2 hover:underline">
-                        {word.standard ?? localized(locale, word.gloss_en, word.gloss_uk, word.glosses)}
+                      <Link
+                        href={`/word/${word.slug}`}
+                        className="underline-offset-2 hover:underline"
+                      >
+                        {(!regional && word.standard) ||
+                          localized(
+                            locale,
+                            word.gloss_en,
+                            word.gloss_uk,
+                            word.glosses,
+                          )}
                       </Link>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            {dialect.words_list.length < dialect.words && (
+              <p className="mt-2 text-xs opacity-60">
+                {t("shownOf", {
+                  shown: dialect.words_list.length,
+                  total: dialect.words,
+                })}
+              </p>
+            )}
             <p className="mt-2 text-xs opacity-60">{t("unverifiedNote")}</p>
           </>
         )}

@@ -170,8 +170,10 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
         deck: deckName(currentDeck),
       });
       const footer = `${new URL(SITE_URL).host}/${locale}/check?deck=${deck}`;
+      // Ukrainian decks help keep its dialects; the others show how the world speaks
+      const ukrainian = deck === UKRAINIAN_DECK || deck.startsWith(`${UKRAINIAN_DECK}-`);
       const blob = await resultCard({
-        kicker: t("shareKicker"),
+        kicker: t(ukrainian ? "shareKicker" : "shareKickerWorld"),
         title,
         footer,
       });
@@ -221,13 +223,8 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
                 {deckName(d)} ({d.words})
               </option>
             ))}
-          {(["dialect", "language"] as const).map((kind) => (
-            <optgroup
-              key={kind}
-              label={
-                kind === "dialect" ? t("dialectDecks") : t("languageDecks")
-              }
-            >
+          {(["dialect", "regional", "language"] as const).map((kind) => (
+            <optgroup key={kind} label={t(`${kind}Decks`)}>
               {decks
                 .filter((d) => d.kind === kind && d.code !== UKRAINIAN_DECK)
                 .map((d) => (

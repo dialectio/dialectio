@@ -17,6 +17,7 @@ from pydantic import BaseModel, Field, field_validator
 from sqlalchemy import func, select, text
 from sqlalchemy.dialects.postgresql import insert
 
+from app.api.dialects import REGIONAL
 from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
 from app.models import (
     PUBLIC_STATUSES,
@@ -193,14 +194,15 @@ def voter_regions(session: SessionDep) -> list[RegionOption]:
 UKRAINIAN_DECK = "ukr"
 CARDS_MAX = 30
 
-# Words to check: unverified ones, and every dialect word (for dialects even checked words are
-# worth a vote: the voters' regions show where the word is really used)
-UNVERIFIED_FORMS = """
+# Words to check: unverified ones, and every word of a dialect or regional language (for them
+# even checked words are worth a vote: the voters' regions show where the word is really used)
+CHECKABLE = f"""(f.status = 'pending' OR src.name = ANY(:unverified_sources)
+                 OR v.kind = 'dialect' OR {REGIONAL})"""
+UNVERIFIED_FORMS = f"""
     FROM form f
     JOIN variety v ON v.id = f.variety_id
     LEFT JOIN source src ON src.id = f.source_id
-    WHERE f.status IN ('approved', 'pending')
-      AND (f.status = 'pending' OR src.name = ANY(:unverified_sources) OR v.kind = 'dialect')
+    WHERE f.status IN ('approved', 'pending') AND {CHECKABLE}
 """
 
 # Ukrainian with all its dialects, each language, and each dialect on its own
@@ -218,7 +220,7 @@ DECKS = text(f"""
     ORDER BY words DESC
 """)
 
-CARDS = text("""
+CARDS = text(f"""
     SELECT f.id AS form_id, f.spelling, v.code AS variety_code, v.kind,
            v.name_en AS variety_name_en, v.name_uk AS variety_name_uk,
            v.names AS variety_names, c.slug, c.gloss_en, c.gloss_uk, c.glosses,
@@ -230,14 +232,14 @@ CARDS = text("""
               AND s.status IN ('approved', 'pending') LIMIT 1) AS english,
            coalesce((SELECT array_agg(r.code ORDER BY r.code)
                      FROM variety_region vr JOIN region r ON r.id = vr.region_id
-                     WHERE vr.variety_id = v.id), '{}') AS region_codes,
+                     WHERE vr.variety_id = v.id), '{{}}') AS region_codes,
            (SELECT count(*) FROM vote x WHERE x.form_id = f.id) AS votes
     FROM form f
     JOIN variety v ON v.id = f.variety_id
     JOIN concept c ON c.id = f.concept_id AND c.slug IS NOT NULL
     LEFT JOIN source src ON src.id = f.source_id
     WHERE f.status IN ('approved', 'pending')
-      AND (f.status = 'pending' OR src.name = ANY(:unverified_sources) OR v.kind = 'dialect')
+      AND {CHECKABLE}
       AND (CASE WHEN :deck = 'ukr' THEN v.code = 'ukr' OR v.code LIKE 'ukr-%'
                 ELSE v.code = :deck END)
       AND NOT EXISTS (SELECT 1 FROM vote x WHERE x.form_id = f.id AND x.voter = :voter)
@@ -249,7 +251,7 @@ CARDS = text("""
 
 class Deck(BaseModel):
     code: str  # "ukr" (Ukrainian with its dialects), a language or a dialect code
-    kind: str  # "language" or "dialect"
+    kind: str  # "language", "regional" (regional language) or "dialect"
     name_en: str
     name_uk: str | None
     names: dict[str, str] = {}
@@ -278,9 +280,9 @@ class Card(BaseModel):
 def check_decks(session: SessionDep) -> list[Deck]:
     """Word sets to check: Ukrainian with its dialects, and every language with unverified words."""
     names = {
-        code: (en, uk, local, kind)
-        for code, en, uk, local, kind in session.execute(
-            text("SELECT code, name_en, name_uk, names, kind FROM variety")
+        code: (en, uk, local, "regional" if regional else kind)
+        for code, en, uk, local, kind, regional in session.execute(
+            text(f"SELECT code, name_en, name_uk, names, kind, {REGIONAL} FROM variety v")
         )
     }
     return [

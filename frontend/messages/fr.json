@@ -192,7 +192,15 @@
     "noWords": "Pas encore de mots pour ce dialecte. Ouvrez n'importe quel mot et cliquez sur « Vous savez comment on le dit chez vous ? ».",
     "unverifiedNote": "≈ — mot non vérifié : un brouillon qu'un éditeur n'a pas encore vérifié.",
     "allDialects": "Tous les dialectes",
-    "checkCta": "Vous connaissez ce dialecte ? Vérifiez ses mots →"
+    "checkCta": "Vous connaissez ce dialecte ? Vérifiez ses mots →",
+    "regionalTitle": "Langues régionales d'Europe",
+    "regionalIntro": "Des langues parlées dans certaines régions : le gallois au pays de Galles, le breton en Bretagne, le sicilien en Sicile. Ouvrez-en une pour voir sa région sur la carte et ses mots.",
+    "regionalWord": "Mot",
+    "meaning": "Sens",
+    "languageWordsTitle": "Mots",
+    "shownOf": "{shown} mots sur {total} ; les autres sont sur les pages des mots.",
+    "checkCtaLanguage": "Vous parlez cette langue ? Vérifiez ses mots →",
+    "regionalPageDescription": "{name} : {examples} et d'autres mots avec leur traduction. Où on la parle, sur la carte."
   },
   "DialectInfo": {
     "ukr-polissia-west": "Le dialecte de Polésie occidentale est parlé dans la Polésie de Volhynie et de Rivne. Il a des diphtongues et d'autres voyelles à la place des anciens o et e (кунь, нуч au lieu de кінь, ніч) et un vocabulaire ancien partagé avec les dialectes biélorusses.",
@@ -270,7 +278,9 @@
     "languageDecks": "Autres langues",
     "share": "Partager mon résultat",
     "shareKicker": "J'aide à montrer comment les gens parlent vraiment",
-    "shareTitle": "J'ai vérifié {count} mots : {deck}"
+    "shareTitle": "J'ai vérifié {count} mots : {deck}",
+    "regionalDecks": "Langues régionales",
+    "shareKickerWorld": "J'aide à montrer comment le monde parle vraiment"
   },
   "NotFound": {
     "title": "Page introuvable",

@@ -1,4 +1,6 @@
-"""Dialect pages: the list of dialects and each dialect's territory and words."""
+"""Dialect pages: the list of dialects and regional languages, and each one's territory and
+words. Regional languages (Welsh, Sicilian ...) are languages mapped to regions only; their
+pages work like dialect pages."""
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
@@ -8,16 +10,39 @@ from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
 
 router = APIRouter(prefix="/api/dialects", tags=["dialects"])
 
+# A regional language: mapped to regions only, not to whole countries (alias `v` = variety)
+REGIONAL = """(v.kind = 'language'
+    AND EXISTS (SELECT 1 FROM variety_region vr WHERE vr.variety_id = v.id)
+    AND NOT EXISTS (SELECT 1 FROM variety_region vr JOIN region r ON r.id = vr.region_id
+                    WHERE vr.variety_id = v.id AND r.level <> 'adm1'))"""
+# Dialect pages list at most this many words (a regional language can have thousands)
+MAX_WORDS = 300
+# The country holding most of the variety's regions, for grouping regional languages
+# (Alemannic: Switzerland rather than Austria's one Vorarlberg)
+COUNTRY = """
+    LEFT JOIN LATERAL (
+        SELECT c.code AS country_code, c.name_en AS country_en, c.name_uk AS country_uk,
+               c.names AS country_names
+        FROM variety_region vr JOIN region r ON r.id = vr.region_id
+        JOIN region c ON c.id = r.parent_id
+        WHERE vr.variety_id = v.id
+        GROUP BY c.id ORDER BY count(*) DESC, c.code LIMIT 1
+    ) country ON true"""
+
 
 class DialectSummary(BaseModel):
     code: str
-    kind: str  # "dialect_group" or "dialect"
+    kind: str  # "dialect_group", "dialect" or "regional" (regional language)
     name_en: str
     name_uk: str | None
     names: dict[str, str] = {}
     parent_code: str | None
     words: int
     region_codes: list[str] = []
+    country_code: str | None = None
+    country_en: str | None = None
+    country_uk: str | None = None
+    country_names: dict[str, str] | None = None
 
 
 class DialectRegion(BaseModel):
@@ -51,16 +76,19 @@ class DialectDetail(DialectSummary):
     words_list: list[DialectWord]
 
 
-LIST = text("""
-    SELECT v.code, v.kind, v.name_en, v.name_uk, v.names, p.code AS parent_code,
+KIND = "CASE WHEN v.kind = 'language' THEN 'regional' ELSE v.kind END"
+LIST = text(f"""
+    SELECT v.code, {KIND} AS kind, v.name_en, v.name_uk, v.names, p.code AS parent_code,
            (SELECT count(*) FROM form f
             WHERE f.variety_id = v.id AND f.status IN ('approved', 'pending')) AS words,
            coalesce((SELECT array_agg(r.code ORDER BY r.code)
                      FROM variety_region vr JOIN region r ON r.id = vr.region_id
-                     WHERE vr.variety_id = v.id), '{}') AS region_codes
+                     WHERE vr.variety_id = v.id), '{{}}') AS region_codes,
+           country.*
     FROM variety v
     LEFT JOIN variety p ON p.id = v.parent_id
-    WHERE v.kind IN ('dialect_group', 'dialect')
+    {COUNTRY}
+    WHERE v.kind IN ('dialect_group', 'dialect') OR {REGIONAL}
     ORDER BY v.code
 """)
 
@@ -93,6 +121,12 @@ WORDS = text("""
     WHERE f.variety_id = :variety_id AND f.status IN ('approved', 'pending')
       AND c.slug IS NOT NULL
     ORDER BY coalesce(c.gloss_uk, c.gloss_en), f.is_primary DESC, f.spelling
+    LIMIT :limit
+""")
+WORD_COUNT = text("""
+    SELECT count(*) FROM form f JOIN concept c ON c.id = f.concept_id
+    WHERE f.variety_id = :variety_id AND f.status IN ('approved', 'pending')
+      AND c.slug IS NOT NULL
 """)
 
 
@@ -105,12 +139,14 @@ def list_dialects(session: SessionDep) -> list[DialectSummary]:
 def dialect_detail(session: SessionDep, code: str) -> DialectDetail:
     row = (
         session.execute(
-            text("""
-            SELECT v.id, v.code, v.kind, v.name_en, v.name_uk, v.names, p.code AS parent_code,
-                   p.name_en AS parent_name_en, p.name_uk AS parent_name_uk,
-                   p.names AS parent_names
+            text(f"""
+            SELECT v.id, v.code, {KIND} AS kind, v.name_en, v.name_uk, v.names,
+                   p.code AS parent_code, p.name_en AS parent_name_en,
+                   p.name_uk AS parent_name_uk,
+                   coalesce(p.names, '{{}}') AS parent_names, country.*
             FROM variety v LEFT JOIN variety p ON p.id = v.parent_id
-            WHERE v.code = :code AND v.kind = 'dialect'
+            {COUNTRY}
+            WHERE v.code = :code AND (v.kind = 'dialect' OR {REGIONAL})
         """),
             {"code": code},
         )
@@ -126,12 +162,13 @@ def dialect_detail(session: SessionDep, code: str) -> DialectDetail:
     words = [
         DialectWord(**w)
         for w in session.execute(
-            WORDS, {**params, "unverified_sources": list(UNVERIFIED_SOURCES)}
+            WORDS,
+            {**params, "unverified_sources": list(UNVERIFIED_SOURCES), "limit": MAX_WORDS},
         ).mappings()
     ]
     return DialectDetail(
         **{k: v for k, v in row.items() if k != "id"},
-        words=len(words),
+        words=session.scalar(WORD_COUNT, params) or 0,
         region_codes=[r.code for r in regions],
         regions=regions,
         bounds=list(bounds) if bounds and bounds[0] is not None else None,

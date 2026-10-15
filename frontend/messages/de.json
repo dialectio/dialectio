@@ -192,7 +192,15 @@
     "noWords": "Für diesen Dialekt gibt es noch keine Wörter. Öffne ein beliebiges Wort und klicke auf „Weißt du, wie man es bei euch sagt?“.",
     "unverifiedNote": "≈ — ungeprüftes Wort: ein Entwurf, den die Redaktion noch nicht geprüft hat.",
     "allDialects": "Alle Dialekte",
-    "checkCta": "Kennen Sie diesen Dialekt? Prüfen Sie seine Wörter →"
+    "checkCta": "Kennen Sie diesen Dialekt? Prüfen Sie seine Wörter →",
+    "regionalTitle": "Regionalsprachen Europas",
+    "regionalIntro": "Sprachen, die in einzelnen Regionen gesprochen werden: Walisisch in Wales, Bretonisch in der Bretagne, Sizilianisch auf Sizilien. Öffnen Sie eine, um ihr Gebiet auf der Karte und ihre Wörter zu sehen.",
+    "regionalWord": "Wort",
+    "meaning": "Bedeutung",
+    "languageWordsTitle": "Wörter",
+    "shownOf": "{shown} von {total} Wörtern; die übrigen stehen auf den Wortseiten.",
+    "checkCtaLanguage": "Sprechen Sie diese Sprache? Prüfen Sie ihre Wörter →",
+    "regionalPageDescription": "{name}: {examples} und weitere Wörter mit Übersetzung. Wo sie gesprochen wird, auf der Karte."
   },
   "DialectInfo": {
     "ukr-polissia-west": "Der westpolessische Dialekt wird im Polesien der Oblaste Wolyn und Riwne gesprochen. Er hat Diphthonge und andere Vokale anstelle der alten o und e (кунь, нуч statt кінь, ніч) sowie alten Wortschatz, den er mit belarussischen Dialekten teilt.",
@@ -270,7 +278,9 @@
     "languageDecks": "Andere Sprachen",
     "share": "Ergebnis teilen",
     "shareKicker": "Ich helfe zu zeigen, wie Menschen wirklich sprechen",
-    "shareTitle": "Ich habe {count} Wörter geprüft: {deck}"
+    "shareTitle": "Ich habe {count} Wörter geprüft: {deck}",
+    "regionalDecks": "Regionalsprachen",
+    "shareKickerWorld": "Ich helfe zu zeigen, wie die Welt wirklich spricht"
   },
   "NotFound": {
     "title": "Seite nicht gefunden",

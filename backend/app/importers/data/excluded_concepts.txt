@@ -68,3 +68,13 @@ Q2547819   # wall (duplicate sense)
 Q42213     # work, physics
 Q386724    # work, creation
 Q1189047   # romantic love (duplicate of love)
+# Duplicates and off-topic senses that came with a Wikidata re-import (2026-10-15)
+Q19267375  # proximity (duplicate of the Wiktionary concept)
+Q107998873 # dirty (duplicate)
+Q6120      # Erinaceinae, the hedgehog subfamily (duplicate of hedgehog)
+Q9482      # Sciuridae, the squirrel family (duplicate of squirrel)
+Q37654     # market (duplicate)
+Q102231    # Rosa, the rose genus (duplicate of rose)
+Q534932    # tonic, musical key ("key")
+Q188860    # software library
+Q17991521  # tale (duplicate of fairy tale)

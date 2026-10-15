@@ -228,13 +228,19 @@ export async function listFeaturedConcepts(limit = 12) {
 
 export type DialectSummary = {
   code: string;
-  kind: "dialect_group" | "dialect";
+  /** "regional": a regional language (Welsh, Sicilian ...), shown like a dialect */
+  kind: "dialect_group" | "dialect" | "regional";
   name_en: string;
   name_uk: string | null;
   names?: Names;
   parent_code: string | null;
   words: number;
   region_codes: string[];
+  /** The country of its (first) region, for grouping regional languages */
+  country_code?: string | null;
+  country_en?: string | null;
+  country_uk?: string | null;
+  country_names?: Names | null;
 };
 
 export type DialectWord = {

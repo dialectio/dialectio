@@ -192,7 +192,15 @@
     "noWords": "Todavía no hay palabras para este dialecto. Abre cualquier palabra y haz clic en «¿Sabes cómo se dice donde vives?».",
     "unverifiedNote": "≈ — palabra sin verificar: un borrador que un editor aún no ha revisado.",
     "allDialects": "Todos los dialectos",
-    "checkCta": "¿Conoces este dialecto? Revisa sus palabras →"
+    "checkCta": "¿Conoces este dialecto? Revisa sus palabras →",
+    "regionalTitle": "Lenguas regionales de Europa",
+    "regionalIntro": "Lenguas que se hablan en regiones concretas: el galés en Gales, el bretón en Bretaña, el siciliano en Sicilia. Abre una para ver su territorio en el mapa y sus palabras.",
+    "regionalWord": "Palabra",
+    "meaning": "Significado",
+    "languageWordsTitle": "Palabras",
+    "shownOf": "Se muestran {shown} de {total} palabras; el resto está en las páginas de cada palabra.",
+    "checkCtaLanguage": "¿Hablas esta lengua? Revisa sus palabras →",
+    "regionalPageDescription": "{name}: {examples} y otras palabras con traducción. Dónde se habla, en el mapa."
   },
   "DialectInfo": {
     "ukr-polissia-west": "El dialecto de Polesia occidental se habla en la Polesia de Volinia y Rivne. Tiene diptongos y otras vocales en lugar de las antiguas o y e (кунь, нуч en vez de кінь, ніч) y vocabulario antiguo compartido con los dialectos bielorrusos.",
@@ -270,7 +278,9 @@
     "languageDecks": "Otros idiomas",
     "share": "Compartir mi resultado",
     "shareKicker": "Ayudo a mostrar cómo habla realmente la gente",
-    "shareTitle": "He revisado {count} palabras: {deck}"
+    "shareTitle": "He revisado {count} palabras: {deck}",
+    "regionalDecks": "Lenguas regionales",
+    "shareKickerWorld": "Ayudo a mostrar cómo habla realmente el mundo"
   },
   "NotFound": {
     "title": "Página no encontrada",

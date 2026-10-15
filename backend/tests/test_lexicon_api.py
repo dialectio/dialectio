@@ -169,6 +169,19 @@ def test_dialect_list_and_page() -> None:
     assert client.get("/api/dialects/nope").status_code == 404
 
 
+def test_regional_languages_have_pages_like_dialects() -> None:
+    regional = {d["code"]: d for d in client.get("/api/dialects").json() if d["kind"] == "regional"}
+    assert {"cym", "bre", "scn"} <= set(regional)
+    assert regional["gsw"]["country_code"] == "CHE"  # the country with most of its regions
+    assert "deu" not in regional and "rue" not in regional  # whole-country / left-out languages
+
+    welsh = client.get("/api/dialects/cym").json()
+    assert welsh["kind"] == "regional" and welsh["country_code"] == "GBR"
+    assert [r["code"] for r in welsh["regions"]] == ["GB-WLS"]
+    assert 0 < len(welsh["words_list"]) <= 300 <= welsh["words"]
+    assert client.get("/api/dialects/deu").status_code == 404  # a national language
+
+
 def test_dialect_word_page() -> None:
     words = client.get("/api/dialect-words").json()
     assert "бараболя" in words

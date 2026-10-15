@@ -115,7 +115,7 @@ export async function listVoterRegions(): Promise<RegionOption[]> {
 
 export type Deck = {
   code: string;
-  kind: "language" | "dialect";
+  kind: "language" | "regional" | "dialect";
   name_en: string;
   name_uk: string | null;
   names?: Names;
