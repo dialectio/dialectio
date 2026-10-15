@@ -75,8 +75,11 @@ function regionName(locale: string, props: RegionProps): string {
   );
 }
 
-// Minimum free space between two visible word labels, in pixels.
+// Minimum free space between two visible word labels, in pixels: more when zoomed out to the
+// world, so it shows a readable handful of words instead of a carpet.
 const LABEL_GAP = 2;
+const LABEL_GAP_ZOOMED_OUT = 14;
+const ZOOMED_OUT = 4;
 
 // Fill opacity that brightens the feature under the cursor.
 const hoverOpacity = (base: number): DataDrivenPropertyValueSpecification<number> => [
@@ -360,6 +363,7 @@ export default function WorldMap({
     // important one. Overlaps only change with zoom, so re-check on zoom, not on pan.
     const declutter = () => {
       const zoomedIn = m.getZoom() >= REGIONS_MIN_ZOOM;
+      const gap = m.getZoom() < ZOOMED_OUT ? LABEL_GAP_ZOOMED_OUT : LABEL_GAP;
       const shown: DOMRect[] = [];
       for (const marker of markersRef.current) {
         const el = marker.getElement();
@@ -373,10 +377,10 @@ export default function WorldMap({
         const rect = el.getBoundingClientRect();
         const overlaps = shown.some(
           (r) =>
-            rect.left < r.right + LABEL_GAP &&
-            rect.right + LABEL_GAP > r.left &&
-            rect.top < r.bottom + LABEL_GAP &&
-            rect.bottom + LABEL_GAP > r.top,
+            rect.left < r.right + gap &&
+            rect.right + gap > r.left &&
+            rect.top < r.bottom + gap &&
+            rect.bottom + gap > r.top,
         );
         if (overlaps) el.style.visibility = "hidden";
         else shown.push(rect);
@@ -388,6 +392,15 @@ export default function WorldMap({
       m.off("zoomend", declutter);
     };
   }, [loaded, labels]);
+
+  // With colours by origin, each word label gets its family's colour mark.
+  useEffect(() => {
+    for (const marker of markersRef.current) {
+      const el = marker.getElement();
+      const color = colors?.[el.dataset.code ?? ""];
+      el.style.borderLeft = color ? `4px solid ${color}` : "";
+    }
+  }, [colors, labels, loaded]);
 
   const hoveredName = hovered && regionName(locale, hovered);
 

@@ -1,12 +1,22 @@
 "use client";
 
 import { useLocale } from "next-intl";
-import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useSearchParams } from "next/navigation";
 
 import ConceptPanel from "@/components/ConceptPanel";
 import { useConceptOnMap } from "@/components/MapShell";
-import OriginTools, { familyColors } from "@/components/OriginTools";
+import OriginTools, {
+  familyColors,
+  wordFamilies,
+} from "@/components/OriginTools";
 import type { SelectedRegion } from "@/components/WorldMap";
 import { type ConceptDetail, getConcept, localized } from "@/lib/api";
 
@@ -22,7 +32,11 @@ function regionFromLabels(
   const label = concept.labels.features.find((f) => f.properties.code === code);
   if (!label) return null;
   const { name_en, name_uk, names, parent_code } = label.properties;
-  return { code, name: localized(locale, name_en, name_uk, names), parentCode: parent_code };
+  return {
+    code,
+    name: localized(locale, name_en, name_uk, names),
+    parentCode: parent_code,
+  };
 }
 
 /**
@@ -49,12 +63,22 @@ function setRegionInUrl(code: string | null) {
 }
 
 /** A word page: the panel, and the word on the shared map. */
-export default function WordView({ initialConcept }: { initialConcept: ConceptDetail }) {
+export default function WordView({
+  initialConcept,
+}: {
+  initialConcept: ConceptDetail;
+}) {
   const locale = useLocale();
   const [concept, setConcept] = useState(initialConcept);
   const [region, setRegion] = useState<SelectedRegion | null>(null);
-  const [byOrigin, setByOrigin] = useState(false);
-  const colors = useMemo(() => (byOrigin ? familyColors(concept) : null), [byOrigin, concept]);
+  // Colour by origin from the start when the word has several families: it's the map's story
+  const [byOrigin, setByOrigin] = useState(
+    () => wordFamilies(initialConcept).length > 1,
+  );
+  const colors = useMemo(
+    () => (byOrigin ? familyColors(concept) : null),
+    [byOrigin, concept],
+  );
 
   // The server-rendered page may be a few minutes old (cache); load the current data so
   // edits and newly approved words show up immediately.
@@ -87,7 +111,13 @@ export default function WordView({ initialConcept }: { initialConcept: ConceptDe
         concept={concept}
         region={region}
         onClearRegion={() => selectRegion(null)}
-        tools={<OriginTools concept={concept} byOrigin={byOrigin} onByOrigin={setByOrigin} />}
+        tools={
+          <OriginTools
+            concept={concept}
+            byOrigin={byOrigin}
+            onByOrigin={setByOrigin}
+          />
+        }
       />
     </>
   );

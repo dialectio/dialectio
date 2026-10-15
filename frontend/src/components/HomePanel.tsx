@@ -1,9 +1,11 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
+import { useMemo } from "react";
 
 import { InfoNav } from "@/components/InfoPage";
 import { useConceptOnMap } from "@/components/MapShell";
+import { familyColors, wordFamilies } from "@/components/OriginTools";
 import { Link, useRouter } from "@/i18n/navigation";
 import { type ConceptDetail, type FeaturedConcept, localized } from "@/lib/api";
 
@@ -27,10 +29,24 @@ export default function HomePanel({
   const wordOfDay = featured.find((c) => c.id === preview?.id) ?? null;
   const others = featured.filter((c) => c.id !== wordOfDay?.id);
 
+  // The word of the day coloured by origin, when its words come from several families.
+  const colors = useMemo(
+    () =>
+      preview && wordFamilies(preview).length > 1
+        ? familyColors(preview)
+        : null,
+    [preview],
+  );
   // A click on the map opens the word of the day, filtered to that region.
-  useConceptOnMap(preview, null, (region) => {
-    if (preview?.slug) router.push(`/word/${preview.slug}?region=${region.code}`);
-  });
+  useConceptOnMap(
+    preview,
+    null,
+    (region) => {
+      if (preview?.slug)
+        router.push(`/word/${preview.slug}?region=${region.code}`);
+    },
+    colors,
+  );
 
   return (
     <aside className="space-y-6 p-4">
@@ -42,7 +58,12 @@ export default function HomePanel({
             {t("wordOfDay")}
           </h2>
           <p className="mt-1 text-2xl font-semibold">
-            {localized(locale, wordOfDay.gloss_en, wordOfDay.gloss_uk, wordOfDay.glosses)}
+            {localized(
+              locale,
+              wordOfDay.gloss_en,
+              wordOfDay.gloss_uk,
+              wordOfDay.glosses,
+            )}
           </p>
           <p className="mt-1 text-sm">
             <span className="opacity-70">{t("inDialects")} </span>
@@ -71,7 +92,12 @@ export default function HomePanel({
                   className="block rounded-md px-2 py-1.5 hover:bg-black/5 dark:hover:bg-white/10"
                 >
                   <span className="font-medium">
-                    {localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses)}
+                    {localized(
+                      locale,
+                      concept.gloss_en,
+                      concept.gloss_uk,
+                      concept.glosses,
+                    )}
                   </span>
                   <span className="text-sm opacity-70">
                     {" — "}
