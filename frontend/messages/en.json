@@ -139,7 +139,8 @@
     "ttsTitle": "Synthetic pronunciation",
     "tts": "Where no real recording exists, pronunciation is synthesized with Piper, using only voices whose license allows this use. These recordings are marked TTS.",
     "ownTitle": "Dialectio's own data",
-    "own": "Words added by editors, drafts and Dialectio's machine translations are protected by copyright (all rights reserved). Visitor contributions are published with their permission."
+    "own": "Words added by editors, drafts and Dialectio's machine translations are protected by copyright (all rights reserved). Visitor contributions are published with their permission.",
+    "descriptions": "Descriptions"
   },
   "Privacy": {
     "title": "Privacy policy",

@@ -139,7 +139,8 @@
     "ttsTitle": "Pronunciación sintética",
     "tts": "Donde no hay una grabación real, la pronunciación se sintetiza con Piper, solo con voces cuya licencia lo permite. Estas grabaciones llevan la marca TTS.",
     "ownTitle": "Datos propios de Dialectio",
-    "own": "Las palabras añadidas por los editores, los borradores y las traducciones automáticas de Dialectio están protegidos por derechos de autor (todos los derechos reservados). Las aportaciones de los visitantes se publican con su permiso."
+    "own": "Las palabras añadidas por los editores, los borradores y las traducciones automáticas de Dialectio están protegidos por derechos de autor (todos los derechos reservados). Las aportaciones de los visitantes se publican con su permiso.",
+    "descriptions": "Descripciones"
   },
   "Privacy": {
     "title": "Política de privacidad",

@@ -139,7 +139,8 @@
     "ttsTitle": "Wymowa syntetyczna",
     "tts": "Tam, gdzie nie ma nagrania żywego głosu, wymowa jest syntetyzowana programem Piper, tylko głosami, których licencja na to pozwala. Takie nagrania mają oznaczenie TTS.",
     "ownTitle": "Własne dane Dialectio",
-    "own": "Słowa dodane przez redaktorów, szkice i tłumaczenia automatyczne Dialectio są chronione prawem autorskim (wszelkie prawa zastrzeżone). Zgłoszenia odwiedzających są publikowane za ich zgodą."
+    "own": "Słowa dodane przez redaktorów, szkice i tłumaczenia automatyczne Dialectio są chronione prawem autorskim (wszelkie prawa zastrzeżone). Zgłoszenia odwiedzających są publikowane za ich zgodą.",
+    "descriptions": "Opisów"
   },
   "Privacy": {
     "title": "Polityka prywatności",

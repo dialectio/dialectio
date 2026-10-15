@@ -139,7 +139,8 @@
     "ttsTitle": "Synthetische Aussprache",
     "tts": "Wo es keine echte Aufnahme gibt, wird die Aussprache mit Piper synthetisiert, nur mit Stimmen, deren Lizenz das erlaubt. Solche Aufnahmen sind mit TTS gekennzeichnet.",
     "ownTitle": "Eigene Daten von Dialectio",
-    "own": "Von der Redaktion hinzugefügte Wörter, Entwürfe und maschinelle Übersetzungen von Dialectio sind urheberrechtlich geschützt (alle Rechte vorbehalten). Beiträge von Besuchern werden mit deren Erlaubnis veröffentlicht."
+    "own": "Von der Redaktion hinzugefügte Wörter, Entwürfe und maschinelle Übersetzungen von Dialectio sind urheberrechtlich geschützt (alle Rechte vorbehalten). Beiträge von Besuchern werden mit deren Erlaubnis veröffentlicht.",
+    "descriptions": "Beschreibungen"
   },
   "Privacy": {
     "title": "Datenschutzerklärung",

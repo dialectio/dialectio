@@ -200,6 +200,8 @@ export type SourceStats = {
   license: string;
   words: number;
   recordings: number;
+  /** Concept descriptions taken or machine-translated from this source */
+  descriptions?: number;
 };
 
 export type Stats = {

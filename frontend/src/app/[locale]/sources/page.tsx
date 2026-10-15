@@ -21,8 +21,11 @@ export default async function SourcesPage({ params }: PageProps<"/[locale]/sourc
   const t = await getTranslations("Sources");
   const format = await getFormatter();
   const stats = await getStats().catch(() => null);
-  // Only sources that provide something visible (words or recordings); map data is described below.
-  const sources = (stats?.sources ?? []).filter((s) => s.words > 0 || s.recordings > 0);
+  // Only sources that provide something visible (words, recordings, descriptions); map data is
+  // described below.
+  const sources = (stats?.sources ?? []).filter(
+    (s) => s.words > 0 || s.recordings > 0 || (s.descriptions ?? 0) > 0,
+  );
 
   return (
     <InfoPage title={t("title")}>
@@ -35,7 +38,8 @@ export default async function SourcesPage({ params }: PageProps<"/[locale]/sourc
                 <th className="py-2 pr-3 font-medium">{t("name")}</th>
                 <th className="py-2 pr-3 font-medium">{t("license")}</th>
                 <th className="py-2 pr-3 text-right font-medium">{t("words")}</th>
-                <th className="py-2 text-right font-medium">{t("recordings")}</th>
+                <th className="py-2 pr-3 text-right font-medium">{t("recordings")}</th>
+                <th className="py-2 text-right font-medium">{t("descriptions")}</th>
               </tr>
             </thead>
             <tbody>
@@ -54,8 +58,11 @@ export default async function SourcesPage({ params }: PageProps<"/[locale]/sourc
                   <td className="py-2 pr-3 text-right tabular-nums">
                     {source.words ? format.number(source.words) : "—"}
                   </td>
-                  <td className="py-2 text-right tabular-nums">
+                  <td className="py-2 pr-3 text-right tabular-nums">
                     {source.recordings ? format.number(source.recordings) : "—"}
+                  </td>
+                  <td className="py-2 text-right tabular-nums">
+                    {source.descriptions ? format.number(source.descriptions) : "—"}
                   </td>
                 </tr>
               ))}

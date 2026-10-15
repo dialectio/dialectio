@@ -2,9 +2,10 @@
 
 from fastapi import APIRouter
 from pydantic import BaseModel
-from sqlalchemy import func, select
+from sqlalchemy import func, select, text
 
 from app.api.lexicon import SessionDep
+from app.importers.definitions import MACHINE, MACHINE_SOURCE, WIKTIONARY, source_name
 from app.models import PUBLIC_STATUSES, Audio, Concept, Form, Source, Variety
 
 router = APIRouter(prefix="/api", tags=["stats"])
@@ -16,6 +17,7 @@ class SourceStats(BaseModel):
     license: str
     words: int
     recordings: int
+    descriptions: int = 0  # concept descriptions taken or translated from this source
 
 
 class Stats(BaseModel):
@@ -52,6 +54,18 @@ def get_stats(session: SessionDep) -> Stats:
             .group_by(Audio.is_synthetic)
         ).all()
     )
+    # Our descriptions by origin (app.importers.definitions): {source name: count}
+    descriptions: dict[str, int] = {}
+    for locale, origin, count in session.execute(
+        text("""
+            SELECT o.key, o.value, count(*)
+            FROM concept, jsonb_each_text(concept.description_origins) o
+            GROUP BY 1, 2
+        """)
+    ):
+        name = source_name(locale) if origin == WIKTIONARY else MACHINE_SOURCE
+        if origin in (WIKTIONARY, MACHINE):
+            descriptions[name] = descriptions.get(name, 0) + count
     kinds = dict(session.execute(select(Variety.kind, func.count()).group_by(Variety.kind)).all())
 
     return Stats(
@@ -68,6 +82,7 @@ def get_stats(session: SessionDep) -> Stats:
                 license=source.license,
                 words=words_by_source.get(source.id, 0),
                 recordings=audio_by_source.get(source.id, 0),
+                descriptions=descriptions.get(source.name, 0),
             )
             for source in session.scalars(select(Source).order_by(Source.id))
         ],
