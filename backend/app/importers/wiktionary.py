@@ -25,14 +25,14 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 import httpx2
-from sqlalchemy import select
+from sqlalchemy import delete, select, text
 from sqlalchemy.orm import Session
 
 from app.api.lexicon import UNVERIFIED_SOURCES
 from app.db.session import SessionLocal
 from app.importers.common import RAW_DIR, upsert_source
 from app.importers.languages import LANGUAGES
-from app.models import PUBLIC_STATUSES, Concept, Form, Source, Variety
+from app.models import PUBLIC_STATUSES, Audio, Concept, Form, Source, Variety
 from app.slugs import assign_missing_slugs
 
 DUMP_URL = "https://kaikki.org/dictionary/English/kaikki.org-dictionary-English.jsonl"
@@ -134,6 +134,22 @@ def plain_spelling(code: str, spelling: str) -> str:
         return spelling
     decomposed = unicodedata.normalize("NFD", spelling)
     return unicodedata.normalize("NFC", "".join(ch for ch in decomposed if ch not in marks))
+
+
+# Translators' notes that sometimes end up in the word: "banować (on the internet)",
+# "acordarse/arrecordarse", "jean (yin)"; a note saying the word is out of use drops it.
+OUT_OF_USE = re.compile(r"\([^)]*\b(disused|desus|obsolete|archaic|dated|rare)\b", re.IGNORECASE)
+
+
+def clean_translation(spelling: str) -> str | None:
+    """The word without notes in brackets and alternatives after "/"; None if unusable."""
+    if any(ch in spelling for ch in '"[]') or OUT_OF_USE.search(spelling):
+        return None
+    word = spelling.split("/")[0]
+    word = re.sub(r"\([^()]*\)", "", word)  # "(voor) altijd", "saudade(s)", "발표(發表)하다"
+    word = word.split(")")[-1].split("(")[0]  # what is left of unbalanced brackets
+    word = re.sub(r"\s+", " ", word).strip(" ,;")
+    return word or None
 
 
 @dataclass
@@ -275,7 +291,9 @@ def read_meanings(path: Path, wanted: set[str]) -> tuple[dict[str, list[Meaning]
                         else meaning.translations
                     )
                     known = table[code]
-                    plain = plain_spelling(code, spelling)
+                    plain = clean_translation(plain_spelling(code, spelling))
+                    if plain is None:
+                        continue
                     if len(known) < COLLECT_VARIANTS and plain not in (s for s, _ in known):
                         known.append((plain, item.get("roman")))
     for by_sense in meanings.values():
@@ -363,12 +381,49 @@ def save_meaning(
     return added
 
 
+def clean_existing(session: Session) -> None:
+    """Apply clean_translation to words imported before it existed: fix their spelling, or
+    drop them when unusable or when the concept already has the clean word."""
+    sources = [s.id for s in session.scalars(select(Source).where(Source.name.like("Wiktionary%")))]
+    forms = list(session.scalars(select(Form).where(Form.source_id.in_(sources))))
+    spellings = {(f.concept_id, f.variety_id, f.spelling) for f in forms}
+    fixed = dropped = 0
+    for form in forms:
+        clean = clean_translation(form.spelling)
+        if clean == form.spelling:
+            continue
+        # Synthetic audio was made from the old text
+        session.execute(delete(Audio).where(Audio.form_id == form.id, Audio.is_synthetic))
+        if clean is None or (form.concept_id, form.variety_id, clean) in spellings:
+            session.delete(form)
+            dropped += 1
+        else:
+            form.spelling = clean
+            spellings.add((form.concept_id, form.variety_id, clean))
+            fixed += 1
+    session.flush()
+    # A dropped main word: the next word of that language becomes the main one
+    session.execute(
+        text("""
+            UPDATE form f SET is_primary = true
+            WHERE f.id IN (
+                SELECT DISTINCT ON (concept_id, variety_id) id FROM form g
+                WHERE NOT EXISTS (SELECT 1 FROM form p WHERE p.concept_id = g.concept_id
+                                  AND p.variety_id = g.variety_id AND p.is_primary)
+                ORDER BY concept_id, variety_id, id)
+        """)
+    )
+    session.commit()
+    print(f"Cleaned earlier words: {fixed} fixed, {dropped} dropped.")
+
+
 def main(limit: int) -> None:
     words = frequent_words()
     print(f"Reading {DUMP_PATH.name} for {len(words):,} frequent English words ...")
     meanings, ipa = read_meanings(download(), set(words))
 
     with SessionLocal() as session:
+        clean_existing(session)
         source = upsert_source(session, SOURCE_NAME, SOURCE_URL, SOURCE_LICENSE)
         sh_source = upsert_source(session, SH_SOURCE_NAME, SOURCE_URL, SOURCE_LICENSE)
         unverified_ids = set(
