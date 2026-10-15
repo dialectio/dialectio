@@ -12,6 +12,8 @@ Full plan and decisions: [docs/plan.md](docs/plan.md). Communicate with the user
 ## Conventions
 - Data is organized around `Concept` (meaning), not raw word strings.
 - Varieties are identified by `Variety.code`: ISO 639-3 for languages, `<language>-<name>` for dialects (`ukr-hutsul`). Dialect territories are oblasts (`app/importers/dialects.py`); the map shows oblast labels instead of the country label from zoom 5.
+- First-level regions exist for Ukraine and its neighbours with Ukrainian dialects (PL, SK, RO) and for Western Europe (DE, AT, CH, NL, BE, FR, IT, ES, GB); small Natural Earth units are merged into the regions of `app/importers/data/regions.json` (Brittany, Sicily, Wales ...). Regional languages (Welsh, Breton, Sicilian, Low German ...) are languages mapped to these regions in `app/importers/languages.py`. Rusyn is deliberately not added (it overlaps the Transcarpathian dialect; politically sensitive).
+- The community is meant to be international: "where do you live?" offers every region and every other country, community features must not assume Ukrainian visitors.
 - Every imported record must keep its `Source` (name, url, license).
 - Synthetic (TTS) audio must be flagged `is_synthetic`.
 - Forms have `status`: `approved` or `pending` (drafts from `app.importers.suggestions`, source "Dialectio suggestions (draft)"). Both are public (`PUBLIC_STATUSES`); drafts are marked unverified ("≈") until approved in the editor. Public queries must filter on `PUBLIC_STATUSES`.

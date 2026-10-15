@@ -99,8 +99,11 @@ export type RegionOption = {
   name_en: string;
   name_uk: string | null;
   names?: Names;
-  /** False for regions abroad where Ukrainian dialects are spoken */
-  in_ukraine: boolean;
+  /** The region's country, or null when the option is a whole country */
+  country: string | null;
+  country_en: string | null;
+  country_uk: string | null;
+  country_names?: Names;
 };
 
 /** Answers to "where do you live?": oblasts, then dialect areas abroad. */

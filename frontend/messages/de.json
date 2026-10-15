@@ -244,9 +244,8 @@
     "cancel": "Abbrechen",
     "reportThanks": "Danke! Die Redaktion prüft es.",
     "error": "Senden fehlgeschlagen. Bitte versuche es erneut.",
-    "ukraine": "Ukraine",
-    "neighbours": "Andere Länder (mit ukrainischen Dialekten)",
-    "usageQuestion": "Sagt man das bei euch so?"
+    "usageQuestion": "Sagt man das bei euch so?",
+    "otherCountries": "Andere Länder"
   },
   "Game": {
     "title": "Wörter prüfen",

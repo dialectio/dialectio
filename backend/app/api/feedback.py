@@ -158,25 +158,32 @@ class RegionOption(BaseModel):
     name_en: str
     name_uk: str | None
     names: dict[str, str] = {}
-    # False for regions abroad where Ukrainian dialects are spoken (Lemko, Hutsul areas...)
-    in_ukraine: bool
+    # The region's country; None when the option is a whole country (no regions on our map)
+    country: str | None
+    country_en: str | None
+    country_uk: str | None
+    country_names: dict[str, str] = {}
 
 
+# Every first-level region with its country, and every country that has none on our map
 VOTER_REGIONS = text("""
-    SELECT r.code, r.name_en, r.name_uk, r.names, r.code LIKE 'UA-%' AS in_ukraine
-    FROM region r
+    SELECT r.code, r.name_en, r.name_uk, r.names,
+           c.code AS country, c.name_en AS country_en, c.name_uk AS country_uk,
+           c.names AS country_names
+    FROM region r JOIN region c ON c.id = r.parent_id
     WHERE r.level = 'adm1'
-      AND (r.code LIKE 'UA-%' OR r.id IN (
-          SELECT vr.region_id FROM variety_region vr
-          JOIN variety v ON v.id = vr.variety_id AND v.kind = 'dialect'))
-    ORDER BY in_ukraine DESC, coalesce(r.name_uk, r.name_en)
+    UNION ALL
+    SELECT c.code, c.name_en, c.name_uk, c.names, NULL, NULL, NULL, '{}'::jsonb
+    FROM region c
+    WHERE c.level = 'country'
+      AND NOT EXISTS (SELECT 1 FROM region r WHERE r.parent_id = c.id AND r.level = 'adm1')
 """)
 
 
 @router.get("/regions/voter")
 def voter_regions(session: SessionDep) -> list[RegionOption]:
-    """Answers to "where do you live?": Ukraine's oblasts, then the regions abroad where
-    Ukrainian dialects are spoken."""
+    """Answers to "where do you live?": the regions of countries we have regions for, and
+    the other countries as a whole (the page groups and sorts them in its language)."""
     return [RegionOption(**row) for row in session.execute(VOTER_REGIONS).mappings()]
 
 

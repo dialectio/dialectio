@@ -244,9 +244,8 @@
     "cancel": "Cancelar",
     "reportThanks": "¡Gracias! Un editor lo revisará.",
     "error": "No se pudo enviar. Inténtalo de nuevo.",
-    "ukraine": "Ucrania",
-    "neighbours": "Otros países (con dialectos ucranianos)",
-    "usageQuestion": "¿Se dice así donde vives?"
+    "usageQuestion": "¿Se dice así donde vives?",
+    "otherCountries": "Otros países"
   },
   "Game": {
     "title": "Revisa palabras",

@@ -118,11 +118,14 @@ def test_report_reaches_the_editor_and_can_be_resolved(form: dict) -> None:
 
 def test_regions_for_the_voter() -> None:
     regions = client.get("/api/regions/voter").json()
-    in_ukraine = [r["code"] for r in regions if r["in_ukraine"]]
-    abroad = [r["code"] for r in regions if not r["in_ukraine"]]
-    assert len(in_ukraine) >= 25 and all(code.startswith("UA-") for code in in_ukraine)
-    assert {"PL-PK", "SK-PV", "RO-MM"} <= set(abroad)  # Lemko, Hutsul areas
-    assert regions.index(next(r for r in regions if not r["in_ukraine"])) == len(in_ukraine)
+    by_code = {r["code"]: r for r in regions}
+    ukraine = [r for r in regions if r["country"] == "UKR"]
+    assert len(ukraine) >= 25 and all(r["code"].startswith("UA-") for r in ukraine)
+    assert {"PL-PK", "SK-PV", "RO-MM"} <= set(by_code)  # Lemko, Hutsul areas
+    assert by_code["GB-WLS"]["country"] == "GBR"  # Western European regions
+    # Countries without regions on the map are offered as a whole
+    assert by_code["USA"]["country"] is None
+    assert "UKR" not in by_code  # Ukraine has its oblasts instead
 
 
 def test_check_game_decks_and_cards() -> None:

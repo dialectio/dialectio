@@ -4,10 +4,16 @@ Regions are attached to their country by the ISO 3166-2 code prefix, so Crimea (
 Sevastopol (UA-40), which Natural Earth lists under Russia de facto, belong to Ukraine here,
 matching the country layer (Ukraine point of view).
 
+Where Natural Earth's units are small (French departments, Italian and Spanish provinces, UK
+council areas, Belgian provinces), they are merged into the regions listed in
+data/regions.json (Brittany, Sicily, Catalonia, Wales ...), the level regional languages and
+dialects are tied to.
+
 Run from backend/ after the countries importer:  uv run python -m app.importers.natural_earth_admin1
 """
 
 import json
+from collections import defaultdict
 from pathlib import Path
 
 import httpx2
@@ -24,10 +30,29 @@ SOURCE_NAME = "Natural Earth 1:10m Admin 1 States, Provinces"
 SOURCE_URL = "https://www.naturalearthdata.com/"
 SOURCE_LICENSE = "Public domain"
 
-# ISO 3166-2 country prefix -> our country region code. Besides Ukraine: neighbours where
+# ISO 3166-2 country prefix -> our country region code. Ukraine and the neighbours where
 # Ukrainian dialects are spoken (Lemko and Nadsian in Poland and Slovakia, Hutsul and
-# Bukovynian in Romania).
-COUNTRIES = {"UA": "UKR", "PL": "POL", "SK": "SVK", "RO": "ROU"}
+# Bukovynian in Romania); Western European countries with regional languages and dialects.
+COUNTRIES = {
+    "UA": "UKR",
+    "PL": "POL",
+    "SK": "SVK",
+    "RO": "ROU",
+    "DE": "DEU",
+    "AT": "AUT",
+    "CH": "CHE",
+    "NL": "NLD",
+    "BE": "BEL",
+    "FR": "FRA",
+    "IT": "ITA",
+    "ES": "ESP",
+    "GB": "GBR",
+}
+# Countries whose units are merged into the regions of data/regions.json
+MERGED = {"BE", "FR", "IT", "ES", "GB"}
+MERGED_REGIONS_FILE = Path(__file__).parent / "data" / "regions.json"
+# Units far from the country's mainland (Caribbean Netherlands)
+OVERSEAS = {"NL-SX", "NL-BQ1", "NL-BQ2", "NL-BQ3"}
 
 # Natural Earth names that are wrong or ambiguous
 NAME_FIXES = {
@@ -46,6 +71,29 @@ UPSERT_REGION = text("""
         geom = EXCLUDED.geom, label_point = EXCLUDED.label_point,
         label_rank = EXCLUDED.label_rank
 """)
+
+
+UPSERT_MERGED_REGION = text("""
+    WITH merged AS (
+        SELECT ST_Multi(ST_CollectionExtract(ST_MakeValid(ST_Union(
+                   ST_MakeValid(ST_SetSRID(ST_GeomFromGeoJSON(unit), 4326)))), 3)) AS geom
+        FROM unnest(CAST(:geojsons AS text[])) AS unit
+    )
+    INSERT INTO region (name_en, name_uk, level, code, parent_id, geom, label_point, label_rank)
+    SELECT :name_en, :name_uk, 'adm1', :code, :parent_id, geom, ST_PointOnSurface(geom),
+           :label_rank
+    FROM merged
+    ON CONFLICT (level, code) DO UPDATE
+    SET name_en = EXCLUDED.name_en, name_uk = EXCLUDED.name_uk, parent_id = EXCLUDED.parent_id,
+        geom = EXCLUDED.geom, label_point = EXCLUDED.label_point,
+        label_rank = EXCLUDED.label_rank
+""")
+
+
+def merged_regions() -> dict[str, dict]:
+    regions = json.loads(MERGED_REGIONS_FILE.read_text(encoding="utf-8"))
+    regions.pop("_comment", None)
+    return regions
 
 
 def download(target_dir: Path) -> Path:
@@ -81,12 +129,25 @@ def main() -> None:
         if missing:
             raise SystemExit(f"Import countries first, missing: {missing}")
 
+        merged = merged_regions()
+        units: dict[str, list[str]] = defaultdict(list)  # merged region code -> unit shapes
+        ranks: dict[str, int] = {}
         count = 0
         for shape_record in reader.iterShapeRecords():
             attrs = shape_record.record.as_dict()
             code = attrs["iso_3166_2"] or ""
-            country = COUNTRIES.get(code.split("-")[0])
+            prefix = code.split("-")[0]
+            country = COUNTRIES.get(prefix)
             if country is None:
+                continue
+            if code in OVERSEAS:
+                continue
+            if prefix in MERGED:
+                for region_code, region in merged.items():
+                    field, value = region["select"]
+                    if region_code.startswith(prefix) and attrs[field].strip() == value:
+                        units[region_code].append(json.dumps(shape_record.shape.__geo_interface__))
+                        ranks[region_code] = min(ranks.get(region_code, 99), attrs["labelrank"])
                 continue
             name_en, name_uk = NAME_FIXES.get(
                 code, (english_name(attrs["name"]), attrs.get("name_uk") or None)
@@ -105,6 +166,23 @@ def main() -> None:
                 },
             )
             count += 1
+        for region_code, shapes in units.items():
+            names = merged[region_code]["names"]
+            session.execute(
+                UPSERT_MERGED_REGION,
+                {
+                    "code": region_code,
+                    "name_en": names["en"],
+                    "name_uk": names["uk"],
+                    "parent_id": parents[COUNTRIES[region_code.split("-")[0]]],
+                    "geojsons": shapes,
+                    "label_rank": ranks[region_code],
+                },
+            )
+            count += 1
+        missing_regions = sorted(set(merged) - set(units))
+        if missing_regions:
+            print(f"  warning: no Natural Earth units for {missing_regions}")
         session.commit()
 
     print(f"Imported {count} first-level regions.")

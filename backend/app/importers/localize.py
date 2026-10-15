@@ -22,6 +22,7 @@ from sqlalchemy import select
 from app.db.session import SessionLocal
 from app.importers.common import RAW_DIR
 from app.importers.languages import LANGUAGES
+from app.importers.natural_earth_admin1 import merged_regions
 from app.importers.wikidata_lexemes import WikimediaClient, chunks
 from app.locales import EXTRA_LOCALES
 from app.models import PUBLIC_STATUSES, Concept, Form, Region, Variety
@@ -68,6 +69,9 @@ def region_names() -> dict[str, dict[str, str]]:
         if code.startswith("UA-") and code not in NOT_OBLASTS:
             local = {loc: OBLAST[loc](name) for loc, name in local.items()}
         names[code] = local | REGION_FIXES.get(code, {})
+    # Regions merged from several units (Brittany, Sicily, Wales ...) have their own names
+    for code, region in merged_regions().items():
+        names[code] = {loc: region["names"][loc] for loc in EXTRA_LOCALES if loc in region["names"]}
     return names
 
 

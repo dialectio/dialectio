@@ -244,9 +244,8 @@
     "cancel": "Annuler",
     "reportThanks": "Merci ! Un éditeur va vérifier.",
     "error": "Impossible d'envoyer. Veuillez réessayer.",
-    "ukraine": "Ukraine",
-    "neighbours": "Autres pays (avec des dialectes ukrainiens)",
-    "usageQuestion": "Dit-on ainsi chez vous ?"
+    "usageQuestion": "Dit-on ainsi chez vous ?",
+    "otherCountries": "Autres pays"
   },
   "Game": {
     "title": "Vérifier des mots",

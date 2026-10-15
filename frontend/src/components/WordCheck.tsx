@@ -20,10 +20,19 @@ import {
 export type Counts = Pick<VoteCounts, "yes" | "no" | "community">;
 
 /** What voting needs to know about a word. */
-export type Checkable = Pick<Form, "id" | "unverified" | "votes_yes" | "votes_no" | "community">;
+export type Checkable = Pick<
+  Form,
+  "id" | "unverified" | "votes_yes" | "votes_no" | "community"
+>;
 
 /** The word's trust mark: speakers confirmed it, disputed it, or nobody checked it yet (≈). */
-export function TrustMark({ form, counts }: { form: Checkable; counts?: Counts }) {
+export function TrustMark({
+  form,
+  counts,
+}: {
+  form: Checkable;
+  counts?: Counts;
+}) {
   const t = useTranslations("Check");
   const tPanel = useTranslations("Panel");
   const { yes, no, community } = counts ?? {
@@ -39,10 +48,48 @@ export function TrustMark({ form, counts }: { form: Checkable; counts?: Counts }
         ? ["⚠", t("disputed", { yes, no })]
         : ["≈", tPanel("unverified")];
   return (
-    <span title={title} aria-label={title} className="cursor-help text-sm opacity-70">
+    <span
+      title={title}
+      aria-label={title}
+      className="cursor-help text-sm opacity-70"
+    >
       {mark}
     </span>
   );
+}
+
+/** Regions grouped by country (Ukraine first, then by name), then whole countries. */
+function regionGroups(regions: RegionOption[], locale: string) {
+  const byName = (a: string, b: string) => a.localeCompare(b, locale);
+  const name = (r: RegionOption) =>
+    localized(locale, r.name_en, r.name_uk, r.names);
+  const groups = new Map<
+    string,
+    { label: string | null; options: RegionOption[] }
+  >();
+  for (const region of regions) {
+    const key = region.country ?? "";
+    const label =
+      region.country && region.country_en
+        ? localized(
+            locale,
+            region.country_en,
+            region.country_uk,
+            region.country_names,
+          )
+        : null;
+    if (!groups.has(key)) groups.set(key, { label, options: [] });
+    groups.get(key)!.options.push(region);
+  }
+  for (const group of groups.values())
+    group.options.sort((a, b) => byName(name(a), name(b)));
+  const rank = (key: string) => (key === "UKR" ? 0 : key === "" ? 2 : 1);
+  return [...groups.entries()]
+    .sort(
+      ([a, ga], [b, gb]) =>
+        rank(a) - rank(b) || byName(ga.label ?? "", gb.label ?? ""),
+    )
+    .map(([, group]) => group);
 }
 
 /** "Where do you live?" asked once, after the first vote. */
@@ -76,31 +123,41 @@ export function RegionQuestion({ onDone }: { onDone: () => void }) {
         <option value="" disabled>
           …
         </option>
-        {[true, false].map((inUkraine) => (
-          <optgroup key={String(inUkraine)} label={inUkraine ? t("ukraine") : t("neighbours")}>
-            {regions
-              .filter((r) => r.in_ukraine === inUkraine)
-              .map((r) => (
-                <option key={r.code} value={r.code}>
-                  {localized(locale, r.name_en, r.name_uk, r.names)}
-                </option>
-              ))}
+        {regionGroups(regions, locale).map(({ label, options }) => (
+          <optgroup key={label ?? ""} label={label ?? t("otherCountries")}>
+            {options.map((r) => (
+              <option key={r.code} value={r.code}>
+                {localized(locale, r.name_en, r.name_uk, r.names)}
+              </option>
+            ))}
           </optgroup>
         ))}
         <option value={ABROAD}>{t("abroad")}</option>
       </select>
-      <button type="button" onClick={() => choose(ABROAD)} className="opacity-60 hover:underline">
+      <button
+        type="button"
+        onClick={() => choose(ABROAD)}
+        className="opacity-60 hover:underline"
+      >
         {t("skip")}
       </button>
     </div>
   );
 }
 
-function ReportForm({ form, onClose }: { form: Checkable; onClose: () => void }) {
+function ReportForm({
+  form,
+  onClose,
+}: {
+  form: Checkable;
+  onClose: () => void;
+}) {
   const t = useTranslations("Check");
   const [message, setMessage] = useState("");
   const [website, setWebsite] = useState("");
-  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle",
+  );
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
@@ -114,7 +171,8 @@ function ReportForm({ form, onClose }: { form: Checkable; onClose: () => void })
     }
   };
 
-  if (state === "sent") return <p className="mt-1 text-xs text-green-700">{t("reportThanks")}</p>;
+  if (state === "sent")
+    return <p className="mt-1 text-xs text-green-700">{t("reportThanks")}</p>;
 
   return (
     <form onSubmit={submit} className="mt-1 space-y-1">
@@ -145,10 +203,16 @@ function ReportForm({ form, onClose }: { form: Checkable; onClose: () => void })
         >
           {t("send")}
         </button>
-        <button type="button" onClick={onClose} className="opacity-60 hover:underline">
+        <button
+          type="button"
+          onClick={onClose}
+          className="opacity-60 hover:underline"
+        >
           {t("cancel")}
         </button>
-        {state === "error" && <span className="text-red-600">{t("error")}</span>}
+        {state === "error" && (
+          <span className="text-red-600">{t("error")}</span>
+        )}
       </div>
     </form>
   );
@@ -247,7 +311,9 @@ export default function WordCheck({
         {error && <span className="text-red-600">{t("error")}</span>}
       </div>
       {askRegion && <RegionQuestion onDone={regionAnswered} />}
-      {reporting && <ReportForm form={form} onClose={() => setReporting(false)} />}
+      {reporting && (
+        <ReportForm form={form} onClose={() => setReporting(false)} />
+      )}
     </div>
   );
 }

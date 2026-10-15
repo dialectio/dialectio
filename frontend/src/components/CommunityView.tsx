@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo } from "react";
 
-import { UKRAINE_BOUNDS, useMapView } from "@/components/MapShell";
+import { EUROPE_BOUNDS, UKRAINE_BOUNDS, useMapView } from "@/components/MapShell";
 import { Link } from "@/i18n/navigation";
 import {
   capitalize,
@@ -47,7 +47,10 @@ export default function CommunityView({ community }: { community: Community }) {
     labels: null,
     selectedCode: null,
     onSelectRegion: () => {},
-    bounds: UKRAINE_BOUNDS,
+    // Ukraine while all voters are there, Europe once people from elsewhere join
+    bounds: community.regions.every((r) => r.code.startsWith("UA-"))
+      ? UKRAINE_BOUNDS
+      : EUROPE_BOUNDS,
     colors,
   });
 

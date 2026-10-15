@@ -244,9 +244,8 @@
     "cancel": "Cancel",
     "reportThanks": "Thank you! An editor will check it.",
     "error": "Could not send. Please try again.",
-    "ukraine": "Ukraine",
-    "neighbours": "Other countries (with Ukrainian dialects)",
-    "usageQuestion": "Do people say it like this where you live?"
+    "usageQuestion": "Do people say it like this where you live?",
+    "otherCountries": "Other countries"
   },
   "Game": {
     "title": "Check words",

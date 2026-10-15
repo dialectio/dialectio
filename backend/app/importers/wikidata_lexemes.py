@@ -101,7 +101,13 @@ class WikimediaClient:
     def get_json(self, url: str, params: dict[str, str]) -> dict:
         for attempt in range(8):
             time.sleep(REQUEST_PAUSE)
-            response = self.http.get(url, params=params)
+            try:
+                response = self.http.get(url, params=params)
+            except httpx2.TransportError as error:  # connection dropped mid-answer
+                wait = 5 * (attempt + 1)
+                print(f"  {type(error).__name__}, retrying in {wait}s ...")
+                time.sleep(wait)
+                continue
             if response.status_code in (429, 500, 502, 503, 504):
                 wait = int(response.headers.get("Retry-After", 0)) or 5 * (attempt + 1)
                 print(f"  {response.status_code}, retrying in {wait}s ...")
@@ -109,8 +115,7 @@ class WikimediaClient:
                 continue
             response.raise_for_status()
             return response.json()
-        response.raise_for_status()
-        raise RuntimeError("unreachable")
+        raise RuntimeError(f"Wikimedia request kept failing: {url}")
 
     def sparql(self, query: str) -> list[dict[str, str]]:
         data = self.get_json(SPARQL_URL, {"query": query, "format": "json"})
@@ -271,7 +276,9 @@ def fetch_commons(client: WikimediaClient, names: list[str]) -> dict[str, Common
             if not page or "imageinfo" not in page:
                 continue
             info = page["imageinfo"][0]
-            meta = info.get("extmetadata", {})
+            meta = info.get("extmetadata") or {}
+            if not isinstance(meta, dict):  # Commons sends [] when a file has no metadata
+                continue
             license_name = meta.get("LicenseShortName", {}).get("value")
             if not license_name:
                 continue  # never import audio without a known license

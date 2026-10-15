@@ -244,9 +244,8 @@
     "cancel": "Anuluj",
     "reportThanks": "Dziękujemy! Redaktor to sprawdzi.",
     "error": "Nie udało się wysłać. Spróbuj ponownie.",
-    "ukraine": "Ukraina",
-    "neighbours": "Inne kraje (z gwarami ukraińskimi)",
-    "usageQuestion": "A u was tak się mówi?"
+    "usageQuestion": "A u was tak się mówi?",
+    "otherCountries": "Inne kraje"
   },
   "Game": {
     "title": "Sprawdź słowa",

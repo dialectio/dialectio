@@ -41,6 +41,8 @@ export type MapView = {
 
 /** Ukraine and the neighbouring areas where Ukrainian dialects are spoken. */
 export const UKRAINE_BOUNDS = [19, 44, 41, 53];
+/** Europe, from Portugal and Ireland to Ukraine. */
+export const EUROPE_BOUNDS = [-11, 35, 42, 62];
 
 const NO_CODES: string[] = [];
 const EMPTY_VIEW: MapView = {
