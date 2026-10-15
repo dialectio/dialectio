@@ -203,7 +203,7 @@
     "checkCtaLanguage": "Speak this language? Check its words →",
     "regionalPageDescription": "{name}: {examples} and other words with translations. Where it is spoken, on the map.",
     "otherDialectsTitle": "Regional variants of other languages",
-    "otherDialectsIntro": "How the same thing is called differently across one language's regions. We started with German: Brötchen, Schrippe, Semmel or Weckle, depending on where you buy your bread roll."
+    "otherDialectsIntro": "How the same thing is called differently across one language's regions. In German a bread roll is Brötchen, Schrippe, Semmel or Weckle; in Italian a watermelon is anguria, cocomero or melone d'acqua, depending on the region."
   },
   "DialectInfo": {
     "ukr-polissia-west": "The West Polissian dialect is spoken in the Polissia of Volyn and Rivne. It has diphthongs and other vowels in place of old o and e (кунь, нуч for кінь, ніч) and old vocabulary shared with Belarusian dialects.",

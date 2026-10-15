@@ -31,6 +31,7 @@ from sqlalchemy.orm import Session
 from app.api.lexicon import UNVERIFIED_SOURCES
 from app.db.session import SessionLocal
 from app.importers.common import RAW_DIR, upsert_source
+from app.importers.glosses import apply_glosses
 from app.importers.languages import LANGUAGES
 from app.models import PUBLIC_STATUSES, Audio, Concept, Form, Source, Variety
 from app.slugs import assign_missing_slugs
@@ -38,6 +39,9 @@ from app.slugs import assign_missing_slugs
 DUMP_URL = "https://kaikki.org/dictionary/English/kaikki.org-dictionary-English.jsonl"
 DUMP_PATH = RAW_DIR / "wiktionary" / "kaikki-English.jsonl"
 FREQUENCY_PATH = Path(__file__).parent / "data" / "frequency_en.txt"
+# Words imported first whatever their frequency: the ones regional words need (apricot ->
+# Marille, cauliflower -> Karfiol)
+EXTRA_PATH = Path(__file__).parent / "data" / "extra_words_en.txt"
 
 SOURCE_NAME = "Wiktionary translations"
 # Croatian and Bosnian taken from Wiktionary's joint Serbo-Croatian table: its Latin forms
@@ -47,7 +51,7 @@ SOURCE_URL = "https://en.wiktionary.org/"
 SOURCE_LICENSE = "CC BY-SA 4.0"
 CATEGORY = "wiktionary"
 
-POS = {"noun", "verb", "adj", "adv", "num"}
+POS = {"noun", "verb", "adj", "adv", "num", "intj"}  # intj: greetings ("hello", "goodbye")
 MIN_LANGUAGES = 15  # translations into at least this many of our languages
 MIN_AGREEMENT = 2  # same words in this many languages to merge into an existing concept
 MAX_WORD_LENGTH = 60
@@ -231,9 +235,18 @@ def download() -> Path:
     return DUMP_PATH
 
 
+def extra_words() -> list[str]:
+    lines = EXTRA_PATH.read_text(encoding="utf-8").splitlines()
+    return [w.split("#")[0].strip() for w in lines if w.strip() and not w.startswith("#")]
+
+
 def frequent_words() -> list[str]:
-    lines = FREQUENCY_PATH.read_text(encoding="utf-8").splitlines()
-    return [w for w in lines if w and not w.startswith("#")]
+    """The extra words, then the most frequent English words."""
+    words: list[str] = []
+    for path in (EXTRA_PATH, FREQUENCY_PATH):
+        lines = path.read_text(encoding="utf-8").splitlines()
+        words += [w.split("#")[0].strip() for w in lines if w.strip() and not w.startswith("#")]
+    return list(dict.fromkeys(words))
 
 
 def target_codes(item: dict) -> list[tuple[str, bool]]:
@@ -419,6 +432,7 @@ def clean_existing(session: Session) -> None:
 
 def main(limit: int) -> None:
     words = frequent_words()
+    limit += len(extra_words())
     print(f"Reading {DUMP_PATH.name} for {len(words):,} frequent English words ...")
     meanings, ipa = read_meanings(download(), set(words))
 
@@ -483,6 +497,7 @@ def main(limit: int) -> None:
                     concept = Concept(gloss_en=word, category=CATEGORY)
                     session.add(concept)
                 concept.gloss_uk = uk_name
+                apply_glosses(concept)  # our fixed names win ("цвітна капуста")
                 concept.description_en = meaning.sense[:500]
                 session.flush()
                 ours[word] = concept
@@ -510,5 +525,7 @@ def main(limit: int) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("--limit", type=int, default=5000, help="concepts to import")
+    parser.add_argument(
+        "--limit", type=int, default=5000, help="frequent concepts to import (plus the extra words)"
+    )
     main(parser.parse_args().limit)

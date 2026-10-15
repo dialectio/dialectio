@@ -284,3 +284,16 @@ def test_german_regional_words_compare_with_standard_german() -> None:
     assert "Schrippe" in {o["spelling"] for o in meaning["others"]}
     # The standard German word is not a dialect word
     assert client.get("/api/dialect-words/brötchen").status_code == 404
+
+
+def test_italian_regional_words_and_new_concepts() -> None:
+    tuscany = client.get("/api/dialects/ita-tuscany").json()
+    words = {w["spelling"]: w["standard"] for w in tuscany["words_list"]}
+    assert "cocomero" in words and "babbo" in words
+
+    # Concepts that regional words need come from the extra word list
+    apricot = client.get("/api/concepts/by-slug/apricot").json()
+    austria = next(lang for lang in apricot["languages"] if lang["code"] == "deu-austria")
+    assert austria["forms"][0]["spelling"] == "Marille"
+    # Our names win over Wiktionary's first translation
+    assert client.get("/api/concepts/by-slug/cauliflower").json()["gloss_uk"] == "цвітна капуста"

@@ -114,5 +114,35 @@
     "deu-north": "Weißkohl", "deu-northeast": "Weißkohl", "deu-central-east": "Weißkraut",
     "deu-northrhine": "Weißkohl", "deu-central-west": "Weißkraut", "deu-swabian": "Kraut",
     "deu-bavarian": "Kraut", "deu-austria": "Kraut", "deu-switzerland": "Kabis"
+  },
+  "apricot": {
+    "deu-north": "Aprikose", "deu-northeast": "Aprikose", "deu-central-east": "Aprikose",
+    "deu-northrhine": "Aprikose", "deu-central-west": "Aprikose", "deu-swabian": "Aprikose",
+    "deu-bavarian": "Aprikose", "deu-austria": "Marille", "deu-switzerland": "Aprikose"
+  },
+  "cauliflower": {
+    "deu-north": "Blumenkohl", "deu-northeast": "Blumenkohl", "deu-central-east": "Blumenkohl",
+    "deu-northrhine": "Blumenkohl", "deu-central-west": "Blumenkohl", "deu-swabian": "Blumenkohl",
+    "deu-bavarian": "Blumenkohl", "deu-austria": "Karfiol", "deu-switzerland": "Blumenkohl"
+  },
+  "doughnut": {
+    "deu-north": "Berliner", "deu-northeast": "Pfannkuchen", "deu-central-east": "Pfannkuchen",
+    "deu-northrhine": "Berliner", "deu-central-west": "Kreppel", "deu-swabian": "Berliner",
+    "deu-bavarian": "Krapfen", "deu-austria": "Krapfen", "deu-switzerland": "Berliner"
+  },
+  "hello": {
+    "deu-north": "Moin", "deu-northeast": "Tach", "deu-central-east": "Hallo",
+    "deu-northrhine": "Tach", "deu-central-west": "Gude", "deu-swabian": "Grüß Gott",
+    "deu-bavarian": "Servus", "deu-austria": "Grüß Gott", "deu-switzerland": "Grüezi"
+  },
+  "goodbye": {
+    "deu-north": "Tschüss", "deu-northeast": "Tschüss", "deu-central-east": "Tschüss",
+    "deu-northrhine": "Tschö", "deu-central-west": "Tschüss", "deu-swabian": "Ade",
+    "deu-bavarian": "Pfiat di", "deu-austria": "Servus", "deu-switzerland": "Uf Wiederluege"
+  },
+  "bag": {
+    "deu-north": "Tüte", "deu-northeast": "Tüte", "deu-central-east": "Tüte",
+    "deu-northrhine": "Tüte", "deu-central-west": "Tüte", "deu-swabian": "Gugg",
+    "deu-bavarian": "Tüte", "deu-austria": "Sackerl", "deu-switzerland": "Säckli"
   }
 }

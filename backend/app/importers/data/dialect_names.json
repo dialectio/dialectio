@@ -27,5 +27,15 @@
  "deu-swabian": {"pl": "niemiecki — Badenia-Wirtembergia", "de": "Deutsch — Baden-Württemberg", "es": "alemán — Baden-Wurtemberg", "fr": "allemand — Bade-Wurtemberg"},
  "deu-bavarian": {"pl": "niemiecki — Bawaria", "de": "Deutsch — Bayern", "es": "alemán — Baviera", "fr": "allemand — Bavière"},
  "deu-austria": {"pl": "niemiecki — Austria", "de": "Deutsch — Österreich", "es": "alemán — Austria", "fr": "allemand — Autriche"},
- "deu-switzerland": {"pl": "niemiecki — Szwajcaria", "de": "Deutsch — Schweiz", "es": "alemán — Suiza", "fr": "allemand — Suisse"}
+ "deu-switzerland": {"pl": "niemiecki — Szwajcaria", "de": "Deutsch — Schweiz", "es": "alemán — Suiza", "fr": "allemand — Suisse"},
+ "ita-regional": {"pl": "regionalny włoski", "de": "regionales Italienisch", "es": "italiano regional", "fr": "italien régional"},
+ "ita-northwest": {"pl": "włoski — Piemont, Liguria, Dolina Aosty", "de": "Italienisch — Piemont, Ligurien, Aostatal", "es": "italiano — Piamonte, Liguria, Valle de Aosta", "fr": "italien — Piémont, Ligurie, Vallée d'Aoste"},
+ "ita-lombardy": {"pl": "włoski — Lombardia", "de": "Italienisch — Lombardei", "es": "italiano — Lombardía", "fr": "italien — Lombardie"},
+ "ita-northeast": {"pl": "włoski — Wenecja Euganejska, Trydent, Friuli", "de": "Italienisch — Venetien, Trentino, Friaul", "es": "italiano — Véneto, Trentino, Friuli", "fr": "italien — Vénétie, Trentin, Frioul"},
+ "ita-emilia": {"pl": "włoski — Emilia-Romania", "de": "Italienisch — Emilia-Romagna", "es": "italiano — Emilia-Romaña", "fr": "italien — Émilie-Romagne"},
+ "ita-tuscany": {"pl": "włoski — Toskania", "de": "Italienisch — Toskana", "es": "italiano — Toscana", "fr": "italien — Toscane"},
+ "ita-center": {"pl": "włoski — Lacjum, Umbria, Marche, Abruzja", "de": "Italienisch — Latium, Umbrien, Marken, Abruzzen", "es": "italiano — Lacio, Umbría, Marcas, Abruzos", "fr": "italien — Latium, Ombrie, Marches, Abruzzes"},
+ "ita-south": {"pl": "włoski — Kampania, Apulia, Kalabria, Basilicata, Molise", "de": "Italienisch — Kampanien, Apulien, Kalabrien, Basilikata, Molise", "es": "italiano — Campania, Apulia, Calabria, Basilicata, Molise", "fr": "italien — Campanie, Pouilles, Calabre, Basilicate, Molise"},
+ "ita-sicily": {"pl": "włoski — Sycylia", "de": "Italienisch — Sizilien", "es": "italiano — Sicilia", "fr": "italien — Sicile"},
+ "ita-sardinia": {"pl": "włoski — Sardynia", "de": "Italienisch — Sardinien", "es": "italiano — Cerdeña", "fr": "italien — Sardaigne"}
 }

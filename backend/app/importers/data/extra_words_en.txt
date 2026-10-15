@@ -1,0 +1,9 @@
+# English words imported from Wiktionary before the frequency list, whatever their rank:
+# concepts that regional words of other languages need. One word per line, "#" comments.
+apricot      # Marille (Austria)
+cauliflower  # Karfiol (Austria)
+doughnut     # Krapfen / Berliner / Pfannkuchen / Kreppel
+hello        # Moin / Servus / Grüß Gott / Grüezi
+goodbye      # Tschüss / Ade / Servus / Pfiat di
+ladle        # mestolo / ramaiolo / coppino (Italy)
+courgette    # zucchina / zucchino / cucuzza (Italy)

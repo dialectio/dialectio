@@ -1,0 +1,38 @@
+{
+  "_comment": "Regional Italian everyday words by area (drafts written by Dialectio from well-known regional variation of Italian, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Areas are approximate: a region can use several words; the most widespread one is given. Loaded by app.importers.regional_words.",
+  "watermelon": {
+    "ita-northwest": "anguria", "ita-lombardy": "anguria", "ita-northeast": "anguria",
+    "ita-emilia": "anguria", "ita-tuscany": "cocomero", "ita-center": "cocomero",
+    "ita-south": "melone d'acqua", "ita-sicily": "melone d'acqua", "ita-sardinia": "anguria"
+  },
+  "garbage": {
+    "ita-northwest": "rumenta", "ita-lombardy": "spazzatura", "ita-northeast": "scoasse",
+    "ita-emilia": "rusco", "ita-tuscany": "pattume", "ita-center": "monnezza",
+    "ita-south": "immondizia", "ita-sicily": "munnizza", "ita-sardinia": "spazzatura"
+  },
+  "daddy": {
+    "ita-northwest": "papà", "ita-lombardy": "papà", "ita-northeast": "papà",
+    "ita-emilia": "papà", "ita-tuscany": "babbo", "ita-center": "papà",
+    "ita-south": "papà", "ita-sicily": "papà", "ita-sardinia": "babbo"
+  },
+  "bun": {
+    "ita-northwest": "panino", "ita-lombardy": "michetta", "ita-northeast": "ciopa",
+    "ita-emilia": "panino", "ita-tuscany": "panino", "ita-center": "rosetta",
+    "ita-south": "panino", "ita-sicily": "panino", "ita-sardinia": "panino"
+  },
+  "doughnut": {
+    "ita-northwest": "bombolone", "ita-lombardy": "krapfen", "ita-northeast": "krapfen",
+    "ita-emilia": "bomba", "ita-tuscany": "bombolone", "ita-center": "bomba",
+    "ita-south": "graffa", "ita-sicily": "bombolone", "ita-sardinia": "bombolone"
+  },
+  "ladle": {
+    "ita-northwest": "coppino", "ita-lombardy": "mestolo", "ita-northeast": "mestolo",
+    "ita-emilia": "mestolo", "ita-tuscany": "ramaiolo", "ita-center": "mestolo",
+    "ita-south": "mestolo", "ita-sicily": "mestolo", "ita-sardinia": "mestolo"
+  },
+  "courgette": {
+    "ita-northwest": "zucchina", "ita-lombardy": "zucchina", "ita-northeast": "zucchina",
+    "ita-emilia": "zucchina", "ita-tuscany": "zucchino", "ita-center": "zucchina",
+    "ita-south": "cucuzza", "ita-sicily": "cucuzza", "ita-sardinia": "zucchina"
+  }
+}
