@@ -28,7 +28,10 @@
     "unverified": "Ungeprüftes Wort: ein Entwurf, die Wikidata-Bezeichnung des Begriffs oder eine maschinelle Übersetzung — kann ungenau sein",
     "contribute": "🎙 Weißt du, wie man es bei euch sagt? Füge das Wort hinzu",
     "machineTranslation": "maschinelle Übersetzung",
-    "wiktionary": "Wiktionary"
+    "wiktionary": "Wiktionary",
+    "dialectCount": "{count, plural, one {# Dialekt} other {# Dialekte}}",
+    "liveCount": "{count, plural, one {# echte Aufnahme} other {# echte Aufnahmen}}",
+    "liveRecording": "Aufnahme eines Sprechers"
   },
   "Editor": {
     "title": "Word editor: {variety}",

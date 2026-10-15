@@ -63,7 +63,7 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
   return (
     <article className="space-y-4 p-4">
       <Breadcrumbs dialect={dialect} />
-      <h1 className="text-2xl font-semibold">{name}</h1>
+      <h1 className="font-serif text-2xl font-semibold">{name}</h1>
       {tInfo.has(dialect.code) && <p className="text-sm leading-relaxed">{tInfo(dialect.code)}</p>}
 
       <section className="text-sm">

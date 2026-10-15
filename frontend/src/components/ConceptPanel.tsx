@@ -29,33 +29,104 @@ const LATIN = /^[\p{Script=Latin}\p{Script=Common}\p{Mark}]+$/u;
 const CYRILLIC = /\p{Script=Cyrillic}/u;
 
 /** Romanization for words in other scripts ("辞書" -> "jisho"); Cyrillic only in English. */
-function showTransliteration(spelling: string, transliteration: string | null, locale: string) {
+function showTransliteration(
+  spelling: string,
+  transliteration: string | null,
+  locale: string,
+) {
   if (!transliteration || LATIN.test(spelling)) return false;
   return locale !== "uk" || !CYRILLIC.test(spelling);
 }
 
+/** ▶ buttons: recordings of real speakers stand out (amber, 🎙), synthetic voices stay plain. */
 export function AudioButtons({ audio }: { audio: AudioInfo[] }) {
   const t = useTranslations("Panel");
+  const live = audio.filter((a) => !a.is_synthetic);
   return (
     <span className="inline-flex gap-1">
-      {audio.map((a, i) => (
+      {audio.map((a) => (
         <button
           key={a.url}
           type="button"
           onClick={() => playAudio(a.url)}
-          title={[a.speaker, a.license, a.is_synthetic ? t("synthetic") : null]
+          title={[
+            a.speaker,
+            a.license,
+            a.is_synthetic ? t("synthetic") : t("liveRecording"),
+          ]
             .filter(Boolean)
             .join(" · ")}
-          aria-label={a.is_synthetic ? t("playSynthetic") : t("play", { n: i + 1 })}
-          className={`rounded-full border px-2 text-sm hover:bg-blue-500/10 ${
-            a.is_synthetic ? "border-dashed border-current/30 opacity-80" : "border-current/20"
-          }`}
+          aria-label={
+            a.is_synthetic
+              ? t("playSynthetic")
+              : t("play", { n: live.indexOf(a) + 1 })
+          }
+          className={
+            a.is_synthetic
+              ? "rounded-full border border-dashed border-current/30 px-2 text-sm opacity-70 hover:bg-black/5 dark:hover:bg-white/10"
+              : "rounded-full bg-amber-400/90 px-2 text-sm font-medium text-amber-950 shadow-sm hover:bg-amber-400"
+          }
         >
-          ▶{audio.length > 1 && !a.is_synthetic ? ` ${i + 1}` : ""}
-          {a.is_synthetic && <span className="ml-1 text-[10px] uppercase">{t("tts")}</span>}
+          {a.is_synthetic ? "▶" : "🎙 ▶"}
+          {live.length > 1 && !a.is_synthetic ? ` ${live.indexOf(a) + 1}` : ""}
+          {a.is_synthetic && (
+            <span className="ml-1 text-[10px] uppercase">{t("tts")}</span>
+          )}
         </button>
       ))}
     </span>
+  );
+}
+
+// The page's language among the word's languages: the word a visitor reads first
+const LOCALE_LANGUAGES: Record<string, string> = {
+  uk: "ukr",
+  en: "eng",
+  pl: "pol",
+  de: "deu",
+  es: "spa",
+  fr: "fra",
+};
+
+/** The word in the page's language, big: transcription and a round ▶ button. */
+function Headword({
+  concept,
+  locale,
+}: {
+  concept: ConceptDetail;
+  locale: string;
+}) {
+  const t = useTranslations("Panel");
+  const own = concept.languages.find((l) => l.code === LOCALE_LANGUAGES[locale])
+    ?.forms[0];
+  // Prefer a real speaker's recording
+  const audio = own?.audio.find((a) => !a.is_synthetic) ?? own?.audio[0];
+  return (
+    <div className="flex items-center gap-3">
+      <h1 className="font-serif text-3xl font-semibold leading-tight">
+        {localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses)}
+      </h1>
+      {audio && (
+        <button
+          type="button"
+          onClick={() => playAudio(audio.url)}
+          aria-label={
+            audio.is_synthetic ? t("playSynthetic") : t("play", { n: 1 })
+          }
+          title={audio.is_synthetic ? t("synthetic") : t("liveRecording")}
+          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg text-white shadow-md transition hover:scale-105 ${
+            audio.is_synthetic
+              ? "bg-gradient-to-br from-indigo-600 to-violet-600"
+              : "bg-gradient-to-br from-amber-400 to-amber-500 text-amber-950"
+          }`}
+        >
+          ▶
+        </button>
+      )}
+      {own?.ipa && (
+        <span className="font-mono text-base opacity-70">{own.ipa}</span>
+      )}
+    </div>
   );
 }
 
@@ -69,7 +140,9 @@ function LanguageCard({ language }: { language: LanguageForms }) {
   return (
     <li
       className={`border-b border-black/10 py-3 dark:border-white/10 ${
-        language.kind === "dialect" ? "ml-3 border-l-2 border-l-violet-400 pl-3" : ""
+        language.kind === "dialect"
+          ? "ml-3 border-l-2 border-l-violet-400 pl-3"
+          : ""
       }`}
     >
       <div className="flex items-center gap-1.5 text-xs uppercase tracking-wide">
@@ -81,21 +154,44 @@ function LanguageCard({ language }: { language: LanguageForms }) {
         )}
         <span className="opacity-60">
           {language.kind === "dialect" ? (
-            <Link href={`/dialects/${language.code}`} className="hover:underline">
-              {localized(locale, language.name_en, language.name_uk, language.names)}
+            <Link
+              href={`/dialects/${language.code}`}
+              className="hover:underline"
+            >
+              {localized(
+                locale,
+                language.name_en,
+                language.name_uk,
+                language.names,
+              )}
             </Link>
           ) : (
-            localized(locale, language.name_en, language.name_uk, language.names)
+            localized(
+              locale,
+              language.name_en,
+              language.name_uk,
+              language.names,
+            )
           )}
         </span>
       </div>
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span className="text-xl font-semibold">{primary.spelling}</span>
-        {showTransliteration(primary.spelling, primary.transliteration, locale) && (
-          <span className="text-sm italic opacity-70">{primary.transliteration}</span>
+        <span className="font-serif text-xl font-semibold">
+          {primary.spelling}
+        </span>
+        {showTransliteration(
+          primary.spelling,
+          primary.transliteration,
+          locale,
+        ) && (
+          <span className="text-sm italic opacity-70">
+            {primary.transliteration}
+          </span>
         )}
         <TrustMark form={primary} counts={counts} />
-        {primary.ipa && <span className="font-mono text-sm opacity-80">{primary.ipa}</span>}
+        {primary.ipa && (
+          <span className="font-mono text-sm opacity-80">{primary.ipa}</span>
+        )}
         <AudioButtons audio={primary.audio} />
       </div>
       {others.length > 0 && (
@@ -127,11 +223,19 @@ function LanguageCard({ language }: { language: LanguageForms }) {
 }
 
 /** Credit for a description from Wiktionary, or a note that it was machine-translated. */
-function DescriptionOrigin({ concept, locale }: { concept: ConceptDetail; locale: string }) {
+function DescriptionOrigin({
+  concept,
+  locale,
+}: {
+  concept: ConceptDetail;
+  locale: string;
+}) {
   const t = useTranslations("Panel");
   const origin = concept.description_origins?.[locale];
   if (origin === "machine") {
-    return <span className="ml-1 text-xs italic">({t("machineTranslation")})</span>;
+    return (
+      <span className="ml-1 text-xs italic">({t("machineTranslation")})</span>
+    );
   }
   if (origin === "wiktionary") {
     // The concept's name in this language is its main word, maybe with a hint in brackets
@@ -164,32 +268,56 @@ export default function ConceptPanel({
 }) {
   const locale = useLocale();
   const t = useTranslations("Panel");
-  const description = inLocale(locale, concept.description_en, concept.description_uk, concept.descriptions);
+  const description = inLocale(
+    locale,
+    concept.description_en,
+    concept.description_uk,
+    concept.descriptions,
+  );
   const [contributing, setContributing] = useState(false);
+  const dialects = concept.languages.filter((l) => l.kind === "dialect").length;
+  const liveRecordings = concept.languages
+    .flatMap((l) => l.forms)
+    .flatMap((f) => f.audio)
+    .filter((a) => !a.is_synthetic).length;
 
   // A region shows its own varieties (dialects, regional languages) and its country's languages.
   const languages = region
     ? concept.languages.filter(
         (lang) =>
           lang.region_codes.includes(region.code) ||
-          (region.parentCode !== null && lang.region_codes.includes(region.parentCode)),
+          (region.parentCode !== null &&
+            lang.region_codes.includes(region.parentCode)),
       )
     : concept.languages;
 
   return (
     <aside className="flex h-full flex-col overflow-hidden">
       <div className="border-b border-black/10 p-4 dark:border-white/10">
-        <h1 className="text-lg font-semibold">
-          {localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses)}
-        </h1>
+        <Headword concept={concept} locale={locale} />
         {description && (
-          <p className="text-sm opacity-70">
+          <p className="mt-1 text-sm opacity-70">
             {description}
             <DescriptionOrigin concept={concept} locale={locale} />
           </p>
         )}
-        <p className="mt-1 text-xs opacity-60">
-          {t("languageCount", { count: concept.languages.filter((l) => l.kind === "language").length })}
+        <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs">
+          <span className="opacity-60">
+            {t("languageCount", {
+              count: concept.languages.filter((l) => l.kind === "language")
+                .length,
+            })}
+          </span>
+          {dialects > 0 && (
+            <span className="text-violet-700 dark:text-violet-300">
+              {t("dialectCount", { count: dialects })}
+            </span>
+          )}
+          {liveRecordings > 0 && (
+            <span className="font-medium text-amber-700 dark:text-amber-300">
+              🎙 {t("liveCount", { count: liveRecordings })}
+            </span>
+          )}
         </p>
         {region && (
           <button
@@ -212,7 +340,12 @@ export default function ConceptPanel({
       {contributing && (
         <ContributeDialog
           conceptId={concept.id}
-          conceptName={localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses)}
+          conceptName={localized(
+            locale,
+            concept.gloss_en,
+            concept.gloss_uk,
+            concept.glosses,
+          )}
           regionCode={region?.code ?? null}
           onClose={() => setContributing(false)}
         />
@@ -220,7 +353,9 @@ export default function ConceptPanel({
       <div className="flex-1 overflow-y-auto px-4">
         {!region && <WordIntro concept={concept} />}
         <ul>
-          {languages.length === 0 && <li className="py-3 text-sm opacity-60">{t("noWords")}</li>}
+          {languages.length === 0 && (
+            <li className="py-3 text-sm opacity-60">{t("noWords")}</li>
+          )}
           {languages.map((language) => (
             <LanguageCard key={language.variety_id} language={language} />
           ))}
@@ -230,7 +365,10 @@ export default function ConceptPanel({
       <p className="border-t border-black/10 p-3 text-xs opacity-60 dark:border-white/10">
         {t.rich("attribution", {
           wikidata: (chunks) => (
-            <a className="underline" href="https://www.wikidata.org/wiki/Wikidata:Lexicographical_data">
+            <a
+              className="underline"
+              href="https://www.wikidata.org/wiki/Wikidata:Lexicographical_data"
+            >
               {chunks}
             </a>
           ),

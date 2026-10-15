@@ -28,7 +28,10 @@
     "unverified": "Unverified word: a draft, the concept's Wikidata label or an automatic translation — may be inaccurate",
     "contribute": "🎙 Know how it's said where you live? Add the word",
     "machineTranslation": "machine translation",
-    "wiktionary": "Wiktionary"
+    "wiktionary": "Wiktionary",
+    "dialectCount": "{count, plural, one {# dialect} other {# dialects}}",
+    "liveCount": "{count, plural, one {# real recording} other {# real recordings}}",
+    "liveRecording": "recorded by a speaker"
   },
   "Editor": {
     "title": "Word editor: {variety}",

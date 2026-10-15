@@ -14,6 +14,7 @@ import {
 
 import { HEADER_PAGES, InfoNav } from "@/components/InfoPage";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
+import Logo from "@/components/Logo";
 import SearchBox from "@/components/SearchBox";
 import WorldMap, {
   type SelectedRegion,
@@ -151,8 +152,8 @@ export default function MapShell({ children }: { children: ReactNode }) {
       <SnapshotContext.Provider value={snapshotRef}>
         <main className="flex h-full flex-col">
           <header className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-black/10 px-4 py-3 dark:border-white/15">
-            <Link href="/" className="text-xl font-semibold">
-              Dialectio
+            <Link href="/" aria-label="Dialectio">
+              <Logo />
             </Link>
             <SearchBox onSelect={openHit} />
             <InfoNav className="hidden shrink-0 lg:flex" pages={HEADER_PAGES} />

@@ -2,9 +2,11 @@ import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 import LocaleSwitcher from "@/components/LocaleSwitcher";
+import Logo from "@/components/Logo";
 import { Link } from "@/i18n/navigation";
 
-export const GITHUB_ISSUES_URL = "https://github.com/gmisha777/dialectio/issues";
+export const GITHUB_ISSUES_URL =
+  "https://github.com/gmisha777/dialectio/issues";
 
 export const INFO_PAGES = [
   "dialects",
@@ -32,7 +34,11 @@ export function InfoNav({
   return (
     <nav className={`flex flex-wrap gap-x-4 gap-y-1 text-sm ${className}`}>
       {pages.map((page) => (
-        <Link key={page} href={`/${page}`} className="opacity-70 hover:underline hover:opacity-100">
+        <Link
+          key={page}
+          href={`/${page}`}
+          className="opacity-70 hover:underline hover:opacity-100"
+        >
           {t(page)}
         </Link>
       ))}
@@ -41,21 +47,30 @@ export function InfoNav({
 }
 
 /** Layout of the text pages: header with the logo, the article, links to the other pages. */
-export default function InfoPage({ title, children }: { title: string; children: ReactNode }) {
+export default function InfoPage({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
   const t = useTranslations("Nav");
   return (
     <div className="flex min-h-full flex-col">
       <header className="flex items-center gap-4 border-b border-black/10 px-4 py-3 dark:border-white/15">
-        <Link href="/" className="text-xl font-semibold">
-          Dialectio
+        <Link href="/" aria-label="Dialectio">
+          <Logo />
         </Link>
-        <Link href="/" className="text-sm opacity-70 hover:underline hover:opacity-100">
+        <Link
+          href="/"
+          className="text-sm opacity-70 hover:underline hover:opacity-100"
+        >
           {t("map")}
         </Link>
         <LocaleSwitcher />
       </header>
       <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-8">
-        <h1 className="mb-6 text-3xl font-semibold">{title}</h1>
+        <h1 className="mb-6 font-serif text-3xl font-semibold">{title}</h1>
         <div className="space-y-4 leading-relaxed [&_a]:underline [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-semibold">
           {children}
         </div>

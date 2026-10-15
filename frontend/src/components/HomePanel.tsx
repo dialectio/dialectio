@@ -57,7 +57,7 @@ export default function HomePanel({
           <h2 className="text-xs font-medium tracking-wide uppercase opacity-60">
             {t("wordOfDay")}
           </h2>
-          <p className="mt-1 text-2xl font-semibold">
+          <p className="mt-1 font-serif text-2xl font-semibold">
             {localized(
               locale,
               wordOfDay.gloss_en,

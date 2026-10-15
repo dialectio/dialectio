@@ -94,7 +94,7 @@ export default function DialectWordView({ entry }: { entry: DialectWordDetail })
     <article className="space-y-6 p-4">
       <header>
         <p className="text-xs tracking-wide uppercase opacity-60">{t("kicker")}</p>
-        <h1 className="text-3xl font-semibold text-violet-800 dark:text-violet-300">
+        <h1 className="font-serif text-3xl font-semibold text-violet-800 dark:text-violet-300">
           {entry.word}
         </h1>
       </header>

@@ -28,7 +28,10 @@
     "unverified": "Неперевірене слово: чернетка, назва поняття з Wikidata або автоматичний переклад — може бути неточним",
     "contribute": "🎙 Знаєте, як це кажуть у вас? Додайте слово",
     "machineTranslation": "автоматичний переклад",
-    "wiktionary": "Вікісловник"
+    "wiktionary": "Вікісловник",
+    "dialectCount": "{count, plural, one {# говір} few {# говори} many {# говорів} other {# говору}}",
+    "liveCount": "{count, plural, one {# живий запис} few {# живі записи} many {# живих записів} other {# живого запису}}",
+    "liveRecording": "запис носія мови"
   },
   "Editor": {
     "title": "Редактор слів: {variety}",

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Noto_Serif } from "next/font/google";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -10,14 +10,16 @@ import { routing } from "@/i18n/routing";
 import "flag-icons/css/flag-icons.min.css";
 import "../globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin", "cyrillic"],
+// Interface text; the words themselves (and the name) in a serif. Both cover Latin with
+// accents, Cyrillic and Greek; other scripts fall back to the system fonts.
+const sans = Inter({
+  variable: "--font-inter",
+  subsets: ["latin", "latin-ext", "cyrillic", "cyrillic-ext", "greek"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin", "cyrillic"],
+const serif = Noto_Serif({
+  variable: "--font-noto-serif",
+  subsets: ["latin", "latin-ext", "cyrillic", "cyrillic-ext", "greek"],
 });
 
 // Visit statistics (Umami, self-hosted, no cookies); off unless both are configured.
@@ -46,7 +48,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   return (
     <html
       lang={locale}
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${sans.variable} ${serif.variable} h-full antialiased`}
     >
       <body className="h-full flex flex-col">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>

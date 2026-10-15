@@ -28,7 +28,10 @@
     "unverified": "Palabra sin verificar: un borrador, la etiqueta del concepto en Wikidata o una traducción automática — puede ser inexacta",
     "contribute": "🎙 ¿Sabes cómo se dice donde vives? Añade la palabra",
     "machineTranslation": "traducción automática",
-    "wiktionary": "Wikcionario"
+    "wiktionary": "Wikcionario",
+    "dialectCount": "{count, plural, one {# dialecto} other {# dialectos}}",
+    "liveCount": "{count, plural, one {# grabación real} other {# grabaciones reales}}",
+    "liveRecording": "grabación de un hablante"
   },
   "Editor": {
     "title": "Word editor: {variety}",

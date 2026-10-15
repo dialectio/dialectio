@@ -28,7 +28,10 @@
     "unverified": "Mot non vérifié : un brouillon, le libellé Wikidata du concept ou une traduction automatique — peut être inexact",
     "contribute": "🎙 Vous savez comment on le dit chez vous ? Ajoutez le mot",
     "machineTranslation": "traduction automatique",
-    "wiktionary": "Wiktionnaire"
+    "wiktionary": "Wiktionnaire",
+    "dialectCount": "{count, plural, one {# dialecte} other {# dialectes}}",
+    "liveCount": "{count, plural, one {# enregistrement réel} other {# enregistrements réels}}",
+    "liveRecording": "enregistrement d'un locuteur"
   },
   "Editor": {
     "title": "Word editor: {variety}",

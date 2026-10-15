@@ -35,7 +35,7 @@ export default function DialectList({ dialects }: { dialects: DialectSummary[] }
 
   return (
     <article className="space-y-5 p-4">
-      <h1 className="text-2xl font-semibold">{t("title")}</h1>
+      <h1 className="font-serif text-2xl font-semibold">{t("title")}</h1>
       <p className="text-sm leading-relaxed">{t("intro")}</p>
       {groups.map((group) => (
         <section key={group.code}>

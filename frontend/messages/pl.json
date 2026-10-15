@@ -28,7 +28,10 @@
     "unverified": "Niezweryfikowane słowo: szkic, nazwa pojęcia z Wikidata albo tłumaczenie automatyczne — może być niedokładne",
     "contribute": "🎙 Wiesz, jak to się mówi u was? Dodaj słowo",
     "machineTranslation": "tłumaczenie maszynowe",
-    "wiktionary": "Wikisłownik"
+    "wiktionary": "Wikisłownik",
+    "dialectCount": "{count, plural, one {# gwara} few {# gwary} many {# gwar} other {# gwary}}",
+    "liveCount": "{count, plural, one {# nagranie na żywo} few {# nagrania na żywo} many {# nagrań na żywo} other {# nagrania na żywo}}",
+    "liveRecording": "nagranie użytkownika języka"
   },
   "Editor": {
     "title": "Word editor: {variety}",

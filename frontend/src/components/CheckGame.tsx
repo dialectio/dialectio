@@ -200,7 +200,7 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
   return (
     <article className="space-y-5 p-4">
       <header>
-        <h1 className="text-2xl font-semibold">{t("title")}</h1>
+        <h1 className="font-serif text-2xl font-semibold">{t("title")}</h1>
         <p className="text-sm opacity-80">{t("intro")}</p>
       </header>
 
@@ -262,7 +262,7 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
           <p className="text-xs tracking-wide uppercase opacity-60">
             {varietyName}
           </p>
-          <p className="my-2 text-4xl font-semibold text-violet-800 dark:text-violet-300">
+          <p className="my-2 font-serif text-4xl font-semibold text-violet-800 dark:text-violet-300">
             {card.spelling}
           </p>
           <p className="text-sm">
