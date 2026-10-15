@@ -76,7 +76,8 @@
     "description": "«{word}» en otros idiomas: {examples} y más — {count, plural, one {# idioma} other {# idiomas}} en un mapa, con pronunciación y audio.",
     "dialectIntro": "En los dialectos ucranianos, «{word}» también tiene otros nombres:",
     "worldIntro": "En otros idiomas: {list}.",
-    "related": "Más palabras"
+    "related": "Más palabras",
+    "regionalIntro": "{language} según la región:"
   },
   "Contribute": {
     "title": "¿Cómo se dice «{word}» donde vives?",
@@ -200,7 +201,9 @@
     "languageWordsTitle": "Palabras",
     "shownOf": "Se muestran {shown} de {total} palabras; el resto está en las páginas de cada palabra.",
     "checkCtaLanguage": "¿Hablas esta lengua? Revisa sus palabras →",
-    "regionalPageDescription": "{name}: {examples} y otras palabras con traducción. Dónde se habla, en el mapa."
+    "regionalPageDescription": "{name}: {examples} y otras palabras con traducción. Dónde se habla, en el mapa.",
+    "otherDialectsTitle": "Variantes regionales de otras lenguas",
+    "otherDialectsIntro": "Cómo la misma cosa se llama de forma distinta en las regiones de una lengua. Empezamos por el alemán: Brötchen, Schrippe, Semmel o Weckle, según dónde compres el panecillo."
   },
   "DialectInfo": {
     "ukr-polissia-west": "El dialecto de Polesia occidental se habla en la Polesia de Volinia y Rivne. Tiene diptongos y otras vocales en lugar de las antiguas o y e (кунь, нуч en vez de кінь, ніч) y vocabulario antiguo compartido con los dialectos bielorrusos.",
@@ -227,7 +230,8 @@
     "usedIn": "Dónde se dice",
     "others": "Otros nombres en los dialectos",
     "allLanguages": "«{meaning}» en otros idiomas y dialectos en el mapa →",
-    "unverified": "≈ Palabra sin verificar: un borrador que un editor aún no ha revisado."
+    "unverified": "≈ Palabra sin verificar: un borrador que un editor aún no ha revisado.",
+    "standardIs": "(en la lengua estándar: {word})"
   },
   "Og": {
     "site": "Cómo suenan las palabras en los idiomas del mundo y en los dialectos, en un mapa",

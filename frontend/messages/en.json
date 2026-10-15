@@ -76,7 +76,8 @@
     "description": "“{word}” in other languages: {examples} and more — {count, plural, one {# language} other {# languages}} on a map, with pronunciation and audio.",
     "dialectIntro": "In Ukrainian dialects, “{word}” also goes by other names:",
     "worldIntro": "In other languages: {list}.",
-    "related": "More words"
+    "related": "More words",
+    "regionalIntro": "{language} by region:"
   },
   "Contribute": {
     "title": "How do you say “{word}”?",
@@ -200,7 +201,9 @@
     "languageWordsTitle": "Words",
     "shownOf": "Showing {shown} of {total} words; the rest are on the word pages.",
     "checkCtaLanguage": "Speak this language? Check its words →",
-    "regionalPageDescription": "{name}: {examples} and other words with translations. Where it is spoken, on the map."
+    "regionalPageDescription": "{name}: {examples} and other words with translations. Where it is spoken, on the map.",
+    "otherDialectsTitle": "Regional variants of other languages",
+    "otherDialectsIntro": "How the same thing is called differently across one language's regions. We started with German: Brötchen, Schrippe, Semmel or Weckle, depending on where you buy your bread roll."
   },
   "DialectInfo": {
     "ukr-polissia-west": "The West Polissian dialect is spoken in the Polissia of Volyn and Rivne. It has diphthongs and other vowels in place of old o and e (кунь, нуч for кінь, ніч) and old vocabulary shared with Belarusian dialects.",
@@ -227,7 +230,8 @@
     "usedIn": "Where it is said",
     "others": "Other names in dialects",
     "allLanguages": "“{meaning}” in other languages and dialects on the map →",
-    "unverified": "≈ Unverified word: a draft not yet checked by an editor."
+    "unverified": "≈ Unverified word: a draft not yet checked by an editor.",
+    "standardIs": "(standard: {word})"
   },
   "Og": {
     "site": "How words sound in the world's languages and dialects, on a map",

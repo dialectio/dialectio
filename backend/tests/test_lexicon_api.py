@@ -271,3 +271,16 @@ def test_word_families_colour_the_map_by_origin() -> None:
 
     tea = client.get("/api/concepts/by-slug/tea").json()
     assert any(lang["family"] is not None for lang in tea["languages"])
+
+
+def test_german_regional_words_compare_with_standard_german() -> None:
+    bavaria = client.get("/api/dialects/deu-bavarian").json()
+    words = {w["spelling"]: w["standard"] for w in bavaria["words_list"]}
+    assert words["Semmel"] == "Brötchen"  # compared with German, not Ukrainian
+
+    semmel = client.get("/api/dialect-words/semmel").json()
+    meaning = next(m for m in semmel["meanings"] if m["slug"] == "bun")
+    assert {"deu-bavarian", "deu-austria"} <= {d["code"] for d in meaning["dialects"]}
+    assert "Schrippe" in {o["spelling"] for o in meaning["others"]}
+    # The standard German word is not a dialect word
+    assert client.get("/api/dialect-words/brötchen").status_code == 404

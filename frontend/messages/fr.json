@@ -76,7 +76,8 @@
     "description": "« {word} » dans d'autres langues : {examples} et plus — {count, plural, one {# langue} other {# langues}} sur une carte, avec prononciation et audio.",
     "dialectIntro": "Dans les dialectes ukrainiens, « {word} » a aussi d'autres noms :",
     "worldIntro": "Dans d'autres langues : {list}.",
-    "related": "Autres mots"
+    "related": "Autres mots",
+    "regionalIntro": "{language} selon les régions :"
   },
   "Contribute": {
     "title": "Comment dit-on « {word} » chez vous ?",
@@ -200,7 +201,9 @@
     "languageWordsTitle": "Mots",
     "shownOf": "{shown} mots sur {total} ; les autres sont sur les pages des mots.",
     "checkCtaLanguage": "Vous parlez cette langue ? Vérifiez ses mots →",
-    "regionalPageDescription": "{name} : {examples} et d'autres mots avec leur traduction. Où on la parle, sur la carte."
+    "regionalPageDescription": "{name} : {examples} et d'autres mots avec leur traduction. Où on la parle, sur la carte.",
+    "otherDialectsTitle": "Variantes régionales d'autres langues",
+    "otherDialectsIntro": "Comment la même chose se dit différemment selon les régions d'une langue. Nous avons commencé par l'allemand : Brötchen, Schrippe, Semmel ou Weckle, selon l'endroit où l'on achète son petit pain."
   },
   "DialectInfo": {
     "ukr-polissia-west": "Le dialecte de Polésie occidentale est parlé dans la Polésie de Volhynie et de Rivne. Il a des diphtongues et d'autres voyelles à la place des anciens o et e (кунь, нуч au lieu de кінь, ніч) et un vocabulaire ancien partagé avec les dialectes biélorusses.",
@@ -227,7 +230,8 @@
     "usedIn": "Où on le dit",
     "others": "Autres noms dans les dialectes",
     "allLanguages": "« {meaning} » dans d'autres langues et dialectes sur la carte →",
-    "unverified": "≈ Mot non vérifié : un brouillon qu'un éditeur n'a pas encore vérifié."
+    "unverified": "≈ Mot non vérifié : un brouillon qu'un éditeur n'a pas encore vérifié.",
+    "standardIs": "(langue standard : {word})"
   },
   "Og": {
     "site": "Comment les mots sonnent dans les langues du monde et les dialectes, sur une carte",

@@ -76,7 +76,8 @@
     "description": "„{word}” w innych językach: {examples} i więcej — {count, plural, one {# język} few {# języki} many {# języków} other {# języka}} na mapie, z wymową i nagraniami.",
     "dialectIntro": "W gwarach ukraińskich „{word}” ma też inne nazwy:",
     "worldIntro": "W innych językach: {list}.",
-    "related": "Więcej słów"
+    "related": "Więcej słów",
+    "regionalIntro": "{language} w różnych regionach:"
   },
   "Contribute": {
     "title": "Jak się mówi „{word}” u was?",
@@ -200,7 +201,9 @@
     "languageWordsTitle": "Słowa",
     "shownOf": "Pokazano {shown} z {total} słów; pozostałe są na stronach słów.",
     "checkCtaLanguage": "Znasz ten język? Sprawdź jego słowa →",
-    "regionalPageDescription": "{name}: {examples} i inne słowa z tłumaczeniem. Gdzie się nim mówi — na mapie."
+    "regionalPageDescription": "{name}: {examples} i inne słowa z tłumaczeniem. Gdzie się nim mówi — na mapie.",
+    "otherDialectsTitle": "Regionalne odmiany innych języków",
+    "otherDialectsIntro": "Jak tę samą rzecz nazywa się różnie w różnych regionach jednego języka. Zaczęliśmy od niemieckiego: Brötchen, Schrippe, Semmel czy Weckle — zależnie od tego, gdzie kupujesz bułkę."
   },
   "DialectInfo": {
     "ukr-polissia-west": "Gwara zachodniopoleska — na Polesiu wołyńskim i rówieńskim. Ma dyftongi i inne samogłoski w miejscu dawnych o, e (кунь, нуч zamiast кінь, ніч) oraz dawne słownictwo wspólne z gwarami białoruskimi.",
@@ -227,7 +230,8 @@
     "usedIn": "Gdzie się tak mówi",
     "others": "Inne nazwy w gwarach",
     "allLanguages": "„{meaning}” w innych językach i gwarach na mapie →",
-    "unverified": "≈ Słowo niezweryfikowane: szkic, którego redaktor jeszcze nie sprawdził."
+    "unverified": "≈ Słowo niezweryfikowane: szkic, którego redaktor jeszcze nie sprawdził.",
+    "standardIs": "(w języku ogólnym: {word})"
   },
   "Og": {
     "site": "Jak brzmią słowa w językach świata i gwarach — na mapie",

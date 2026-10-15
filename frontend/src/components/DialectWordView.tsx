@@ -12,6 +12,7 @@ import {
   type DialectUse,
   type DialectWordDetail,
   localized,
+  isUkrainianDialectWord,
   meaningOf,
 } from "@/lib/api";
 
@@ -22,7 +23,10 @@ function DialectLinks({ dialects }: { dialects: DialectRef[] }) {
       {dialects.map((dialect, i) => (
         <span key={dialect.code}>
           {i > 0 && ", "}
-          <Link href={`/dialects/${dialect.code}`} className="underline-offset-2 hover:underline">
+          <Link
+            href={`/dialects/${dialect.code}`}
+            className="underline-offset-2 hover:underline"
+          >
             {localized(locale, dialect.name_en, dialect.name_uk, dialect.names)}
           </Link>
         </span>
@@ -45,7 +49,10 @@ function DialectUseRow({ use }: { use: DialectUse }) {
   return (
     <li className="border-b border-black/5 py-1.5 dark:border-white/10">
       <span className="inline-flex items-baseline gap-1">
-        <Link href={`/dialects/${use.code}`} className="underline-offset-2 hover:underline">
+        <Link
+          href={`/dialects/${use.code}`}
+          className="underline-offset-2 hover:underline"
+        >
           {localized(locale, use.name_en, use.name_uk, use.names)}
         </Link>
         <TrustMark form={form} counts={counts} />
@@ -56,7 +63,11 @@ function DialectUseRow({ use }: { use: DialectUse }) {
 }
 
 /** A dialect word page: meanings, where it is said (also on the map), other dialect names. */
-export default function DialectWordView({ entry }: { entry: DialectWordDetail }) {
+export default function DialectWordView({
+  entry,
+}: {
+  entry: DialectWordDetail;
+}) {
   const locale = useLocale();
   const t = useTranslations("DialectWord");
 
@@ -81,7 +92,10 @@ export default function DialectWordView({ entry }: { entry: DialectWordDetail })
     }),
     [entry],
   );
-  const highlightCodes = useMemo(() => entry.regions.map((r) => r.code), [entry]);
+  const highlightCodes = useMemo(
+    () => entry.regions.map((r) => r.code),
+    [entry],
+  );
   useMapView({
     highlightCodes,
     labels,
@@ -93,7 +107,9 @@ export default function DialectWordView({ entry }: { entry: DialectWordDetail })
   return (
     <article className="space-y-6 p-4">
       <header>
-        <p className="text-xs tracking-wide uppercase opacity-60">{t("kicker")}</p>
+        <p className="text-xs tracking-wide uppercase opacity-60">
+          {t("kicker")}
+        </p>
         <h1 className="font-serif text-3xl font-semibold text-violet-800 dark:text-violet-300">
           {entry.word}
         </h1>
@@ -105,8 +121,18 @@ export default function DialectWordView({ entry }: { entry: DialectWordDetail })
           <section key={meaning.slug} className="space-y-3">
             <p className="flex flex-wrap items-baseline gap-x-2 text-lg">
               <span>{t("means", { meaning: meaningText })}</span>
-              {meaning.unverified && <span className="text-sm opacity-60">≈</span>}
-              {meaning.audio.length > 0 && <AudioButtons audio={meaning.audio} />}
+              {meaning.unverified && (
+                <span className="text-sm opacity-60">≈</span>
+              )}
+              {!isUkrainianDialectWord(meaning) && meaning.standard && (
+                // German areas ...: the standard word of their language
+                <span className="text-sm opacity-70">
+                  {t("standardIs", { word: meaning.standard })}
+                </span>
+              )}
+              {meaning.audio.length > 0 && (
+                <AudioButtons audio={meaning.audio} />
+              )}
             </p>
             <div className="text-sm">
               <h2 className="font-medium">{t("usedIn")}</h2>
@@ -126,7 +152,7 @@ export default function DialectWordView({ entry }: { entry: DialectWordDetail })
                         href={`/slovo/${encodeURIComponent(other.word)}`}
                         className="font-semibold text-violet-800 underline-offset-2 hover:underline dark:text-violet-300"
                       >
-                        {other.word}
+                        {other.spelling ?? other.word}
                       </Link>
                       <span className="opacity-70">
                         {" — "}
@@ -143,7 +169,9 @@ export default function DialectWordView({ entry }: { entry: DialectWordDetail })
             >
               {t("allLanguages", { meaning: meaningText })}
             </Link>
-            {meaning.unverified && <p className="text-xs opacity-60">{t("unverified")}</p>}
+            {meaning.unverified && (
+              <p className="text-xs opacity-60">{t("unverified")}</p>
+            )}
           </section>
         );
       })}

@@ -37,6 +37,7 @@ class DialectUse(DialectRef):
 
 class OtherWord(BaseModel):
     word: str  # lower case, the key of its own page
+    spelling: str  # as written ("Schrippe")
     dialects: list[DialectRef]
 
 
@@ -45,7 +46,7 @@ class Meaning(BaseModel):
     gloss_en: str
     gloss_uk: str | None
     glosses: dict[str, str] = {}
-    standard: str | None  # the standard Ukrainian word
+    standard: str | None  # the standard word of the dialect's language
     dialects: list[DialectUse]
     unverified: bool
     audio: list[AudioOut]
@@ -60,13 +61,13 @@ class DialectWordDetail(BaseModel):
     bounds: list[float] | None
 
 
-# Dialect forms that differ from the standard Ukrainian word for their concept.
+# Dialect forms that differ from their language's standard word for the concept.
 DIALECT_FORMS = """
     SELECT f.id, lower(f.spelling) AS word, f.spelling, f.concept_id, f.status,
            v.id AS variety_id, v.code, v.name_en, v.name_uk, v.names, src.name AS source,
            (SELECT s.spelling FROM form s JOIN variety u ON u.id = s.variety_id
-            WHERE s.concept_id = f.concept_id AND u.code = 'ukr' AND s.is_primary
-              AND s.status IN ('approved', 'pending')
+            WHERE s.concept_id = f.concept_id AND u.code = split_part(v.code, '-', 1)
+              AND s.is_primary AND s.status IN ('approved', 'pending')
             LIMIT 1) AS standard
     FROM form f
     JOIN variety v ON v.id = f.variety_id AND v.kind = 'dialect'
@@ -89,7 +90,7 @@ FORMS_OF_WORD = text(f"""
 """)
 
 OTHER_WORDS = text(f"""
-    SELECT d.word, d.code, d.name_en, d.name_uk, d.names FROM ({DIALECT_FORMS}) d
+    SELECT d.word, d.spelling, d.code, d.name_en, d.name_uk, d.names FROM ({DIALECT_FORMS}) d
     WHERE d.concept_id = :concept_id AND d.word <> :word
       AND (d.standard IS NULL OR lower(d.standard) <> d.word)
     ORDER BY d.word, d.code
@@ -152,9 +153,11 @@ def dialect_word(session: SessionDep, word: str) -> DialectWordDetail:
     for concept_id, forms in by_concept.items():
         first = forms[0]
         others: dict[str, list[DialectRef]] = {}
+        spellings: dict[str, str] = {}
         for other in session.execute(
             OTHER_WORDS, {"concept_id": concept_id, "word": word}
         ).mappings():
+            spellings.setdefault(other["word"], other["spelling"])
             others.setdefault(other["word"], []).append(
                 DialectRef(
                     code=other["code"],
@@ -193,7 +196,9 @@ def dialect_word(session: SessionDep, word: str) -> DialectWordDetail:
                         AUDIO, {"form_ids": [f["id"] for f in forms]}
                     ).mappings()
                 ],
-                others=[OtherWord(word=w, dialects=d) for w, d in others.items()],
+                others=[
+                    OtherWord(word=w, spelling=spellings[w], dialects=d) for w, d in others.items()
+                ],
             )
         )
 

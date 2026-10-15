@@ -1,4 +1,5 @@
-"""Dialect varieties (Stage 2): Ukrainian dialect groups (наріччя) and dialects (говори).
+"""Dialect varieties (Stage 2): Ukrainian dialect groups (наріччя) and dialects (говори), and
+the regional areas of German (a pilot for dialects of other languages).
 
 Territories are approximated by oblasts (ISO 3166-2 codes); an oblast can host several
 dialects, e.g. Ivano-Frankivsk: Hutsul, Pokuttia-Bukovyna and Boyko. Lemko, Nadsian, Hutsul
@@ -165,6 +166,81 @@ DIALECTS: tuple[Dialect, ...] = (
         "Steppe dialect",
         "степовий говір",
         ("UA-51", "UA-48", "UA-65", "UA-23", "UA-12", "UA-14", "UA-35"),
+    ),
+    # German: regional everyday words (Brötchen / Schrippe / Semmel ...), by areas of states.
+    # A pilot for dialects of other languages; words are drafts checked by speakers.
+    Dialect("deu-regional", "deu", "dialect_group", "Regional German", "регіональна німецька"),
+    Dialect(
+        "deu-north",
+        "deu-regional",
+        "dialect",
+        "German (Northern Germany)",
+        "німецька — Північна Німеччина",
+        ("DE-SH", "DE-HH", "DE-HB", "DE-NI"),
+    ),
+    Dialect(
+        "deu-northeast",
+        "deu-regional",
+        "dialect",
+        "German (Berlin, Brandenburg, Mecklenburg)",
+        "німецька — Берлін, Бранденбург, Мекленбург",
+        ("DE-BE", "DE-BB", "DE-MV"),
+    ),
+    Dialect(
+        "deu-central-east",
+        "deu-regional",
+        "dialect",
+        "German (Saxony, Thuringia, Saxony-Anhalt)",
+        "німецька — Саксонія, Тюрингія, Саксонія-Ангальт",
+        ("DE-SN", "DE-TH", "DE-ST"),
+    ),
+    Dialect(
+        "deu-northrhine",
+        "deu-regional",
+        "dialect",
+        "German (North Rhine-Westphalia)",
+        "німецька — Північний Рейн — Вестфалія",
+        ("DE-NW",),
+    ),
+    Dialect(
+        "deu-central-west",
+        "deu-regional",
+        "dialect",
+        "German (Hesse, Rhineland-Palatinate, Saarland)",
+        "німецька — Гессен, Рейнланд-Пфальц, Саар",
+        ("DE-HE", "DE-RP", "DE-SL"),
+    ),
+    Dialect(
+        "deu-swabian",
+        "deu-regional",
+        "dialect",
+        "German (Baden-Württemberg)",
+        "німецька — Баден-Вюртемберг",
+        ("DE-BW",),
+    ),
+    Dialect(
+        "deu-bavarian",
+        "deu-regional",
+        "dialect",
+        "German (Bavaria)",
+        "німецька — Баварія",
+        ("DE-BY",),
+    ),
+    Dialect(
+        "deu-austria",
+        "deu-regional",
+        "dialect",
+        "German (Austria)",
+        "німецька — Австрія",
+        tuple(f"AT-{n}" for n in range(1, 10)),
+    ),
+    Dialect(
+        "deu-switzerland",
+        "deu-regional",
+        "dialect",
+        "German (Switzerland)",
+        "німецька — Швейцарія",
+        tuple(f"CH-{c}" for c in "AG AI AR BE BL BS GL LU NW OW SG SH SO SZ TG UR ZG ZH".split()),
     ),
 )
 

@@ -17,5 +17,15 @@
  "ukr-lemko": {"pl": "gwara łemkowska", "de": "lemkischer Dialekt", "es": "dialecto lemko", "fr": "dialecte lemko"},
  "ukr-middle-dnieper": {"pl": "gwara środkowonaddnieprzańska", "de": "mittleres Dnipro-Dialekt", "es": "dialecto del Dniéper medio", "fr": "dialecte du Dniepr moyen"},
  "ukr-slobozhan": {"pl": "gwara słobodzka", "de": "slobodaukrainischer Dialekt", "es": "dialecto de Slobozhanshchyna", "fr": "dialecte de Slobojanchtchyna"},
- "ukr-steppe": {"pl": "gwara stepowa", "de": "Steppendialekt", "es": "dialecto de la estepa", "fr": "dialecte des steppes"}
+ "ukr-steppe": {"pl": "gwara stepowa", "de": "Steppendialekt", "es": "dialecto de la estepa", "fr": "dialecte des steppes"},
+ "deu-regional": {"pl": "regionalna niemczyzna", "de": "regionales Deutsch", "es": "alemán regional", "fr": "allemand régional"},
+ "deu-north": {"pl": "niemiecki — Niemcy Północne", "de": "Deutsch — Norddeutschland", "es": "alemán — norte de Alemania", "fr": "allemand — Allemagne du Nord"},
+ "deu-northeast": {"pl": "niemiecki — Berlin, Brandenburgia, Meklemburgia", "de": "Deutsch — Berlin, Brandenburg, Mecklenburg", "es": "alemán — Berlín, Brandeburgo, Mecklemburgo", "fr": "allemand — Berlin, Brandebourg, Mecklembourg"},
+ "deu-central-east": {"pl": "niemiecki — Saksonia, Turyngia, Saksonia-Anhalt", "de": "Deutsch — Sachsen, Thüringen, Sachsen-Anhalt", "es": "alemán — Sajonia, Turingia, Sajonia-Anhalt", "fr": "allemand — Saxe, Thuringe, Saxe-Anhalt"},
+ "deu-northrhine": {"pl": "niemiecki — Nadrenia Północna-Westfalia", "de": "Deutsch — Nordrhein-Westfalen", "es": "alemán — Renania del Norte-Westfalia", "fr": "allemand — Rhénanie-du-Nord-Westphalie"},
+ "deu-central-west": {"pl": "niemiecki — Hesja, Nadrenia-Palatynat, Saara", "de": "Deutsch — Hessen, Rheinland-Pfalz, Saarland", "es": "alemán — Hesse, Renania-Palatinado, Sarre", "fr": "allemand — Hesse, Rhénanie-Palatinat, Sarre"},
+ "deu-swabian": {"pl": "niemiecki — Badenia-Wirtembergia", "de": "Deutsch — Baden-Württemberg", "es": "alemán — Baden-Wurtemberg", "fr": "allemand — Bade-Wurtemberg"},
+ "deu-bavarian": {"pl": "niemiecki — Bawaria", "de": "Deutsch — Bayern", "es": "alemán — Baviera", "fr": "allemand — Bavière"},
+ "deu-austria": {"pl": "niemiecki — Austria", "de": "Deutsch — Österreich", "es": "alemán — Austria", "fr": "allemand — Autriche"},
+ "deu-switzerland": {"pl": "niemiecki — Szwajcaria", "de": "Deutsch — Schweiz", "es": "alemán — Suiza", "fr": "allemand — Suisse"}
 }

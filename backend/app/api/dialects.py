@@ -109,13 +109,15 @@ BOUNDS = text("""
 
 WORDS = text("""
     SELECT c.slug, c.gloss_en, c.gloss_uk, c.glosses, f.spelling,
+           -- the standard word of the dialect's language (ukr-hutsul -> ukr, deu-north -> deu)
            (SELECT s.spelling FROM form s JOIN variety u ON u.id = s.variety_id
-            WHERE s.concept_id = c.id AND u.code = 'ukr' AND s.is_primary
-              AND s.status IN ('approved', 'pending')
+            WHERE s.concept_id = c.id AND u.code = split_part(v.code, '-', 1)
+              AND s.is_primary AND s.status IN ('approved', 'pending')
             LIMIT 1) AS standard,
            (f.status = 'pending' OR src.name = ANY(:unverified_sources)) AS unverified,
            EXISTS (SELECT 1 FROM audio a WHERE a.form_id = f.id) AS has_audio
     FROM form f
+    JOIN variety v ON v.id = f.variety_id
     JOIN concept c ON c.id = f.concept_id
     LEFT JOIN source src ON src.id = f.source_id
     WHERE f.variety_id = :variety_id AND f.status IN ('approved', 'pending')

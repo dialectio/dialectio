@@ -76,7 +76,8 @@
     "description": "„{word}“ in anderen Sprachen: {examples} und mehr — {count, plural, one {# Sprache} other {# Sprachen}} auf einer Karte, mit Aussprache und Audio.",
     "dialectIntro": "In ukrainischen Dialekten heißt „{word}“ auch anders:",
     "worldIntro": "In anderen Sprachen: {list}.",
-    "related": "Weitere Wörter"
+    "related": "Weitere Wörter",
+    "regionalIntro": "{language} je nach Region:"
   },
   "Contribute": {
     "title": "Wie sagt man „{word}“ bei euch?",
@@ -200,7 +201,9 @@
     "languageWordsTitle": "Wörter",
     "shownOf": "{shown} von {total} Wörtern; die übrigen stehen auf den Wortseiten.",
     "checkCtaLanguage": "Sprechen Sie diese Sprache? Prüfen Sie ihre Wörter →",
-    "regionalPageDescription": "{name}: {examples} und weitere Wörter mit Übersetzung. Wo sie gesprochen wird, auf der Karte."
+    "regionalPageDescription": "{name}: {examples} und weitere Wörter mit Übersetzung. Wo sie gesprochen wird, auf der Karte.",
+    "otherDialectsTitle": "Regionale Varianten anderer Sprachen",
+    "otherDialectsIntro": "Wie dieselbe Sache in den Regionen einer Sprache unterschiedlich heißt. Den Anfang macht das Deutsche: Brötchen, Schrippe, Semmel oder Weckle — je nachdem, wo man sie kauft."
   },
   "DialectInfo": {
     "ukr-polissia-west": "Der westpolessische Dialekt wird im Polesien der Oblaste Wolyn und Riwne gesprochen. Er hat Diphthonge und andere Vokale anstelle der alten o und e (кунь, нуч statt кінь, ніч) sowie alten Wortschatz, den er mit belarussischen Dialekten teilt.",
@@ -227,7 +230,8 @@
     "usedIn": "Wo man es sagt",
     "others": "Andere Wörter in Dialekten",
     "allLanguages": "„{meaning}“ in anderen Sprachen und Dialekten auf der Karte →",
-    "unverified": "≈ Ungeprüftes Wort: ein Entwurf, den die Redaktion noch nicht geprüft hat."
+    "unverified": "≈ Ungeprüftes Wort: ein Entwurf, den die Redaktion noch nicht geprüft hat.",
+    "standardIs": "(Standardsprache: {word})"
   },
   "Og": {
     "site": "Wie Wörter in den Sprachen der Welt und in Dialekten klingen — auf einer Karte",

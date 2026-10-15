@@ -2,11 +2,13 @@ import type { FeatureCollection, Point } from "geojson";
 
 import type { Deck } from "@/lib/feedback";
 
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+export const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 /** API address for server-side rendering (can be an internal URL in production). */
 const SERVER_API_URL = process.env.API_INTERNAL_URL || API_URL;
 /** Public address of the site, used for canonical URLs and the sitemap. */
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 /** How long server-rendered pages may reuse API data, in seconds (the page also refreshes
  * its data in the browser, so visitors see edits right away; this mainly bounds staleness
  * for search engines). */
@@ -114,7 +116,10 @@ async function getJson<T>(path: string, signal?: AbortSignal): Promise<T> {
 }
 
 export function searchWords(q: string, locale: string, signal?: AbortSignal) {
-  const params = new URLSearchParams({ q, prefer: LOCALE_LANGUAGE[locale] ?? "eng" });
+  const params = new URLSearchParams({
+    q,
+    prefer: LOCALE_LANGUAGE[locale] ?? "eng",
+  });
   return getJson<SearchHit[]>(`/api/search?${params}`, signal);
 }
 
@@ -140,7 +145,9 @@ async function getServerJson<T>(path: string): Promise<T | null> {
 
 /** Server-side: concept page data, or null when the slug does not exist. */
 export function getConceptBySlug(slug: string) {
-  return getServerJson<ConceptDetail>(`/api/concepts/by-slug/${encodeURIComponent(slug)}`);
+  return getServerJson<ConceptDetail>(
+    `/api/concepts/by-slug/${encodeURIComponent(slug)}`,
+  );
 }
 
 /** Server-side: every concept that has a page. */
@@ -223,7 +230,11 @@ export type FeaturedConcept = ConceptLink & { id: number; examples: string[] };
 
 /** Server-side: concepts with the most different dialect words (home page). */
 export async function listFeaturedConcepts(limit = 12) {
-  return (await getServerJson<FeaturedConcept[]>(`/api/concepts/featured?limit=${limit}`)) ?? [];
+  return (
+    (await getServerJson<FeaturedConcept[]>(
+      `/api/concepts/featured?limit=${limit}`,
+    )) ?? []
+  );
 }
 
 export type DialectSummary = {
@@ -279,7 +290,9 @@ export async function listDialects() {
 
 /** Server-side: a dialect page, or null when the code does not exist. */
 export function getDialect(code: string) {
-  return getServerJson<DialectDetail>(`/api/dialects/${encodeURIComponent(code)}`);
+  return getServerJson<DialectDetail>(
+    `/api/dialects/${encodeURIComponent(code)}`,
+  );
 }
 
 export type DialectRef = {
@@ -308,7 +321,7 @@ export type DialectWordMeaning = {
   unverified: boolean;
   audio: Audio[];
   /** Other dialect words for the same concept */
-  others: { word: string; dialects: DialectRef[] }[];
+  others: { word: string; spelling?: string; dialects: DialectRef[] }[];
 };
 
 export type DialectWordDetail = {
@@ -320,8 +333,19 @@ export type DialectWordDetail = {
 
 /** What a dialect word means for the reader: the standard Ukrainian word, or English. */
 export function meaningOf(meaning: DialectWordMeaning, locale: string): string {
-  if (locale === "uk") return meaning.standard ?? meaning.gloss_uk ?? meaning.gloss_en;
+  // The standard word means the same only for Ukrainian dialects on Ukrainian pages
+  if (locale === "uk")
+    return (
+      (isUkrainianDialectWord(meaning) && meaning.standard) ||
+      meaning.gloss_uk ||
+      meaning.gloss_en
+    );
   return localized(locale, meaning.gloss_en, null, meaning.glosses);
+}
+
+/** Whether the word belongs to Ukrainian dialects (not German areas ...). */
+export function isUkrainianDialectWord(meaning: DialectWordMeaning): boolean {
+  return meaning.dialects.every((use) => use.code.startsWith("ukr-"));
 }
 
 /** Server-side: every dialect word that has a page. */
@@ -331,7 +355,9 @@ export async function listDialectWords() {
 
 /** Server-side: a dialect word page, or null when the word is unknown. */
 export function getDialectWord(word: string) {
-  return getServerJson<DialectWordDetail>(`/api/dialect-words/${encodeURIComponent(word)}`);
+  return getServerJson<DialectWordDetail>(
+    `/api/dialect-words/${encodeURIComponent(word)}`,
+  );
 }
 
 /** Server-side: word sets for the "check words" game. */
@@ -356,12 +382,17 @@ export type FalseFriendLanguage = {
   names?: Names;
 };
 
-export type FalseFriendPair = { foreign: FalseFriendWord; ukrainian: FalseFriendWord };
+export type FalseFriendPair = {
+  foreign: FalseFriendWord;
+  ukrainian: FalseFriendWord;
+};
 
 /** Server-side: languages with false-friend pages and their number of pairs. */
 export async function listFalseFriendLanguages() {
   return (
-    (await getServerJson<(FalseFriendLanguage & { count: number })[]>("/api/false-friends")) ?? []
+    (await getServerJson<(FalseFriendLanguage & { count: number })[]>(
+      "/api/false-friends",
+    )) ?? []
   );
 }
 

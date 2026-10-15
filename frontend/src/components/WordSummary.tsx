@@ -3,7 +3,13 @@
 import { useLocale, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
-import { type ConceptDetail, type LanguageForms, LOCALE_LANGUAGE, localized } from "@/lib/api";
+import {
+  capitalize,
+  type ConceptDetail,
+  type LanguageForms,
+  LOCALE_LANGUAGE,
+  localized,
+} from "@/lib/api";
 
 // Languages quoted in the summary, in this order (the most searched ones).
 const SUMMARY_LANGUAGES = ["eng", "ukr", "deu", "fra", "spa", "pol", "ita"];
@@ -11,27 +17,50 @@ const SUMMARY_EXAMPLES = 5;
 
 type Variant = { word: string; dialects: string[] };
 
-/** Dialect words that differ from standard Ukrainian, with the dialects that use them. */
-function dialectVariants(concept: ConceptDetail, locale: string): Variant[] {
+/** Languages whose dialects use this concept ("ukr" for ukr-hutsul, "deu" for deu-north). */
+function dialectLanguages(concept: ConceptDetail): string[] {
+  const codes = concept.languages
+    .filter((lang) => lang.kind === "dialect")
+    .map((lang) => lang.code.split("-")[0]);
+  // Ukrainian first, the others in the order they appear
+  return [...new Set(codes)].sort(
+    (a, b) => Number(b === "ukr") - Number(a === "ukr"),
+  );
+}
+
+/** Dialect words of one language that differ from its standard word, with their areas. */
+function dialectVariants(
+  concept: ConceptDetail,
+  locale: string,
+  language: string,
+): Variant[] {
   const standard = new Set(
     concept.languages
-      .filter((lang) => lang.code === "ukr")
+      .filter((lang) => lang.code === language)
       .flatMap((lang) => lang.forms.map((f) => f.spelling.toLowerCase())),
   );
-  const dialects = new Map<string, string[]>();
+  const dialects = new Map<string, Variant>();
   for (const lang of concept.languages) {
-    if (lang.kind !== "dialect") continue;
+    if (lang.kind !== "dialect" || !lang.code.startsWith(`${language}-`))
+      continue;
+    // "німецька — Баварія" -> "Баварія": the language is said once, before the list
+    const area = localized(locale, lang.name_en, lang.name_uk, lang.names)
+      .split(" — ")
+      .pop()!;
     for (const form of lang.forms) {
-      const word = form.spelling.toLowerCase();
-      if (standard.has(word)) continue;
-      const names = dialects.get(word) ?? [];
-      names.push(localized(locale, lang.name_en, lang.name_uk, lang.names));
-      dialects.set(word, names);
+      const key = form.spelling.toLowerCase();
+      if (standard.has(key)) continue;
+      const variant = dialects.get(key) ?? {
+        word: form.spelling,
+        dialects: [],
+      };
+      variant.dialects.push(area);
+      dialects.set(key, variant);
     }
   }
-  return [...dialects.entries()]
-    .sort((a, b) => b[1].length - a[1].length)
-    .map(([word, names]) => ({ word, dialects: names }));
+  return [...dialects.values()].sort(
+    (a, b) => b.dialects.length - a.dialects.length,
+  );
 }
 
 /** The same word in the most searched languages, e.g. "potato (English)". */
@@ -39,41 +68,65 @@ function worldExamples(concept: ConceptDetail, locale: string): string[] {
   const own = LOCALE_LANGUAGE[locale] ?? "eng";
   return SUMMARY_LANGUAGES.filter((code) => code !== own)
     .map((code) => concept.languages.find((lang) => lang.code === code))
-    .filter((lang): lang is LanguageForms => lang !== undefined && lang.forms.length > 0)
+    .filter(
+      (lang): lang is LanguageForms =>
+        lang !== undefined && lang.forms.length > 0,
+    )
     .slice(0, SUMMARY_EXAMPLES)
-    .map((lang) => `${lang.forms[0].spelling} (${localized(locale, lang.name_en, lang.name_uk, lang.names)})`);
+    .map(
+      (lang) =>
+        `${lang.forms[0].spelling} (${localized(locale, lang.name_en, lang.name_uk, lang.names)})`,
+    );
 }
 
 /** Readable text about the word, rendered on the server for search engines and people. */
 export function WordIntro({ concept }: { concept: ConceptDetail }) {
   const locale = useLocale();
   const t = useTranslations("Word");
-  const word = localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses);
-  const variants = dialectVariants(concept, locale);
+  const word = localized(
+    locale,
+    concept.gloss_en,
+    concept.gloss_uk,
+    concept.glosses,
+  );
   const examples = worldExamples(concept, locale);
+  const languageName = (code: string) => {
+    const lang = concept.languages.find((l) => l.code === code);
+    return lang
+      ? capitalize(localized(locale, lang.name_en, lang.name_uk, lang.names))
+      : code;
+  };
 
   return (
     <div className="space-y-2 pt-3 text-sm leading-relaxed">
-      {variants.length > 0 && (
-        <p>
-          {t("dialectIntro", { word })}{" "}
-          {variants.map((variant, i) => (
-            <span key={variant.word}>
-              {i > 0 && "; "}
-              <Link
-                href={`/slovo/${encodeURIComponent(variant.word)}`}
-                className="font-semibold text-violet-800 underline-offset-2 hover:underline dark:text-violet-300"
-              >
-                {variant.word}
-              </Link>{" "}
-              ({variant.dialects.join(", ")})
-            </span>
-          ))}
-          .
-        </p>
-      )}
+      {dialectLanguages(concept).map((language) => {
+        const variants = dialectVariants(concept, locale, language);
+        if (variants.length === 0) return null;
+        return (
+          <p key={language}>
+            {language === "ukr"
+              ? t("dialectIntro", { word })
+              : t("regionalIntro", { language: languageName(language) })}{" "}
+            {variants.map((variant, i) => (
+              <span key={variant.word}>
+                {i > 0 && "; "}
+                <Link
+                  href={`/slovo/${encodeURIComponent(variant.word.toLowerCase())}`}
+                  className="font-semibold text-violet-800 underline-offset-2 hover:underline dark:text-violet-300"
+                >
+                  {variant.word}
+                </Link>{" "}
+                ({variant.dialects.join(", ")})
+              </span>
+            ))}
+            .
+          </p>
+        );
+      })}
       {examples.length > 0 && (
-        <p className="opacity-80">{t("worldIntro", { list: examples.join(", ") })}</p>
+        <p className="opacity-80">
+          {t("worldIntro", { list: examples.join(", ") })}
+        </p>
       )}
     </div>
   );
@@ -88,7 +141,9 @@ export function RelatedWords({ concept }: { concept: ConceptDetail }) {
 
   return (
     <nav className="py-4">
-      <h2 className="mb-2 text-xs tracking-wide uppercase opacity-60">{t("related")}</h2>
+      <h2 className="mb-2 text-xs tracking-wide uppercase opacity-60">
+        {t("related")}
+      </h2>
       <ul className="flex flex-wrap gap-2">
         {related.map((link) => (
           <li key={link.slug}>
