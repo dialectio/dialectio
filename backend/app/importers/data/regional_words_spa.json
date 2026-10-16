@@ -1,0 +1,144 @@
+{
+  "_comment": "Regional Spanish everyday words by area (drafts written by Dialectio from well-known regional variation, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Areas are approximate: a region or country can use several words; the most widespread one is given. Loaded by app.importers.regional_words.",
+  "_main": {"popcorn": "palomitas", "cake": "pastel", "bean": "frijol", "drinking-straw": "pajita", "apartment": "apartamento", "refrigerator": "refrigerador", "banana": "plátano", "mobile-phone": "teléfono móvil"},
+  "popcorn": {
+    "spa-spain": "palomitas", "spa-mexico": "palomitas", "spa-caribbean": "rositas de maíz",
+    "spa-centralamerica": "palomitas", "spa-colombia": "crispetas", "spa-venezuela": "cotufas",
+    "spa-andes": "canchita", "spa-chile": "cabritas", "spa-rioplatense": "pochoclo"
+  },
+  "bus": {
+    "spa-spain": "autobús", "spa-mexico": "camión", "spa-caribbean": "guagua",
+    "spa-centralamerica": "bus", "spa-colombia": "bus", "spa-venezuela": "autobús",
+    "spa-andes": "micro", "spa-chile": "micro", "spa-rioplatense": "colectivo"
+  },
+  "car": {
+    "spa-spain": "coche", "spa-mexico": "carro", "spa-caribbean": "carro",
+    "spa-centralamerica": "carro", "spa-colombia": "carro", "spa-venezuela": "carro",
+    "spa-andes": "carro", "spa-chile": "auto", "spa-rioplatense": "auto"
+  },
+  "computer": {
+    "spa-spain": "ordenador", "spa-mexico": "computadora", "spa-caribbean": "computadora",
+    "spa-centralamerica": "computadora", "spa-colombia": "computador", "spa-venezuela": "computadora",
+    "spa-andes": "computadora", "spa-chile": "computador", "spa-rioplatense": "computadora"
+  },
+  "juice": {
+    "spa-spain": "zumo", "spa-mexico": "jugo", "spa-caribbean": "jugo",
+    "spa-centralamerica": "jugo", "spa-colombia": "jugo", "spa-venezuela": "jugo",
+    "spa-andes": "jugo", "spa-chile": "jugo", "spa-rioplatense": "jugo"
+  },
+  "cake": {
+    "spa-spain": "tarta", "spa-mexico": "pastel", "spa-caribbean": "bizcocho",
+    "spa-centralamerica": "pastel", "spa-colombia": "ponqué", "spa-venezuela": "torta",
+    "spa-andes": "torta", "spa-chile": "torta", "spa-rioplatense": "torta"
+  },
+  "avocado": {
+    "spa-spain": "aguacate", "spa-mexico": "aguacate", "spa-caribbean": "aguacate",
+    "spa-centralamerica": "aguacate", "spa-colombia": "aguacate", "spa-venezuela": "aguacate",
+    "spa-andes": "palta", "spa-chile": "palta", "spa-rioplatense": "palta"
+  },
+  "bean": {
+    "spa-spain": "alubia", "spa-mexico": "frijol", "spa-caribbean": "habichuela",
+    "spa-centralamerica": "frijol", "spa-colombia": "fríjol", "spa-venezuela": "caraota",
+    "spa-andes": "frejol", "spa-chile": "poroto", "spa-rioplatense": "poroto"
+  },
+  "peach": {
+    "spa-spain": "melocotón", "spa-mexico": "durazno", "spa-caribbean": "melocotón",
+    "spa-centralamerica": "melocotón", "spa-colombia": "durazno", "spa-venezuela": "durazno",
+    "spa-andes": "durazno", "spa-chile": "durazno", "spa-rioplatense": "durazno"
+  },
+  "strawberry": {
+    "spa-spain": "fresa", "spa-mexico": "fresa", "spa-caribbean": "fresa",
+    "spa-centralamerica": "fresa", "spa-colombia": "fresa", "spa-venezuela": "fresa",
+    "spa-andes": "fresa", "spa-chile": "frutilla", "spa-rioplatense": "frutilla"
+  },
+  "potato": {
+    "spa-spain": "patata", "spa-mexico": "papa", "spa-caribbean": "papa",
+    "spa-centralamerica": "papa", "spa-colombia": "papa", "spa-venezuela": "papa",
+    "spa-andes": "papa", "spa-chile": "papa", "spa-rioplatense": "papa"
+  },
+  "money": {
+    "spa-spain": "pasta", "spa-mexico": "lana", "spa-caribbean": "chavos",
+    "spa-centralamerica": "pisto", "spa-colombia": "plata", "spa-venezuela": "real",
+    "spa-andes": "plata", "spa-chile": "plata", "spa-rioplatense": "guita"
+  },
+  "jacket": {
+    "spa-spain": "chaqueta", "spa-mexico": "chamarra", "spa-caribbean": "chaqueta",
+    "spa-centralamerica": "chumpa", "spa-colombia": "chaqueta", "spa-venezuela": "chaqueta",
+    "spa-andes": "casaca", "spa-chile": "parka", "spa-rioplatense": "campera"
+  },
+  "pen": {
+    "spa-spain": "bolígrafo", "spa-mexico": "pluma", "spa-caribbean": "bolígrafo",
+    "spa-centralamerica": "lapicero", "spa-colombia": "esfero", "spa-venezuela": "bolígrafo",
+    "spa-andes": "lapicero", "spa-chile": "lápiz pasta", "spa-rioplatense": "birome"
+  },
+  "drinking-straw": {
+    "spa-spain": "pajita", "spa-mexico": "popote", "spa-caribbean": "sorbeto",
+    "spa-centralamerica": "pajilla", "spa-colombia": "pitillo", "spa-venezuela": "pitillo",
+    "spa-andes": "cañita", "spa-chile": "bombilla", "spa-rioplatense": "sorbete"
+  },
+  "apartment": {
+    "spa-spain": "piso", "spa-mexico": "departamento", "spa-caribbean": "apartamento",
+    "spa-centralamerica": "apartamento", "spa-colombia": "apartamento", "spa-venezuela": "apartamento",
+    "spa-andes": "departamento", "spa-chile": "departamento", "spa-rioplatense": "departamento"
+  },
+  "sidewalk": {
+    "spa-spain": "acera", "spa-mexico": "banqueta", "spa-caribbean": "acera",
+    "spa-centralamerica": "acera", "spa-colombia": "andén", "spa-venezuela": "acera",
+    "spa-andes": "vereda", "spa-chile": "vereda", "spa-rioplatense": "vereda"
+  },
+  "refrigerator": {
+    "spa-spain": "frigorífico", "spa-mexico": "refrigerador", "spa-caribbean": "nevera",
+    "spa-centralamerica": "refrigeradora", "spa-colombia": "nevera", "spa-venezuela": "nevera",
+    "spa-andes": "refrigeradora", "spa-chile": "refrigerador", "spa-rioplatense": "heladera"
+  },
+  "sweater": {
+    "spa-spain": "jersey", "spa-mexico": "suéter", "spa-caribbean": "suéter",
+    "spa-centralamerica": "suéter", "spa-colombia": "saco", "spa-venezuela": "suéter",
+    "spa-andes": "chompa", "spa-chile": "chaleco", "spa-rioplatense": "buzo"
+  },
+  "t-shirt": {
+    "spa-spain": "camiseta", "spa-mexico": "playera", "spa-caribbean": "camiseta",
+    "spa-centralamerica": "camiseta", "spa-colombia": "camiseta", "spa-venezuela": "franela",
+    "spa-andes": "polo", "spa-chile": "polera", "spa-rioplatense": "remera"
+  },
+  "mobile-phone": {
+    "spa-spain": "móvil", "spa-mexico": "celular", "spa-caribbean": "celular",
+    "spa-centralamerica": "celular", "spa-colombia": "celular", "spa-venezuela": "celular",
+    "spa-andes": "celular", "spa-chile": "celular", "spa-rioplatense": "celular"
+  },
+  "peanut": {
+    "spa-spain": "cacahuete", "spa-mexico": "cacahuate", "spa-caribbean": "maní",
+    "spa-centralamerica": "maní", "spa-colombia": "maní", "spa-venezuela": "maní",
+    "spa-andes": "maní", "spa-chile": "maní", "spa-rioplatense": "maní"
+  },
+  "banana": {
+    "spa-spain": "plátano", "spa-mexico": "plátano", "spa-caribbean": "guineo",
+    "spa-centralamerica": "banano", "spa-colombia": "banano", "spa-venezuela": "cambur",
+    "spa-andes": "plátano", "spa-chile": "plátano", "spa-rioplatense": "banana"
+  },
+  "swimsuit": {
+    "spa-spain": "bañador", "spa-mexico": "traje de baño", "spa-caribbean": "traje de baño",
+    "spa-centralamerica": "traje de baño", "spa-colombia": "vestido de baño", "spa-venezuela": "traje de baño",
+    "spa-andes": "ropa de baño", "spa-chile": "traje de baño", "spa-rioplatense": "malla"
+  },
+  "boyfriend": {
+    "spa-spain": "novio", "spa-mexico": "novio", "spa-caribbean": "novio",
+    "spa-centralamerica": "novio", "spa-colombia": "novio", "spa-venezuela": "novio",
+    "spa-andes": "enamorado", "spa-chile": "pololo", "spa-rioplatense": "novio"
+  },
+  "girlfriend": {
+    "spa-spain": "novia", "spa-mexico": "novia", "spa-caribbean": "novia",
+    "spa-centralamerica": "novia", "spa-colombia": "novia", "spa-venezuela": "novia",
+    "spa-andes": "enamorada", "spa-chile": "polola", "spa-rioplatense": "novia"
+  },
+  "child-q7569": {
+    "spa-spain": "chaval", "spa-mexico": "chamaco", "spa-caribbean": "nene",
+    "spa-centralamerica": "cipote", "spa-colombia": "pelado", "spa-venezuela": "chamo",
+    "spa-andes": "chibolo", "spa-chile": "cabro chico", "spa-rioplatense": "pibe"
+  },
+  "friend": {
+    "spa-spain": "colega", "spa-mexico": "cuate", "spa-caribbean": "pana",
+    "spa-centralamerica": "mae", "spa-colombia": "parcero", "spa-venezuela": "pana",
+    "spa-andes": "pata", "spa-chile": "amigo", "spa-rioplatense": "amigo"
+  }
+}

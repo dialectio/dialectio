@@ -124,7 +124,7 @@ def test_regions_for_the_voter() -> None:
     assert {"PL-PK", "SK-PV", "RO-MM"} <= set(by_code)  # Lemko, Hutsul areas
     assert by_code["GB-WLS"]["country"] == "GBR"  # Western European regions
     # Countries without regions on the map are offered as a whole
-    assert by_code["CAN"]["country"] is None
+    assert by_code["BRA"]["country"] is None
     assert "UKR" not in by_code  # Ukraine has its oblasts instead
 
 

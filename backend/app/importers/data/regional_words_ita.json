@@ -1,5 +1,6 @@
 {
   "_comment": "Regional Italian everyday words by area (drafts written by Dialectio from well-known regional variation of Italian, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Areas are approximate: a region can use several words; the most widespread one is given. Loaded by app.importers.regional_words.",
+  "_main": {"daddy": "papà", "watermelon": "anguria", "doughnut": "bombolone", "courgette": "zucchina", "money": "soldi"},
   "watermelon": {
     "ita-northwest": "anguria", "ita-lombardy": "anguria", "ita-northeast": "anguria",
     "ita-emilia": "anguria", "ita-tuscany": "cocomero", "ita-center": "cocomero",
@@ -34,5 +35,15 @@
     "ita-northwest": "zucchina", "ita-lombardy": "zucchina", "ita-northeast": "zucchina",
     "ita-emilia": "zucchina", "ita-tuscany": "zucchino", "ita-center": "zucchina",
     "ita-south": "cucuzza", "ita-sicily": "cucuzza", "ita-sardinia": "zucchina"
+  },
+  "child-q7569": {
+    "ita-northwest": "bambino", "ita-lombardy": "bambino", "ita-northeast": "putelo",
+    "ita-emilia": "bambino", "ita-tuscany": "bimbo", "ita-center": "bambino",
+    "ita-south": "criaturo", "ita-sicily": "picciriddu", "ita-sardinia": "pipiu"
+  },
+  "money": {
+    "ita-northwest": "soldi", "ita-lombardy": "danee", "ita-northeast": "schei",
+    "ita-emilia": "soldi", "ita-tuscany": "quattrini", "ita-center": "grana",
+    "ita-south": "sordi", "ita-sicily": "picciuli", "ita-sardinia": "dinari"
   }
 }

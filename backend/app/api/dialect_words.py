@@ -154,9 +154,13 @@ def dialect_word(session: SessionDep, word: str) -> DialectWordDetail:
         first = forms[0]
         others: dict[str, list[DialectRef]] = {}
         spellings: dict[str, str] = {}
+        # Other names in the same language's dialects only (pochoclo: palomitas, not pop-corn)
+        languages = {f["code"].split("-")[0] for f in forms}
         for other in session.execute(
             OTHER_WORDS, {"concept_id": concept_id, "word": word}
         ).mappings():
+            if other["code"].split("-")[0] not in languages:
+                continue
             spellings.setdefault(other["word"], other["spelling"])
             others.setdefault(other["word"], []).append(
                 DialectRef(

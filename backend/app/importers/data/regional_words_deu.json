@@ -1,5 +1,6 @@
 {
   "_comment": "Regional German everyday words by area (drafts written by Dialectio from well-known regional variation, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Areas are approximate: a state can use several words; the most widespread one is given. Loaded by app.importers.regional_words.",
+  "_main": {"goat": "Ziege", "horse": "Pferd", "cabbage": "Weißkohl", "bag": "Tüte", "hello": "Hallo", "carrot": "Möhre", "girlfriend": "Freundin"},
   "bun": {
     "deu-north": "Brötchen", "deu-northeast": "Schrippe", "deu-central-east": "Semmel",
     "deu-northrhine": "Brötchen", "deu-central-west": "Weck", "deu-swabian": "Weckle",
@@ -144,5 +145,30 @@
     "deu-north": "Tüte", "deu-northeast": "Tüte", "deu-central-east": "Tüte",
     "deu-northrhine": "Tüte", "deu-central-west": "Tüte", "deu-swabian": "Gugg",
     "deu-bavarian": "Tüte", "deu-austria": "Sackerl", "deu-switzerland": "Säckli"
+  },
+  "sidewalk": {
+    "deu-north": "Bürgersteig", "deu-northeast": "Gehweg", "deu-central-east": "Fußweg",
+    "deu-northrhine": "Bürgersteig", "deu-central-west": "Trottoir", "deu-swabian": "Gehweg",
+    "deu-bavarian": "Gehsteig", "deu-austria": "Gehsteig", "deu-switzerland": "Trottoir"
+  },
+  "breakfast": {
+    "deu-north": "Frühstück", "deu-northeast": "Frühstück", "deu-central-east": "Frühstück",
+    "deu-northrhine": "Frühstück", "deu-central-west": "Frühstück", "deu-swabian": "Frühstück",
+    "deu-bavarian": "Frühstück", "deu-austria": "Frühstück", "deu-switzerland": "Zmorge"
+  },
+  "mobile-phone": {
+    "deu-north": "Handy", "deu-northeast": "Handy", "deu-central-east": "Handy",
+    "deu-northrhine": "Handy", "deu-central-west": "Handy", "deu-swabian": "Handy",
+    "deu-bavarian": "Handy", "deu-austria": "Handy", "deu-switzerland": "Natel"
+  },
+  "peanut": {
+    "deu-north": "Erdnuss", "deu-northeast": "Erdnuss", "deu-central-east": "Erdnuss",
+    "deu-northrhine": "Erdnuss", "deu-central-west": "Erdnuss", "deu-swabian": "Erdnuss",
+    "deu-bavarian": "Erdnuss", "deu-austria": "Erdnuss", "deu-switzerland": "Spanischnüssli"
+  },
+  "girlfriend": {
+    "deu-north": "Freundin", "deu-northeast": "Freundin", "deu-central-east": "Freundin",
+    "deu-northrhine": "Freundin", "deu-central-west": "Freundin", "deu-swabian": "Freundin",
+    "deu-bavarian": "Freundin", "deu-austria": "Freundin", "deu-switzerland": "Schatz"
   }
 }

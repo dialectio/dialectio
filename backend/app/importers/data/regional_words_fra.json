@@ -1,0 +1,76 @@
+{
+  "_comment": "Regional French everyday words by area (drafts written by Dialectio from well-known regional variation, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Areas are approximate: a region or country can use several words; the most widespread one is given. Loaded by app.importers.regional_words.",
+  "_main": {"boyfriend": "copain", "car": "voiture", "popcorn": "pop-corn", "sweater": "pull"},
+  "seventy": {
+    "fra-france": "soixante-dix", "fra-southwest": "soixante-dix", "fra-belgium": "septante",
+    "fra-switzerland": "septante", "fra-quebec": "soixante-dix"
+  },
+  "eighty": {
+    "fra-france": "quatre-vingts", "fra-southwest": "quatre-vingts", "fra-belgium": "quatre-vingts",
+    "fra-switzerland": "huitante", "fra-quebec": "quatre-vingts"
+  },
+  "ninety": {
+    "fra-france": "quatre-vingt-dix", "fra-southwest": "quatre-vingt-dix", "fra-belgium": "nonante",
+    "fra-switzerland": "nonante", "fra-quebec": "quatre-vingt-dix"
+  },
+  "breakfast": {
+    "fra-france": "petit-déjeuner", "fra-southwest": "petit-déjeuner", "fra-belgium": "déjeuner",
+    "fra-switzerland": "déjeuner", "fra-quebec": "déjeuner"
+  },
+  "lunch": {
+    "fra-france": "déjeuner", "fra-southwest": "déjeuner", "fra-belgium": "dîner",
+    "fra-switzerland": "dîner", "fra-quebec": "dîner"
+  },
+  "dinner": {
+    "fra-france": "dîner", "fra-southwest": "dîner", "fra-belgium": "souper",
+    "fra-switzerland": "souper", "fra-quebec": "souper"
+  },
+  "mobile-phone": {
+    "fra-france": "portable", "fra-southwest": "portable", "fra-belgium": "GSM",
+    "fra-switzerland": "natel", "fra-quebec": "cellulaire"
+  },
+  "weekend": {
+    "fra-france": "week-end", "fra-southwest": "week-end", "fra-belgium": "week-end",
+    "fra-switzerland": "week-end", "fra-quebec": "fin de semaine"
+  },
+  "bag": {
+    "fra-france": "sac", "fra-southwest": "poche", "fra-belgium": "sachet",
+    "fra-switzerland": "cornet", "fra-quebec": "sac"
+  },
+  "car": {
+    "fra-france": "voiture", "fra-southwest": "voiture", "fra-belgium": "voiture",
+    "fra-switzerland": "voiture", "fra-quebec": "char"
+  },
+  "mop": {
+    "fra-france": "serpillière", "fra-southwest": "pièce", "fra-belgium": "loque",
+    "fra-switzerland": "panosse", "fra-quebec": "moppe"
+  },
+  "peanut": {
+    "fra-france": "cacahuète", "fra-southwest": "cacahuète", "fra-belgium": "cacahuète",
+    "fra-switzerland": "cacahuète", "fra-quebec": "pinotte"
+  },
+  "sweater": {
+    "fra-france": "pull", "fra-southwest": "pull", "fra-belgium": "pull",
+    "fra-switzerland": "pull", "fra-quebec": "chandail"
+  },
+  "bucket": {
+    "fra-france": "seau", "fra-southwest": "seau", "fra-belgium": "seau",
+    "fra-switzerland": "seau", "fra-quebec": "chaudière"
+  },
+  "chewing-gum": {
+    "fra-france": "chewing-gum", "fra-southwest": "chewing-gum", "fra-belgium": "chewing-gum",
+    "fra-switzerland": "chewing-gum", "fra-quebec": "gomme"
+  },
+  "boyfriend": {
+    "fra-france": "copain", "fra-southwest": "copain", "fra-belgium": "copain",
+    "fra-switzerland": "copain", "fra-quebec": "chum"
+  },
+  "girlfriend": {
+    "fra-france": "copine", "fra-southwest": "copine", "fra-belgium": "copine",
+    "fra-switzerland": "copine", "fra-quebec": "blonde"
+  },
+  "popcorn": {
+    "fra-france": "pop-corn", "fra-southwest": "pop-corn", "fra-belgium": "pop-corn",
+    "fra-switzerland": "pop-corn", "fra-quebec": "maïs soufflé"
+  }
+}

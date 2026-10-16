@@ -88,5 +88,61 @@
   "milkshake": {
     "eng-us-newengland": "frappe", "eng-us-midatlantic": "milkshake", "eng-us-south": "milkshake",
     "eng-us-midwest": "milkshake", "eng-us-west": "milkshake"
+  },
+  "sweater": {
+    "eng-us-newengland": "sweater", "eng-us-midatlantic": "sweater", "eng-us-south": "sweater",
+    "eng-us-midwest": "sweater", "eng-us-west": "sweater", "eng-uk-northeast": "jumper",
+    "eng-uk-northwest": "jumper", "eng-uk-yorkshire": "jumper", "eng-uk-eastmidlands": "jumper",
+    "eng-uk-westmidlands": "jumper", "eng-uk-south": "jumper", "eng-uk-southwest": "jumper",
+    "eng-uk-scotland": "jumper"
+  },
+  "apartment": {
+    "eng-us-newengland": "apartment", "eng-us-midatlantic": "apartment", "eng-us-south": "apartment",
+    "eng-us-midwest": "apartment", "eng-us-west": "apartment", "eng-uk-northeast": "flat",
+    "eng-uk-northwest": "flat", "eng-uk-yorkshire": "flat", "eng-uk-eastmidlands": "flat",
+    "eng-uk-westmidlands": "flat", "eng-uk-south": "flat", "eng-uk-southwest": "flat",
+    "eng-uk-scotland": "flat"
+  },
+  "sidewalk": {
+    "eng-us-newengland": "sidewalk", "eng-us-midatlantic": "sidewalk", "eng-us-south": "sidewalk",
+    "eng-us-midwest": "sidewalk", "eng-us-west": "sidewalk", "eng-uk-northeast": "pavement",
+    "eng-uk-northwest": "pavement", "eng-uk-yorkshire": "pavement", "eng-uk-eastmidlands": "pavement",
+    "eng-uk-westmidlands": "pavement", "eng-uk-south": "pavement", "eng-uk-southwest": "pavement",
+    "eng-uk-scotland": "pavement"
+  },
+  "truck": {
+    "eng-us-newengland": "truck", "eng-us-midatlantic": "truck", "eng-us-south": "truck",
+    "eng-us-midwest": "truck", "eng-us-west": "truck", "eng-uk-northeast": "lorry",
+    "eng-uk-northwest": "lorry", "eng-uk-yorkshire": "lorry", "eng-uk-eastmidlands": "lorry",
+    "eng-uk-westmidlands": "lorry", "eng-uk-south": "lorry", "eng-uk-southwest": "lorry",
+    "eng-uk-scotland": "lorry"
+  },
+  "cookie": {
+    "eng-us-newengland": "cookie", "eng-us-midatlantic": "cookie", "eng-us-south": "cookie",
+    "eng-us-midwest": "cookie", "eng-us-west": "cookie", "eng-uk-northeast": "biscuit",
+    "eng-uk-northwest": "biscuit", "eng-uk-yorkshire": "biscuit", "eng-uk-eastmidlands": "biscuit",
+    "eng-uk-westmidlands": "biscuit", "eng-uk-south": "biscuit", "eng-uk-southwest": "biscuit",
+    "eng-uk-scotland": "biscuit"
+  },
+  "garbage": {
+    "eng-us-newengland": "trash", "eng-us-midatlantic": "garbage", "eng-us-south": "trash",
+    "eng-us-midwest": "garbage", "eng-us-west": "garbage", "eng-uk-northeast": "rubbish",
+    "eng-uk-northwest": "rubbish", "eng-uk-yorkshire": "rubbish", "eng-uk-eastmidlands": "rubbish",
+    "eng-uk-westmidlands": "rubbish", "eng-uk-south": "rubbish", "eng-uk-southwest": "rubbish",
+    "eng-uk-scotland": "rubbish"
+  },
+  "bucket": {
+    "eng-us-newengland": "pail", "eng-us-midatlantic": "bucket", "eng-us-south": "bucket",
+    "eng-us-midwest": "pail", "eng-us-west": "bucket", "eng-uk-northeast": "bucket",
+    "eng-uk-northwest": "bucket", "eng-uk-yorkshire": "bucket", "eng-uk-eastmidlands": "bucket",
+    "eng-uk-westmidlands": "bucket", "eng-uk-south": "bucket", "eng-uk-southwest": "bucket",
+    "eng-uk-scotland": "pail"
+  },
+  "mobile-phone": {
+    "eng-us-newengland": "cell phone", "eng-us-midatlantic": "cell phone", "eng-us-south": "cell phone",
+    "eng-us-midwest": "cell phone", "eng-us-west": "cell phone", "eng-uk-northeast": "mobile",
+    "eng-uk-northwest": "mobile", "eng-uk-yorkshire": "mobile", "eng-uk-eastmidlands": "mobile",
+    "eng-uk-westmidlands": "mobile", "eng-uk-south": "mobile", "eng-uk-southwest": "mobile",
+    "eng-uk-scotland": "mobile"
   }
 }

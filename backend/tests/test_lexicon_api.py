@@ -310,3 +310,20 @@ def test_english_regional_words_in_the_us_and_britain() -> None:
     # England is split into its regions; the old single region is gone
     voter = {r["code"] for r in client.get("/api/regions/voter").json()}
     assert {"GB-NW", "GB-YH", "US-CA"} <= voter and "GB-ENG" not in voter
+
+
+def test_spanish_and_french_regional_words() -> None:
+    pochoclo = client.get("/api/dialect-words/pochoclo").json()
+    meaning = next(m for m in pochoclo["meanings"] if m["slug"] == "popcorn")
+    assert meaning["standard"] == "palomitas"  # the main word set in "_main"
+    others = {o["spelling"] for o in meaning["others"]}
+    assert {"cabritas", "canchita"} <= others and "pop-corn" not in others  # same language only
+
+    septante = client.get("/api/dialect-words/septante").json()
+    areas = {d["code"] for m in septante["meanings"] for d in m["dialects"]}
+    assert {"fra-belgium", "fra-switzerland"} <= areas
+
+    # A country-wide dialect replaces its language's word on the country label
+    labels = client.get("/api/concepts/by-slug/popcorn").json()["labels"]["features"]
+    argentina = next(f for f in labels if f["properties"]["code"] == "ARG")
+    assert argentina["properties"]["text"] == "pochoclo"

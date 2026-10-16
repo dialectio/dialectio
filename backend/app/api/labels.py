@@ -1,6 +1,8 @@
 """Map labels for a concept: the word(s) to print on each country and first-level region.
 
-Countries show the main word of every language mapped to them (main language first).
+Countries show the main word of every language mapped to them (main language first); where
+a dialect area covers the whole country (Spanish of Argentina), its word replaces its
+language's word there.
 First-level regions (oblasts) show dialect words when a dialect of that region has a word
 for the concept, otherwise the country's word, plus regional languages mapped to the region
 (e.g. Crimean Tatar in Crimea). The map shows region labels instead of their country's label
@@ -15,7 +17,7 @@ from sqlalchemy.orm import Session
 
 # Primary approved word of each variety for the concept, per region the variety is mapped to.
 REGION_WORDS = text("""
-    SELECT r.id AS region_id, v.id AS variety_id, v.kind, f.spelling
+    SELECT r.id AS region_id, v.id AS variety_id, v.kind, v.code, f.spelling
     FROM form f
     JOIN variety v ON v.id = f.variety_id
     JOIN variety_region vr ON vr.variety_id = v.id
@@ -43,10 +45,29 @@ def join_words(words: list[str]) -> str:
 
 def build_labels(session: Session, concept_id: int) -> dict[str, Any]:
     words: dict[int, list[tuple[int, str, str]]] = defaultdict(list)
+    languages: dict[int, list[str]] = defaultdict(list)  # variety codes, same order as words
     for row in session.execute(REGION_WORDS, {"concept_id": concept_id}):
         words[row.region_id].append((row.variety_id, row.kind, row.spelling))
+        languages[row.region_id].append(row.code)
     if not words:
         return {"type": "FeatureCollection", "features": []}
+
+    def country_words(region_id: int) -> tuple[list[str], bool]:
+        """A country's words; a dialect covering it ("spa-argentina") replaces its language."""
+        own = words.get(region_id, [])
+        codes = languages[region_id]
+        replaced = {
+            code.split("-")[0]
+            for code, (_, kind, _) in zip(codes, own, strict=True)
+            if kind == "dialect"
+        }
+        dialect_words = [s for _, kind, s in own if kind == "dialect"]
+        others = [
+            s
+            for code, (_, kind, s) in zip(codes, own, strict=True)
+            if kind != "dialect" and code not in replaced
+        ]
+        return dialect_words + others, bool(dialect_words)
 
     regions = session.execute(REGIONS, {"region_ids": list(words)}).all()
     ordered: list[tuple[tuple[int, float], dict[str, Any]]] = []
@@ -55,12 +76,12 @@ def build_labels(session: Session, concept_id: int) -> dict[str, Any]:
         if region.level == "country":
             if not own:
                 continue
-            label = join_words([spelling for _, _, spelling in own])
-            dialect = False
+            country, dialect = country_words(region.id)
+            label = join_words(country)
         else:
             dialect_words = [s for _, kind, s in own if kind == "dialect"]
             regional = [s for _, kind, s in own if kind != "dialect"]
-            base = dialect_words or [s for _, _, s in words.get(region.parent_id, [])]
+            base = dialect_words or country_words(region.parent_id)[0]
             if not base and not regional:
                 continue
             label = join_words(base + regional)

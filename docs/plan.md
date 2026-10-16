@@ -143,7 +143,10 @@
 - [x] Ще понять для німецької: Marille, Karfiol, Krapfen/Berliner/Kreppel, Moin/Gude/Servus/Grüß Gott/Grüezi, Tschüss/Ade/Pfiat di, Tüte/Sackerl — 29 понять, 261 чернетка; нові поняття — через `data/extra_words_en.txt`
 - [x] Італійська: 9 ареалів, 7 понять (anguria/cocomero/melone d'acqua, rumenta/scoasse/rusco/pattume/monnezza, babbo/papà, michetta/rosetta, bombolone/krapfen/graffa, coppino/ramaiolo/mestolo, zucchina/zucchino/cucuzza)
 - [x] Англійська: штати США й 9 регіонів Англії на карті; 13 ареалів (5 у США, 8 у Британії), 15 понять (soda/pop/coke, roll/barm/breadcake/cob/batch, ginnel/snicket/jitty, y'all/youse/yous, lightning bug, crawfish/crawdad, frappe, buggy/trolley…)
-- [ ] Більше понять для всіх трьох мов; наступні: іспанська (Іспанія / Латинська Америка), французька (Франція / Бельгія / Квебек), польська
+- [x] Більше понять: німецька 34, італійська 9, англійська 22 (jumper / flat / pavement / lorry / biscuit / rubbish)
+- [x] Іспанська за країнами (9 ареалів: Іспанія, Мексика, Карибські, Центральна Америка, Колумбія, Венесуела, Анди, Чилі, Ла-Плата): 28 понять, 252 чернетки (palomitas / pochoclo / cabritas / canchita, guagua / colectivo / micro, palta, popote / pitillo / bombilla, chamaco / chamo / pibe…)
+- [x] Французька: Франція, південний захід, Бельгія, Швейцарія, Квебек (провінції Канади на карті): 18 понять, 90 чернеток (septante / huitante / nonante, natel / GSM / cellulaire, déjeuner / dîner / souper, char, chum / blonde…)
+- [ ] Окуляри (gafas / lentes / anteojos) — поняття ще немає; польська, португальська (Португалія / Бразилія)
 - [x] Колоди гри для регіональних мов; на сторінці «Говори» — розділи «Регіональні варіанти інших мов» і «Регіональні мови Європи» (за країнами), окремі сторінки мов
 - [ ] Акаунти з роллю «редактор мови» для носіїв (стають важливішими з міжнародною спільнотою)
 - [ ] Залучення: спільноти регіональних мов (валлійці, фризи, окситанці, баварці), r/linguistics, r/MapPorn, вікіспільноти

@@ -49,6 +49,8 @@ COUNTRIES = {
     "GB": "GBR",
     # The United States: regional English (soda / pop / coke)
     "US": "USA",
+    # Canada: Quebec French (char, fin de semaine)
+    "CA": "CAN",
 }
 # Countries whose units are merged into the regions of data/regions.json
 MERGED = {"BE", "FR", "IT", "ES", "GB"}
