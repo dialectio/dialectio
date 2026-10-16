@@ -169,12 +169,12 @@
     "search": "When a search finds nothing, we keep the search text and a counter so we can add the word to the dictionary. Nothing about you is stored with it."
   },
   "Home": {
-    "intro": "Type a word in any language and see on the map how it is written, pronounced and sounds in the world's languages and Ukrainian dialects. Or start with these examples:",
+    "intro": "Type a word in any language and see on the map how it is written, pronounced and sounds in the world's languages, their dialects and regional varieties. Or start with these examples:",
     "wordOfDay": "Word of the day",
-    "inDialects": "In dialects:",
+    "inDialects": "Around the regions:",
     "open": "Show all languages and dialects",
-    "dialectsTitle": "Dialect favourites",
-    "dialectsHint": "One concept, different words across Ukraine.",
+    "dialectsTitle": "Regional words",
+    "dialectsHint": "One thing, different words across the United States and Britain.",
     "checkCta": "Help check words: one click per word →"
   },
   "Dialects": {
@@ -286,7 +286,8 @@
     "shareKicker": "Helping to map how people really speak",
     "shareTitle": "I checked {count} words: {deck}",
     "regionalDecks": "Regional languages",
-    "shareKickerWorld": "Helping to show how the world really speaks"
+    "shareKickerWorld": "Helping to show how the world really speaks",
+    "languageWithRegional": "{language} and regional words"
   },
   "NotFound": {
     "title": "Page not found",

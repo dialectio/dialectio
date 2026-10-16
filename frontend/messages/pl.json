@@ -169,7 +169,7 @@
     "search": "Gdy wyszukiwanie niczego nie znajdzie, zapisujemy sam tekst zapytania z licznikiem, aby dodać to słowo do słownika. Nic o tobie nie jest przy tym zapisywane."
   },
   "Home": {
-    "intro": "Wpisz słowo w dowolnym języku i zobacz na mapie, jak się je pisze, wymawia i jak brzmi w językach świata i gwarach ukraińskich. Albo zacznij od tych przykładów:",
+    "intro": "Wpisz słowo w dowolnym języku i zobacz na mapie, jak się je pisze, wymawia i jak brzmi w językach świata, ich gwarach i odmianach regionalnych. Albo zacznij od tych przykładów:",
     "wordOfDay": "Słowo dnia",
     "inDialects": "W gwarach:",
     "open": "Pokaż wszystkie języki i gwary",
@@ -286,7 +286,8 @@
     "shareKicker": "Pomagam pokazać, jak naprawdę mówią ludzie",
     "shareTitle": "Sprawdziłem/am {count} słów: {deck}",
     "regionalDecks": "Języki regionalne",
-    "shareKickerWorld": "Pomagam pokazać, jak naprawdę mówi świat"
+    "shareKickerWorld": "Pomagam pokazać, jak naprawdę mówi świat",
+    "languageWithRegional": "{language} i słowa regionalne"
   },
   "NotFound": {
     "title": "Nie znaleziono strony",

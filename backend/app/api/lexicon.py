@@ -137,7 +137,9 @@ def list_concepts(session: SessionDep) -> list[ConceptLink]:
     return [ConceptLink.model_validate(c) for c in concepts]
 
 
-# Concepts whose dialect words differ the most: the home page's word of the day and examples.
+# Concepts whose dialect words differ the most in one language: the home page's word of the
+# day and examples (Ukrainian: potato -> бульба, бараболя, крумплі; German: Brötchen ->
+# Semmel, Schrippe, Weckle). Words equal to one of the language's own words don't count.
 FEATURED = text("""
     SELECT c.id, c.slug, c.gloss_en, c.glosses,
            -- concepts without a Ukrainian label fall back to the main Ukrainian word
@@ -148,9 +150,15 @@ FEATURED = text("""
                LIMIT 1)) AS gloss_uk,
            array_agg(w.spelling ORDER BY w.varieties DESC, w.spelling) AS examples
     FROM (
-        SELECT f.concept_id, lower(f.spelling) AS spelling, count(*) AS varieties
+        SELECT f.concept_id, min(f.spelling) AS spelling, count(*) AS varieties
         FROM form f JOIN variety v ON v.id = f.variety_id
-        WHERE v.kind = 'dialect' AND f.status IN ('approved', 'pending')
+        WHERE v.kind = 'dialect' AND v.code LIKE :language || '-%'
+          AND f.status IN ('approved', 'pending')
+          AND NOT EXISTS (
+              SELECT 1 FROM form s JOIN variety u ON u.id = s.variety_id
+              WHERE s.concept_id = f.concept_id AND u.code = :language
+                AND lower(s.spelling) = lower(f.spelling)
+                AND s.status IN ('approved', 'pending'))
         GROUP BY f.concept_id, lower(f.spelling)
     ) w
     JOIN concept c ON c.id = w.concept_id
@@ -164,11 +172,13 @@ FEATURED = text("""
 
 @router.get("/concepts/featured")
 def featured_concepts(
-    session: SessionDep, limit: Annotated[int, Query(ge=1, le=50)] = 12
+    session: SessionDep,
+    limit: Annotated[int, Query(ge=1, le=50)] = 12,
+    language: Annotated[str, Query(pattern="^[a-z]{3}$")] = "ukr",
 ) -> list[FeaturedConcept]:
-    """Concepts with the most different dialect words, e.g. potato: бульба, бараболя, крумплі."""
-    rows = session.execute(FEATURED, {"min_words": 2, "limit": limit}).mappings()
-    return [FeaturedConcept(**row) for row in rows]
+    """Concepts with the most different dialect words of a language (default Ukrainian)."""
+    params = {"min_words": 2, "limit": limit, "language": language}
+    return [FeaturedConcept(**row) for row in session.execute(FEATURED, params).mappings()]
 
 
 @router.get("/concepts/by-slug/{slug}")
@@ -270,6 +280,8 @@ def build_detail(session: Session, concept: Concept) -> ConceptDetail:
 
 
 RELATED_FEATURED = 6
+# Words with regional variants in these languages are linked from every word page
+RELATED_LANGUAGES = ("ukr", "deu", "eng", "spa", "fra", "ita")
 RELATED_POOL = 40
 NEIGHBOURS = text("""
     (SELECT slug, gloss_en, gloss_uk, glosses FROM concept
@@ -289,11 +301,17 @@ def related_concepts(session: Session, concept: Concept) -> list[ConceptLink]:
     """
     if not concept.slug:
         return []
-    pool = [
-        row
-        for row in session.execute(FEATURED, {"min_words": 2, "limit": RELATED_POOL}).mappings()
-        if row["id"] != concept.id
-    ]
+    # A concept can have regional variants in several languages (bun): list it once
+    pool = list(
+        {
+            row["id"]: row
+            for language in RELATED_LANGUAGES
+            for row in session.execute(
+                FEATURED, {"min_words": 2, "limit": RELATED_POOL, "language": language}
+            ).mappings()
+            if row["id"] != concept.id
+        }.values()
+    )
     start = concept.id % len(pool) if pool else 0
     window = (pool[start:] + pool[:start])[:RELATED_FEATURED]
     related = [

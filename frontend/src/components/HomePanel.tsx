@@ -8,6 +8,7 @@ import { useConceptOnMap } from "@/components/MapShell";
 import { familyColors, wordFamilies } from "@/components/OriginTools";
 import { Link, useRouter } from "@/i18n/navigation";
 import { type ConceptDetail, type FeaturedConcept, localized } from "@/lib/api";
+import { DIALECT_BOUNDS } from "@/lib/visitor";
 
 const EXAMPLES_SHOWN = 5;
 
@@ -18,10 +19,13 @@ const EXAMPLES_SHOWN = 5;
 export default function HomePanel({
   featured,
   preview,
+  language,
 }: {
   featured: FeaturedConcept[];
   /** The word of the day with its map data. */
   preview: ConceptDetail | null;
+  /** Whose regional words are featured ("ukr", "deu" ...): the map opens over their area */
+  language: string;
 }) {
   const locale = useLocale();
   const t = useTranslations("Home");
@@ -46,6 +50,7 @@ export default function HomePanel({
         router.push(`/word/${preview.slug}?region=${region.code}`);
     },
     colors,
+    DIALECT_BOUNDS[language] ?? null,
   );
 
   return (

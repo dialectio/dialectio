@@ -169,12 +169,12 @@
     "search": "Quand une recherche ne trouve rien, nous conservons le texte recherché et un compteur afin d'ajouter le mot au dictionnaire. Rien vous concernant n'est enregistré."
   },
   "Home": {
-    "intro": "Saisissez un mot dans n'importe quelle langue et voyez sur la carte comment il s'écrit, se prononce et sonne dans les langues du monde et les dialectes ukrainiens. Ou commencez par ces exemples :",
+    "intro": "Saisissez un mot dans n'importe quelle langue et voyez sur la carte comment il s'écrit, se prononce et sonne dans les langues du monde, leurs dialectes et leurs variantes régionales. Ou commencez par ces exemples :",
     "wordOfDay": "Mot du jour",
-    "inDialects": "Dans les dialectes :",
+    "inDialects": "Selon les régions :",
     "open": "Afficher toutes les langues et tous les dialectes",
-    "dialectsTitle": "Curiosités dialectales",
-    "dialectsHint": "Un concept, des mots différents dans différents coins de l'Ukraine.",
+    "dialectsTitle": "Mots régionaux",
+    "dialectsHint": "Une même chose, des mots différents en France, en Belgique, en Suisse et au Québec.",
     "checkCta": "Aidez à vérifier des mots : un clic par mot →"
   },
   "Dialects": {
@@ -286,7 +286,8 @@
     "shareKicker": "J'aide à montrer comment les gens parlent vraiment",
     "shareTitle": "J'ai vérifié {count} mots : {deck}",
     "regionalDecks": "Langues régionales",
-    "shareKickerWorld": "J'aide à montrer comment le monde parle vraiment"
+    "shareKickerWorld": "J'aide à montrer comment le monde parle vraiment",
+    "languageWithRegional": "{language} et mots régionaux"
   },
   "NotFound": {
     "title": "Page introuvable",

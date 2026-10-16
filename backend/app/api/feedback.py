@@ -205,10 +205,12 @@ UNVERIFIED_FORMS = f"""
     WHERE f.status IN ('approved', 'pending') AND {CHECKABLE}
 """
 
-# Ukrainian with all its dialects, each language, and each dialect on its own
+# Each language with all its dialects (Ukrainian with its говори, German with its regional
+# areas), and each dialect on its own
 DECKS = text(f"""
     SELECT code, words FROM (
-        SELECT CASE WHEN v.code LIKE 'ukr-%' THEN 'ukr' ELSE v.code END AS code,
+        SELECT CASE WHEN v.kind = 'dialect' THEN split_part(v.code, '-', 1) ELSE v.code END
+                   AS code,
                count(*) AS words
         {UNVERIFIED_FORMS}
         GROUP BY 1
@@ -240,8 +242,7 @@ CARDS = text(f"""
     LEFT JOIN source src ON src.id = f.source_id
     WHERE f.status IN ('approved', 'pending')
       AND {CHECKABLE}
-      AND (CASE WHEN :deck = 'ukr' THEN v.code = 'ukr' OR v.code LIKE 'ukr-%'
-                ELSE v.code = :deck END)
+      AND (v.code = :deck OR (v.kind = 'dialect' AND split_part(v.code, '-', 1) = :deck))
       AND NOT EXISTS (SELECT 1 FROM vote x WHERE x.form_id = f.id AND x.voter = :voter)
       AND NOT (f.id = ANY(:skip))
     ORDER BY votes, random()

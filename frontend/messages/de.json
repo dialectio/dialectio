@@ -169,12 +169,12 @@
     "search": "Wenn eine Suche nichts findet, speichern wir den Suchtext und einen Zähler, um das Wort ins Wörterbuch aufzunehmen. Über dich wird dabei nichts gespeichert."
   },
   "Home": {
-    "intro": "Gib ein Wort in einer beliebigen Sprache ein und sieh auf der Karte, wie es in den Sprachen der Welt und in ukrainischen Dialekten geschrieben, ausgesprochen und gesprochen wird. Oder beginne mit diesen Beispielen:",
+    "intro": "Gib ein Wort in einer beliebigen Sprache ein und sieh auf der Karte, wie es in den Sprachen der Welt, ihren Dialekten und regionalen Varianten geschrieben, ausgesprochen und gesprochen wird. Oder beginne mit diesen Beispielen:",
     "wordOfDay": "Wort des Tages",
-    "inDialects": "In Dialekten:",
+    "inDialects": "In den Regionen:",
     "open": "Alle Sprachen und Dialekte zeigen",
-    "dialectsTitle": "Schönes aus den Dialekten",
-    "dialectsHint": "Ein Begriff, verschiedene Wörter in verschiedenen Teilen der Ukraine.",
+    "dialectsTitle": "Regionale Wörter",
+    "dialectsHint": "Ein Begriff, verschiedene Wörter in Deutschland, Österreich und der Schweiz.",
     "checkCta": "Hilf beim Prüfen der Wörter — ein Klick pro Wort →"
   },
   "Dialects": {
@@ -286,7 +286,8 @@
     "shareKicker": "Ich helfe zu zeigen, wie Menschen wirklich sprechen",
     "shareTitle": "Ich habe {count} Wörter geprüft: {deck}",
     "regionalDecks": "Regionalsprachen",
-    "shareKickerWorld": "Ich helfe zu zeigen, wie die Welt wirklich spricht"
+    "shareKickerWorld": "Ich helfe zu zeigen, wie die Welt wirklich spricht",
+    "languageWithRegional": "{language} und regionale Wörter"
   },
   "NotFound": {
     "title": "Seite nicht gefunden",

@@ -169,12 +169,12 @@
     "search": "Cuando una búsqueda no encuentra nada, guardamos el texto buscado y un contador para añadir la palabra al diccionario. No se guarda nada sobre ti."
   },
   "Home": {
-    "intro": "Escribe una palabra en cualquier idioma y mira en el mapa cómo se escribe, se pronuncia y suena en los idiomas del mundo y en los dialectos ucranianos. O empieza con estos ejemplos:",
+    "intro": "Escribe una palabra en cualquier idioma y mira en el mapa cómo se escribe, se pronuncia y suena en los idiomas del mundo, sus dialectos y variantes regionales. O empieza con estos ejemplos:",
     "wordOfDay": "Palabra del día",
-    "inDialects": "En los dialectos:",
+    "inDialects": "Según la región:",
     "open": "Mostrar todos los idiomas y dialectos",
-    "dialectsTitle": "Curiosidades dialectales",
-    "dialectsHint": "Un concepto, palabras distintas en distintos rincones de Ucrania.",
+    "dialectsTitle": "Palabras regionales",
+    "dialectsHint": "Una misma cosa, palabras distintas en España y América Latina.",
     "checkCta": "Ayuda a revisar palabras: un clic por palabra →"
   },
   "Dialects": {
@@ -286,7 +286,8 @@
     "shareKicker": "Ayudo a mostrar cómo habla realmente la gente",
     "shareTitle": "He revisado {count} palabras: {deck}",
     "regionalDecks": "Lenguas regionales",
-    "shareKickerWorld": "Ayudo a mostrar cómo habla realmente el mundo"
+    "shareKickerWorld": "Ayudo a mostrar cómo habla realmente el mundo",
+    "languageWithRegional": "{language} y palabras regionales"
   },
   "NotFound": {
     "title": "Página no encontrada",

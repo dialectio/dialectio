@@ -327,3 +327,13 @@ def test_spanish_and_french_regional_words() -> None:
     labels = client.get("/api/concepts/by-slug/popcorn").json()["labels"]["features"]
     argentina = next(f for f in labels if f["properties"]["code"] == "ARG")
     assert argentina["properties"]["text"] == "pochoclo"
+
+
+def test_featured_regional_words_by_language() -> None:
+    german = client.get("/api/concepts/featured", params={"language": "deu"}).json()
+    bun = next(c for c in german if c["slug"] == "bun")
+    assert "Semmel" in bun["examples"] and "Brötchen" not in bun["examples"]  # standard word
+    ukrainian = client.get("/api/concepts/featured").json()  # Ukrainian by default
+    assert all(not any(ch.isascii() and ch.isalpha() for ch in c["examples"][0]) for c in ukrainian)
+    # Word pages link to words with regional variants of every language
+    assert client.get("/api/concepts/by-slug/candy").status_code == 200

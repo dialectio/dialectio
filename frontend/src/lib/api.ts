@@ -228,11 +228,11 @@ export function getStats() {
 
 export type FeaturedConcept = ConceptLink & { id: number; examples: string[] };
 
-/** Server-side: concepts with the most different dialect words (home page). */
-export async function listFeaturedConcepts(limit = 12) {
+/** Server-side: concepts with the most different dialect words of a language (home page). */
+export async function listFeaturedConcepts(language = "ukr", limit = 12) {
   return (
     (await getServerJson<FeaturedConcept[]>(
-      `/api/concepts/featured?limit=${limit}`,
+      `/api/concepts/featured?limit=${limit}&language=${language}`,
     )) ?? []
   );
 }

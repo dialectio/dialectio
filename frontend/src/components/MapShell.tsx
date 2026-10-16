@@ -109,6 +109,7 @@ export function useConceptOnMap(
   selectedCode: string | null,
   onSelectRegion: (region: SelectedRegion) => void,
   colors: Record<string, string> | null = null,
+  bounds: number[] | null = null,
 ) {
   const highlightCodes = useMemo(
     () =>
@@ -123,6 +124,7 @@ export function useConceptOnMap(
     selectedCode,
     onSelectRegion,
     colors,
+    bounds,
   });
 }
 

@@ -5,6 +5,7 @@ import { type FormEvent, useEffect, useState } from "react";
 
 import type { Form } from "@/lib/api";
 import { localized } from "@/lib/api";
+import { visitorCountry } from "@/lib/visitor";
 import {
   ABROAD,
   listVoterRegions,
@@ -67,23 +68,29 @@ function regionGroups(regions: RegionOption[], locale: string) {
     string,
     { label: string | null; options: RegionOption[] }
   >();
+  const own = visitorCountry(locale);
   for (const region of regions) {
-    const key = region.country ?? "";
+    // A visitor's country without regions on our map (Mexico) gets a group of its own, first
+    const key = region.country ?? (region.code === own ? own : "");
     const label =
-      region.country && region.country_en
-        ? localized(
-            locale,
-            region.country_en,
-            region.country_uk,
-            region.country_names,
-          )
-        : null;
+      region.code === own && !region.country
+        ? name(region)
+        : region.country && region.country_en
+          ? localized(
+              locale,
+              region.country_en,
+              region.country_uk,
+              region.country_names,
+            )
+          : null;
     if (!groups.has(key)) groups.set(key, { label, options: [] });
     groups.get(key)!.options.push(region);
   }
   for (const group of groups.values())
     group.options.sort((a, b) => byName(name(a), name(b)));
-  const rank = (key: string) => (key === "UKR" ? 0 : key === "" ? 2 : 1);
+  // The visitor's country first (from the browser language), Ukraine next, whole countries last
+  const rank = (key: string) =>
+    key === own ? -1 : key === "UKR" ? 0 : key === "" ? 2 : 1;
   return [...groups.entries()]
     .sort(
       ([a, ga], [b, gb]) =>

@@ -3,10 +3,11 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { UKRAINE_BOUNDS, useMapView } from "@/components/MapShell";
+import { useMapView } from "@/components/MapShell";
 import { RegionQuestion } from "@/components/WordCheck";
 import { capitalize, localized, SITE_URL } from "@/lib/api";
 import { resultCard, shareOrDownload } from "@/lib/snapshot";
+import { DIALECT_BOUNDS, dialectLanguage } from "@/lib/visitor";
 import {
   addChecked,
   type Card,
@@ -40,7 +41,11 @@ function meaning(card: Card, locale: string): string {
 export default function CheckGame({ decks }: { decks: Deck[] }) {
   const locale = useLocale();
   const t = useTranslations("Game");
-  const [deck, setDeck] = useState(UKRAINIAN_DECK);
+  // The visitor's language with its regional words first (Germans: German), Ukrainian else
+  const ownDeck = decks.some((d) => d.code === dialectLanguage(locale))
+    ? dialectLanguage(locale)
+    : UKRAINIAN_DECK;
+  const [deck, setDeck] = useState(ownDeck);
   const [cards, setCards] = useState<Card[]>([]);
   const [status, setStatus] = useState<"loading" | "loaded" | "error">(
     "loading",
@@ -103,7 +108,7 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
     labels: null,
     selectedCode: null,
     onSelectRegion: () => {},
-    bounds: deck.startsWith(UKRAINIAN_DECK) ? UKRAINE_BOUNDS : null,
+    bounds: DIALECT_BOUNDS[deck.split("-")[0]] ?? null,
     panelFirstOnPhone: true,
   });
 
@@ -155,10 +160,21 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
     setDeck(code);
   };
 
-  const deckName = (d: Deck) =>
-    d.code === UKRAINIAN_DECK
-      ? t("ukrainianDeck")
-      : capitalize(localized(locale, d.name_en, d.name_uk, d.names));
+  // Languages whose deck includes their dialect areas: "Ukrainian and its dialects",
+  // "German and regional words"
+  const withAreas = new Set(
+    decks.filter((d) => d.kind === "dialect").map((d) => d.code.split("-")[0]),
+  );
+  const languageDecks = decks
+    .filter((d) => withAreas.has(d.code))
+    .sort((a, b) => Number(b.code === ownDeck) - Number(a.code === ownDeck));
+  const deckName = (d: Deck) => {
+    const name = capitalize(localized(locale, d.name_en, d.name_uk, d.names));
+    if (d.code === UKRAINIAN_DECK) return t("ukrainianDeck");
+    return withAreas.has(d.code)
+      ? t("languageWithRegional", { language: name })
+      : name;
+  };
   const currentDeck = decks.find((d) => d.code === deck);
 
   const share = async () => {
@@ -171,7 +187,8 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
       });
       const footer = `${new URL(SITE_URL).host}/${locale}/check?deck=${deck}`;
       // Ukrainian decks help keep its dialects; the others show how the world speaks
-      const ukrainian = deck === UKRAINIAN_DECK || deck.startsWith(`${UKRAINIAN_DECK}-`);
+      const ukrainian =
+        deck === UKRAINIAN_DECK || deck.startsWith(`${UKRAINIAN_DECK}-`);
       const blob = await resultCard({
         kicker: t(ukrainian ? "shareKicker" : "shareKickerWorld"),
         title,
@@ -216,17 +233,15 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
           onChange={(e) => chooseDeck(e.target.value)}
           className="rounded border border-black/15 bg-transparent px-2 py-1 dark:border-white/20"
         >
-          {decks
-            .filter((d) => d.code === UKRAINIAN_DECK)
-            .map((d) => (
-              <option key={d.code} value={d.code}>
-                {deckName(d)} ({d.words})
-              </option>
-            ))}
+          {languageDecks.map((d) => (
+            <option key={d.code} value={d.code}>
+              {deckName(d)} ({d.words})
+            </option>
+          ))}
           {(["dialect", "regional", "language"] as const).map((kind) => (
             <optgroup key={kind} label={t(`${kind}Decks`)}>
               {decks
-                .filter((d) => d.kind === kind && d.code !== UKRAINIAN_DECK)
+                .filter((d) => d.kind === kind && !withAreas.has(d.code))
                 .map((d) => (
                   <option key={d.code} value={d.code}>
                     {deckName(d)} ({d.words})
