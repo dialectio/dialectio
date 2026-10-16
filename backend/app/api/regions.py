@@ -1,6 +1,7 @@
+import hashlib
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Path, Response
+from fastapi import APIRouter, Depends, HTTPException, Path, Request, Response
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
@@ -71,6 +72,7 @@ def render_tile(session: Session, z: int, x: int, y: int) -> bytes:
 
 @router.get("/tiles/{z}/{x}/{y}.mvt")
 def region_tile(
+    request: Request,
     session: Annotated[Session, Depends(get_session)],
     z: Annotated[int, Path(ge=0, le=MAX_ZOOM)],
     x: Annotated[int, Path(ge=0)],
@@ -79,8 +81,10 @@ def region_tile(
     if x >= 2**z or y >= 2**z:
         raise HTTPException(status_code=404, detail="Tile out of range")
     tile = render_tile(session, z, x, y)
-    return Response(
-        content=tile,
-        media_type="application/vnd.mapbox-vector-tile",
-        headers={"Cache-Control": "public, max-age=86400"},
-    )
+    # Browsers keep the tile but ask every time whether it changed (a cheap 304): after a
+    # region import a long max-age left old tiles next to new ones, a map cut in half.
+    etag = f'"{hashlib.sha1(tile).hexdigest()[:20]}"'
+    headers = {"Cache-Control": "public, no-cache", "ETag": etag}
+    if request.headers.get("if-none-match") == etag:
+        return Response(status_code=304, headers=headers)
+    return Response(content=tile, media_type="application/vnd.mapbox-vector-tile", headers=headers)
