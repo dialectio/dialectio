@@ -215,8 +215,14 @@ function LanguageCard({ language }: { language: LanguageForms }) {
       <WordCheck
         form={primary}
         onCounts={setCounts}
-        // Where Ukrainian and dialect words are really used is worth collecting.
-        askUsage={language.code === "ukr" || language.kind === "dialect"}
+        // Where Ukrainian, dialect and regional-language words are really used is worth
+        // collecting (regional languages are mapped to regions only: "GB-SCT", not "GBR").
+        askUsage={
+          language.code === "ukr" ||
+          language.kind === "dialect" ||
+          (language.region_codes.length > 0 &&
+            language.region_codes.every((code) => code.includes("-")))
+        }
       />
     </li>
   );
