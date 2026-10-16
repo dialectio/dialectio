@@ -39,8 +39,9 @@ TILE_LAYER = """
 """
 COUNTRY_TILE = text(TILE_LAYER.format(level="country", layer="countries"))
 REGION_TILE = text(TILE_LAYER.format(level="adm1", layer="regions"))
-# First-level regions (oblasts) are only drawn from this zoom on.
-REGIONS_MIN_ZOOM = 4
+# First-level regions (oblasts, states) are in the tiles from this zoom on: low enough for a
+# word used both in the US and in England to show its regions on one map.
+REGIONS_MIN_ZOOM = 2
 
 
 def tolerance_degrees(z: int) -> float:

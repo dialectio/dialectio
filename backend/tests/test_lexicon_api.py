@@ -297,3 +297,16 @@ def test_italian_regional_words_and_new_concepts() -> None:
     assert austria["forms"][0]["spelling"] == "Marille"
     # Our names win over Wiktionary's first translation
     assert client.get("/api/concepts/by-slug/cauliflower").json()["gloss_uk"] == "цвітна капуста"
+
+
+def test_english_regional_words_in_the_us_and_britain() -> None:
+    pop = client.get("/api/dialect-words/pop").json()
+    meaning = next(m for m in pop["meanings"] if m["slug"] == "soda")
+    areas = {d["code"] for d in meaning["dialects"]}
+    assert {"eng-us-midwest", "eng-uk-yorkshire"} <= areas
+    south = client.get("/api/dialects/eng-us-south").json()
+    assert "US-TX" in south["region_codes"]
+    assert "y'all" in {w["spelling"] for w in south["words_list"]}
+    # England is split into its regions; the old single region is gone
+    voter = {r["code"] for r in client.get("/api/regions/voter").json()}
+    assert {"GB-NW", "GB-YH", "US-CA"} <= voter and "GB-ENG" not in voter

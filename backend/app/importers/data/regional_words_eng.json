@@ -1,0 +1,92 @@
+{
+  "_comment": "Regional English everyday words by area (drafts written by Dialectio from well-known regional variation in the United States and Britain, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Areas are approximate: a state or region can use several words; the most widespread one is given. Loaded by app.importers.regional_words.",
+  "soda": {
+    "eng-us-newengland": "soda", "eng-us-midatlantic": "soda", "eng-us-south": "coke",
+    "eng-us-midwest": "pop", "eng-us-west": "soda", "eng-uk-northeast": "pop",
+    "eng-uk-northwest": "pop", "eng-uk-yorkshire": "pop", "eng-uk-eastmidlands": "pop",
+    "eng-uk-westmidlands": "pop", "eng-uk-south": "fizzy drink", "eng-uk-southwest": "fizzy drink",
+    "eng-uk-scotland": "fizzy juice"
+  },
+  "bun": {
+    "eng-us-newengland": "roll", "eng-us-midatlantic": "roll", "eng-us-south": "roll",
+    "eng-us-midwest": "roll", "eng-us-west": "roll", "eng-uk-northeast": "bun",
+    "eng-uk-northwest": "barm", "eng-uk-yorkshire": "breadcake", "eng-uk-eastmidlands": "cob",
+    "eng-uk-westmidlands": "batch", "eng-uk-south": "roll", "eng-uk-southwest": "roll",
+    "eng-uk-scotland": "roll"
+  },
+  "alley": {
+    "eng-us-newengland": "alley", "eng-us-midatlantic": "alley", "eng-us-south": "alley",
+    "eng-us-midwest": "alley", "eng-us-west": "alley", "eng-uk-northeast": "chare",
+    "eng-uk-northwest": "ginnel", "eng-uk-yorkshire": "snicket", "eng-uk-eastmidlands": "jitty",
+    "eng-uk-westmidlands": "gully", "eng-uk-south": "alley", "eng-uk-southwest": "alley",
+    "eng-uk-scotland": "close"
+  },
+  "child-q7569": {
+    "eng-us-newengland": "kid", "eng-us-midatlantic": "kid", "eng-us-south": "kid",
+    "eng-us-midwest": "kid", "eng-us-west": "kid", "eng-uk-northeast": "bairn",
+    "eng-uk-northwest": "kid", "eng-uk-yorkshire": "bairn", "eng-uk-eastmidlands": "kid",
+    "eng-uk-westmidlands": "kid", "eng-uk-south": "kid", "eng-uk-southwest": "kid",
+    "eng-uk-scotland": "bairn"
+  },
+  "girl": {
+    "eng-us-newengland": "girl", "eng-us-midatlantic": "girl", "eng-us-south": "girl",
+    "eng-us-midwest": "girl", "eng-us-west": "girl", "eng-uk-northeast": "lass",
+    "eng-uk-northwest": "lass", "eng-uk-yorkshire": "lass", "eng-uk-eastmidlands": "girl",
+    "eng-uk-westmidlands": "girl", "eng-uk-south": "girl", "eng-uk-southwest": "girl",
+    "eng-uk-scotland": "lassie"
+  },
+  "stream": {
+    "eng-us-newengland": "brook", "eng-us-midatlantic": "creek", "eng-us-south": "creek",
+    "eng-us-midwest": "creek", "eng-us-west": "creek", "eng-uk-northeast": "burn",
+    "eng-uk-northwest": "beck", "eng-uk-yorkshire": "beck", "eng-uk-eastmidlands": "brook",
+    "eng-uk-westmidlands": "brook", "eng-uk-south": "stream", "eng-uk-southwest": "stream",
+    "eng-uk-scotland": "burn"
+  },
+  "lunch": {
+    "eng-us-newengland": "lunch", "eng-us-midatlantic": "lunch", "eng-us-south": "lunch",
+    "eng-us-midwest": "lunch", "eng-us-west": "lunch", "eng-uk-northeast": "dinner",
+    "eng-uk-northwest": "dinner", "eng-uk-yorkshire": "dinner", "eng-uk-eastmidlands": "dinner",
+    "eng-uk-westmidlands": "dinner", "eng-uk-south": "lunch", "eng-uk-southwest": "lunch",
+    "eng-uk-scotland": "dinner"
+  },
+  "second-person-plural": {
+    "eng-us-newengland": "you guys", "eng-us-midatlantic": "youse", "eng-us-south": "y'all",
+    "eng-us-midwest": "you guys", "eng-us-west": "you guys", "eng-uk-northeast": "yous",
+    "eng-uk-northwest": "youse", "eng-uk-yorkshire": "you", "eng-uk-eastmidlands": "you",
+    "eng-uk-westmidlands": "you", "eng-uk-south": "you", "eng-uk-southwest": "you",
+    "eng-uk-scotland": "yous"
+  },
+  "candy": {
+    "eng-us-newengland": "candy", "eng-us-midatlantic": "candy", "eng-us-south": "candy",
+    "eng-us-midwest": "candy", "eng-us-west": "candy", "eng-uk-northeast": "sweets",
+    "eng-uk-northwest": "sweets", "eng-uk-yorkshire": "sweets", "eng-uk-eastmidlands": "sweets",
+    "eng-uk-westmidlands": "sweets", "eng-uk-south": "sweets", "eng-uk-southwest": "sweets",
+    "eng-uk-scotland": "sweeties"
+  },
+  "highway": {
+    "eng-us-newengland": "highway", "eng-us-midatlantic": "expressway", "eng-us-south": "highway",
+    "eng-us-midwest": "highway", "eng-us-west": "freeway", "eng-uk-northeast": "motorway",
+    "eng-uk-northwest": "motorway", "eng-uk-yorkshire": "motorway", "eng-uk-eastmidlands": "motorway",
+    "eng-uk-westmidlands": "motorway", "eng-uk-south": "motorway", "eng-uk-southwest": "motorway",
+    "eng-uk-scotland": "motorway"
+  },
+  "sneaker": {
+    "eng-us-newengland": "sneakers", "eng-us-midatlantic": "sneakers", "eng-us-south": "tennis shoes",
+    "eng-us-midwest": "tennis shoes", "eng-us-west": "tennis shoes", "eng-uk-northeast": "trainers",
+    "eng-uk-northwest": "trainers", "eng-uk-yorkshire": "trainers", "eng-uk-eastmidlands": "trainers",
+    "eng-uk-westmidlands": "trainers", "eng-uk-south": "trainers", "eng-uk-southwest": "trainers",
+    "eng-uk-scotland": "sannies"
+  },
+  "firefly": {
+    "eng-us-newengland": "firefly", "eng-us-midatlantic": "lightning bug", "eng-us-south": "lightning bug",
+    "eng-us-midwest": "lightning bug", "eng-us-west": "firefly"
+  },
+  "crayfish": {
+    "eng-us-newengland": "crayfish", "eng-us-midatlantic": "crayfish", "eng-us-south": "crawfish",
+    "eng-us-midwest": "crawdad", "eng-us-west": "crawdad"
+  },
+  "milkshake": {
+    "eng-us-newengland": "frappe", "eng-us-midatlantic": "milkshake", "eng-us-south": "milkshake",
+    "eng-us-midwest": "milkshake", "eng-us-west": "milkshake"
+  }
+}

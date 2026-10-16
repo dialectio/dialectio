@@ -142,7 +142,8 @@
 - [x] Пілот німецьких регіональних слів: 9 ареалів (Північ, Берлін/Бранденбург/Мекленбург, Саксонія/Тюрингія, NRW, Гессен/Пфальц/Саар, Баден-Вюртемберг, Баварія, Австрія, Швейцарія), 23 поняття, 207 чернеток (Brötchen/Schrippe/Semmel/Weckle/Brötli…) — чекають перевірки носіями; сторінки слів на кшталт /slovo/semmel
 - [x] Ще понять для німецької: Marille, Karfiol, Krapfen/Berliner/Kreppel, Moin/Gude/Servus/Grüß Gott/Grüezi, Tschüss/Ade/Pfiat di, Tüte/Sackerl — 29 понять, 261 чернетка; нові поняття — через `data/extra_words_en.txt`
 - [x] Італійська: 9 ареалів, 7 понять (anguria/cocomero/melone d'acqua, rumenta/scoasse/rusco/pattume/monnezza, babbo/papà, michetta/rosetta, bombolone/krapfen/graffa, coppino/ramaiolo/mestolo, zucchina/zucchino/cucuzza)
-- [ ] Більше італійських понять і англійська (США — треба імпорт штатів; Британія — регіони Англії)
+- [x] Англійська: штати США й 9 регіонів Англії на карті; 13 ареалів (5 у США, 8 у Британії), 15 понять (soda/pop/coke, roll/barm/breadcake/cob/batch, ginnel/snicket/jitty, y'all/youse/yous, lightning bug, crawfish/crawdad, frappe, buggy/trolley…)
+- [ ] Більше понять для всіх трьох мов; наступні: іспанська (Іспанія / Латинська Америка), французька (Франція / Бельгія / Квебек), польська
 - [x] Колоди гри для регіональних мов; на сторінці «Говори» — розділи «Регіональні варіанти інших мов» і «Регіональні мови Європи» (за країнами), окремі сторінки мов
 - [ ] Акаунти з роллю «редактор мови» для носіїв (стають важливішими з міжнародною спільнотою)
 - [ ] Залучення: спільноти регіональних мов (валлійці, фризи, окситанці, баварці), r/linguistics, r/MapPorn, вікіспільноти

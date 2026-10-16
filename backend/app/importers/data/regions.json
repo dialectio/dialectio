@@ -1,5 +1,6 @@
 {
-  "_comment": "Regions built from several Natural Earth admin-1 units (French departments, Italian and Spanish provinces, UK council areas, Belgian provinces), keyed by ISO 3166-2 code. 'select' names the Natural Earth field and value that pick the units. Names in our interface languages; app.importers.natural_earth_admin1 and app.importers.localize read this file.",
+  "_comment": "Regions built from several Natural Earth admin-1 units (French departments, Italian and Spanish provinces, UK council areas, Belgian provinces), keyed by ISO 3166-2 code. 'select' names the Natural Earth field and value (or a list of such pairs, all of which must match) that pick the units. Names in our interface languages; app.importers.natural_earth_admin1 and app.importers.localize read this file.",
+
   "FR-ARA": {"select": ["region_cod", "FR-ARA"], "names": {"en": "Auvergne-Rhône-Alpes", "uk": "Овернь — Рона — Альпи", "pl": "Owernia-Rodan-Alpy", "de": "Auvergne-Rhône-Alpes", "es": "Auvernia-Ródano-Alpes", "fr": "Auvergne-Rhône-Alpes"}},
   "FR-BFC": {"select": ["region_cod", "FR-BFC"], "names": {"en": "Bourgogne-Franche-Comté", "uk": "Бургундія — Франш-Конте", "pl": "Burgundia-Franche-Comté", "de": "Bourgogne-Franche-Comté", "es": "Borgoña-Franco Condado", "fr": "Bourgogne-Franche-Comté"}},
   "FR-BRE": {"select": ["region_cod", "FR-BRE"], "names": {"en": "Brittany", "uk": "Бретань", "pl": "Bretania", "de": "Bretagne", "es": "Bretaña", "fr": "Bretagne"}},
@@ -53,7 +54,15 @@
   "ES-PV": {"select": ["region_cod", "ES.PV"], "names": {"en": "Basque Country", "uk": "Країна Басків", "pl": "Kraj Basków", "de": "Baskenland", "es": "País Vasco", "fr": "Pays basque"}},
   "ES-VC": {"select": ["region_cod", "ES.VC"], "names": {"en": "Valencian Community", "uk": "Валенсія", "pl": "Walencja", "de": "Valencia", "es": "Comunidad Valenciana", "fr": "Communauté valencienne"}},
 
-  "GB-ENG": {"select": ["geonunit", "England"], "names": {"en": "England", "uk": "Англія", "pl": "Anglia", "de": "England", "es": "Inglaterra", "fr": "Angleterre"}},
+  "GB-NE": {"select": [["geonunit", "England"], ["region", "North East"]], "names": {"en": "North East England", "uk": "Північно-Східна Англія", "pl": "Anglia Północno-Wschodnia", "de": "Nordostengland", "es": "Nordeste de Inglaterra", "fr": "Nord-Est de l'Angleterre"}},
+  "GB-NW": {"select": [["geonunit", "England"], ["region", "North West"]], "names": {"en": "North West England", "uk": "Північно-Західна Англія", "pl": "Anglia Północno-Zachodnia", "de": "Nordwestengland", "es": "Noroeste de Inglaterra", "fr": "Nord-Ouest de l'Angleterre"}},
+  "GB-YH": {"select": [["geonunit", "England"], ["region", "Yorkshire and the Humber"]], "names": {"en": "Yorkshire and the Humber", "uk": "Йоркшир і Гамбер", "pl": "Yorkshire i Humber", "de": "Yorkshire and the Humber", "es": "Yorkshire y Humber", "fr": "Yorkshire-et-Humber"}},
+  "GB-EM": {"select": [["geonunit", "England"], ["region", "East Midlands"]], "names": {"en": "East Midlands", "uk": "Східний Мідленд", "pl": "East Midlands", "de": "East Midlands", "es": "Midlands del Este", "fr": "Midlands de l'Est"}},
+  "GB-WM": {"select": [["geonunit", "England"], ["region", "West Midlands"]], "names": {"en": "West Midlands", "uk": "Західний Мідленд", "pl": "West Midlands", "de": "West Midlands", "es": "Midlands del Oeste", "fr": "Midlands de l'Ouest"}},
+  "GB-EE": {"select": [["geonunit", "England"], ["region", "East"]], "names": {"en": "East of England", "uk": "Східна Англія", "pl": "Anglia Wschodnia", "de": "East of England", "es": "Este de Inglaterra", "fr": "Est de l'Angleterre"}},
+  "GB-LN": {"select": [["geonunit", "England"], ["region", "Greater London"]], "names": {"en": "London", "uk": "Лондон", "pl": "Londyn", "de": "London", "es": "Londres", "fr": "Londres"}},
+  "GB-SE": {"select": [["geonunit", "England"], ["region", "South East"]], "names": {"en": "South East England", "uk": "Південно-Східна Англія", "pl": "Anglia Południowo-Wschodnia", "de": "Südostengland", "es": "Sudeste de Inglaterra", "fr": "Sud-Est de l'Angleterre"}},
+  "GB-SW": {"select": [["geonunit", "England"], ["region", "South West"]], "names": {"en": "South West England", "uk": "Південно-Західна Англія", "pl": "Anglia Południowo-Zachodnia", "de": "Südwestengland", "es": "Sudoeste de Inglaterra", "fr": "Sud-Ouest de l'Angleterre"}},
   "GB-SCT": {"select": ["geonunit", "Scotland"], "names": {"en": "Scotland", "uk": "Шотландія", "pl": "Szkocja", "de": "Schottland", "es": "Escocia", "fr": "Écosse"}},
   "GB-WLS": {"select": ["geonunit", "Wales"], "names": {"en": "Wales", "uk": "Уельс", "pl": "Walia", "de": "Wales", "es": "Gales", "fr": "pays de Galles"}},
   "GB-NIR": {"select": ["geonunit", "Northern Ireland"], "names": {"en": "Northern Ireland", "uk": "Північна Ірландія", "pl": "Irlandia Północna", "de": "Nordirland", "es": "Irlanda del Norte", "fr": "Irlande du Nord"}},

@@ -203,7 +203,8 @@
     "checkCtaLanguage": "Vous parlez cette langue ? Vérifiez ses mots →",
     "regionalPageDescription": "{name} : {examples} et d'autres mots avec leur traduction. Où on la parle, sur la carte.",
     "otherDialectsTitle": "Variantes régionales d'autres langues",
-    "otherDialectsIntro": "Comment la même chose se dit différemment selon les régions d'une langue. En allemand, le petit pain est Brötchen, Schrippe, Semmel ou Weckle ; en italien, la pastèque est anguria, cocomero ou melone d'acqua, selon la région."
+    "otherDialectsIntro": "Comment la même chose se dit différemment selon les régions d'une langue. En allemand, le petit pain est Brötchen, Schrippe, Semmel ou Weckle ; en italien, la pastèque est anguria, cocomero ou melone d'acqua, selon la région.",
+    "standardWordOther": "Langue standard"
   },
   "DialectInfo": {
     "ukr-polissia-west": "Le dialecte de Polésie occidentale est parlé dans la Polésie de Volhynie et de Rivne. Il a des diphtongues et d'autres voyelles à la place des anciens o et e (кунь, нуч au lieu de кінь, ніч) et un vocabulaire ancien partagé avec les dialectes biélorusses.",
@@ -231,7 +232,8 @@
     "others": "Autres noms dans les dialectes",
     "allLanguages": "« {meaning} » dans d'autres langues et dialectes sur la carte →",
     "unverified": "≈ Mot non vérifié : un brouillon qu'un éditeur n'a pas encore vérifié.",
-    "standardIs": "(langue standard : {word})"
+    "standardIs": "(langue standard : {word})",
+    "kickerRegional": "Mot régional"
   },
   "Og": {
     "site": "Comment les mots sonnent dans les langues du monde et les dialectes, sur une carte",

@@ -37,5 +37,19 @@
  "ita-center": {"pl": "włoski — Lacjum, Umbria, Marche, Abruzja", "de": "Italienisch — Latium, Umbrien, Marken, Abruzzen", "es": "italiano — Lacio, Umbría, Marcas, Abruzos", "fr": "italien — Latium, Ombrie, Marches, Abruzzes"},
  "ita-south": {"pl": "włoski — Kampania, Apulia, Kalabria, Basilicata, Molise", "de": "Italienisch — Kampanien, Apulien, Kalabrien, Basilikata, Molise", "es": "italiano — Campania, Apulia, Calabria, Basilicata, Molise", "fr": "italien — Campanie, Pouilles, Calabre, Basilicate, Molise"},
  "ita-sicily": {"pl": "włoski — Sycylia", "de": "Italienisch — Sizilien", "es": "italiano — Sicilia", "fr": "italien — Sicile"},
- "ita-sardinia": {"pl": "włoski — Sardynia", "de": "Italienisch — Sardinien", "es": "italiano — Cerdeña", "fr": "italien — Sardaigne"}
+ "ita-sardinia": {"pl": "włoski — Sardynia", "de": "Italienisch — Sardinien", "es": "italiano — Cerdeña", "fr": "italien — Sardaigne"},
+ "eng-regional": {"pl": "regionalny angielski", "de": "regionales Englisch", "es": "inglés regional", "fr": "anglais régional"},
+ "eng-us-newengland": {"pl": "angielski — Nowa Anglia", "de": "Englisch — Neuengland", "es": "inglés — Nueva Inglaterra", "fr": "anglais — Nouvelle-Angleterre"},
+ "eng-us-midatlantic": {"pl": "angielski — stany środkowoatlantyckie", "de": "Englisch — Mittelatlantikstaaten", "es": "inglés — Atlántico Medio de EE. UU.", "fr": "anglais — Centre-Atlantique des États-Unis"},
+ "eng-us-south": {"pl": "angielski — Południe USA", "de": "Englisch — Südstaaten der USA", "es": "inglés — Sur de EE. UU.", "fr": "anglais — Sud des États-Unis"},
+ "eng-us-midwest": {"pl": "angielski — Środkowy Zachód USA", "de": "Englisch — Mittlerer Westen der USA", "es": "inglés — Medio Oeste de EE. UU.", "fr": "anglais — Midwest des États-Unis"},
+ "eng-us-west": {"pl": "angielski — Zachód USA", "de": "Englisch — Westen der USA", "es": "inglés — Oeste de EE. UU.", "fr": "anglais — Ouest des États-Unis"},
+ "eng-uk-northeast": {"pl": "angielski — Anglia Północno-Wschodnia", "de": "Englisch — Nordostengland", "es": "inglés — Nordeste de Inglaterra", "fr": "anglais — Nord-Est de l'Angleterre"},
+ "eng-uk-northwest": {"pl": "angielski — Anglia Północno-Zachodnia", "de": "Englisch — Nordwestengland", "es": "inglés — Noroeste de Inglaterra", "fr": "anglais — Nord-Ouest de l'Angleterre"},
+ "eng-uk-yorkshire": {"pl": "angielski — Yorkshire", "de": "Englisch — Yorkshire", "es": "inglés — Yorkshire", "fr": "anglais — Yorkshire"},
+ "eng-uk-eastmidlands": {"pl": "angielski — East Midlands", "de": "Englisch — East Midlands", "es": "inglés — Midlands del Este", "fr": "anglais — Midlands de l'Est"},
+ "eng-uk-westmidlands": {"pl": "angielski — West Midlands", "de": "Englisch — West Midlands", "es": "inglés — Midlands del Oeste", "fr": "anglais — Midlands de l'Ouest"},
+ "eng-uk-south": {"pl": "angielski — Londyn i południowy wschód Anglii", "de": "Englisch — London und Südostengland", "es": "inglés — Londres y el sudeste de Inglaterra", "fr": "anglais — Londres et le Sud-Est de l'Angleterre"},
+ "eng-uk-southwest": {"pl": "angielski — Anglia Południowo-Zachodnia", "de": "Englisch — Südwestengland", "es": "inglés — Sudoeste de Inglaterra", "fr": "anglais — Sud-Ouest de l'Angleterre"},
+ "eng-uk-scotland": {"pl": "angielski — Szkocja", "de": "Englisch — Schottland", "es": "inglés — Escocia", "fr": "anglais — Écosse"}
 }

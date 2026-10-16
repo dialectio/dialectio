@@ -46,9 +46,9 @@ const COUNTRIES_LAYER = "countries";
 const REGIONS_LAYER = "regions";
 // From this zoom on, regions (and their dialect words) replace their country.
 const REGIONS_MIN_ZOOM = 5;
-// Region highlights show earlier (the tiles carry regions from zoom 4), so a whole dialect
-// area is visible when the map fits Ukraine and its neighbours.
-const REGION_HIGHLIGHT_MIN_ZOOM = 4;
+// Region highlights show earlier (the tiles carry regions from zoom 2), so a whole dialect
+// area is visible when the map fits Ukraine, or the US and Britain together.
+const REGION_HIGHLIGHT_MIN_ZOOM = 2;
 
 export type SelectedRegion = { code: string; name: string; parentCode: string | null };
 

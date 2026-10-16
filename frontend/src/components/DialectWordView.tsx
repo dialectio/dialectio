@@ -108,7 +108,9 @@ export default function DialectWordView({
     <article className="space-y-6 p-4">
       <header>
         <p className="text-xs tracking-wide uppercase opacity-60">
-          {t("kicker")}
+          {entry.meanings.every(isUkrainianDialectWord)
+            ? t("kicker")
+            : t("kickerRegional")}
         </p>
         <h1 className="font-serif text-3xl font-semibold text-violet-800 dark:text-violet-300">
           {entry.word}

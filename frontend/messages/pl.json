@@ -203,7 +203,8 @@
     "checkCtaLanguage": "Znasz ten język? Sprawdź jego słowa →",
     "regionalPageDescription": "{name}: {examples} i inne słowa z tłumaczeniem. Gdzie się nim mówi — na mapie.",
     "otherDialectsTitle": "Regionalne odmiany innych języków",
-    "otherDialectsIntro": "Jak tę samą rzecz nazywa się różnie w regionach jednego języka. Po niemiecku bułka to Brötchen, Schrippe, Semmel albo Weckle, a po włosku arbuz to anguria, cocomero albo melone d'acqua — zależnie od regionu."
+    "otherDialectsIntro": "Jak tę samą rzecz nazywa się różnie w regionach jednego języka. Po niemiecku bułka to Brötchen, Schrippe, Semmel albo Weckle, a po włosku arbuz to anguria, cocomero albo melone d'acqua — zależnie od regionu.",
+    "standardWordOther": "W języku ogólnym"
   },
   "DialectInfo": {
     "ukr-polissia-west": "Gwara zachodniopoleska — na Polesiu wołyńskim i rówieńskim. Ma dyftongi i inne samogłoski w miejscu dawnych o, e (кунь, нуч zamiast кінь, ніч) oraz dawne słownictwo wspólne z gwarami białoruskimi.",
@@ -231,7 +232,8 @@
     "others": "Inne nazwy w gwarach",
     "allLanguages": "„{meaning}” w innych językach i gwarach na mapie →",
     "unverified": "≈ Słowo niezweryfikowane: szkic, którego redaktor jeszcze nie sprawdził.",
-    "standardIs": "(w języku ogólnym: {word})"
+    "standardIs": "(w języku ogólnym: {word})",
+    "kickerRegional": "Słowo regionalne"
   },
   "Og": {
     "site": "Jak brzmią słowa w językach świata i gwarach — na mapie",

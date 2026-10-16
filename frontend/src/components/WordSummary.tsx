@@ -43,10 +43,10 @@ function dialectVariants(
   for (const lang of concept.languages) {
     if (lang.kind !== "dialect" || !lang.code.startsWith(`${language}-`))
       continue;
-    // "німецька — Баварія" -> "Баварія": the language is said once, before the list
-    const area = localized(locale, lang.name_en, lang.name_uk, lang.names)
-      .split(" — ")
-      .pop()!;
+    // "німецька — Баварія", "German (Bavaria)" -> "Баварія", "Bavaria": the language is
+    // said once, before the list
+    const full = localized(locale, lang.name_en, lang.name_uk, lang.names);
+    const area = full.match(/\((.+)\)$/)?.[1] ?? full.split(" — ").pop()!;
     for (const form of lang.forms) {
       const key = form.spelling.toLowerCase();
       if (standard.has(key)) continue;

@@ -203,7 +203,8 @@
     "checkCtaLanguage": "Sprechen Sie diese Sprache? Prüfen Sie ihre Wörter →",
     "regionalPageDescription": "{name}: {examples} und weitere Wörter mit Übersetzung. Wo sie gesprochen wird, auf der Karte.",
     "otherDialectsTitle": "Regionale Varianten anderer Sprachen",
-    "otherDialectsIntro": "Wie dieselbe Sache in den Regionen einer Sprache unterschiedlich heißt. Im Deutschen ist es Brötchen, Schrippe, Semmel oder Weckle, im Italienischen heißt die Wassermelone anguria, cocomero oder melone d'acqua — je nach Region."
+    "otherDialectsIntro": "Wie dieselbe Sache in den Regionen einer Sprache unterschiedlich heißt. Im Deutschen ist es Brötchen, Schrippe, Semmel oder Weckle, im Italienischen heißt die Wassermelone anguria, cocomero oder melone d'acqua — je nach Region.",
+    "standardWordOther": "Standardsprache"
   },
   "DialectInfo": {
     "ukr-polissia-west": "Der westpolessische Dialekt wird im Polesien der Oblaste Wolyn und Riwne gesprochen. Er hat Diphthonge und andere Vokale anstelle der alten o und e (кунь, нуч statt кінь, ніч) sowie alten Wortschatz, den er mit belarussischen Dialekten teilt.",
@@ -231,7 +232,8 @@
     "others": "Andere Wörter in Dialekten",
     "allLanguages": "„{meaning}“ in anderen Sprachen und Dialekten auf der Karte →",
     "unverified": "≈ Ungeprüftes Wort: ein Entwurf, den die Redaktion noch nicht geprüft hat.",
-    "standardIs": "(Standardsprache: {word})"
+    "standardIs": "(Standardsprache: {word})",
+    "kickerRegional": "Regionales Wort"
   },
   "Og": {
     "site": "Wie Wörter in den Sprachen der Welt und in Dialekten klingen — auf einer Karte",

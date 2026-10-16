@@ -120,7 +120,11 @@ export default function DialectView({ dialect }: { dialect: DialectDetail }) {
                     {regional ? t("regionalWord") : t("dialectWord")}
                   </th>
                   <th className="py-1.5 font-medium">
-                    {regional ? t("meaning") : t("standardWord")}
+                    {regional
+                      ? t("meaning")
+                      : dialect.code.startsWith("ukr-")
+                        ? t("standardWord")
+                        : t("standardWordOther")}
                   </th>
                 </tr>
               </thead>

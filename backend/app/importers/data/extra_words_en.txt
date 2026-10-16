@@ -7,3 +7,7 @@ hello        # Moin / Servus / Grüß Gott / Grüezi
 goodbye      # Tschüss / Ade / Servus / Pfiat di
 ladle        # mestolo / ramaiolo / coppino (Italy)
 courgette    # zucchina / zucchino / cucuzza (Italy)
+sneaker      # sneakers / tennis shoes / trainers / sandshoes
+firefly      # firefly / lightning bug (US)
+crayfish     # crayfish / crawfish / crawdad (US)
+milkshake    # milkshake / frappe (New England)

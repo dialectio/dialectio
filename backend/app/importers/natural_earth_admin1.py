@@ -47,6 +47,8 @@ COUNTRIES = {
     "IT": "ITA",
     "ES": "ESP",
     "GB": "GBR",
+    # The United States: regional English (soda / pop / coke)
+    "US": "USA",
 }
 # Countries whose units are merged into the regions of data/regions.json
 MERGED = {"BE", "FR", "IT", "ES", "GB"}
@@ -144,8 +146,12 @@ def main() -> None:
                 continue
             if prefix in MERGED:
                 for region_code, region in merged.items():
-                    field, value = region["select"]
-                    if region_code.startswith(prefix) and attrs[field].strip() == value:
+                    conditions = region["select"]
+                    if isinstance(conditions[0], str):
+                        conditions = [conditions]  # one [field, value] pair
+                    if region_code.startswith(prefix) and all(
+                        attrs[field].strip() == value for field, value in conditions
+                    ):
                         units[region_code].append(json.dumps(shape_record.shape.__geo_interface__))
                         ranks[region_code] = min(ranks.get(region_code, 99), attrs["labelrank"])
                 continue
@@ -183,6 +189,20 @@ def main() -> None:
         missing_regions = sorted(set(merged) - set(units))
         if missing_regions:
             print(f"  warning: no Natural Earth units for {missing_regions}")
+        # Merged regions dropped from data/regions.json (England, now split into its regions)
+        stale = (
+            session.execute(
+                text("""
+                DELETE FROM region WHERE level = 'adm1' AND split_part(code, '-', 1) = ANY(:merged)
+                  AND NOT (code = ANY(:codes)) RETURNING code
+            """),
+                {"merged": sorted(MERGED), "codes": sorted(units)},
+            )
+            .scalars()
+            .all()
+        )
+        if stale:
+            print(f"  removed regions no longer in data/regions.json: {stale}")
         session.commit()
 
     print(f"Imported {count} first-level regions.")
