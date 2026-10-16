@@ -85,6 +85,23 @@ export default function HomePanel({
         </section>
       )}
 
+      {/* The check game: where visitors help, right under the word of the day */}
+      <Link
+        href="/check"
+        className="flex items-center gap-3 rounded-lg border border-amber-500/40 bg-amber-400/10 p-4 !no-underline hover:bg-amber-400/20"
+      >
+        <span aria-hidden="true" className="text-3xl">
+          🎯
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold">{t("gameTitle")}</span>
+          <span className="block text-sm opacity-80">{t("gameText")}</span>
+        </span>
+        <span className="shrink-0 rounded-md bg-amber-500 px-3 py-1.5 text-sm font-medium text-amber-950">
+          {t("gamePlay")}
+        </span>
+      </Link>
+
       {others.length > 0 && (
         <section>
           <h2 className="font-medium">{t("dialectsTitle")}</h2>
@@ -114,13 +131,6 @@ export default function HomePanel({
           </ul>
         </section>
       )}
-
-      <Link
-        href="/check"
-        className="block rounded-lg border border-dashed border-green-600/50 px-3 py-2 text-sm text-green-800 hover:bg-green-600/10 dark:text-green-300"
-      >
-        {t("checkCta")}
-      </Link>
 
       <InfoNav />
     </aside>

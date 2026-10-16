@@ -111,7 +111,8 @@
     "terms": "Terms of use",
     "imprint": "Legal notice",
     "false-friends": "False friends",
-    "community": "Community"
+    "community": "Community",
+    "menu": "Menu"
   },
   "About": {
     "title": "About",
@@ -175,7 +176,9 @@
     "open": "Show all languages and dialects",
     "dialectsTitle": "Regional words",
     "dialectsHint": "One thing, different words across the United States and Britain.",
-    "checkCta": "Help check words: one click per word →"
+    "gameTitle": "Game: Check words",
+    "gameText": "Do people say it like this? One click per word helps the map.",
+    "gamePlay": "Play"
   },
   "Dialects": {
     "title": "Dialects of Ukrainian",

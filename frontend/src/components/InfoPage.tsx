@@ -3,24 +3,14 @@ import type { ReactNode } from "react";
 
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import Logo from "@/components/Logo";
+import MobileMenu from "@/components/MobileMenu";
 import { Link } from "@/i18n/navigation";
+import { INFO_PAGES } from "@/lib/pages";
 
 export const GITHUB_ISSUES_URL =
   "https://github.com/gmisha777/dialectio/issues";
 
-export const INFO_PAGES = [
-  "dialects",
-  "check",
-  "community",
-  "false-friends",
-  "about",
-  "sources",
-  "privacy",
-  "terms",
-  "imprint",
-] as const;
-/** The header has room only for these; the legal pages are linked from footers and panels. */
-export const HEADER_PAGES = INFO_PAGES.slice(0, 5);
+export { HEADER_PAGES, INFO_PAGES } from "@/lib/pages";
 
 /** Links to the project pages (dialects, game, about, sources, legal pages). */
 export function InfoNav({
@@ -68,6 +58,7 @@ export default function InfoPage({
           {t("map")}
         </Link>
         <LocaleSwitcher />
+        <MobileMenu className="" />
       </header>
       <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-8">
         <h1 className="mb-6 font-serif text-3xl font-semibold">{title}</h1>

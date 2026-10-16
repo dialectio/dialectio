@@ -111,7 +111,8 @@
     "terms": "Regulamin",
     "imprint": "Nota prawna",
     "false-friends": "Fałszywi przyjaciele",
-    "community": "Społeczność"
+    "community": "Społeczność",
+    "menu": "Menu"
   },
   "About": {
     "title": "O projekcie",
@@ -175,7 +176,9 @@
     "open": "Pokaż wszystkie języki i gwary",
     "dialectsTitle": "Ciekawostki z gwar",
     "dialectsHint": "Jedno pojęcie — różne słowa w różnych zakątkach Ukrainy.",
-    "checkCta": "Pomóż sprawdzić słowa — jedno kliknięcie na słowo →"
+    "gameTitle": "Gra „Sprawdź słowa”",
+    "gameText": "Mówi się tak czy nie? Jedno kliknięcie na słowo pomaga mapie.",
+    "gamePlay": "Graj"
   },
   "Dialects": {
     "title": "Gwary języka ukraińskiego",

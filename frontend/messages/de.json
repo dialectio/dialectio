@@ -111,7 +111,8 @@
     "terms": "Nutzungsbedingungen",
     "imprint": "Impressum",
     "false-friends": "Falsche Freunde",
-    "community": "Gemeinschaft"
+    "community": "Gemeinschaft",
+    "menu": "Menü"
   },
   "About": {
     "title": "Über das Projekt",
@@ -175,7 +176,9 @@
     "open": "Alle Sprachen und Dialekte zeigen",
     "dialectsTitle": "Regionale Wörter",
     "dialectsHint": "Ein Begriff, verschiedene Wörter in Deutschland, Österreich und der Schweiz.",
-    "checkCta": "Hilf beim Prüfen der Wörter — ein Klick pro Wort →"
+    "gameTitle": "Spiel: Wörter prüfen",
+    "gameText": "Sagt man so oder nicht? Ein Klick pro Wort hilft der Karte.",
+    "gamePlay": "Spielen"
   },
   "Dialects": {
     "title": "Dialekte des Ukrainischen",

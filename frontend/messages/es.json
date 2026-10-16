@@ -111,7 +111,8 @@
     "terms": "Condiciones de uso",
     "imprint": "Aviso legal",
     "false-friends": "Falsos amigos",
-    "community": "Comunidad"
+    "community": "Comunidad",
+    "menu": "Menú"
   },
   "About": {
     "title": "Acerca del proyecto",
@@ -175,7 +176,9 @@
     "open": "Mostrar todos los idiomas y dialectos",
     "dialectsTitle": "Palabras regionales",
     "dialectsHint": "Una misma cosa, palabras distintas en España y América Latina.",
-    "checkCta": "Ayuda a revisar palabras: un clic por palabra →"
+    "gameTitle": "Juego: Revisa palabras",
+    "gameText": "¿Se dice así o no? Un clic por palabra ayuda al mapa.",
+    "gamePlay": "Jugar"
   },
   "Dialects": {
     "title": "Dialectos del ucraniano",

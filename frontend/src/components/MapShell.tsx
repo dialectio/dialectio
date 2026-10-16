@@ -15,6 +15,7 @@ import {
 import { HEADER_PAGES, InfoNav } from "@/components/InfoPage";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import Logo from "@/components/Logo";
+import MobileMenu from "@/components/MobileMenu";
 import SearchBox from "@/components/SearchBox";
 import WorldMap, {
   type SelectedRegion,
@@ -162,6 +163,7 @@ export default function MapShell({ children }: { children: ReactNode }) {
             <SearchBox onSelect={openHit} />
             <InfoNav className="hidden shrink-0 lg:flex" pages={HEADER_PAGES} />
             <LocaleSwitcher />
+            <MobileMenu />
           </header>
           <div className="flex min-h-0 flex-1 flex-col md:flex-row">
             <section className="relative min-h-[50vh] flex-1">

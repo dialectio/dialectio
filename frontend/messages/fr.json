@@ -111,7 +111,8 @@
     "terms": "Conditions d'utilisation",
     "imprint": "Mentions légales",
     "false-friends": "Faux amis",
-    "community": "Communauté"
+    "community": "Communauté",
+    "menu": "Menu"
   },
   "About": {
     "title": "À propos",
@@ -175,7 +176,9 @@
     "open": "Afficher toutes les langues et tous les dialectes",
     "dialectsTitle": "Mots régionaux",
     "dialectsHint": "Une même chose, des mots différents en France, en Belgique, en Suisse et au Québec.",
-    "checkCta": "Aidez à vérifier des mots : un clic par mot →"
+    "gameTitle": "Jeu : Vérifier des mots",
+    "gameText": "Ça se dit ou pas ? Un clic par mot aide la carte.",
+    "gamePlay": "Jouer"
   },
   "Dialects": {
     "title": "Dialectes de l'ukrainien",
