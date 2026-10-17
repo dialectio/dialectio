@@ -167,7 +167,9 @@
     "votesTitle": "Cuando votas o informas de un error",
     "votes": "Guardamos tu voto (sí o no) y el texto del informe de error. Para que un navegador tenga un voto por palabra, tu navegador crea un identificador aleatorio; el servidor guarda solo su hash, del que no se puede recuperar el identificador. La región, si la indicaste, se guarda con el voto y ayuda a afinar el mapa de dialectos.",
     "searchTitle": "Búsqueda",
-    "search": "Cuando una búsqueda no encuentra nada, guardamos el texto buscado y un contador para añadir la palabra al diccionario. No se guarda nada sobre ti."
+    "search": "Cuando una búsqueda no encuentra nada, guardamos el texto buscado y un contador para añadir la palabra al diccionario. No se guarda nada sobre ti.",
+    "accountTitle": "Si te registras",
+    "account": "Guardamos tu correo, tu nombre y un hash de tu contraseña (la contraseña no se guarda ni se puede recuperar del hash). Al entrar, el navegador recibe una cookie de sesión, que solo sirve para mantenerte dentro. Tus votos y respuestas a las tarjetas de control quedan ligados a la cuenta. Puedes borrar la cuenta en tu perfil: correo, nombre y sesiones desaparecen enseguida; los votos se quedan anónimos."
   },
   "Home": {
     "intro": "Escribe una palabra en cualquier idioma y mira en el mapa cómo se escribe, se pronuncia y suena en los idiomas del mundo, sus dialectos y variantes regionales. O empieza con estos ejemplos:",
@@ -383,5 +385,37 @@
     "later": "Podrás repetir la comprobación de este idioma mañana. Mientras tanto, tus votos no cuentan.",
     "close": "Entendido",
     "continue": "Continuar"
+  },
+  "Account": {
+    "signIn": "Entrar",
+    "signOut": "Salir",
+    "profile": "Perfil",
+    "signInTitle": "Entrar o registrarse",
+    "why": "Registrarse es opcional: puedes mirar, escuchar y votar sin cuenta. Los miembros votan desde cualquier dispositivo, sus votos pesan más y las palabras y grabaciones que añaden llevan su nombre.",
+    "signInTab": "Entrar",
+    "registerTab": "Registrarse",
+    "name": "Nombre",
+    "nameHint": "Aparecerá bajo las palabras y grabaciones que añadas.",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "passwordHint": "Al menos 8 caracteres.",
+    "signInButton": "Entrar",
+    "registerButton": "Crear cuenta",
+    "privacyNote": "Guardamos tu correo, tu nombre y un hash de la contraseña (no la contraseña). Puedes borrar la cuenta cuando quieras desde tu perfil.",
+    "soon": "Pronto: entrar con Google o con un enlace por correo.",
+    "levelsSoon": "Pronto verás aquí tus idiomas y dialectos, las pruebas de hablante y tus aportes.",
+    "delete": "Borrar cuenta",
+    "deleteConfirm": "¿Borrar la cuenta para siempre? Tus votos se quedan, anónimos.",
+    "deleteYes": "Sí, borrar",
+    "deleteNo": "Cancelar",
+    "errors": {
+      "email_taken": "Este correo ya está registrado. Entra con él.",
+      "wrong_credentials": "Correo o contraseña incorrectos.",
+      "invalid_email": "Revisa la dirección de correo.",
+      "short_password": "La contraseña necesita al menos 8 caracteres.",
+      "empty_name": "Escribe un nombre.",
+      "429": "Demasiados intentos. Prueba dentro de unos minutos.",
+      "other": "No ha funcionado. Inténtalo de nuevo."
+    }
   }
 }

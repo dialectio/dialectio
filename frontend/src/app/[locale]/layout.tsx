@@ -5,6 +5,7 @@ import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { AccountProvider } from "@/components/Account";
 import { routing } from "@/i18n/routing";
 
 import "flag-icons/css/flag-icons.min.css";
@@ -38,7 +39,10 @@ export async function generateMetadata({
   return { title: "Dialectio", description: t("description") };
 }
 
-export default async function LocaleLayout({ children, params }: LayoutProps<"/[locale]">) {
+export default async function LocaleLayout({
+  children,
+  params,
+}: LayoutProps<"/[locale]">) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {
     notFound();
@@ -51,7 +55,9 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
       className={`${sans.variable} ${serif.variable} h-full antialiased`}
     >
       <body className="h-full flex flex-col">
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          <AccountProvider>{children}</AccountProvider>
+        </NextIntlClientProvider>
         {UMAMI_SRC && UMAMI_WEBSITE_ID && (
           // Every word is its own page, tracked on navigation; ?region= is a filter on the same
           // page, so the query string is left out.

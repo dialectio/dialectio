@@ -14,6 +14,7 @@ import {
 
 import { HEADER_PAGES, InfoNav } from "@/components/InfoPage";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
+import { AccountButton } from "@/components/Account";
 import Logo from "@/components/Logo";
 import MobileMenu from "@/components/MobileMenu";
 import { QuizProvider } from "@/components/QuizGate";
@@ -168,6 +169,7 @@ export default function MapShell({ children }: { children: ReactNode }) {
                 pages={HEADER_PAGES}
               />
               <LocaleSwitcher />
+              <AccountButton />
               <MobileMenu />
             </header>
             <div className="flex min-h-0 flex-1 flex-col md:flex-row">

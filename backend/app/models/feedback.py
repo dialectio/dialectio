@@ -71,6 +71,7 @@ class Report(Base):
 # CONFIRM_SHARE of all its weight; as disputed with at least DISPUTE_MIN of "no" weight not
 # outnumbered by "yes" weight. Editors' ✓ stays separate and above both.
 GUEST_WEIGHT = 0.25
+MEMBER_WEIGHT = 0.5  # a signed-in member who passed the quiz
 CONFIRM_MIN = 5
 CONFIRM_SHARE = 0.8
 DISPUTE_MIN = 3

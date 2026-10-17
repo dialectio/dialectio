@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 import LocaleSwitcher from "@/components/LocaleSwitcher";
+import { AccountButton } from "@/components/Account";
 import Logo from "@/components/Logo";
 import MobileMenu from "@/components/MobileMenu";
 import { Link } from "@/i18n/navigation";
@@ -58,6 +59,7 @@ export default function InfoPage({
           {t("map")}
         </Link>
         <LocaleSwitcher />
+        <AccountButton />
         <MobileMenu className="" />
       </header>
       <main className="mx-auto w-full max-w-2xl flex-1 px-4 py-8">

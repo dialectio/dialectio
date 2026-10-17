@@ -18,12 +18,14 @@ from pydantic import BaseModel, Field, field_validator
 from sqlalchemy import func, select, text
 from sqlalchemy.dialects.postgresql import insert
 
+from app.api.accounts import current_user, voter_of
 from app.api.dialects import REGIONAL
 from app.api.gold import gold_cards, quiz_status
 from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
 from app.api.votes import Tally, tallies
 from app.models import (
     GUEST_WEIGHT,
+    MEMBER_WEIGHT,
     PUBLIC_STATUSES,
     Form,
     MissingSearch,
@@ -107,10 +109,12 @@ def counts(session: SessionDep, form_id: int) -> VoteCounts:
 def vote(session: SessionDep, request: Request, data: VoteIn) -> VoteCounts:
     check_limit("vote", request, VOTE_LIMIT)
     form = public_form(session, data.form_id)
-    voter = voter_hash(data.voter)
-    # A guest's vote counts once they passed the quiz of the word's language
+    member = current_user(request, session)
+    voter = voter_hash(f"user:{member.id}" if member else data.voter)
+    # A vote counts once the voter passed the quiz of the word's language
     language = form.variety.code.split("-")[0]
-    weight = GUEST_WEIGHT if quiz_status(session, voter, language).passed else 0.0
+    passed = quiz_status(session, voter, language).passed
+    weight = (MEMBER_WEIGHT if member else GUEST_WEIGHT) if passed else 0.0
     if data.value == 0:
         session.execute(
             Vote.__table__.delete().where(Vote.form_id == data.form_id, Vote.voter == voter)
@@ -312,6 +316,7 @@ def check_decks(session: SessionDep) -> list[Deck]:
 @router.get("/check/cards")
 def check_cards(
     session: SessionDep,
+    request: Request,
     voter: Annotated[str, Query(min_length=8, max_length=64)],
     deck: str = UKRAINIAN_DECK,
     skip: Annotated[list[int], Query()] = [],  # noqa: B006 (FastAPI copies defaults)
@@ -323,7 +328,7 @@ def check_cards(
         {
             "unverified_sources": list(UNVERIFIED_SOURCES),
             "deck": deck,
-            "voter": voter_hash(voter),
+            "voter": voter_hash(voter_of(request, session, voter)),
             "skip": skip,
             "limit": limit,
         },

@@ -63,6 +63,7 @@ export type VoteCounts = {
 async function post<T>(path: string, body: unknown): Promise<T> {
   const response = await fetch(`${API_URL}${path}`, {
     method: "POST",
+    credentials: "include", // a signed-in member votes as themselves
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
@@ -172,6 +173,9 @@ function passedQuizzes(): Record<string, boolean> {
 export const quizPassed = (language: string) =>
   passedQuizzes()[language] === true;
 
+/** Forget the quizzes passed here: after signing in or out they belong to someone else. */
+export const forgetQuizzes = () => write(QUIZ_KEY, "{}");
+
 export function rememberQuiz(language: string, passed: boolean) {
   const quizzes = passedQuizzes();
   quizzes[language] = passed;
@@ -182,7 +186,9 @@ export type QuizState = { passed: boolean; retry_after: number | null };
 
 export async function getQuizStatus(language: string): Promise<QuizState> {
   const params = new URLSearchParams({ voter: voterId(), language });
-  const response = await fetch(`${API_URL}/api/check/quiz/status?${params}`);
+  const response = await fetch(`${API_URL}/api/check/quiz/status?${params}`, {
+    credentials: "include",
+  });
   if (!response.ok)
     throw new Error(`${response.status} /api/check/quiz/status`);
   return response.json();
@@ -192,7 +198,9 @@ export async function getQuiz(
   language: string,
 ): Promise<{ cards: Card[]; retry_after: number | null }> {
   const params = new URLSearchParams({ voter: voterId(), language });
-  const response = await fetch(`${API_URL}/api/check/quiz?${params}`);
+  const response = await fetch(`${API_URL}/api/check/quiz?${params}`, {
+    credentials: "include",
+  });
   if (!response.ok) throw new Error(`${response.status} /api/check/quiz`);
   return response.json();
 }
@@ -226,7 +234,9 @@ export async function loadCards(
     limit: String(limit),
   });
   for (const id of skip) params.append("skip", String(id));
-  const response = await fetch(`${API_URL}/api/check/cards?${params}`);
+  const response = await fetch(`${API_URL}/api/check/cards?${params}`, {
+    credentials: "include",
+  });
   if (!response.ok) throw new Error(`${response.status} /api/check/cards`);
   return response.json();
 }

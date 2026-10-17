@@ -28,6 +28,7 @@ services:
       CORS_ORIGINS: '["https://${DOMAIN:?set DOMAIN}"]'
       EDITOR_TOKEN: ${EDITOR_TOKEN:-}
       SECRET_KEY: ${SECRET_KEY:?set SECRET_KEY in .env.prod}
+      COOKIE_SECURE: "true"
     volumes:
       # TTS audio and visitors' recordings
       - ./data/media:/data/media

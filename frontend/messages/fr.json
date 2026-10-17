@@ -167,7 +167,9 @@
     "votesTitle": "Quand vous votez ou signalez une erreur",
     "votes": "Nous enregistrons votre vote (oui ou non) et le texte d'un signalement d'erreur. Pour qu'un navigateur ait un vote par mot, votre navigateur crée un identifiant aléatoire ; le serveur n'en garde que l'empreinte (hash), qui ne permet pas de retrouver l'identifiant. La région, si vous l'avez indiquée, est enregistrée avec le vote et aide à affiner la carte des dialectes.",
     "searchTitle": "Recherche",
-    "search": "Quand une recherche ne trouve rien, nous conservons le texte recherché et un compteur afin d'ajouter le mot au dictionnaire. Rien vous concernant n'est enregistré."
+    "search": "Quand une recherche ne trouve rien, nous conservons le texte recherché et un compteur afin d'ajouter le mot au dictionnaire. Rien vous concernant n'est enregistré.",
+    "accountTitle": "Si vous vous inscrivez",
+    "account": "Nous gardons votre adresse e-mail, votre nom et une empreinte de votre mot de passe (le mot de passe lui-même n'est ni conservé ni récupérable). Après connexion, le navigateur reçoit un cookie de session, qui sert uniquement à vous garder connecté. Vos votes et réponses aux cartes de contrôle sont liés au compte. Vous pouvez supprimer le compte dans votre profil : e-mail, nom et sessions disparaissent aussitôt, les votes restent anonymes."
   },
   "Home": {
     "intro": "Saisissez un mot dans n'importe quelle langue et voyez sur la carte comment il s'écrit, se prononce et sonne dans les langues du monde, leurs dialectes et leurs variantes régionales. Ou commencez par ces exemples :",
@@ -383,5 +385,37 @@
     "later": "Vous pourrez refaire la vérification pour cette langue demain. D'ici là, vos votes ne comptent pas.",
     "close": "Compris",
     "continue": "Continuer"
+  },
+  "Account": {
+    "signIn": "Se connecter",
+    "signOut": "Se déconnecter",
+    "profile": "Profil",
+    "signInTitle": "Connexion et inscription",
+    "why": "L'inscription est facultative : on peut regarder, écouter et voter sans compte. Les membres votent depuis n'importe quel appareil, leurs votes pèsent plus, et les mots et enregistrements qu'ils ajoutent portent leur nom.",
+    "signInTab": "Se connecter",
+    "registerTab": "S'inscrire",
+    "name": "Nom",
+    "nameHint": "Affiché sous les mots et enregistrements que vous ajoutez.",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "passwordHint": "Au moins 8 caractères.",
+    "signInButton": "Se connecter",
+    "registerButton": "Créer un compte",
+    "privacyNote": "Nous gardons votre e-mail, votre nom et une empreinte du mot de passe (pas le mot de passe). Vous pouvez supprimer le compte à tout moment dans votre profil.",
+    "soon": "Bientôt : connexion avec Google ou par lien envoyé par e-mail.",
+    "levelsSoon": "Bientôt, vos langues et dialectes, les tests de locuteur et vos contributions apparaîtront ici.",
+    "delete": "Supprimer le compte",
+    "deleteConfirm": "Supprimer le compte définitivement ? Vos votes restent, anonymes.",
+    "deleteYes": "Oui, supprimer",
+    "deleteNo": "Annuler",
+    "errors": {
+      "email_taken": "Cet e-mail est déjà inscrit. Connectez-vous.",
+      "wrong_credentials": "E-mail ou mot de passe incorrect.",
+      "invalid_email": "Vérifiez l'adresse e-mail.",
+      "short_password": "Le mot de passe doit avoir au moins 8 caractères.",
+      "empty_name": "Indiquez un nom.",
+      "429": "Trop de tentatives. Réessayez dans quelques minutes.",
+      "other": "Cela n'a pas marché. Réessayez."
+    }
   }
 }

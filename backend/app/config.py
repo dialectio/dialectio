@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     editor_token: str = ""
     # Signs control cards (app/api/gold.py); set a long random value in production
     secret_key: str = "dev-only-secret-change-me"
+    # Session cookies only over HTTPS (true in production)
+    cookie_secure: bool = False
     # Generated files (e.g. TTS audio), served by the API under MEDIA_URL_PREFIX.
     media_dir: Path = REPO_DIR / "data" / "media"
 

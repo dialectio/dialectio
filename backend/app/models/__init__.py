@@ -1,8 +1,10 @@
+from app.models.account import EDITOR, MEMBER, AuthSession, User
 from app.models.base import Base
 from app.models.feedback import (
     CONFIRMED,
     DISPUTED,
     GUEST_WEIGHT,
+    MEMBER_WEIGHT,
     GoldAnswer,
     MissingSearch,
     Report,
@@ -24,9 +26,14 @@ from app.models.lexicon import (
 )
 
 __all__ = [
+    "EDITOR",
+    "MEMBER",
+    "AuthSession",
+    "User",
     "CONFIRMED",
     "DISPUTED",
     "GUEST_WEIGHT",
+    "MEMBER_WEIGHT",
     "GoldAnswer",
     "community_status",
     "APPROVED",

@@ -1,10 +1,22 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import InfoPage, { externalLink, GITHUB_ISSUES_URL } from "@/components/InfoPage";
+import InfoPage, {
+  externalLink,
+  GITHUB_ISSUES_URL,
+} from "@/components/InfoPage";
 import { pageMetadata } from "@/lib/metadata";
 
-const SECTIONS = ["stats", "search", "contrib", "votes", "ip", "browser", "third"] as const;
+const SECTIONS = [
+  "stats",
+  "search",
+  "contrib",
+  "votes",
+  "ip",
+  "browser",
+  "third",
+  "account",
+] as const;
 
 export async function generateMetadata({
   params,
@@ -14,7 +26,9 @@ export async function generateMetadata({
   return pageMetadata(locale, "/privacy", t("title"), t("metaDescription"));
 }
 
-export default async function PrivacyPage({ params }: PageProps<"/[locale]/privacy">) {
+export default async function PrivacyPage({
+  params,
+}: PageProps<"/[locale]/privacy">) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Privacy");

@@ -167,7 +167,9 @@
     "votesTitle": "Wenn du abstimmst oder einen Fehler meldest",
     "votes": "Wir speichern deine Stimme (ja oder nein) und den Text einer Fehlermeldung. Damit ein Browser eine Stimme pro Wort hat, erzeugt dein Browser eine zufällige Kennung; der Server speichert nur deren Hash, aus dem sich die Kennung nicht zurückgewinnen lässt. Die Region, falls angegeben, wird mit der Stimme gespeichert und hilft, die Dialektkarte zu verfeinern.",
     "searchTitle": "Suche",
-    "search": "Wenn eine Suche nichts findet, speichern wir den Suchtext und einen Zähler, um das Wort ins Wörterbuch aufzunehmen. Über dich wird dabei nichts gespeichert."
+    "search": "Wenn eine Suche nichts findet, speichern wir den Suchtext und einen Zähler, um das Wort ins Wörterbuch aufzunehmen. Über dich wird dabei nichts gespeichert.",
+    "accountTitle": "Wenn Sie sich registrieren",
+    "account": "Wir speichern Ihre E-Mail-Adresse, Ihren Namen und einen Hash Ihres Passworts (das Passwort selbst wird weder gespeichert noch ist es aus dem Hash wiederherstellbar). Nach der Anmeldung erhält der Browser ein Sitzungs-Cookie, das nur dazu dient, Sie angemeldet zu halten. Ihre Stimmen und Antworten auf Kontrollkarten sind mit dem Konto verknüpft. Das Konto können Sie im Profil löschen: E-Mail, Name und Sitzungen verschwinden sofort, Stimmen bleiben anonym."
   },
   "Home": {
     "intro": "Gib ein Wort in einer beliebigen Sprache ein und sieh auf der Karte, wie es in den Sprachen der Welt, ihren Dialekten und regionalen Varianten geschrieben, ausgesprochen und gesprochen wird. Oder beginne mit diesen Beispielen:",
@@ -383,5 +385,37 @@
     "later": "Den Check für diese Sprache können Sie morgen wiederholen. Bis dahin zählen Ihre Stimmen nicht.",
     "close": "Verstanden",
     "continue": "Weiter"
+  },
+  "Account": {
+    "signIn": "Anmelden",
+    "signOut": "Abmelden",
+    "profile": "Profil",
+    "signInTitle": "Anmelden oder registrieren",
+    "why": "Die Registrierung ist freiwillig: Ansehen, Anhören und Abstimmen geht auch ohne. Mitglieder stimmen von jedem Gerät ab, ihre Stimmen zählen mehr, und ihre Wörter und Aufnahmen tragen ihren Namen.",
+    "signInTab": "Anmelden",
+    "registerTab": "Registrieren",
+    "name": "Name",
+    "nameHint": "Wird unter den Wörtern und Aufnahmen angezeigt, die Sie hinzufügen.",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "passwordHint": "Mindestens 8 Zeichen.",
+    "signInButton": "Anmelden",
+    "registerButton": "Konto erstellen",
+    "privacyNote": "Wir speichern E-Mail, Namen und einen Hash des Passworts (nicht das Passwort selbst). Das Konto lässt sich jederzeit im Profil löschen.",
+    "soon": "Demnächst: Anmeldung mit Google oder per E-Mail-Link.",
+    "levelsSoon": "Bald erscheinen hier Ihre Sprachen und Dialekte, Sprechertests und Beiträge.",
+    "delete": "Konto löschen",
+    "deleteConfirm": "Konto endgültig löschen? Ihre Stimmen bleiben, anonym.",
+    "deleteYes": "Ja, löschen",
+    "deleteNo": "Abbrechen",
+    "errors": {
+      "email_taken": "Diese E-Mail ist bereits registriert. Bitte anmelden.",
+      "wrong_credentials": "E-Mail oder Passwort falsch.",
+      "invalid_email": "Bitte prüfen Sie die E-Mail-Adresse.",
+      "short_password": "Das Passwort braucht mindestens 8 Zeichen.",
+      "empty_name": "Bitte einen Namen eingeben.",
+      "429": "Zu viele Versuche. Bitte in ein paar Minuten erneut.",
+      "other": "Das hat nicht geklappt. Bitte erneut versuchen."
+    }
   }
 }

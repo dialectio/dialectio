@@ -167,7 +167,9 @@
     "votesTitle": "Gdy głosujesz lub zgłaszasz błąd",
     "votes": "Przechowujemy twój głos („tak” lub „nie”) i treść zgłoszenia błędu. Aby jedna przeglądarka miała jeden głos na słowo, przeglądarka tworzy losowy identyfikator; serwer przechowuje tylko jego skrót, z którego nie da się odtworzyć identyfikatora. Region, jeśli go podałeś, jest zapisywany razem z głosem i pomaga uściślać mapę gwar.",
     "searchTitle": "Wyszukiwanie",
-    "search": "Gdy wyszukiwanie niczego nie znajdzie, zapisujemy sam tekst zapytania z licznikiem, aby dodać to słowo do słownika. Nic o tobie nie jest przy tym zapisywane."
+    "search": "Gdy wyszukiwanie niczego nie znajdzie, zapisujemy sam tekst zapytania z licznikiem, aby dodać to słowo do słownika. Nic o tobie nie jest przy tym zapisywane.",
+    "accountTitle": "Jeśli się rejestrujesz",
+    "account": "Przechowujemy adres e-mail, imię i skrót hasła (samo hasło nie jest przechowywane ani odtwarzalne ze skrótu). Po zalogowaniu przeglądarka dostaje cookie sesji — służy wyłącznie do utrzymania zalogowania. Twoje głosy i odpowiedzi na karty kontrolne są powiązane z kontem. Konto można usunąć w profilu: e-mail, imię i sesje znikają od razu, głosy zostają anonimowe."
   },
   "Home": {
     "intro": "Wpisz słowo w dowolnym języku i zobacz na mapie, jak się je pisze, wymawia i jak brzmi w językach świata, ich gwarach i odmianach regionalnych. Albo zacznij od tych przykładów:",
@@ -383,5 +385,37 @@
     "later": "Sprawdzenie dla tego języka możesz powtórzyć jutro. Do tego czasu Twoje głosy się nie liczą.",
     "close": "Rozumiem",
     "continue": "Dalej"
+  },
+  "Account": {
+    "signIn": "Zaloguj się",
+    "signOut": "Wyloguj się",
+    "profile": "Profil",
+    "signInTitle": "Logowanie i rejestracja",
+    "why": "Rejestracja jest opcjonalna: oglądać, słuchać i głosować można i bez niej. Uczestnicy głosują z dowolnego urządzenia, ich głosy ważą więcej, a dodane słowa i nagrania są podpisane ich imieniem.",
+    "signInTab": "Zaloguj się",
+    "registerTab": "Zarejestruj się",
+    "name": "Imię",
+    "nameHint": "Pokażemy je pod dodanymi przez Ciebie słowami i nagraniami.",
+    "email": "E-mail",
+    "password": "Hasło",
+    "passwordHint": "Co najmniej 8 znaków.",
+    "signInButton": "Zaloguj się",
+    "registerButton": "Utwórz konto",
+    "privacyNote": "Przechowujemy e-mail, imię i skrót hasła (nie samo hasło). Konto możesz usunąć w każdej chwili w profilu.",
+    "soon": "Wkrótce: logowanie przez Google i linkiem z e-maila.",
+    "levelsSoon": "Wkrótce pojawią się tu Twoje języki i gwary, testy użytkownika języka i Twój wkład.",
+    "delete": "Usuń konto",
+    "deleteConfirm": "Usunąć konto na zawsze? Twoje głosy zostaną, anonimowe.",
+    "deleteYes": "Tak, usuń",
+    "deleteNo": "Anuluj",
+    "errors": {
+      "email_taken": "Ten e-mail jest już zarejestrowany. Zaloguj się.",
+      "wrong_credentials": "Błędny e-mail lub hasło.",
+      "invalid_email": "Sprawdź adres e-mail.",
+      "short_password": "Hasło musi mieć co najmniej 8 znaków.",
+      "empty_name": "Podaj imię.",
+      "429": "Zbyt wiele prób. Spróbuj za kilka minut.",
+      "other": "Nie udało się. Spróbuj ponownie."
+    }
   }
 }

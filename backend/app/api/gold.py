@@ -18,11 +18,12 @@ from collections import OrderedDict
 from datetime import UTC, datetime, timedelta
 from typing import Annotated
 
-from fastapi import APIRouter, HTTPException, Query, status
+from fastapi import APIRouter, HTTPException, Query, Request, status
 from pydantic import BaseModel, Field
 from sqlalchemy import select, text
 from sqlalchemy.orm import Session
 
+from app.api.accounts import voter_of
 from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
 from app.config import settings
 from app.models import GoldAnswer
@@ -213,11 +214,12 @@ def voter_hash(voter: str) -> str:
 @router.get("/quiz")
 def quiz(
     session: SessionDep,
+    request: Request,
     voter: Annotated[str, Query(min_length=8, max_length=64)],
     language: Annotated[str, Query(pattern=LANGUAGE)],
 ) -> QuizOut:
-    """The quiz before a guest's votes on a language count: QUIZ_CARDS control cards."""
-    state = quiz_status(session, voter_hash(voter), language)
+    """The quiz before a voter's votes on a language count: QUIZ_CARDS control cards."""
+    state = quiz_status(session, voter_hash(voter_of(request, session, voter)), language)
     if state.retry_after:
         return QuizOut(cards=[], retry_after=state.retry_after)
     return QuizOut(cards=gold_cards(session, language, QUIZ_CARDS))
@@ -226,14 +228,15 @@ def quiz(
 @router.get("/quiz/status")
 def get_quiz_status(
     session: SessionDep,
+    request: Request,
     voter: Annotated[str, Query(min_length=8, max_length=64)],
     language: Annotated[str, Query(pattern=LANGUAGE)],
 ) -> QuizStatus:
-    return quiz_status(session, voter_hash(voter), language)
+    return quiz_status(session, voter_hash(voter_of(request, session, voter)), language)
 
 
 @router.post("/gold")
-def answer_gold(session: SessionDep, data: GoldIn) -> GoldResult:
+def answer_gold(session: SessionDep, request: Request, data: GoldIn) -> GoldResult:
     """An answer to a control card (from the quiz or the game)."""
     parsed = read_token(data.token)
     if parsed is None or parsed[0] in _used_nonces:
@@ -242,7 +245,7 @@ def answer_gold(session: SessionDep, data: GoldIn) -> GoldResult:
     _used_nonces[nonce] = None
     while len(_used_nonces) > USED_NONCES_KEPT:
         _used_nonces.popitem(last=False)
-    voter = voter_hash(data.voter)
+    voter = voter_hash(voter_of(request, session, data.voter))
     correct = None
     if data.value != 0:
         correct = data.value == expected
