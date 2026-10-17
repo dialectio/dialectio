@@ -6,8 +6,10 @@ import { type FormEvent, useEffect, useState } from "react";
 import type { Form } from "@/lib/api";
 import { localized } from "@/lib/api";
 import { visitorCountry } from "@/lib/visitor";
+import { useQuizGate } from "@/components/QuizGate";
 import {
   ABROAD,
+  languageOf,
   listVoterRegions,
   myRegion,
   myVotes,
@@ -233,13 +235,17 @@ function ReportForm({
  */
 export default function WordCheck({
   form,
+  variety,
   onCounts,
   askUsage = false,
 }: {
   form: Checkable;
+  /** The word's variety code ("ukr-hutsul"): the quiz is per language */
+  variety: string;
   onCounts: (counts: Counts) => void;
   askUsage?: boolean;
 }) {
+  const gate = useQuizGate();
   const t = useTranslations("Check");
   const [myVote, setMyVote] = useState(0);
   const [counts, setCounts] = useState<Counts>({
@@ -259,6 +265,8 @@ export default function WordCheck({
   const vote = async (value: number) => {
     const next = myVote === value ? 0 : value; // clicking your vote again takes it back
     setError(false);
+    // A guest's first vote on a language: the quiz first (votes count only after it)
+    if (next !== 0 && !(await gate(languageOf(variety)))) return;
     try {
       const result = await sendVote(form.id, next);
       setMyVote(next);

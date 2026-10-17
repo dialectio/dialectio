@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     cors_origins: list[str] = ["http://localhost:3000"]
     # Shared secret for the word editor; editing is disabled when empty.
     editor_token: str = ""
+    # Signs control cards (app/api/gold.py); set a long random value in production
+    secret_key: str = "dev-only-secret-change-me"
     # Generated files (e.g. TTS audio), served by the API under MEDIA_URL_PREFIX.
     media_dir: Path = REPO_DIR / "data" / "media"
 

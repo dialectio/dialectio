@@ -16,6 +16,7 @@ import { HEADER_PAGES, InfoNav } from "@/components/InfoPage";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import Logo from "@/components/Logo";
 import MobileMenu from "@/components/MobileMenu";
+import { QuizProvider } from "@/components/QuizGate";
 import SearchBox from "@/components/SearchBox";
 import WorldMap, {
   type SelectedRegion,
@@ -155,38 +156,43 @@ export default function MapShell({ children }: { children: ReactNode }) {
   return (
     <MapViewContext.Provider value={setView}>
       <SnapshotContext.Provider value={snapshotRef}>
-        <main className="flex h-full flex-col">
-          <header className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-black/10 px-4 py-3 dark:border-white/15">
-            <Link href="/" aria-label="Dialectio">
-              <Logo />
-            </Link>
-            <SearchBox onSelect={openHit} />
-            <InfoNav className="hidden shrink-0 lg:flex" pages={HEADER_PAGES} />
-            <LocaleSwitcher />
-            <MobileMenu />
-          </header>
-          <div className="flex min-h-0 flex-1 flex-col md:flex-row">
-            <section className="relative min-h-[50vh] flex-1">
-              <WorldMap
-                highlightCodes={view.highlightCodes}
-                labels={view.labels}
-                selectedCode={view.selectedCode}
-                bounds={view.bounds ?? null}
-                colors={view.colors ?? null}
-                snapshotRef={snapshotRef}
-                onSelectRegion={selectRegion}
+        <QuizProvider>
+          <main className="flex h-full flex-col">
+            <header className="flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-black/10 px-4 py-3 dark:border-white/15">
+              <Link href="/" aria-label="Dialectio">
+                <Logo />
+              </Link>
+              <SearchBox onSelect={openHit} />
+              <InfoNav
+                className="hidden shrink-0 lg:flex"
+                pages={HEADER_PAGES}
               />
-            </section>
-            <div
-              ref={panelRef}
-              className={`border-black/10 md:w-96 md:overflow-y-auto md:border-l dark:border-white/15 ${
-                view.panelFirstOnPhone ? "order-first md:order-none" : ""
-              }`}
-            >
-              {children}
+              <LocaleSwitcher />
+              <MobileMenu />
+            </header>
+            <div className="flex min-h-0 flex-1 flex-col md:flex-row">
+              <section className="relative min-h-[50vh] flex-1">
+                <WorldMap
+                  highlightCodes={view.highlightCodes}
+                  labels={view.labels}
+                  selectedCode={view.selectedCode}
+                  bounds={view.bounds ?? null}
+                  colors={view.colors ?? null}
+                  snapshotRef={snapshotRef}
+                  onSelectRegion={selectRegion}
+                />
+              </section>
+              <div
+                ref={panelRef}
+                className={`border-black/10 md:w-96 md:overflow-y-auto md:border-l dark:border-white/15 ${
+                  view.panelFirstOnPhone ? "order-first md:order-none" : ""
+                }`}
+              >
+                {children}
+              </div>
             </div>
-          </div>
-        </main>
+          </main>
+        </QuizProvider>
       </SnapshotContext.Provider>
     </MapViewContext.Provider>
   );

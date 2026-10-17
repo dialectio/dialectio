@@ -4,18 +4,22 @@ import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import { useMapView } from "@/components/MapShell";
+import { useQuizGate } from "@/components/QuizGate";
 import { RegionQuestion } from "@/components/WordCheck";
 import { capitalize, localized, SITE_URL } from "@/lib/api";
 import { resultCard, shareOrDownload } from "@/lib/snapshot";
 import { DIALECT_BOUNDS, dialectLanguage } from "@/lib/visitor";
 import {
   addChecked,
+  answerGold,
   type Card,
+  cardMeaning,
   checkedCount,
   type Deck,
   loadCards,
   myRegion,
   saveDeck,
+  languageOf,
   savedDeck,
   sendVote,
 } from "@/lib/feedback";
@@ -27,12 +31,7 @@ const NO_CODES: string[] = [];
 // Offer to share the result after this many checked words
 const SHARE_AFTER = 5;
 
-/** What the word should mean, in the reader's language. */
-function meaning(card: Card, locale: string): string {
-  if (locale !== "uk")
-    return localized(locale, card.english ?? card.gloss_en, null, card.glosses);
-  return card.standard ?? card.gloss_uk ?? card.gloss_en;
-}
+const meaning = cardMeaning;
 
 /**
  * "Check words": one unverified word at a time, answered Yes / No / Don't know (also with
@@ -41,6 +40,7 @@ function meaning(card: Card, locale: string): string {
 export default function CheckGame({ decks }: { decks: Deck[] }) {
   const locale = useLocale();
   const t = useTranslations("Game");
+  const gate = useQuizGate();
   // The visitor's language with its regional words first (Germans: German), Ukrainian else
   const ownDeck = decks.some((d) => d.code === dialectLanguage(locale))
     ? dialectLanguage(locale)
@@ -113,13 +113,17 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
   });
 
   const answer = useCallback(
-    (value: number) => {
+    async (value: number) => {
       if (!card) return;
+      // A guest's first answer in a language: the quiz first (answers count only after it)
+      if (value !== 0 && !(await gate(languageOf(card.variety_code)))) return;
       const rest = cards.slice(1);
       setCards(rest);
       answered.current.push(card.form_id);
       if (value !== 0) {
-        sendVote(card.form_id, value).catch(() => {});
+        // Control cards (known answer) check the player; the rest are votes
+        if (card.gold) answerGold(card, value).catch(() => {});
+        else sendVote(card.form_id, value).catch(() => {});
         addChecked();
         setChecked((n) => n + 1);
         setSessionChecked((n) => n + 1);
@@ -127,7 +131,7 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
       }
       if (rest.length < REFILL_AT) refill(rest);
     },
-    [card, cards, refill],
+    [card, cards, refill, gate],
   );
 
   useEffect(() => {

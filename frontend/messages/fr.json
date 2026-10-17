@@ -372,5 +372,16 @@
     "contribution": "Mots : {words}, enregistrements : {recordings}",
     "ctaCheck": "Vérifier des mots →",
     "ctaAdd": "Ajouter un mot de votre dialecte"
+  },
+  "Quiz": {
+    "title": "Une petite vérification",
+    "intro": "Avant que vos votes sur cette langue comptent : trois mots, ça se dit comme ça ? Cela écarte les clics au hasard et les robots.",
+    "question": "Est-ce correct ?",
+    "progress": "{n} sur {total}",
+    "passed": "Merci ! Vos votes sur cette langue comptent désormais.",
+    "failed": "Cette langue ne semble pas très familière pour vous. Votre vote ne comptera pas, mais vous pourrez réessayer demain.",
+    "later": "Vous pourrez refaire la vérification pour cette langue demain. D'ici là, vos votes ne comptent pas.",
+    "close": "Compris",
+    "continue": "Continuer"
   }
 }

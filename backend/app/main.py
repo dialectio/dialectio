@@ -13,6 +13,7 @@ from app.api import (
     editor,
     false_friends,
     feedback,
+    gold,
     lexicon,
     regions,
     stats,
@@ -31,6 +32,7 @@ app.include_router(stats.router)
 app.include_router(dialects.router)
 app.include_router(dialect_words.router)
 app.include_router(feedback.router)
+app.include_router(gold.router)
 app.include_router(false_friends.router)
 app.include_router(community.router)
 

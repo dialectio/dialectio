@@ -57,7 +57,7 @@ function DialectUseRow({ use }: { use: DialectUse }) {
         </Link>
         <TrustMark form={form} counts={counts} />
       </span>
-      <WordCheck form={form} onCounts={setCounts} askUsage />
+      <WordCheck form={form} variety={use.code} onCounts={setCounts} askUsage />
     </li>
   );
 }

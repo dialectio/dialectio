@@ -214,6 +214,7 @@ function LanguageCard({ language }: { language: LanguageForms }) {
       )}
       <WordCheck
         form={primary}
+        variety={language.code}
         onCounts={setCounts}
         // Where Ukrainian, dialect and regional-language words are really used is worth
         // collecting (regional languages are mapped to regions only: "GB-SCT", not "GBR").

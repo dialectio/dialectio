@@ -372,5 +372,16 @@
     "contribution": "Wörter: {words}, Aufnahmen: {recordings}",
     "ctaCheck": "Wörter prüfen →",
     "ctaAdd": "Ein Wort aus Ihrem Dialekt hinzufügen"
+  },
+  "Quiz": {
+    "title": "Kurzer Check",
+    "intro": "Bevor Ihre Stimmen für diese Sprache zählen: drei Wörter – sagt man so? Das filtert Zufallsklicks und Bots heraus.",
+    "question": "Stimmt das?",
+    "progress": "{n} von {total}",
+    "passed": "Danke! Ihre Stimmen für diese Sprache zählen jetzt.",
+    "failed": "Diese Sprache scheint Ihnen nicht sehr vertraut zu sein. Ihre Stimme zählt nicht, aber Sie können es morgen noch einmal versuchen.",
+    "later": "Den Check für diese Sprache können Sie morgen wiederholen. Bis dahin zählen Ihre Stimmen nicht.",
+    "close": "Verstanden",
+    "continue": "Weiter"
   }
 }

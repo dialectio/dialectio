@@ -7,6 +7,7 @@ memory only, and a honeypot field on reports. Votes never change a word; they ad
 """
 
 import hashlib
+import random
 import re
 import time
 from collections import defaultdict, deque
@@ -18,15 +19,17 @@ from sqlalchemy import func, select, text
 from sqlalchemy.dialects.postgresql import insert
 
 from app.api.dialects import REGIONAL
+from app.api.gold import gold_cards, quiz_status
 from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
+from app.api.votes import Tally, tallies
 from app.models import (
+    GUEST_WEIGHT,
     PUBLIC_STATUSES,
     Form,
     MissingSearch,
     Region,
     Report,
     Vote,
-    community_status,
 )
 
 router = APIRouter(prefix="/api", tags=["feedback"])
@@ -96,20 +99,18 @@ def known_region(session: SessionDep, code: str | None) -> str | None:
 
 
 def counts(session: SessionDep, form_id: int) -> VoteCounts:
-    yes, no = session.execute(
-        select(
-            func.count().filter(Vote.value > 0),
-            func.count().filter(Vote.value < 0),
-        ).where(Vote.form_id == form_id)
-    ).one()
-    return VoteCounts(form_id=form_id, yes=yes, no=no, community=community_status(yes, no))
+    tally = tallies(session, [form_id]).get(form_id, Tally())
+    return VoteCounts(form_id=form_id, yes=tally.yes, no=tally.no, community=tally.community)
 
 
 @router.post("/votes")
 def vote(session: SessionDep, request: Request, data: VoteIn) -> VoteCounts:
     check_limit("vote", request, VOTE_LIMIT)
-    public_form(session, data.form_id)
+    form = public_form(session, data.form_id)
     voter = voter_hash(data.voter)
+    # A guest's vote counts once they passed the quiz of the word's language
+    language = form.variety.code.split("-")[0]
+    weight = GUEST_WEIGHT if quiz_status(session, voter, language).passed else 0.0
     if data.value == 0:
         session.execute(
             Vote.__table__.delete().where(Vote.form_id == data.form_id, Vote.voter == voter)
@@ -120,6 +121,7 @@ def vote(session: SessionDep, request: Request, data: VoteIn) -> VoteCounts:
             value=data.value,
             voter=voter,
             region_code=known_region(session, data.region_code),
+            weight=weight,
         )
         session.execute(
             statement.on_conflict_do_update(
@@ -127,6 +129,7 @@ def vote(session: SessionDep, request: Request, data: VoteIn) -> VoteCounts:
                 set_={
                     "value": statement.excluded.value,
                     "region_code": statement.excluded.region_code,
+                    "weight": statement.excluded.weight,
                 },
             )
         )
@@ -275,6 +278,12 @@ class Card(BaseModel):
     english: str | None
     region_codes: list[str]
     votes: int
+    # A control card (app/api/gold.py): its answer goes to /api/check/gold with this token
+    gold: str | None = None
+
+
+# One control card among about this many cards of the game
+GOLD_EVERY = 5
 
 
 @router.get("/check/decks")
@@ -319,7 +328,12 @@ def check_cards(
             "limit": limit,
         },
     ).mappings()
-    return [Card(**row) for row in rows]
+    cards = [Card(**row) for row in rows]
+    # Control cards mixed in (never first), so random clicking stops counting
+    language = deck.split("-")[0]
+    for gold in gold_cards(session, language, len(cards) // GOLD_EVERY, prefer=deck):
+        cards.insert(random.randint(1, len(cards)), Card(**gold.model_dump()))  # noqa: S311
+    return cards
 
 
 # --- Searches that found nothing: the dictionary's to-do list ----------------------------

@@ -14,6 +14,7 @@ from sqlalchemy import func, select
 from sqlalchemy.orm import Session, selectinload
 
 from app.api.lexicon import UNVERIFIED_SOURCES
+from app.api.votes import Tally, tallies
 from app.config import MEDIA_DIR, MEDIA_URL_PREFIX, settings
 from app.db.session import get_session
 from app.importers.common import upsert_source
@@ -29,7 +30,6 @@ from app.models import (
     Report,
     Variety,
     Vote,
-    community_status,
 )
 
 EDITOR_SOURCE_NAME = "Dialectio editors"
@@ -458,6 +458,7 @@ def list_feedback(session: SessionDep) -> list[FeedbackItem]:
         )
     ).all()
 
+    weighted = tallies(session, [f.id for f in forms])
     items = []
     for form in forms:
         by_region = votes.get(form.id, {})
@@ -480,7 +481,7 @@ def list_feedback(session: SessionDep) -> list[FeedbackItem]:
                 variety_name_uk=form.variety.name_uk,
                 yes=yes,
                 no=no,
-                community=community_status(yes, no) if unverified else None,
+                community=weighted.get(form.id, Tally()).community if unverified else None,
                 regions={code: counts for code, counts in by_region.items() if code},
                 reports=[
                     ReportOut(

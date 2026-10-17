@@ -372,5 +372,16 @@
     "contribution": "Words: {words}, recordings: {recordings}",
     "ctaCheck": "Check words →",
     "ctaAdd": "Add a word from your dialect"
+  },
+  "Quiz": {
+    "title": "A quick check",
+    "intro": "Before your votes on this language count: three words, are they said like this? It filters out random clicks and bots.",
+    "question": "Is this right?",
+    "progress": "{n} of {total}",
+    "passed": "Thank you! Your votes on this language now count.",
+    "failed": "This language doesn't seem very familiar to you. Your vote won't count, but you can try again tomorrow.",
+    "later": "You can take the check for this language again tomorrow. Until then your votes don't count.",
+    "close": "OK",
+    "continue": "Continue"
   }
 }

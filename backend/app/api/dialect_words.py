@@ -13,7 +13,7 @@ from sqlalchemy import text
 from app.api.dialects import DialectRegion
 from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
 from app.api.schemas import AudioOut
-from app.models import community_status
+from app.api.votes import Tally, tallies
 
 router = APIRouter(prefix="/api/dialect-words", tags=["dialect words"])
 
@@ -106,12 +106,6 @@ AUDIO = text("""
     ORDER BY is_synthetic, id
 """)
 
-VOTES = text("""
-    SELECT form_id, count(*) FILTER (WHERE value > 0), count(*) FILTER (WHERE value < 0)
-    FROM vote WHERE form_id = ANY(:form_ids)
-    GROUP BY form_id
-""")
-
 REGIONS = text("""
     SELECT DISTINCT r.code, r.name_en, r.name_uk, r.names,
            ST_X(r.label_point) AS lon, ST_Y(r.label_point) AS lat
@@ -141,10 +135,7 @@ def dialect_word(session: SessionDep, word: str) -> DialectWordDetail:
     if not rows:
         raise HTTPException(status_code=404, detail="Dialect word not found")
 
-    votes = {
-        form_id: (yes, no)
-        for form_id, yes, no in session.execute(VOTES, {"form_ids": [r["id"] for r in rows]})
-    }
+    votes = tallies(session, [r["id"] for r in rows])
     by_concept: dict[int, list] = {}
     for row in rows:
         by_concept.setdefault(row["concept_id"], []).append(row)
@@ -185,9 +176,9 @@ def dialect_word(session: SessionDep, word: str) -> DialectWordDetail:
                         names=f["names"],
                         form_id=f["id"],
                         unverified=f["status"] == "pending" or f["source"] in UNVERIFIED_SOURCES,
-                        votes_yes=votes.get(f["id"], (0, 0))[0],
-                        votes_no=votes.get(f["id"], (0, 0))[1],
-                        community=community_status(*votes.get(f["id"], (0, 0))),
+                        votes_yes=votes.get(f["id"], Tally()).yes,
+                        votes_no=votes.get(f["id"], Tally()).no,
+                        community=votes.get(f["id"], Tally()).community,
                     )
                     for f in forms
                 ],

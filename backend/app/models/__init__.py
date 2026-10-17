@@ -2,6 +2,8 @@ from app.models.base import Base
 from app.models.feedback import (
     CONFIRMED,
     DISPUTED,
+    GUEST_WEIGHT,
+    GoldAnswer,
     MissingSearch,
     Report,
     Vote,
@@ -24,6 +26,8 @@ from app.models.lexicon import (
 __all__ = [
     "CONFIRMED",
     "DISPUTED",
+    "GUEST_WEIGHT",
+    "GoldAnswer",
     "community_status",
     "APPROVED",
     "PENDING",

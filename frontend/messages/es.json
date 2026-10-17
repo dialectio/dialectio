@@ -372,5 +372,16 @@
     "contribution": "Palabras: {words}, grabaciones: {recordings}",
     "ctaCheck": "Revisar palabras →",
     "ctaAdd": "Añadir una palabra de tu dialecto"
+  },
+  "Quiz": {
+    "title": "Una comprobación rápida",
+    "intro": "Antes de que tus votos en este idioma cuenten: tres palabras, ¿se dicen así? Así filtramos clics al azar y bots.",
+    "question": "¿Es correcto?",
+    "progress": "{n} de {total}",
+    "passed": "¡Gracias! Tus votos en este idioma ya cuentan.",
+    "failed": "Parece que este idioma no te resulta muy familiar. Tu voto no contará, pero puedes intentarlo mañana.",
+    "later": "Podrás repetir la comprobación de este idioma mañana. Mientras tanto, tus votos no cuentan.",
+    "close": "Entendido",
+    "continue": "Continuar"
   }
 }

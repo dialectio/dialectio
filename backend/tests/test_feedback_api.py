@@ -7,29 +7,66 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import delete
 
-from app.api import feedback
+from app.api import feedback, gold
 from app.config import settings
 from app.db.session import SessionLocal
 from app.main import app
-from app.models import Report, Vote, community_status
+from app.models import GoldAnswer, Report, Vote, community_status
 from tests.test_lexicon_api import pytestmark  # noqa: F401  (skip without data)
 
 client = TestClient(app)
 TOKEN = "test-token"
+# Voters made by these tests: their control-card answers are removed afterwards
+_voters: list[str] = []
 
 
 @pytest.fixture
 def form() -> Iterator[dict]:
-    """A public dialect word, with its votes and reports removed after the test."""
+    """A public Ukrainian dialect word, with its votes and reports removed after the test."""
     detail = client.get("/api/concepts/by-slug/potato").json()
     word = next(
-        f for lang in detail["languages"] if lang["kind"] == "dialect" for f in lang["forms"]
+        f
+        for lang in detail["languages"]
+        if lang["kind"] == "dialect" and lang["code"].startswith("ukr-")
+        for f in lang["forms"]
     )
     yield word
     with SessionLocal() as session:
         session.execute(delete(Vote).where(Vote.form_id == word["id"]))
         session.execute(delete(Report).where(Report.form_id == word["id"]))
         session.commit()
+
+
+@pytest.fixture(autouse=True)
+def forget_voters() -> Iterator[None]:
+    yield
+    with SessionLocal() as session:
+        hashes = [gold.voter_hash(v) for v in _voters]
+        session.execute(delete(GoldAnswer).where(GoldAnswer.voter.in_(hashes)))
+        session.commit()
+    _voters.clear()
+
+
+def answer_quiz(voter: str, language: str = "ukr", right: bool = True) -> dict:
+    """Answer the quiz's control cards (rightly or wrongly); the test reads the answers from
+    the tokens with the server's own function."""
+    _voters.append(voter)
+    cards = client.get("/api/check/quiz", params={"voter": voter, "language": language}).json()
+    result = {}
+    for card in cards["cards"]:
+        expected = gold.read_token(card["gold"])[2]
+        value = expected if right else -expected
+        result = client.post(
+            "/api/check/gold", json={"voter": voter, "token": card["gold"], "value": value}
+        ).json()
+    return result
+
+
+def guest() -> str:
+    """A guest who passed the Ukrainian quiz: their votes count GUEST_WEIGHT."""
+    voter = uuid.uuid4().hex
+    assert answer_quiz(voter)["passed"]
+    return voter
 
 
 @pytest.fixture(autouse=True)
@@ -44,7 +81,7 @@ def vote(form_id: int, value: int, voter: str | None = None, region: str | None 
         json={
             "form_id": form_id,
             "value": value,
-            "voter": voter or uuid.uuid4().hex,
+            "voter": voter or guest(),
             "region_code": region,
         },
     )
@@ -61,13 +98,22 @@ def test_community_status_rules() -> None:
 
 
 def test_votes_confirm_a_word_and_show_on_its_page(form: dict) -> None:
-    for _ in range(5):
+    # A guest's vote weighs 0.25: confirming takes 20 of them (5 of weight)
+    for _ in range(19):
         result = vote(form["id"], 1, region="UA-26")
-    assert result == {"form_id": form["id"], "yes": 5, "no": 0, "community": "confirmed"}
+    assert result["yes"] == 19 and result["community"] is None
+    result = vote(form["id"], 1, region="UA-26")
+    assert result == {"form_id": form["id"], "yes": 20, "no": 0, "community": "confirmed"}
 
     detail = client.get("/api/concepts/by-slug/potato").json()
     shown = next(f for lang in detail["languages"] for f in lang["forms"] if f["id"] == form["id"])
-    assert shown["votes_yes"] == 5 and shown["community"] == "confirmed"
+    assert shown["votes_yes"] == 20 and shown["community"] == "confirmed"
+
+
+def test_votes_without_the_quiz_count_nothing(form: dict) -> None:
+    for _ in range(20):
+        result = vote(form["id"], 1, voter=uuid.uuid4().hex)
+    assert result["yes"] == 20 and result["community"] is None
 
 
 def test_one_vote_per_browser_can_change_and_be_taken_back(form: dict) -> None:
@@ -95,7 +141,7 @@ def test_report_reaches_the_editor_and_can_be_resolved(form: dict) -> None:
     )
     assert bot.status_code == 201  # honeypot: accepted silently, not stored
 
-    for _ in range(3):
+    for _ in range(12):  # 3 of weight
         vote(form["id"], -1, region="UA-77")
     sent = client.post("/api/reports", json={"form_id": form["id"], "message": "  Так не кажуть  "})
     assert sent.status_code == 201
@@ -103,7 +149,7 @@ def test_report_reaches_the_editor_and_can_be_resolved(form: dict) -> None:
     items = client.get("/api/editor/feedback", headers=headers).json()
     item = next(i for i in items if i["form"]["id"] == form["id"])
     assert item["community"] == "disputed"
-    assert item["regions"] == {"UA-77": [0, 3]}
+    assert item["regions"] == {"UA-77": [0, 12]}
     assert [r["message"] for r in item["reports"]] == ["Так не кажуть"]
     assert items[0]["community"] == "disputed"  # disputed words come first
 
@@ -137,11 +183,13 @@ def test_check_game_decks_and_cards() -> None:
     hutsul = client.get(
         "/api/check/cards", params={"voter": uuid.uuid4().hex, "deck": "ukr-hutsul", "limit": 30}
     ).json()
-    assert hutsul and all(c["variety_code"] == "ukr-hutsul" for c in hutsul)
+    words = [c for c in hutsul if not c["gold"]]  # control cards are mixed in
+    assert words and all(c["variety_code"] == "ukr-hutsul" for c in words)
+    assert any(c["gold"] for c in hutsul)
 
     voter = uuid.uuid4().hex
     cards = client.get("/api/check/cards", params={"voter": voter, "limit": 5}).json()
-    assert 0 < len(cards) <= 5
+    assert 0 < len([c for c in cards if not c["gold"]]) <= 5
     assert all(c["variety_code"] == "ukr" or c["variety_code"].startswith("ukr-") for c in cards)
 
     first = cards[0]["form_id"]
@@ -222,4 +270,30 @@ def test_regional_languages_are_decks() -> None:
     cards = client.get(
         "/api/check/cards", params={"voter": uuid.uuid4().hex, "deck": "cym", "limit": 5}
     ).json()
-    assert len(cards) == 5 and all(c["variety_code"] == "cym" for c in cards)
+    words = [c for c in cards if not c["gold"]]
+    assert len(words) == 5 and all(c["variety_code"] == "cym" for c in words)
+
+
+def test_control_cards_hide_their_answer_and_count_once() -> None:
+    voter = uuid.uuid4().hex
+    _voters.append(voter)
+    cards = client.get("/api/check/quiz", params={"voter": voter, "language": "deu"}).json()
+    assert len(cards["cards"]) == 3
+    token = cards["cards"][0]["gold"]
+    assert "1" not in token.split(".")[1:2]  # the answer is not written in the token
+    answer = {"voter": voter, "token": token, "value": 1}
+    assert client.post("/api/check/gold", json=answer).status_code == 200
+    assert client.post("/api/check/gold", json=answer).status_code == 400  # used
+    forged = {**answer, "token": token[:-1] + ("0" if token[-1] != "0" else "1")}
+    assert client.post("/api/check/gold", json=forged).status_code == 400
+
+
+def test_failing_the_quiz_means_waiting_a_day() -> None:
+    voter = uuid.uuid4().hex
+    assert not answer_quiz(voter, "deu", right=False)["passed"]
+    status = client.get("/api/check/quiz/status", params={"voter": voter, "language": "deu"}).json()
+    assert not status["passed"] and status["retry_after"] > 3600
+    again = client.get("/api/check/quiz", params={"voter": voter, "language": "deu"}).json()
+    assert again["cards"] == [] and again["retry_after"]
+    # Passing one language says nothing about another
+    assert answer_quiz(voter, "ukr")["passed"]

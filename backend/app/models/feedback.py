@@ -9,6 +9,7 @@ from datetime import datetime
 from sqlalchemy import (
     Boolean,
     DateTime,
+    Float,
     ForeignKey,
     SmallInteger,
     String,
@@ -33,6 +34,23 @@ class Vote(Base):
     region_code: Mapped[str | None] = mapped_column(String(10))
     # SHA-256 of the browser's random voter id
     voter: Mapped[str] = mapped_column(String(64))
+    # How much the vote counts, set when it is cast: a guest who passed the quiz of the word's
+    # language counts GUEST_WEIGHT, one who didn't counts nothing (the vote is still kept)
+    weight: Mapped[float] = mapped_column(Float, default=0.25, server_default="0.25")
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class GoldAnswer(Base):
+    """An answer to a control card (a word with a known answer) in the quiz or the game: how
+    a voter's answers are checked without accounts."""
+
+    __tablename__ = "gold_answer"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    voter: Mapped[str] = mapped_column(String(64), index=True)
+    # The language the card tested ("ukr" for Ukrainian and its dialects, "deu", "cym" ...)
+    language: Mapped[str] = mapped_column(String(10))
+    correct: Mapped[bool] = mapped_column(Boolean)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
@@ -48,9 +66,11 @@ class Report(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
-# A word counts as confirmed by speakers with at least CONFIRM_MIN "yes" votes that make up
-# CONFIRM_SHARE of all its votes; as disputed with at least DISPUTE_MIN "no" votes that are
-# not outnumbered by "yes" votes. Editors' ✓ stays separate and above both.
+# Votes are weighted (a guest who passed the quiz: GUEST_WEIGHT; speakers more, later). A word
+# counts as confirmed by speakers with at least CONFIRM_MIN of "yes" weight making up
+# CONFIRM_SHARE of all its weight; as disputed with at least DISPUTE_MIN of "no" weight not
+# outnumbered by "yes" weight. Editors' ✓ stays separate and above both.
+GUEST_WEIGHT = 0.25
 CONFIRM_MIN = 5
 CONFIRM_SHARE = 0.8
 DISPUTE_MIN = 3
@@ -58,7 +78,8 @@ CONFIRMED = "confirmed"
 DISPUTED = "disputed"
 
 
-def community_status(yes: int, no: int) -> str | None:
+def community_status(yes: float, no: float) -> str | None:
+    """The mark from the weight of "yes" and "no" votes."""
     if yes >= CONFIRM_MIN and yes >= CONFIRM_SHARE * (yes + no):
         return CONFIRMED
     if no >= DISPUTE_MIN and no >= yes:

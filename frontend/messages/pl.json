@@ -372,5 +372,16 @@
     "contribution": "Słowa: {words}, nagrania: {recordings}",
     "ctaCheck": "Sprawdź słowa →",
     "ctaAdd": "Dodaj słowo ze swojej gwary"
+  },
+  "Quiz": {
+    "title": "Krótkie sprawdzenie",
+    "intro": "Zanim Twoje głosy na ten język zaczną się liczyć: trzy słowa, czy tak się mówi? To odsiewa przypadkowe kliknięcia i boty.",
+    "question": "Czy to prawda?",
+    "progress": "{n} z {total}",
+    "passed": "Dziękujemy! Twoje głosy na ten język już się liczą.",
+    "failed": "Ten język chyba nie jest Ci zbyt bliski. Twój głos się nie policzy, ale możesz spróbować jutro.",
+    "later": "Sprawdzenie dla tego języka możesz powtórzyć jutro. Do tego czasu Twoje głosy się nie liczą.",
+    "close": "Rozumiem",
+    "continue": "Dalej"
   }
 }
