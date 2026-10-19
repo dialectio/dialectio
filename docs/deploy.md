@@ -67,6 +67,8 @@ $COMPOSE up -d --build
 
 Перевірити: `https://<домен>/uk` відкривається, `https://<домен>/health` повертає `{"status":"ok"}`.
 
+Вхід через Google: у [Google Cloud Console](https://console.cloud.google.com/apis/credentials) (акаунт dialectio.team@gmail.com) у клієнті OAuth додати redirect URI `https://<домен>/api/auth/google/callback`, на екрані згоди вказати домен і опублікувати застосунок (Publish app), а `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET` вписати в `.env.prod`.
+
 ## 5. Статистика (Umami)
 
 1. Відкрити `https://stats.<домен>`, увійти як `admin` / `umami` і **одразу змінити пароль** (Settings → Profile).

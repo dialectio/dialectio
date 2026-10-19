@@ -169,7 +169,7 @@
     "searchTitle": "Recherche",
     "search": "Quand une recherche ne trouve rien, nous conservons le texte recherché et un compteur afin d'ajouter le mot au dictionnaire. Rien vous concernant n'est enregistré.",
     "accountTitle": "Si vous vous inscrivez",
-    "account": "Nous gardons votre adresse e-mail, votre nom et une empreinte de votre mot de passe (le mot de passe lui-même n'est ni conservé ni récupérable). Après connexion, le navigateur reçoit un cookie de session, qui sert uniquement à vous garder connecté. Vos votes et réponses aux cartes de contrôle sont liés au compte. Vous pouvez supprimer le compte dans votre profil : e-mail, nom et sessions disparaissent aussitôt, les votes restent anonymes."
+    "account": "Nous gardons votre adresse e-mail, votre nom et une empreinte de votre mot de passe (le mot de passe lui-même n'est ni conservé ni récupérable). Si vous vous connectez avec Google, Google nous transmet uniquement votre adresse e-mail (vérifiée) et votre nom ; aucun mot de passe n'est alors nécessaire. Après connexion, le navigateur reçoit un cookie de session, qui sert uniquement à vous garder connecté. Vos votes et réponses aux cartes de contrôle sont liés au compte. Vous pouvez supprimer le compte dans votre profil : e-mail, nom et sessions disparaissent aussitôt, les votes restent anonymes."
   },
   "Home": {
     "intro": "Saisissez un mot dans n'importe quelle langue et voyez sur la carte comment il s'écrit, se prononce et sonne dans les langues du monde, leurs dialectes et leurs variantes régionales. Ou commencez par ces exemples :",
@@ -392,6 +392,8 @@
     "profile": "Profil",
     "signInTitle": "Connexion et inscription",
     "why": "L'inscription est facultative : on peut regarder, écouter et voter sans compte. Les membres votent depuis n'importe quel appareil, leurs votes pèsent plus, et les mots et enregistrements qu'ils ajoutent portent leur nom.",
+    "google": "Se connecter avec Google",
+    "or": "ou",
     "signInTab": "Se connecter",
     "registerTab": "S'inscrire",
     "name": "Nom",
@@ -402,7 +404,7 @@
     "signInButton": "Se connecter",
     "registerButton": "Créer un compte",
     "privacyNote": "Nous gardons votre e-mail, votre nom et une empreinte du mot de passe (pas le mot de passe). Vous pouvez supprimer le compte à tout moment dans votre profil.",
-    "soon": "Bientôt : connexion avec Google ou par lien envoyé par e-mail.",
+    "soon": "Bientôt : connexion par lien envoyé par e-mail.",
     "levelsSoon": "Bientôt, vos langues et dialectes, les tests de locuteur et vos contributions apparaîtront ici.",
     "delete": "Supprimer le compte",
     "deleteConfirm": "Supprimer le compte définitivement ? Vos votes restent, anonymes.",
@@ -415,7 +417,9 @@
       "short_password": "Le mot de passe doit avoir au moins 8 caractères.",
       "empty_name": "Indiquez un nom.",
       "429": "Trop de tentatives. Réessayez dans quelques minutes.",
-      "other": "Cela n'a pas marché. Réessayez."
+      "other": "Cela n'a pas marché. Réessayez.",
+      "google": "La connexion avec Google a échoué. Veuillez réessayer.",
+      "google_off": "La connexion avec Google n'est pas encore configurée."
     }
   }
 }

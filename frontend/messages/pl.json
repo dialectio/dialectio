@@ -169,7 +169,7 @@
     "searchTitle": "Wyszukiwanie",
     "search": "Gdy wyszukiwanie niczego nie znajdzie, zapisujemy sam tekst zapytania z licznikiem, aby dodać to słowo do słownika. Nic o tobie nie jest przy tym zapisywane.",
     "accountTitle": "Jeśli się rejestrujesz",
-    "account": "Przechowujemy adres e-mail, imię i skrót hasła (samo hasło nie jest przechowywane ani odtwarzalne ze skrótu). Po zalogowaniu przeglądarka dostaje cookie sesji — służy wyłącznie do utrzymania zalogowania. Twoje głosy i odpowiedzi na karty kontrolne są powiązane z kontem. Konto można usunąć w profilu: e-mail, imię i sesje znikają od razu, głosy zostają anonimowe."
+    "account": "Przechowujemy adres e-mail, imię i skrót hasła (samo hasło nie jest przechowywane ani odtwarzalne ze skrótu). Przy logowaniu przez Google otrzymujemy od Google tylko Twój (potwierdzony) adres e-mail i imię; hasło nie jest wtedy potrzebne. Po zalogowaniu przeglądarka dostaje cookie sesji — służy wyłącznie do utrzymania zalogowania. Twoje głosy i odpowiedzi na karty kontrolne są powiązane z kontem. Konto można usunąć w profilu: e-mail, imię i sesje znikają od razu, głosy zostają anonimowe."
   },
   "Home": {
     "intro": "Wpisz słowo w dowolnym języku i zobacz na mapie, jak się je pisze, wymawia i jak brzmi w językach świata, ich gwarach i odmianach regionalnych. Albo zacznij od tych przykładów:",
@@ -392,6 +392,8 @@
     "profile": "Profil",
     "signInTitle": "Logowanie i rejestracja",
     "why": "Rejestracja jest opcjonalna: oglądać, słuchać i głosować można i bez niej. Uczestnicy głosują z dowolnego urządzenia, ich głosy ważą więcej, a dodane słowa i nagrania są podpisane ich imieniem.",
+    "google": "Zaloguj się przez Google",
+    "or": "lub",
     "signInTab": "Zaloguj się",
     "registerTab": "Zarejestruj się",
     "name": "Imię",
@@ -402,7 +404,7 @@
     "signInButton": "Zaloguj się",
     "registerButton": "Utwórz konto",
     "privacyNote": "Przechowujemy e-mail, imię i skrót hasła (nie samo hasło). Konto możesz usunąć w każdej chwili w profilu.",
-    "soon": "Wkrótce: logowanie przez Google i linkiem z e-maila.",
+    "soon": "Wkrótce: logowanie linkiem z e-maila.",
     "levelsSoon": "Wkrótce pojawią się tu Twoje języki i gwary, testy użytkownika języka i Twój wkład.",
     "delete": "Usuń konto",
     "deleteConfirm": "Usunąć konto na zawsze? Twoje głosy zostaną, anonimowe.",
@@ -415,7 +417,9 @@
       "short_password": "Hasło musi mieć co najmniej 8 znaków.",
       "empty_name": "Podaj imię.",
       "429": "Zbyt wiele prób. Spróbuj za kilka minut.",
-      "other": "Nie udało się. Spróbuj ponownie."
+      "other": "Nie udało się. Spróbuj ponownie.",
+      "google": "Nie udało się zalogować przez Google. Spróbuj ponownie.",
+      "google_off": "Logowanie przez Google nie jest jeszcze skonfigurowane."
     }
   }
 }

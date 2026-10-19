@@ -29,7 +29,27 @@ async function call<T>(
   return (response.status === 204 ? null : await response.json()) as T;
 }
 
-export const fetchMe = () => call<Member | null>("/me", "GET");
+/** Where "Sign in with Google" starts; the member comes back to `next` (a path without the locale). */
+export const googleSignInUrl = (locale: string, next: string) =>
+  `${API_URL}/api/auth/google/start?${new URLSearchParams({ locale, next })}`;
+
+const MEMBER_KEY = "dialectio.member";
+
+export async function fetchMe() {
+  const member = await call<Member | null>("/me", "GET");
+  // Signed in or out on another page (Google sign-in comes back with a page load):
+  // the quizzes remembered here belonged to whoever used this browser before
+  try {
+    const who = member ? String(member.id) : "guest";
+    if (localStorage.getItem(MEMBER_KEY) !== who) {
+      forgetQuizzes();
+      localStorage.setItem(MEMBER_KEY, who);
+    }
+  } catch {
+    // no storage: nothing remembered either
+  }
+  return member;
+}
 
 export async function register(data: {
   email: string;

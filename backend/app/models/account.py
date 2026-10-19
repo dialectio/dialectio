@@ -1,4 +1,4 @@
-"""Accounts: members who sign in (email and password for now; Google and email links later)
+"""Accounts: members who sign in (email and password or Google; email links later)
 and their sessions. Guests keep using the site without an account."""
 
 from datetime import datetime
@@ -21,6 +21,8 @@ class User(Base):
     name: Mapped[str] = mapped_column(String(60))
     # scrypt hash (app/api/accounts.py); empty for accounts that only sign in with Google
     password_hash: Mapped[str | None] = mapped_column(String(200))
+    # When the member proved they own the email (Google sign-in; email links later)
+    email_verified_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     role: Mapped[str] = mapped_column(String(20), default=MEMBER, server_default=MEMBER)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 

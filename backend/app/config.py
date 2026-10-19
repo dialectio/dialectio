@@ -16,6 +16,12 @@ class Settings(BaseSettings):
     secret_key: str = "dev-only-secret-change-me"
     # Session cookies only over HTTPS (true in production)
     cookie_secure: bool = False
+    # Public addresses: the API (Google returns here) and the site (members land back here)
+    api_url: str = "http://localhost:8000"
+    site_url: str = "http://localhost:3000"
+    # "Sign in with Google" (OAuth client of the Google Cloud project); off when empty
+    google_client_id: str = ""
+    google_client_secret: str = ""
     # Generated files (e.g. TTS audio), served by the API under MEDIA_URL_PREFIX.
     media_dir: Path = REPO_DIR / "data" / "media"
 

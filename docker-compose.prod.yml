@@ -29,6 +29,10 @@ services:
       EDITOR_TOKEN: ${EDITOR_TOKEN:-}
       SECRET_KEY: ${SECRET_KEY:?set SECRET_KEY in .env.prod}
       COOKIE_SECURE: "true"
+      API_URL: https://${DOMAIN}
+      SITE_URL: https://${DOMAIN}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
     volumes:
       # TTS audio and visitors' recordings
       - ./data/media:/data/media

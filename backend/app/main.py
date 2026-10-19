@@ -15,6 +15,7 @@ from app.api import (
     false_friends,
     feedback,
     gold,
+    google_auth,
     lexicon,
     regions,
     stats,
@@ -35,6 +36,7 @@ app.include_router(dialect_words.router)
 app.include_router(feedback.router)
 app.include_router(gold.router)
 app.include_router(accounts.router)
+app.include_router(google_auth.router)
 app.include_router(false_friends.router)
 app.include_router(community.router)
 

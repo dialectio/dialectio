@@ -19,11 +19,14 @@ export default async function LoginPage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("Account");
-  const next = (await searchParams).next;
+  const { next, error } = await searchParams;
   return (
     <InfoPage title={t("signInTitle")}>
       <p>{t("why")}</p>
-      <AuthForm next={typeof next === "string" ? next : "/"} />
+      <AuthForm
+        next={typeof next === "string" ? next : "/"}
+        failed={typeof error === "string" ? error : undefined}
+      />
     </InfoPage>
   );
 }

@@ -169,7 +169,7 @@
     "searchTitle": "Búsqueda",
     "search": "Cuando una búsqueda no encuentra nada, guardamos el texto buscado y un contador para añadir la palabra al diccionario. No se guarda nada sobre ti.",
     "accountTitle": "Si te registras",
-    "account": "Guardamos tu correo, tu nombre y un hash de tu contraseña (la contraseña no se guarda ni se puede recuperar del hash). Al entrar, el navegador recibe una cookie de sesión, que solo sirve para mantenerte dentro. Tus votos y respuestas a las tarjetas de control quedan ligados a la cuenta. Puedes borrar la cuenta en tu perfil: correo, nombre y sesiones desaparecen enseguida; los votos se quedan anónimos."
+    "account": "Guardamos tu correo, tu nombre y un hash de tu contraseña (la contraseña no se guarda ni se puede recuperar del hash). Si entras con Google, Google solo nos facilita tu dirección de correo (verificada) y tu nombre; en ese caso no hace falta contraseña. Al entrar, el navegador recibe una cookie de sesión, que solo sirve para mantenerte dentro. Tus votos y respuestas a las tarjetas de control quedan ligados a la cuenta. Puedes borrar la cuenta en tu perfil: correo, nombre y sesiones desaparecen enseguida; los votos se quedan anónimos."
   },
   "Home": {
     "intro": "Escribe una palabra en cualquier idioma y mira en el mapa cómo se escribe, se pronuncia y suena en los idiomas del mundo, sus dialectos y variantes regionales. O empieza con estos ejemplos:",
@@ -392,6 +392,8 @@
     "profile": "Perfil",
     "signInTitle": "Entrar o registrarse",
     "why": "Registrarse es opcional: puedes mirar, escuchar y votar sin cuenta. Los miembros votan desde cualquier dispositivo, sus votos pesan más y las palabras y grabaciones que añaden llevan su nombre.",
+    "google": "Entrar con Google",
+    "or": "o",
     "signInTab": "Entrar",
     "registerTab": "Registrarse",
     "name": "Nombre",
@@ -402,7 +404,7 @@
     "signInButton": "Entrar",
     "registerButton": "Crear cuenta",
     "privacyNote": "Guardamos tu correo, tu nombre y un hash de la contraseña (no la contraseña). Puedes borrar la cuenta cuando quieras desde tu perfil.",
-    "soon": "Pronto: entrar con Google o con un enlace por correo.",
+    "soon": "Pronto: entrar con un enlace por correo.",
     "levelsSoon": "Pronto verás aquí tus idiomas y dialectos, las pruebas de hablante y tus aportes.",
     "delete": "Borrar cuenta",
     "deleteConfirm": "¿Borrar la cuenta para siempre? Tus votos se quedan, anónimos.",
@@ -415,7 +417,9 @@
       "short_password": "La contraseña necesita al menos 8 caracteres.",
       "empty_name": "Escribe un nombre.",
       "429": "Demasiados intentos. Prueba dentro de unos minutos.",
-      "other": "No ha funcionado. Inténtalo de nuevo."
+      "other": "No ha funcionado. Inténtalo de nuevo.",
+      "google": "No se pudo entrar con Google. Inténtalo de nuevo.",
+      "google_off": "El acceso con Google aún no está configurado."
     }
   }
 }

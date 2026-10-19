@@ -169,7 +169,7 @@
     "searchTitle": "Search",
     "search": "When a search finds nothing, we keep the search text and a counter so we can add the word to the dictionary. Nothing about you is stored with it.",
     "accountTitle": "If you sign up",
-    "account": "We keep your email address, your name and a hash of your password (the password itself is neither stored nor recoverable from the hash). After signing in, the browser gets a session cookie, used only to keep you signed in. Your votes and control-card answers are linked to the account. You can delete the account in your profile: email, name and sessions go at once, votes stay anonymous."
+    "account": "We keep your email address, your name and a hash of your password (the password itself is neither stored nor recoverable from the hash). If you sign in with Google, Google gives us only your (verified) email address and your name; no password is needed then. After signing in, the browser gets a session cookie, used only to keep you signed in. Your votes and control-card answers are linked to the account. You can delete the account in your profile: email, name and sessions go at once, votes stay anonymous."
   },
   "Home": {
     "intro": "Type a word in any language and see on the map how it is written, pronounced and sounds in the world's languages, their dialects and regional varieties. Or start with these examples:",
@@ -392,6 +392,8 @@
     "profile": "Profile",
     "signInTitle": "Sign in or sign up",
     "why": "Signing up is optional: you can look, listen and vote without it. Members vote from any device, their votes weigh more, and the words and recordings they add carry their name.",
+    "google": "Sign in with Google",
+    "or": "or",
     "signInTab": "Sign in",
     "registerTab": "Sign up",
     "name": "Name",
@@ -402,7 +404,7 @@
     "signInButton": "Sign in",
     "registerButton": "Create account",
     "privacyNote": "We keep your email, name and a hash of your password (not the password itself). You can delete the account anytime in your profile.",
-    "soon": "Coming soon: sign in with Google or with an email link.",
+    "soon": "Coming soon: sign in with an email link.",
     "levelsSoon": "Soon your languages and dialects, speaker tests and contributions will appear here.",
     "delete": "Delete account",
     "deleteConfirm": "Delete the account for good? Your votes stay, anonymous.",
@@ -415,7 +417,9 @@
       "short_password": "The password needs at least 8 characters.",
       "empty_name": "Please enter a name.",
       "429": "Too many attempts. Try again in a few minutes.",
-      "other": "That didn't work. Please try again."
+      "other": "That didn't work. Please try again.",
+      "google": "Signing in with Google failed. Please try again.",
+      "google_off": "Signing in with Google is not set up yet."
     }
   }
 }
