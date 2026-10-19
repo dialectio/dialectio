@@ -86,7 +86,6 @@
     "word": "Palabra",
     "place": "Localidad o región (opcional)",
     "placeHint": "p. ej. Vyzhnytsia, óblast de Chernivtsi",
-    "name": "Tu nombre para el crédito (opcional)",
     "recording": "Pronunciación (opcional)",
     "record": "Grabar",
     "recordAgain": "Grabar de nuevo",
@@ -99,7 +98,10 @@
     "sending": "Enviando…",
     "thanks": "¡Gracias! La palabra aparecerá en el mapa cuando un editor la revise.",
     "error": "No se pudo enviar. Inténtalo de nuevo.",
-    "tooMany": "Demasiados envíos. Inténtalo más tarde."
+    "tooMany": "Demasiados envíos. Inténtalo más tarde.",
+    "signInFirst": "Las palabras las añaden los miembros: así sabemos quién envió cada una, y lleva tu nombre.",
+    "signIn": "Entrar o crear una cuenta",
+    "signedAs": "La palabra llevará tu nombre: {name}."
   },
   "Nav": {
     "about": "Acerca del proyecto",
@@ -169,7 +171,7 @@
     "searchTitle": "Búsqueda",
     "search": "Cuando una búsqueda no encuentra nada, guardamos el texto buscado y un contador para añadir la palabra al diccionario. No se guarda nada sobre ti.",
     "accountTitle": "Si te registras",
-    "account": "Guardamos tu correo, tu nombre y un hash de tu contraseña (la contraseña no se guarda ni se puede recuperar del hash). Si entras con Google, Google solo nos facilita tu dirección de correo (verificada) y tu nombre; en ese caso no hace falta contraseña. Al entrar, el navegador recibe una cookie de sesión, que solo sirve para mantenerte dentro. Tus votos y respuestas a las tarjetas de control quedan ligados a la cuenta. Puedes borrar la cuenta en tu perfil: correo, nombre y sesiones desaparecen enseguida; los votos se quedan anónimos."
+    "account": "Guardamos tu correo, tu nombre y un hash de tu contraseña (la contraseña no se guarda ni se puede recuperar del hash). Si entras con Google, Google solo nos facilita tu dirección de correo (verificada) y tu nombre; en ese caso no hace falta contraseña. Al entrar, el navegador recibe una cookie de sesión, que solo sirve para mantenerte dentro. Tus votos y respuestas a las tarjetas de control quedan ligados a la cuenta. Puedes borrar la cuenta en tu perfil: correo, nombre y sesiones desaparecen enseguida; los votos se quedan anónimos. Los idiomas y variedades de tu perfil y los resultados de tus pruebas de hablante se guardan con la cuenta y se borran con ella; las palabras que añadiste siguen en el sitio, ya sin tu nombre."
   },
   "Home": {
     "intro": "Escribe una palabra en cualquier idioma y mira en el mapa cómo se escribe, se pronuncia y suena en los idiomas del mundo, sus dialectos y variantes regionales. O empieza con estos ejemplos:",
@@ -405,11 +407,30 @@
     "registerButton": "Crear cuenta",
     "privacyNote": "Guardamos tu correo, tu nombre y un hash de la contraseña (no la contraseña). Puedes borrar la cuenta cuando quieras desde tu perfil.",
     "soon": "Pronto: entrar con un enlace por correo.",
-    "levelsSoon": "Pronto verás aquí tus idiomas y dialectos, las pruebas de hablante y tus aportes.",
     "delete": "Borrar cuenta",
     "deleteConfirm": "¿Borrar la cuenta para siempre? Tus votos se quedan, anónimos.",
     "deleteYes": "Sí, borrar",
     "deleteNo": "Cancelar",
+    "save": "Guardar",
+    "rename": "cambiar",
+    "languagesTitle": "Mis idiomas y variedades",
+    "languagesIntro": "Indica los idiomas y variedades que hablas. La prueba de hablante confirma un idioma: tus votos sobre sus palabras y las de sus variedades cuentan el doble.",
+    "speaker": "hablante, prueba superada",
+    "retryIn": "próximo intento en {hours} h",
+    "takeTest": "Hacer la prueba",
+    "noTestYet": "habrá prueba cuando haya más palabras comprobadas",
+    "remove": "Quitar",
+    "noLanguages": "Aún no has añadido nada.",
+    "addLanguage": "Añadir idioma o variedad:",
+    "levels": "Peso del voto: invitado tras el minitest 0,25, miembro 0,5, hablante tras la prueba 1. Más adelante: «experimentado» según el acierto y expertos en variedades.",
+    "contributionsTitle": "Mis aportaciones",
+    "stats": "Palabras añadidas: {words}. Votos: {votes}.",
+    "status": {
+      "submitted": "en revisión",
+      "approved": "publicada",
+      "pending": "borrador"
+    },
+    "noContributions": "Aún no has añadido palabras. Abre cualquier palabra en el mapa y pulsa «Añade la palabra».",
     "errors": {
       "email_taken": "Este correo ya está registrado. Entra con él.",
       "wrong_credentials": "Correo o contraseña incorrectos.",
@@ -421,5 +442,28 @@
       "google": "No se pudo entrar con Google. Inténtalo de nuevo.",
       "google_off": "El acceso con Google aún no está configurado."
     }
+  },
+  "Speaker": {
+    "title": "Prueba de hablante",
+    "signInFirst": "La prueba de hablante es para miembros.",
+    "signIn": "Entrar o crear una cuenta",
+    "intro": "Comprobemos que hablas {variety}. Mostramos una palabra y un significado; tú dices si es correcto.",
+    "ruleCards": "{cards} palabras; apruebas con al menos {pass} respuestas correctas.",
+    "ruleDontKnow": "«No lo sé» cuenta como error. Cerca de la mitad de los significados son falsos a propósito.",
+    "ruleOnce": "Un intento al día, 30 minutos por prueba.",
+    "start": "Empezar la prueba",
+    "describedAs": "Significado: {meaning}",
+    "question": "¿La palabra significa esto?",
+    "progress": "{n} de {total}",
+    "lastRight": "la anterior, bien",
+    "lastWrong": "la anterior, mal",
+    "passed": "¡Enhorabuena! Eres hablante de {variety}. Tus votos sobre sus palabras ahora cuentan 1.",
+    "failed": "Esta vez no. Inténtalo mañana.",
+    "score": "Respuestas correctas: {score} de {total}.",
+    "backToProfile": "Volver al perfil",
+    "alreadyTested": "Ya superaste la prueba: {variety}.",
+    "later": "Podrás intentarlo de nuevo en {hours} h.",
+    "unavailable": "Aún no hay prueba para este idioma o variedad: pocas palabras comprobadas.",
+    "error": "Algo salió mal. Inténtalo más tarde."
   }
 }

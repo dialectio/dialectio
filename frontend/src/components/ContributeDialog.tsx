@@ -3,6 +3,8 @@
 import { useLocale, useTranslations } from "next-intl";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
+import { useAccount } from "@/components/Account";
+import { Link, usePathname } from "@/i18n/navigation";
 import { API_URL, localized } from "@/lib/api";
 import { listPublicVarieties, sortVarieties, type Variety } from "@/lib/varieties";
 
@@ -10,7 +12,7 @@ const MAX_RECORDING_MS = 10_000;
 // Browsers record in different containers: Chrome/Firefox WebM/Ogg, Safari MP4.
 const RECORDING_TYPES = ["audio/webm;codecs=opus", "audio/ogg;codecs=opus", "audio/mp4"];
 
-type Status = "idle" | "sending" | "sent" | "error" | "tooMany";
+type Status = "idle" | "sending" | "sent" | "error" | "tooMany" | "signedOut";
 
 function useRecorder() {
   const [recording, setRecording] = useState(false);
@@ -87,7 +89,8 @@ export default function ContributeDialog({
   const [variety, setVariety] = useState("ukr");
   const [spelling, setSpelling] = useState("");
   const [place, setPlace] = useState("");
-  const [contributor, setContributor] = useState("");
+  const { member } = useAccount();
+  const pathname = usePathname();
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot, hidden from people
   const [status, setStatus] = useState<Status>("idle");
@@ -132,7 +135,6 @@ export default function ContributeDialog({
     data.append("variety", variety);
     data.append("spelling", spelling.trim());
     data.append("place", place.trim());
-    data.append("contributor", contributor.trim());
     data.append("consent", "true");
     data.append("website", website);
     if (recorder.blob) {
@@ -140,8 +142,14 @@ export default function ContributeDialog({
       data.append("audio", recorder.blob, `recording.${extension}`);
     }
     try {
-      const response = await fetch(`${API_URL}/api/contributions`, { method: "POST", body: data });
-      setStatus(response.ok ? "sent" : response.status === 429 ? "tooMany" : "error");
+      // With the member's session: the word carries their name
+      const response = await fetch(`${API_URL}/api/contributions`, {
+        method: "POST",
+        body: data,
+        credentials: "include",
+      });
+      const failure = response.status === 401 ? "signedOut" : response.status === 429 ? "tooMany" : "error";
+      setStatus(response.ok ? "sent" : failure);
     } catch {
       setStatus("error");
     }
@@ -167,7 +175,19 @@ export default function ContributeDialog({
           </button>
         </div>
 
-        {status === "sent" ? (
+        {member === undefined ? (
+          <p className="text-sm opacity-60">…</p>
+        ) : member === null || status === "signedOut" ? (
+          <div className="space-y-3 text-sm">
+            <p>{t("signInFirst")}</p>
+            <Link
+              href={`/login?next=${encodeURIComponent(pathname)}`}
+              className="inline-block rounded bg-blue-600 px-3 py-1.5 text-white no-underline!"
+            >
+              {t("signIn")}
+            </Link>
+          </div>
+        ) : status === "sent" ? (
           <div className="space-y-4">
             <p>{t("thanks")}</p>
             <button type="button" onClick={onClose} className="rounded bg-blue-600 px-3 py-1.5 text-white">
@@ -214,15 +234,7 @@ export default function ContributeDialog({
                 className="w-full rounded border border-black/15 bg-transparent px-2 py-1.5 dark:border-white/20"
               />
             </label>
-            <label className="block">
-              <span className="mb-1 block opacity-70">{t("name")}</span>
-              <input
-                maxLength={100}
-                value={contributor}
-                onChange={(e) => setContributor(e.target.value)}
-                className="w-full rounded border border-black/15 bg-transparent px-2 py-1.5 dark:border-white/20"
-              />
-            </label>
+            <p className="text-xs opacity-70">{t("signedAs", { name: member.name })}</p>
             {/* Honeypot: invisible to people, bots fill it in. */}
             <input
               type="text"

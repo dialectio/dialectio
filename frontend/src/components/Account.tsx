@@ -78,6 +78,7 @@ export function AccountButton() {
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
+        aria-label={member.name}
         className="flex items-center gap-1.5 rounded-md border border-black/15 px-2.5 py-1 text-sm dark:border-white/20"
       >
         <span
@@ -86,7 +87,9 @@ export function AccountButton() {
         >
           {member.name.charAt(0).toUpperCase()}
         </span>
-        <span className="max-w-28 truncate">{member.name}</span>
+        <span className="hidden max-w-28 truncate sm:inline">
+          {member.name}
+        </span>
       </button>
       {open && (
         <div className="absolute right-0 z-20 mt-2 w-48 rounded-lg border border-black/10 bg-white p-2 shadow-lg dark:border-white/15 dark:bg-neutral-900">

@@ -7,12 +7,13 @@ export type Member = { id: number; email: string; name: string; role: string };
 /** The API's reason for a refused sign-up or sign-in ("email_taken", "wrong_credentials" ...). */
 export class AccountError extends Error {}
 
-async function call<T>(
+/** A JSON request to the API with the session cookie; errors carry the API's reason. */
+export async function apiCall<T>(
   path: string,
-  method: string,
+  method = "GET",
   body?: unknown,
 ): Promise<T> {
-  const response = await fetch(`${API_URL}/api/auth${path}`, {
+  const response = await fetch(`${API_URL}${path}`, {
     method,
     credentials: "include",
     headers: body ? { "Content-Type": "application/json" } : undefined,
@@ -28,6 +29,9 @@ async function call<T>(
   }
   return (response.status === 204 ? null : await response.json()) as T;
 }
+
+const call = <T>(path: string, method: string, body?: unknown) =>
+  apiCall<T>(`/api/auth${path}`, method, body);
 
 /** Where "Sign in with Google" starts; the member comes back to `next` (a path without the locale). */
 export const googleSignInUrl = (locale: string, next: string) =>

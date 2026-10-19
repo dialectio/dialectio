@@ -18,12 +18,12 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from pydantic import BaseModel, Field, field_validator
-from sqlalchemy import delete, select
+from sqlalchemy import delete, select, update
 from sqlalchemy.orm import Session
 
 from app.config import settings
 from app.db.session import get_session
-from app.models import AuthSession, User
+from app.models import Audio, AuthSession, Form, User
 
 router = APIRouter(prefix="/api/auth", tags=["accounts"])
 
@@ -113,10 +113,25 @@ def current_user(request: Request, session: Session) -> User | None:
     return session.get(User, found.user_id) if found else None
 
 
+def require_member(request: Request, session: Session) -> User:
+    """The signed-in member; 401 for a guest."""
+    user = current_user(request, session)
+    if user is None:
+        raise HTTPException(status.HTTP_401_UNAUTHORIZED, "not_signed_in")
+    return user
+
+
 def voter_of(request: Request, session: Session, browser_voter: str) -> str:
     """The id votes and control answers are kept under: the member's, else the browser's."""
     user = current_user(request, session)
     return f"user:{user.id}" if user else browser_voter
+
+
+def sign_contributions(session: Session, user_id: int, name: str | None) -> None:
+    """Put `name` (None: no name) under the member's words and their recordings."""
+    forms = select(Form.id).where(Form.contributor_id == user_id)
+    session.execute(update(Form).where(Form.id.in_(forms)).values(contributor=name))
+    session.execute(update(Audio).where(Audio.form_id.in_(forms)).values(speaker=name))
 
 
 class Me(BaseModel):
@@ -198,10 +213,11 @@ def get_me(request: Request, session: SessionDep) -> Me | None:
 
 @router.delete("/me", status_code=status.HTTP_204_NO_CONTENT)
 def delete_me(request: Request, response: Response, session: SessionDep) -> None:
-    """Delete the account and its sessions. Votes stay, anonymous (no email or name)."""
+    """Delete the account and its sessions. Votes and added words stay, without the name."""
     user = current_user(request, session)
     if user is None:
         raise HTTPException(status.HTTP_401_UNAUTHORIZED, "not_signed_in")
+    sign_contributions(session, user.id, None)
     session.delete(user)
     session.commit()
     response.delete_cookie(COOKIE, path="/")

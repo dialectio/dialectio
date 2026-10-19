@@ -1,8 +1,10 @@
 """Visitor contributions: "how do you say it where you live?" with an optional recording.
 
-Submissions are stored with status "submitted" and stay hidden until an editor approves
-them. Contributors grant Dialectio permission to use and publish the word and recording.
-Spam protection: a honeypot field and a per-IP rate limit (kept in memory only).
+Only signed-in members contribute; the word and recording carry their name (it changes with
+their name, and goes when they delete the account). Submissions are stored with status
+"submitted" and stay hidden until an editor approves them. Contributors grant Dialectio
+permission to use and publish the word and recording. Spam protection: a honeypot field and
+a per-IP rate limit (kept in memory only).
 """
 
 import time
@@ -15,6 +17,7 @@ from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
+from app.api.accounts import require_member
 from app.api.editor import CONTRIBUTOR_SOURCE_NAME
 from app.config import MEDIA_DIR, MEDIA_URL_PREFIX
 from app.db.session import get_session
@@ -95,7 +98,6 @@ async def contribute(
     spelling: Annotated[str, Form(min_length=1, max_length=200)],
     consent: Annotated[bool, Form()],
     place: Annotated[str, Form(max_length=200)] = "",
-    contributor: Annotated[str, Form(max_length=100)] = "",
     # Honeypot: hidden in the form, so only bots fill it in.
     website: Annotated[str, Form()] = "",
     audio: Annotated[UploadFile | None, File()] = None,
@@ -103,6 +105,7 @@ async def contribute(
     if website:
         # Pretend success so bots don't learn about the trap.
         return {"status": "received"}
+    member = require_member(request, session)
     if not consent:
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, "Consent is required")
     check_rate_limit(request.client.host if request.client else "unknown")
@@ -134,7 +137,8 @@ async def contribute(
         variety=target,
         spelling=spelling,
         note=place.strip() or None,
-        contributor=contributor.strip() or None,
+        contributor=member.name,
+        contributor_id=member.id,
         is_primary=False,
         status=SUBMITTED,
         source=source,
@@ -154,7 +158,7 @@ async def contribute(
         form.audio.append(
             Audio(
                 url=f"{MEDIA_URL_PREFIX}/{path}",
-                speaker=contributor.strip() or None,
+                speaker=member.name,
                 is_synthetic=False,
                 license=CONTRIBUTOR_LICENSE,
                 source=source,

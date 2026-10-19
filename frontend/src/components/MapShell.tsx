@@ -165,7 +165,7 @@ export default function MapShell({ children }: { children: ReactNode }) {
               </Link>
               <SearchBox onSelect={openHit} />
               <InfoNav
-                className="hidden shrink-0 lg:flex"
+                className="hidden shrink-0 xl:flex"
                 pages={HEADER_PAGES}
               />
               <LocaleSwitcher />

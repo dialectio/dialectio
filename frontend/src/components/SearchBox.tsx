@@ -72,7 +72,7 @@ export default function SearchBox({ onSelect }: { onSelect: (hit: SearchHit) => 
   const showList = open && query.trim().length > 0;
 
   return (
-    <div className="relative order-last w-full basis-full sm:order-none sm:max-w-md sm:basis-auto">
+    <div className="relative order-last w-full basis-full sm:order-none sm:max-w-md sm:min-w-40 sm:flex-1 sm:basis-0">
       <input
         type="search"
         role="combobox"

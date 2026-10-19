@@ -8,7 +8,7 @@ import { Link, usePathname } from "@/i18n/navigation";
 
 /** ☰ menu with the project pages; by default only on screens too narrow for header links. */
 export default function MobileMenu({
-  className = "lg:hidden",
+  className = "xl:hidden",
 }: {
   className?: string;
 }) {

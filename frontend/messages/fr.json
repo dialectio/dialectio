@@ -86,7 +86,6 @@
     "word": "Mot",
     "place": "Localité ou région (facultatif)",
     "placeHint": "p. ex. Vyjnytsia, oblast de Tchernivtsi",
-    "name": "Votre nom pour la mention (facultatif)",
     "recording": "Prononciation (facultatif)",
     "record": "Enregistrer",
     "recordAgain": "Réenregistrer",
@@ -99,7 +98,10 @@
     "sending": "Envoi…",
     "thanks": "Merci ! Le mot apparaîtra sur la carte après vérification par un éditeur.",
     "error": "Impossible d'envoyer. Veuillez réessayer.",
-    "tooMany": "Trop d'envois. Veuillez réessayer plus tard."
+    "tooMany": "Trop d'envois. Veuillez réessayer plus tard.",
+    "signInFirst": "Les mots sont ajoutés par les membres : nous savons ainsi qui les a envoyés, et ils portent votre nom.",
+    "signIn": "Se connecter ou créer un compte",
+    "signedAs": "Le mot portera votre nom : {name}."
   },
   "Nav": {
     "about": "À propos",
@@ -169,7 +171,7 @@
     "searchTitle": "Recherche",
     "search": "Quand une recherche ne trouve rien, nous conservons le texte recherché et un compteur afin d'ajouter le mot au dictionnaire. Rien vous concernant n'est enregistré.",
     "accountTitle": "Si vous vous inscrivez",
-    "account": "Nous gardons votre adresse e-mail, votre nom et une empreinte de votre mot de passe (le mot de passe lui-même n'est ni conservé ni récupérable). Si vous vous connectez avec Google, Google nous transmet uniquement votre adresse e-mail (vérifiée) et votre nom ; aucun mot de passe n'est alors nécessaire. Après connexion, le navigateur reçoit un cookie de session, qui sert uniquement à vous garder connecté. Vos votes et réponses aux cartes de contrôle sont liés au compte. Vous pouvez supprimer le compte dans votre profil : e-mail, nom et sessions disparaissent aussitôt, les votes restent anonymes."
+    "account": "Nous gardons votre adresse e-mail, votre nom et une empreinte de votre mot de passe (le mot de passe lui-même n'est ni conservé ni récupérable). Si vous vous connectez avec Google, Google nous transmet uniquement votre adresse e-mail (vérifiée) et votre nom ; aucun mot de passe n'est alors nécessaire. Après connexion, le navigateur reçoit un cookie de session, qui sert uniquement à vous garder connecté. Vos votes et réponses aux cartes de contrôle sont liés au compte. Vous pouvez supprimer le compte dans votre profil : e-mail, nom et sessions disparaissent aussitôt, les votes restent anonymes. Les langues et parlers de votre profil et vos résultats aux tests de locuteur sont liés au compte et supprimés avec lui ; les mots que vous avez ajoutés restent sur le site, sans votre nom."
   },
   "Home": {
     "intro": "Saisissez un mot dans n'importe quelle langue et voyez sur la carte comment il s'écrit, se prononce et sonne dans les langues du monde, leurs dialectes et leurs variantes régionales. Ou commencez par ces exemples :",
@@ -405,11 +407,30 @@
     "registerButton": "Créer un compte",
     "privacyNote": "Nous gardons votre e-mail, votre nom et une empreinte du mot de passe (pas le mot de passe). Vous pouvez supprimer le compte à tout moment dans votre profil.",
     "soon": "Bientôt : connexion par lien envoyé par e-mail.",
-    "levelsSoon": "Bientôt, vos langues et dialectes, les tests de locuteur et vos contributions apparaîtront ici.",
     "delete": "Supprimer le compte",
     "deleteConfirm": "Supprimer le compte définitivement ? Vos votes restent, anonymes.",
     "deleteYes": "Oui, supprimer",
     "deleteNo": "Annuler",
+    "save": "Enregistrer",
+    "rename": "modifier",
+    "languagesTitle": "Mes langues et parlers",
+    "languagesIntro": "Indiquez les langues et parlers que vous parlez. Le test de locuteur confirme une langue : vos votes sur ses mots et ceux de ses parlers comptent alors double.",
+    "speaker": "locuteur, test réussi",
+    "retryIn": "nouvel essai dans {hours} h",
+    "takeTest": "Passer le test",
+    "noTestYet": "un test viendra quand il y aura plus de mots vérifiés",
+    "remove": "Retirer",
+    "noLanguages": "Rien d'indiqué pour l'instant.",
+    "addLanguage": "Ajouter une langue ou un parler :",
+    "levels": "Poids du vote : invité après le mini-quiz 0,25, membre 0,5, locuteur après le test 1. Plus tard : « confirmé » selon la justesse des réponses, et experts des parlers.",
+    "contributionsTitle": "Mes contributions",
+    "stats": "Mots ajoutés : {words}. Votes : {votes}.",
+    "status": {
+      "submitted": "en cours de vérification",
+      "approved": "publié",
+      "pending": "brouillon"
+    },
+    "noContributions": "Vous n'avez encore ajouté aucun mot. Ouvrez un mot sur la carte et appuyez sur « Ajoutez le mot ».",
     "errors": {
       "email_taken": "Cet e-mail est déjà inscrit. Connectez-vous.",
       "wrong_credentials": "E-mail ou mot de passe incorrect.",
@@ -421,5 +442,28 @@
       "google": "La connexion avec Google a échoué. Veuillez réessayer.",
       "google_off": "La connexion avec Google n'est pas encore configurée."
     }
+  },
+  "Speaker": {
+    "title": "Test de locuteur",
+    "signInFirst": "Le test de locuteur est réservé aux membres.",
+    "signIn": "Se connecter ou créer un compte",
+    "intro": "Vérifions que vous parlez {variety}. Nous montrons un mot et un sens ; vous dites s'il est juste.",
+    "ruleCards": "{cards} mots ; réussi avec au moins {pass} bonnes réponses.",
+    "ruleDontKnow": "« Je ne sais pas » compte comme une erreur. Environ la moitié des sens sont faux exprès.",
+    "ruleOnce": "Un essai par jour, 30 minutes par test.",
+    "start": "Commencer le test",
+    "describedAs": "Sens : {meaning}",
+    "question": "Le mot a-t-il ce sens ?",
+    "progress": "{n} sur {total}",
+    "lastRight": "précédente juste",
+    "lastWrong": "précédente fausse",
+    "passed": "Bravo ! Vous êtes locuteur de {variety}. Vos votes sur ses mots comptent désormais 1.",
+    "failed": "Pas cette fois. Réessayez demain.",
+    "score": "Bonnes réponses : {score} sur {total}.",
+    "backToProfile": "Retour au profil",
+    "alreadyTested": "Test déjà réussi : {variety}.",
+    "later": "Nouvel essai possible dans {hours} h.",
+    "unavailable": "Pas encore de test pour cette langue ou ce parler : trop peu de mots vérifiés.",
+    "error": "Une erreur s'est produite. Réessayez plus tard."
   }
 }

@@ -22,11 +22,13 @@ from app.api.accounts import current_user, voter_of
 from app.api.dialects import REGIONAL
 from app.api.gold import gold_cards, quiz_status
 from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
+from app.api.speaker import is_speaker
 from app.api.votes import Tally, tallies
 from app.models import (
     GUEST_WEIGHT,
     MEMBER_WEIGHT,
     PUBLIC_STATUSES,
+    SPEAKER_WEIGHT,
     Form,
     MissingSearch,
     Region,
@@ -114,7 +116,14 @@ def vote(session: SessionDep, request: Request, data: VoteIn) -> VoteCounts:
     # A vote counts once the voter passed the quiz of the word's language
     language = form.variety.code.split("-")[0]
     passed = quiz_status(session, voter, language).passed
-    weight = (MEMBER_WEIGHT if member else GUEST_WEIGHT) if passed else 0.0
+    if not passed:
+        weight = 0.0
+    elif member is None:
+        weight = GUEST_WEIGHT
+    elif is_speaker(session, member.id, form.variety.code):
+        weight = SPEAKER_WEIGHT  # passed the speaker test of the word's language or dialect
+    else:
+        weight = MEMBER_WEIGHT
     if data.value == 0:
         session.execute(
             Vote.__table__.delete().where(Vote.form_id == data.form_id, Vote.voter == voter)

@@ -24,6 +24,7 @@ from app.models.lexicon import (
     Variety,
     variety_region,
 )
+from app.models.speaker import SPEAKER_WEIGHT, MemberVariety, SpeakerTest
 
 __all__ = [
     "EDITOR",
@@ -51,4 +52,7 @@ __all__ = [
     "Variety",
     "Vote",
     "variety_region",
+    "SPEAKER_WEIGHT",
+    "MemberVariety",
+    "SpeakerTest",
 ]

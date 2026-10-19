@@ -86,7 +86,6 @@
     "word": "Wort",
     "place": "Ort oder Region (optional)",
     "placeHint": "z. B. Wyschnyzja, Oblast Czernowitz",
-    "name": "Dein Name für die Nennung (optional)",
     "recording": "Aussprache (optional)",
     "record": "Aufnehmen",
     "recordAgain": "Neu aufnehmen",
@@ -99,7 +98,10 @@
     "sending": "Wird gesendet…",
     "thanks": "Danke! Das Wort erscheint auf der Karte, sobald eine Redakteurin oder ein Redakteur es geprüft hat.",
     "error": "Senden fehlgeschlagen. Bitte versuche es erneut.",
-    "tooMany": "Zu viele Einsendungen. Bitte versuche es später."
+    "tooMany": "Zu viele Einsendungen. Bitte versuche es später.",
+    "signInFirst": "Wörter fügen Mitglieder hinzu: So wissen wir, wer ein Wort geschickt hat, und es trägt Ihren Namen.",
+    "signIn": "Anmelden oder registrieren",
+    "signedAs": "Das Wort trägt Ihren Namen: {name}."
   },
   "Nav": {
     "about": "Über das Projekt",
@@ -169,7 +171,7 @@
     "searchTitle": "Suche",
     "search": "Wenn eine Suche nichts findet, speichern wir den Suchtext und einen Zähler, um das Wort ins Wörterbuch aufzunehmen. Über dich wird dabei nichts gespeichert.",
     "accountTitle": "Wenn Sie sich registrieren",
-    "account": "Wir speichern Ihre E-Mail-Adresse, Ihren Namen und einen Hash Ihres Passworts (das Passwort selbst wird weder gespeichert noch ist es aus dem Hash wiederherstellbar). Wenn Sie sich mit Google anmelden, übermittelt uns Google nur Ihre (bestätigte) E-Mail-Adresse und Ihren Namen; ein Passwort ist dann nicht nötig. Nach der Anmeldung erhält der Browser ein Sitzungs-Cookie, das nur dazu dient, Sie angemeldet zu halten. Ihre Stimmen und Antworten auf Kontrollkarten sind mit dem Konto verknüpft. Das Konto können Sie im Profil löschen: E-Mail, Name und Sitzungen verschwinden sofort, Stimmen bleiben anonym."
+    "account": "Wir speichern Ihre E-Mail-Adresse, Ihren Namen und einen Hash Ihres Passworts (das Passwort selbst wird weder gespeichert noch ist es aus dem Hash wiederherstellbar). Wenn Sie sich mit Google anmelden, übermittelt uns Google nur Ihre (bestätigte) E-Mail-Adresse und Ihren Namen; ein Passwort ist dann nicht nötig. Nach der Anmeldung erhält der Browser ein Sitzungs-Cookie, das nur dazu dient, Sie angemeldet zu halten. Ihre Stimmen und Antworten auf Kontrollkarten sind mit dem Konto verknüpft. Das Konto können Sie im Profil löschen: E-Mail, Name und Sitzungen verschwinden sofort, Stimmen bleiben anonym. Die Sprachen und Dialekte in Ihrem Profil und Ihre Sprechertest-Ergebnisse gehören zum Konto und werden mit ihm gelöscht; von Ihnen hinzugefügte Wörter bleiben ohne Ihren Namen auf der Website."
   },
   "Home": {
     "intro": "Gib ein Wort in einer beliebigen Sprache ein und sieh auf der Karte, wie es in den Sprachen der Welt, ihren Dialekten und regionalen Varianten geschrieben, ausgesprochen und gesprochen wird. Oder beginne mit diesen Beispielen:",
@@ -405,11 +407,30 @@
     "registerButton": "Konto erstellen",
     "privacyNote": "Wir speichern E-Mail, Namen und einen Hash des Passworts (nicht das Passwort selbst). Das Konto lässt sich jederzeit im Profil löschen.",
     "soon": "Demnächst: Anmeldung per E-Mail-Link.",
-    "levelsSoon": "Bald erscheinen hier Ihre Sprachen und Dialekte, Sprechertests und Beiträge.",
     "delete": "Konto löschen",
     "deleteConfirm": "Konto endgültig löschen? Ihre Stimmen bleiben, anonym.",
     "deleteYes": "Ja, löschen",
     "deleteNo": "Abbrechen",
+    "save": "Speichern",
+    "rename": "ändern",
+    "languagesTitle": "Meine Sprachen und Dialekte",
+    "languagesIntro": "Geben Sie die Sprachen und Dialekte an, die Sie sprechen. Der Sprechertest bestätigt eine Sprache: Ihre Stimmen zu ihren Wörtern und denen ihrer Dialekte zählen dann doppelt.",
+    "speaker": "Sprecher, Test bestanden",
+    "retryIn": "nächster Versuch in {hours} Std.",
+    "takeTest": "Test machen",
+    "noTestYet": "ein Test folgt, sobald es mehr geprüfte Wörter gibt",
+    "remove": "Entfernen",
+    "noLanguages": "Noch nichts angegeben.",
+    "addLanguage": "Sprache oder Dialekt hinzufügen:",
+    "levels": "Stimmgewicht: Gast nach dem Mini-Quiz 0,25, Mitglied 0,5, Sprecher nach dem Test 1. Später: „erfahren“ nach Treffsicherheit und Dialektexperten.",
+    "contributionsTitle": "Mein Beitrag",
+    "stats": "Hinzugefügte Wörter: {words}. Stimmen: {votes}.",
+    "status": {
+      "submitted": "wird geprüft",
+      "approved": "veröffentlicht",
+      "pending": "Entwurf"
+    },
+    "noContributions": "Sie haben noch keine Wörter hinzugefügt. Öffnen Sie ein Wort auf der Karte und tippen Sie auf „Füge das Wort hinzu“.",
     "errors": {
       "email_taken": "Diese E-Mail ist bereits registriert. Bitte anmelden.",
       "wrong_credentials": "E-Mail oder Passwort falsch.",
@@ -421,5 +442,28 @@
       "google": "Die Anmeldung mit Google ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
       "google_off": "Die Anmeldung mit Google ist noch nicht eingerichtet."
     }
+  },
+  "Speaker": {
+    "title": "Sprechertest",
+    "signInFirst": "Der Sprechertest ist für Mitglieder.",
+    "signIn": "Anmelden oder registrieren",
+    "intro": "Prüfen wir, ob Sie {variety} sprechen. Wir zeigen ein Wort und eine Bedeutung, Sie sagen, ob sie stimmt.",
+    "ruleCards": "{cards} Wörter; bestanden ab {pass} richtigen Antworten.",
+    "ruleDontKnow": "„Weiß nicht“ zählt als Fehler. Etwa die Hälfte der Bedeutungen ist absichtlich falsch.",
+    "ruleOnce": "Ein Versuch pro Tag, 30 Minuten pro Test.",
+    "start": "Test starten",
+    "describedAs": "Bedeutung: {meaning}",
+    "question": "Hat das Wort diese Bedeutung?",
+    "progress": "{n} von {total}",
+    "lastRight": "letzte richtig",
+    "lastWrong": "letzte falsch",
+    "passed": "Glückwunsch! Sie sind Sprecher von {variety}. Ihre Stimmen zu ihren Wörtern zählen jetzt 1.",
+    "failed": "Diesmal nicht. Versuchen Sie es morgen wieder.",
+    "score": "Richtige Antworten: {score} von {total}.",
+    "backToProfile": "Zum Profil",
+    "alreadyTested": "Test bereits bestanden: {variety}.",
+    "later": "Nächster Versuch in {hours} Std. möglich.",
+    "unavailable": "Für diese Sprache oder diesen Dialekt gibt es noch keinen Test: zu wenige geprüfte Wörter.",
+    "error": "Etwas ist schiefgelaufen. Bitte später erneut versuchen."
   }
 }

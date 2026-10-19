@@ -1,15 +1,40 @@
-"""Integration tests for visitor contributions (need the local database with imported data)."""
+"""Integration tests for members' contributions (need the local database with imported data)."""
+
+import uuid
+from collections.abc import Iterator
 
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy import delete
 
-from app.api import contribute
+from app.api import accounts, contribute
 from app.config import MEDIA_DIR, settings
+from app.db.session import SessionLocal
 from app.main import app
+from app.models import User
 from tests.test_lexicon_api import pytestmark  # noqa: F401  (skip without data)
 
 TOKEN = "test-token"
 client = TestClient(app)
+
+
+@pytest.fixture(autouse=True, scope="module")
+def signed_in() -> Iterator[None]:
+    """The client is a member named "Тестер"; the account goes afterwards."""
+    accounts._attempts.clear()
+    response = client.post(
+        "/api/auth/register",
+        json={
+            "email": f"test-{uuid.uuid4().hex[:10]}@example.org",
+            "password": "secret123",
+            "name": "Тестер",
+        },
+    )
+    assert response.status_code == 201
+    yield
+    with SessionLocal() as session:
+        session.execute(delete(User).where(User.email.like("test-%@example.org")))
+        session.commit()
 
 
 @pytest.fixture(autouse=True)
@@ -35,7 +60,6 @@ def submit(**overrides: object) -> object:
         "spelling": "вудатест",
         "consent": "true",
         "place": "Верховина",
-        "contributor": "Тестер",
     }
     files = overrides.pop("files", None)
     data.update({k: str(v) for k, v in overrides.items()})
@@ -118,3 +142,10 @@ def test_public_variety_list() -> None:
     varieties = {v["code"]: v for v in client.get("/api/varieties").json()}
     assert varieties["ukr-hutsul"]["parent_code"] == "ukr-southwest"
     assert "ukr-north" not in varieties
+
+
+def test_guests_cannot_contribute() -> None:
+    with TestClient(app) as guest:
+        data = {"concept_id": str(water_id()), "variety": "ukr-hutsul", "spelling": "x"}
+        response = guest.post("/api/contributions", data={**data, "consent": "true"})
+    assert response.status_code == 401

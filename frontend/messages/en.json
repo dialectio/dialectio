@@ -86,7 +86,6 @@
     "word": "Word",
     "place": "Town or region (optional)",
     "placeHint": "e.g. Vyzhnytsia, Chernivtsi Oblast",
-    "name": "Your name for attribution (optional)",
     "recording": "Pronunciation (optional)",
     "record": "Record",
     "recordAgain": "Record again",
@@ -99,7 +98,10 @@
     "sending": "Sending…",
     "thanks": "Thank you! The word will appear on the map after an editor reviews it.",
     "error": "Could not send. Please try again.",
-    "tooMany": "Too many submissions. Please try later."
+    "tooMany": "Too many submissions. Please try later.",
+    "signInFirst": "Members add words: that way we know who sent a word, and it carries your name.",
+    "signIn": "Sign in or create an account",
+    "signedAs": "The word will carry your name: {name}."
   },
   "Nav": {
     "about": "About",
@@ -169,7 +171,7 @@
     "searchTitle": "Search",
     "search": "When a search finds nothing, we keep the search text and a counter so we can add the word to the dictionary. Nothing about you is stored with it.",
     "accountTitle": "If you sign up",
-    "account": "We keep your email address, your name and a hash of your password (the password itself is neither stored nor recoverable from the hash). If you sign in with Google, Google gives us only your (verified) email address and your name; no password is needed then. After signing in, the browser gets a session cookie, used only to keep you signed in. Your votes and control-card answers are linked to the account. You can delete the account in your profile: email, name and sessions go at once, votes stay anonymous."
+    "account": "We keep your email address, your name and a hash of your password (the password itself is neither stored nor recoverable from the hash). If you sign in with Google, Google gives us only your (verified) email address and your name; no password is needed then. After signing in, the browser gets a session cookie, used only to keep you signed in. Your votes and control-card answers are linked to the account. You can delete the account in your profile: email, name and sessions go at once, votes stay anonymous. The languages and dialects in your profile and your speaker test results are kept with the account and deleted with it; words you added stay on the site without your name."
   },
   "Home": {
     "intro": "Type a word in any language and see on the map how it is written, pronounced and sounds in the world's languages, their dialects and regional varieties. Or start with these examples:",
@@ -405,11 +407,30 @@
     "registerButton": "Create account",
     "privacyNote": "We keep your email, name and a hash of your password (not the password itself). You can delete the account anytime in your profile.",
     "soon": "Coming soon: sign in with an email link.",
-    "levelsSoon": "Soon your languages and dialects, speaker tests and contributions will appear here.",
     "delete": "Delete account",
     "deleteConfirm": "Delete the account for good? Your votes stay, anonymous.",
     "deleteYes": "Yes, delete",
     "deleteNo": "Cancel",
+    "save": "Save",
+    "rename": "change",
+    "languagesTitle": "My languages and dialects",
+    "languagesIntro": "Add the languages and dialects you speak. The speaker test confirms a language: your votes on its words and its dialects' words then count twice as much.",
+    "speaker": "speaker, test passed",
+    "retryIn": "next try in {hours} h",
+    "takeTest": "Take the test",
+    "noTestYet": "a test comes once there are more checked words",
+    "remove": "Remove",
+    "noLanguages": "Nothing added yet.",
+    "addLanguage": "Add a language or dialect:",
+    "levels": "Vote weight: guest after the mini quiz 0.25, member 0.5, speaker after the test 1. Later: \"trusted\" by answer accuracy, and dialect experts.",
+    "contributionsTitle": "My contributions",
+    "stats": "Words added: {words}. Votes: {votes}.",
+    "status": {
+      "submitted": "awaiting review",
+      "approved": "published",
+      "pending": "draft"
+    },
+    "noContributions": "You haven't added any words yet. Open any word on the map and press \"Add the word\".",
     "errors": {
       "email_taken": "This email is already registered. Sign in instead.",
       "wrong_credentials": "Wrong email or password.",
@@ -421,5 +442,28 @@
       "google": "Signing in with Google failed. Please try again.",
       "google_off": "Signing in with Google is not set up yet."
     }
+  },
+  "Speaker": {
+    "title": "Speaker test",
+    "signInFirst": "The speaker test is for members.",
+    "signIn": "Sign in or create an account",
+    "intro": "Let's check that you speak {variety}. We show a word and a meaning; you say whether it is right.",
+    "ruleCards": "{cards} words; you pass with at least {pass} right answers.",
+    "ruleDontKnow": "\"Don't know\" counts as a mistake. About half of the meanings are wrong on purpose.",
+    "ruleOnce": "One try a day, 30 minutes per test.",
+    "start": "Start the test",
+    "describedAs": "Meaning: {meaning}",
+    "question": "Does the word mean this?",
+    "progress": "{n} of {total}",
+    "lastRight": "last one right",
+    "lastWrong": "last one wrong",
+    "passed": "Congratulations! You are a speaker of {variety}. Your votes on its words now count 1.",
+    "failed": "Not this time. Try again tomorrow.",
+    "score": "Right answers: {score} of {total}.",
+    "backToProfile": "Back to the profile",
+    "alreadyTested": "You already passed the test: {variety}.",
+    "later": "You can try again in {hours} h.",
+    "unavailable": "There is no test for this language or dialect yet: too few checked words.",
+    "error": "Something went wrong. Please try again later."
   }
 }

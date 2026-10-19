@@ -148,8 +148,12 @@ class Form(Base):
     status: Mapped[str] = mapped_column(String(10), default=APPROVED, server_default=APPROVED)
     # Id in the source dataset, e.g. a Wikidata lexeme "L2071"
     external_id: Mapped[str | None] = mapped_column(String(50))
-    # Name a visitor gave when submitting the word (optional, shown as attribution)
+    # Name shown as attribution: the member's name (earlier: what a visitor typed)
     contributor: Mapped[str | None] = mapped_column(String(100))
+    # The member who added it (their name is `contributor`)
+    contributor_id: Mapped[int | None] = mapped_column(
+        ForeignKey("app_user.id", ondelete="SET NULL"), index=True
+    )
     source_id: Mapped[int | None] = mapped_column(ForeignKey("source.id"))
 
     concept: Mapped[Concept] = relationship(back_populates="forms")

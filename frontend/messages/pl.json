@@ -86,7 +86,6 @@
     "word": "Słowo",
     "place": "Miejscowość lub region (opcjonalnie)",
     "placeHint": "np. Przemyśl, województwo podkarpackie",
-    "name": "Twoje imię do podpisu (opcjonalnie)",
     "recording": "Wymowa (opcjonalnie)",
     "record": "Nagraj",
     "recordAgain": "Nagraj ponownie",
@@ -99,7 +98,10 @@
     "sending": "Wysyłanie…",
     "thanks": "Dziękujemy! Słowo pojawi się na mapie po sprawdzeniu przez redaktora.",
     "error": "Nie udało się wysłać. Spróbuj ponownie.",
-    "tooMany": "Za dużo zgłoszeń. Spróbuj później."
+    "tooMany": "Za dużo zgłoszeń. Spróbuj później.",
+    "signInFirst": "Słowa dodają uczestnicy: wiemy, kto je przesłał, i podpisujemy je Twoim imieniem.",
+    "signIn": "Zaloguj się lub załóż konto",
+    "signedAs": "Pod słowem pojawi się Twoje imię: {name}."
   },
   "Nav": {
     "about": "O projekcie",
@@ -169,7 +171,7 @@
     "searchTitle": "Wyszukiwanie",
     "search": "Gdy wyszukiwanie niczego nie znajdzie, zapisujemy sam tekst zapytania z licznikiem, aby dodać to słowo do słownika. Nic o tobie nie jest przy tym zapisywane.",
     "accountTitle": "Jeśli się rejestrujesz",
-    "account": "Przechowujemy adres e-mail, imię i skrót hasła (samo hasło nie jest przechowywane ani odtwarzalne ze skrótu). Przy logowaniu przez Google otrzymujemy od Google tylko Twój (potwierdzony) adres e-mail i imię; hasło nie jest wtedy potrzebne. Po zalogowaniu przeglądarka dostaje cookie sesji — służy wyłącznie do utrzymania zalogowania. Twoje głosy i odpowiedzi na karty kontrolne są powiązane z kontem. Konto można usunąć w profilu: e-mail, imię i sesje znikają od razu, głosy zostają anonimowe."
+    "account": "Przechowujemy adres e-mail, imię i skrót hasła (samo hasło nie jest przechowywane ani odtwarzalne ze skrótu). Przy logowaniu przez Google otrzymujemy od Google tylko Twój (potwierdzony) adres e-mail i imię; hasło nie jest wtedy potrzebne. Po zalogowaniu przeglądarka dostaje cookie sesji — służy wyłącznie do utrzymania zalogowania. Twoje głosy i odpowiedzi na karty kontrolne są powiązane z kontem. Konto można usunąć w profilu: e-mail, imię i sesje znikają od razu, głosy zostają anonimowe. Języki i gwary z Twojego profilu oraz wyniki testów są przechowywane na koncie i usuwane razem z nim; dodane przez Ciebie słowa zostają na stronie już bez Twojego imienia."
   },
   "Home": {
     "intro": "Wpisz słowo w dowolnym języku i zobacz na mapie, jak się je pisze, wymawia i jak brzmi w językach świata, ich gwarach i odmianach regionalnych. Albo zacznij od tych przykładów:",
@@ -405,11 +407,30 @@
     "registerButton": "Utwórz konto",
     "privacyNote": "Przechowujemy e-mail, imię i skrót hasła (nie samo hasło). Konto możesz usunąć w każdej chwili w profilu.",
     "soon": "Wkrótce: logowanie linkiem z e-maila.",
-    "levelsSoon": "Wkrótce pojawią się tu Twoje języki i gwary, testy użytkownika języka i Twój wkład.",
     "delete": "Usuń konto",
     "deleteConfirm": "Usunąć konto na zawsze? Twoje głosy zostaną, anonimowe.",
     "deleteYes": "Tak, usuń",
     "deleteNo": "Anuluj",
+    "save": "Zapisz",
+    "rename": "zmień",
+    "languagesTitle": "Moje języki i gwary",
+    "languagesIntro": "Dodaj języki i gwary, którymi mówisz. Test użytkownika języka potwierdza język: wtedy Twoje głosy na jego słowa i słowa jego gwar liczą się podwójnie.",
+    "speaker": "użytkownik języka, test zaliczony",
+    "retryIn": "kolejna próba za {hours} godz.",
+    "takeTest": "Zrób test",
+    "noTestYet": "test pojawi się, gdy będzie więcej sprawdzonych słów",
+    "remove": "Usuń",
+    "noLanguages": "Jeszcze nic nie dodano.",
+    "addLanguage": "Dodaj język lub gwarę:",
+    "levels": "Waga głosu: gość po mini teście 0,25, uczestnik 0,5, użytkownik języka po teście 1. Później: „zaufany” według trafności odpowiedzi i eksperci gwar.",
+    "contributionsTitle": "Mój wkład",
+    "stats": "Dodane słowa: {words}. Głosy: {votes}.",
+    "status": {
+      "submitted": "czeka na sprawdzenie",
+      "approved": "opublikowane",
+      "pending": "szkic"
+    },
+    "noContributions": "Nie dodano jeszcze słów. Otwórz dowolne słowo na mapie i naciśnij „Dodaj słowo”.",
     "errors": {
       "email_taken": "Ten e-mail jest już zarejestrowany. Zaloguj się.",
       "wrong_credentials": "Błędny e-mail lub hasło.",
@@ -421,5 +442,28 @@
       "google": "Nie udało się zalogować przez Google. Spróbuj ponownie.",
       "google_off": "Logowanie przez Google nie jest jeszcze skonfigurowane."
     }
+  },
+  "Speaker": {
+    "title": "Test użytkownika języka",
+    "signInFirst": "Test jest dostępny dla uczestników.",
+    "signIn": "Zaloguj się lub załóż konto",
+    "intro": "Sprawdźmy, czy mówisz w języku: {variety}. Pokażemy słowo i znaczenie, a Ty powiesz, czy to prawda.",
+    "ruleCards": "{cards} słów; test zaliczasz, mając co najmniej {pass} poprawnych odpowiedzi.",
+    "ruleDontKnow": "„Nie wiem” liczy się jako błąd. Około połowy znaczeń jest celowo błędnych.",
+    "ruleOnce": "Jedna próba dziennie, 30 minut na test.",
+    "start": "Zacznij test",
+    "describedAs": "Znaczenie: {meaning}",
+    "question": "Czy to słowo ma takie znaczenie?",
+    "progress": "{n} z {total}",
+    "lastRight": "poprzednia dobrze",
+    "lastWrong": "poprzednia źle",
+    "passed": "Gratulacje! Jesteś użytkownikiem języka: {variety}. Twoje głosy na jego słowa ważą teraz 1.",
+    "failed": "Tym razem się nie udało. Spróbuj jutro.",
+    "score": "Poprawne odpowiedzi: {score} z {total}.",
+    "backToProfile": "Wróć do profilu",
+    "alreadyTested": "Test już zaliczony: {variety}.",
+    "later": "Kolejna próba możliwa za {hours} godz.",
+    "unavailable": "Dla tego języka lub gwary nie ma jeszcze testu: za mało sprawdzonych słów.",
+    "error": "Coś poszło nie tak. Spróbuj ponownie później."
   }
 }

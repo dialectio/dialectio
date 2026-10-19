@@ -17,7 +17,9 @@ from app.api import (
     gold,
     google_auth,
     lexicon,
+    profile,
     regions,
+    speaker,
     stats,
 )
 from app.config import MEDIA_DIR, MEDIA_URL_PREFIX, settings
@@ -37,6 +39,8 @@ app.include_router(feedback.router)
 app.include_router(gold.router)
 app.include_router(accounts.router)
 app.include_router(google_auth.router)
+app.include_router(speaker.router)
+app.include_router(profile.router)
 app.include_router(false_friends.router)
 app.include_router(community.router)
 
@@ -45,7 +49,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins,
     allow_credentials=True,  # the session cookie of signed-in members
-    allow_methods=["GET", "POST", "DELETE"],
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["*"],
 )
 
