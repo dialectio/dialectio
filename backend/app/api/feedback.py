@@ -20,7 +20,7 @@ from sqlalchemy.dialects.postgresql import insert
 
 from app.api.accounts import current_user, voter_of
 from app.api.dialects import REGIONAL
-from app.api.gold import gold_cards, quiz_status
+from app.api.gold import LOCALE, gold_cards, quiz_status
 from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
 from app.api.speaker import is_speaker
 from app.api.votes import Tally, tallies
@@ -242,6 +242,7 @@ CARDS = text(f"""
     SELECT f.id AS form_id, f.spelling, v.code AS variety_code, v.kind,
            v.name_en AS variety_name_en, v.name_uk AS variety_name_uk,
            v.names AS variety_names, c.slug, c.gloss_en, c.gloss_uk, c.glosses,
+           c.description_uk, c.description_en, c.descriptions,
            (SELECT s.spelling FROM form s JOIN variety u ON u.id = s.variety_id
             WHERE s.concept_id = c.id AND u.code = 'ukr' AND s.is_primary
               AND s.status IN ('approved', 'pending') LIMIT 1) AS standard,
@@ -291,6 +292,10 @@ class Card(BaseModel):
     english: str | None
     region_codes: list[str]
     votes: int
+    # The meaning of a standard word of the interface language (its word would be the answer)
+    description_uk: str | None = None
+    description_en: str | None = None
+    descriptions: dict[str, str] = {}
     # A control card (app/api/gold.py): its answer goes to /api/check/gold with this token
     gold: str | None = None
 
@@ -330,6 +335,7 @@ def check_cards(
     deck: str = UKRAINIAN_DECK,
     skip: Annotated[list[int], Query()] = [],  # noqa: B006 (FastAPI copies defaults)
     limit: Annotated[int, Query(ge=1, le=CARDS_MAX)] = 10,
+    locale: Annotated[str | None, Query(pattern=LOCALE)] = None,
 ) -> list[Card]:
     """Unverified words this browser has not voted on yet, least-voted first."""
     rows = session.execute(
@@ -345,7 +351,8 @@ def check_cards(
     cards = [Card(**row) for row in rows]
     # Control cards mixed in (never first), so random clicking stops counting
     language = deck.split("-")[0]
-    for gold in gold_cards(session, language, len(cards) // GOLD_EVERY, prefer=deck):
+    golds = gold_cards(session, language, len(cards) // GOLD_EVERY, prefer=deck, locale=locale)
+    for gold in golds:
         cards.insert(random.randint(1, len(cards)), Card(**gold.model_dump()))  # noqa: S311
     return cards
 

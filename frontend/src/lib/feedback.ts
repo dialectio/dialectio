@@ -1,4 +1,4 @@
-import { API_URL, localized, type Names } from "@/lib/api";
+import { API_URL, LOCALE_LANGUAGE, localized, type Names } from "@/lib/api";
 
 const VOTER_KEY = "dialectio.voter";
 const VOTES_KEY = "dialectio.votes";
@@ -143,12 +143,26 @@ export type Card = {
   english: string | null;
   region_codes: string[];
   votes: number;
+  /** Shown as the meaning of a standard word of the interface language */
+  description_uk?: string | null;
+  description_en?: string | null;
+  descriptions?: Names;
   /** A control card: its answer goes back with this token (answerGold), not as a vote */
   gold?: string | null;
 };
 
 /** What the card's word should mean, in the reader's language. */
 export function cardMeaning(card: Card, locale: string): string {
+  // A word of the reader's own language: its description, the word itself would be the answer
+  if (card.variety_code === LOCALE_LANGUAGE[locale]) {
+    const description =
+      locale === "uk"
+        ? card.description_uk
+        : locale === "en"
+          ? card.description_en
+          : card.descriptions?.[locale];
+    if (description) return description;
+  }
   if (locale !== "uk")
     return localized(locale, card.english ?? card.gloss_en, null, card.glosses);
   return card.standard ?? card.gloss_uk ?? card.gloss_en;
@@ -196,8 +210,9 @@ export async function getQuizStatus(language: string): Promise<QuizState> {
 
 export async function getQuiz(
   language: string,
+  locale: string,
 ): Promise<{ cards: Card[]; retry_after: number | null }> {
-  const params = new URLSearchParams({ voter: voterId(), language });
+  const params = new URLSearchParams({ voter: voterId(), language, locale });
   const response = await fetch(`${API_URL}/api/check/quiz?${params}`, {
     credentials: "include",
   });
@@ -226,11 +241,13 @@ export async function answerGold(
 export async function loadCards(
   deck: string,
   skip: number[],
+  locale: string,
   limit = 15,
 ): Promise<Card[]> {
   const params = new URLSearchParams({
     voter: voterId(),
     deck,
+    locale,
     limit: String(limit),
   });
   for (const id of skip) params.append("skip", String(id));

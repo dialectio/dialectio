@@ -297,3 +297,12 @@ def test_failing_the_quiz_means_waiting_a_day() -> None:
     assert again["cards"] == [] and again["retry_after"]
     # Passing one language says nothing about another
     assert answer_quiz(voter, "ukr")["passed"]
+
+
+def test_words_of_the_interface_language_come_with_descriptions() -> None:
+    """In the Ukrainian interface a standard Ukrainian card can't show "вода: вода?"."""
+    quiz = client.get(
+        "/api/check/quiz", params={"voter": uuid.uuid4().hex, "language": "ukr", "locale": "uk"}
+    ).json()
+    standard = [card for card in quiz["cards"] if card["variety_code"] == "ukr"]
+    assert all(len(card["description_uk"] or "") >= 15 for card in standard)

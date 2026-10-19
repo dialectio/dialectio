@@ -77,7 +77,11 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
       loading.current = deck;
       try {
         const shown = current.map((c) => c.form_id);
-        const more = await loadCards(deck, [...answered.current, ...shown]);
+        const more = await loadCards(
+          deck,
+          [...answered.current, ...shown],
+          locale,
+        );
         if (loading.current !== deck) return;
         setCards((previous) => {
           const base = reset ? [] : previous;
@@ -94,7 +98,7 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
         if (loading.current === deck) loading.current = null;
       }
     },
-    [deck],
+    [deck, locale],
   );
 
   useEffect(() => {

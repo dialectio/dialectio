@@ -24,9 +24,10 @@ from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session
 
 from app.api.accounts import current_user, require_member
-from app.api.gold import voter_hash
+from app.api.gold import DESCRIPTION, MIN_DESCRIPTION, voter_hash
 from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
 from app.config import settings
+from app.locales import LOCALE_LANGUAGES
 from app.models import GoldAnswer, MemberVariety, SpeakerTest
 
 router = APIRouter(prefix="/api/speaker", tags=["accounts"])
@@ -37,12 +38,7 @@ RETRY_AFTER = timedelta(days=1)
 TEST_MINUTES = 30
 LANGUAGE_MIN_WORDS = 100
 DIALECT_MIN_WORDS = 20
-MIN_DESCRIPTION = 15  # shorter descriptions ("body part") are too vague to test with
-LOCALE_LANGUAGES = {"uk": "ukr", "en": "eng", "pl": "pol", "de": "deu", "es": "spa", "fr": "fra"}
 
-# The concept's description in the interface language
-DESCRIPTION = """CASE :locale WHEN 'uk' THEN c.description_uk WHEN 'en' THEN c.description_en
-                 ELSE c.descriptions ->> :locale END"""
 CHECKED = """f.is_primary AND f.status = 'approved'
              AND (src.name IS NULL OR NOT (src.name = ANY(:unverified_sources)))"""
 

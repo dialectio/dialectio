@@ -5,6 +5,10 @@ a trap: a real word of the language shown with another concept's meaning ("no").
 answer three of them (the quiz) before their votes on a language count, and the game mixes
 them in among the real cards, so a voter who starts clicking at random stops counting.
 
+When the card's word is a standard word of the interface language, the meaning is the
+concept's description: "вода: вода?" would give the answer away. Such cards are only made
+from concepts described in that language.
+
 The card carries a token with a random nonce and the language, signed for the expected
 answer: the browser can't tell the answer from it, the server checks the signature against
 both answers. A token can be answered once.
@@ -26,6 +30,7 @@ from sqlalchemy.orm import Session
 from app.api.accounts import voter_of
 from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
 from app.config import settings
+from app.locales import LOCALE_LANGUAGES
 from app.models import GoldAnswer
 
 router = APIRouter(prefix="/api/check", tags=["feedback"])
@@ -34,6 +39,8 @@ QUIZ_CARDS = 3
 PASS_CORRECT = 2  # of a voter's last QUIZ_CARDS answers in a language
 RETRY_AFTER = timedelta(days=1)  # after a failed quiz
 LANGUAGE = r"^[a-z]{3}$"
+LOCALE = r"^(uk|en|pl|de|es|fr)$"
+MIN_DESCRIPTION = 15  # shorter descriptions ("body part") are too vague to answer
 _used_nonces: OrderedDict[str, None] = OrderedDict()
 USED_NONCES_KEPT = 100_000
 
@@ -56,6 +63,10 @@ class GoldCard(BaseModel):
     english: str | None
     region_codes: list[str]
     votes: int = 0
+    # Shown as the meaning instead of the word for words of the interface language
+    description_uk: str | None = None
+    description_en: str | None = None
+    descriptions: dict[str, str] = {}
     gold: str
 
 
@@ -81,15 +92,20 @@ class GoldResult(BaseModel):
     passed: bool
 
 
+# The concept's description in the interface language
+DESCRIPTION = """CASE :locale WHEN 'uk' THEN c.description_uk WHEN 'en' THEN c.description_en
+                 ELSE c.descriptions ->> :locale END"""
+
 # Checked words of a language (or its dialects): approved, from a trusted source, the
 # variety's main word for a concept that has a page
-CHECKED_WORDS = text("""
+CHECKED_WORDS = text(f"""
     SELECT f.spelling, f.concept_id, v.code AS variety_code, v.kind,
            v.name_en AS variety_name_en, v.name_uk AS variety_name_uk,
            v.names AS variety_names,
            coalesce((SELECT array_agg(r.code ORDER BY r.code)
                      FROM variety_region vr JOIN region r ON r.id = vr.region_id
-                     WHERE vr.variety_id = v.id), '{}') AS region_codes
+                     WHERE vr.variety_id = v.id), '{{}}') AS region_codes,
+           {DESCRIPTION} AS description
     FROM form f
     JOIN variety v ON v.id = f.variety_id
     JOIN concept c ON c.id = f.concept_id AND c.slug IS NOT NULL
@@ -97,6 +113,8 @@ CHECKED_WORDS = text("""
     WHERE (v.code = :language OR v.code LIKE :language || '-%')
       AND f.status = 'approved' AND f.is_primary
       AND (src.name IS NULL OR NOT (src.name = ANY(:unverified_sources)))
+      -- a standard word shown with a description needs one
+      AND (NOT :describe OR v.code <> :language OR length({DESCRIPTION}) >= :min_description)
     -- the deck's own variety first (a Hutsul deck gets Hutsul words when there are any)
     ORDER BY v.code = :prefer DESC, random()
     LIMIT :limit
@@ -105,6 +123,7 @@ CHECKED_WORDS = text("""
 # What a card says the word means: a concept's names and its main Ukrainian / English words
 MEANING = text("""
     SELECT c.slug, c.gloss_en, c.gloss_uk, c.glosses,
+           c.description_uk, c.description_en, c.descriptions,
            (SELECT s.spelling FROM form s JOIN variety u ON u.id = s.variety_id
             WHERE s.concept_id = c.id AND u.code = 'ukr' AND s.is_primary
               AND s.status IN ('approved', 'pending') LIMIT 1) AS standard,
@@ -114,10 +133,13 @@ MEANING = text("""
     FROM concept c WHERE c.id = :concept_id
 """)
 
-# Another concept for a trap: any concept with a page and a Ukrainian name
-OTHER_CONCEPT = text("""
-    SELECT id FROM concept
+# Another concept for a trap: any concept with a page and a Ukrainian name (and, shown with
+# a description, a different description of its own)
+OTHER_CONCEPT = text(f"""
+    SELECT id FROM concept c
     WHERE slug IS NOT NULL AND gloss_uk IS NOT NULL AND id <> :concept_id
+      AND (NOT :describe OR (length({DESCRIPTION}) >= :min_description
+                             AND {DESCRIPTION} IS DISTINCT FROM :description))
     ORDER BY random() LIMIT 1
 """)
 
@@ -145,16 +167,25 @@ def read_token(token: str) -> tuple[str, str, int] | None:
 
 
 def gold_cards(
-    session: Session, language: str, count: int, prefer: str | None = None
+    session: Session,
+    language: str,
+    count: int,
+    prefer: str | None = None,
+    locale: str | None = None,
 ) -> list[GoldCard]:
     """`count` control cards of a language (the `prefer` variety's words first); about a
-    third show the word's own meaning."""
+    third show the word's own meaning. In the language's own interface `locale`, standard
+    words are shown with descriptions."""
+    describe = locale is not None and LOCALE_LANGUAGES.get(locale) == language
     words = list(
         session.execute(
             CHECKED_WORDS,
             {
                 "language": language,
                 "prefer": prefer or language,
+                "locale": locale or "uk",
+                "describe": describe,
+                "min_description": MIN_DESCRIPTION,
                 "unverified_sources": list(UNVERIFIED_SOURCES),
                 "limit": count,
             },
@@ -165,7 +196,16 @@ def gold_cards(
         truthful = i % 3 == 0 and random.random() < 0.9  # noqa: S311 (not security)
         concept_id = word["concept_id"]
         if not truthful:
-            other = session.scalar(OTHER_CONCEPT, {"concept_id": concept_id})
+            other = session.scalar(
+                OTHER_CONCEPT,
+                {
+                    "concept_id": concept_id,
+                    "locale": locale or "uk",
+                    "describe": describe and word["variety_code"] == language,
+                    "min_description": MIN_DESCRIPTION,
+                    "description": word["description"],
+                },
+            )
             if other is None:
                 continue
             concept_id = other
@@ -217,12 +257,13 @@ def quiz(
     request: Request,
     voter: Annotated[str, Query(min_length=8, max_length=64)],
     language: Annotated[str, Query(pattern=LANGUAGE)],
+    locale: Annotated[str | None, Query(pattern=LOCALE)] = None,
 ) -> QuizOut:
     """The quiz before a voter's votes on a language count: QUIZ_CARDS control cards."""
     state = quiz_status(session, voter_hash(voter_of(request, session, voter)), language)
     if state.retry_after:
         return QuizOut(cards=[], retry_after=state.retry_after)
-    return QuizOut(cards=gold_cards(session, language, QUIZ_CARDS))
+    return QuizOut(cards=gold_cards(session, language, QUIZ_CARDS, locale=locale))
 
 
 @router.get("/quiz/status")

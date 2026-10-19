@@ -84,7 +84,7 @@ function QuizDialog({
   const [stage, setStage] = useState<Stage>("loading");
 
   useEffect(() => {
-    getQuiz(language)
+    getQuiz(language, locale)
       .then((quiz) => {
         if (quiz.retry_after) return setStage("later");
         if (quiz.cards.length === 0) return setStage("failed");
@@ -92,7 +92,7 @@ function QuizDialog({
         setStage("question");
       })
       .catch(() => setStage("failed"));
-  }, [language]);
+  }, [language, locale]);
 
   const answer = async (value: number) => {
     const card = cards[index];

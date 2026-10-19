@@ -6,3 +6,5 @@ in the JSON `names` / `glosses` / `descriptions` columns, keyed by the locale co
 
 # Interface locale -> the variety whose words name a concept in that language
 EXTRA_LOCALES: dict[str, str] = {"pl": "pol", "de": "deu", "es": "spa", "fr": "fra"}
+# Every interface locale -> its language
+LOCALE_LANGUAGES: dict[str, str] = {"uk": "ukr", "en": "eng", **EXTRA_LOCALES}
