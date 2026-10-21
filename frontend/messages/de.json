@@ -161,7 +161,7 @@
     "browserTitle": "In deinem Browser",
     "browser": "Die Website speichert in deinem Browser (localStorage) den zuletzt im Beitragsformular gewählten Dialekt, deine Stimmen, deine Region und eine zufällige Kennung für die Abstimmung. Außer den Stimmen wird nichts davon an uns gesendet.",
     "thirdTitle": "Dienste Dritter",
-    "third": "Die Grundkarte wird von Servern von OpenFreeMap geladen, ein Teil der Aufnahmen von Wikimedia Commons. Diese Dienste sehen deine IP-Adresse, wie jede Website, von der dein Browser etwas lädt.",
+    "third": "Die Grundkarte wird von Servern von OpenFreeMap geladen, ein Teil der Aufnahmen von Wikimedia Commons. Diese Dienste sehen deine IP-Adresse, wie jede Website, von der dein Browser etwas lädt. Um Bots fernzuhalten, prüft Cloudflare Turnstile die Formulare für Registrierung, E-Mail-Links und neue Wörter: Es sieht Ihre IP-Adresse und technische Browserdaten, setzt aber keine Werbe-Cookies.",
     "deleteTitle": "Löschung",
     "delete": "Um deinen Beitrag oder deine Sprachaufnahme löschen zu lassen, schreib uns auf <link>GitHub</link> mit dem Wort und dem Dialekt.",
     "statsTitle": "Besuchsstatistik",
@@ -451,7 +451,8 @@
       "429": "Zu viele Versuche. Bitte in ein paar Minuten erneut.",
       "other": "Das hat nicht geklappt. Bitte erneut versuchen.",
       "google": "Die Anmeldung mit Google ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
-      "google_off": "Die Anmeldung mit Google ist noch nicht eingerichtet."
+      "google_off": "Die Anmeldung mit Google ist noch nicht eingerichtet.",
+      "captcha": "Die Prüfung „Sind Sie ein Mensch?“ ist fehlgeschlagen. Bitte erneut versuchen."
     }
   },
   "Speaker": {

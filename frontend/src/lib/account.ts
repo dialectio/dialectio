@@ -69,6 +69,8 @@ export async function register(data: {
   website: string;
   /** Language of the confirmation email */
   locale: string;
+  /** Turnstile token (components/Captcha.tsx) */
+  captcha: string;
 }) {
   const member = await call<Member>("/register", "POST", data);
   forgetQuizzes(); // the quizzes a guest passed in this browser are not the member's
@@ -114,11 +116,14 @@ export function takeNext(): string {
   }
 }
 
-export const sendLoginLink = (email: string, locale: string) =>
-  call<null>("/email/login-link", "POST", { email, locale });
+export const sendLoginLink = (email: string, locale: string, captcha: string) =>
+  call<null>("/email/login-link", "POST", { email, locale, captcha });
 
-export const forgotPassword = (email: string, locale: string) =>
-  call<null>("/password/forgot", "POST", { email, locale });
+export const forgotPassword = (
+  email: string,
+  locale: string,
+  captcha: string,
+) => call<null>("/password/forgot", "POST", { email, locale, captcha });
 
 export const resendVerification = (locale: string) =>
   call<null>("/email/verification", "POST", { locale });

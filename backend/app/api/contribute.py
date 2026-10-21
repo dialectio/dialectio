@@ -24,6 +24,7 @@ from app.db.session import get_session
 from app.importers.common import upsert_source
 from app.models import SUBMITTED, Audio, Concept, Variety
 from app.models import Form as WordForm
+from app.turnstile import require_human
 
 router = APIRouter(prefix="/api", tags=["contribute"])
 
@@ -100,6 +101,7 @@ async def contribute(
     place: Annotated[str, Form(max_length=200)] = "",
     # Honeypot: hidden in the form, so only bots fill it in.
     website: Annotated[str, Form()] = "",
+    captcha: Annotated[str, Form(max_length=2048)] = "",  # Turnstile token
     audio: Annotated[UploadFile | None, File()] = None,
 ) -> dict[str, str]:
     if website:
@@ -109,6 +111,7 @@ async def contribute(
     if not consent:
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, "Consent is required")
     check_rate_limit(request.client.host if request.client else "unknown")
+    require_human(request, captcha)
 
     spelling = spelling.strip()
     if not spelling:

@@ -161,7 +161,7 @@
     "browserTitle": "W twojej przeglądarce",
     "browser": "Strona zapamiętuje w przeglądarce (localStorage) ostatnio wybraną gwarę w formularzu, twoje głosy, wskazany region i losowy identyfikator do głosowania. Poza głosami dane te nie są do nas wysyłane.",
     "thirdTitle": "Usługi zewnętrzne",
-    "third": "Mapa podkładowa jest wczytywana z serwerów OpenFreeMap, a część nagrań z Wikimedia Commons. Te usługi widzą twój adres IP, jak każda strona, z której przeglądarka coś pobiera.",
+    "third": "Mapa podkładowa jest wczytywana z serwerów OpenFreeMap, a część nagrań z Wikimedia Commons. Te usługi widzą twój adres IP, jak każda strona, z której przeglądarka coś pobiera. Aby odsiać boty, formularze rejestracji, wiadomości e-mail i dodawania słów sprawdza Cloudflare Turnstile: widzi Twój adres IP i dane techniczne przeglądarki, ale nie ustawia reklamowych plików cookie.",
     "deleteTitle": "Usunięcie",
     "delete": "Aby usunąć swoje zgłoszenie lub nagranie głosu, napisz do nas na <link>GitHubie</link>, podając słowo i gwarę.",
     "statsTitle": "Statystyki odwiedzin",
@@ -451,7 +451,8 @@
       "429": "Zbyt wiele prób. Spróbuj za kilka minut.",
       "other": "Nie udało się. Spróbuj ponownie.",
       "google": "Nie udało się zalogować przez Google. Spróbuj ponownie.",
-      "google_off": "Logowanie przez Google nie jest jeszcze skonfigurowane."
+      "google_off": "Logowanie przez Google nie jest jeszcze skonfigurowane.",
+      "captcha": "Weryfikacja „czy jesteś człowiekiem” nie powiodła się. Spróbuj ponownie."
     }
   },
   "Speaker": {

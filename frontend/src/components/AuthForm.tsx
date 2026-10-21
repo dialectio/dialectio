@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { type FormEvent, useState } from "react";
 
 import { useAccount } from "@/components/Account";
+import Captcha, { CAPTCHA_SITE_KEY } from "@/components/Captcha";
 import { useRouter } from "@/i18n/navigation";
 import {
   AccountError,
@@ -42,6 +43,9 @@ export default function AuthForm({
     failed ? message(failed) : null,
   );
   const [busy, setBusy] = useState(false);
+  // "Are you human?" for sign-up and emailed links (each token works once)
+  const [captcha, setCaptcha] = useState("");
+  const [captchaRound, setCaptchaRound] = useState(0);
 
   const submit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -55,6 +59,7 @@ export default function AuthForm({
         await (mode === "link" ? sendLoginLink : forgotPassword)(
           field("email"),
           locale,
+          captcha,
         );
         setSentTo(field("email"));
         return;
@@ -68,6 +73,7 @@ export default function AuthForm({
               name: field("name"),
               website: field("website"),
               locale,
+              captcha,
             });
       setMember(member);
       // Back where the visitor came from (only paths of this site)
@@ -75,6 +81,7 @@ export default function AuthForm({
       router.refresh();
     } catch (err) {
       setError(message(err instanceof AccountError ? err.message : ""));
+      setCaptchaRound((n) => n + 1);
     } finally {
       setBusy(false);
     }
@@ -186,12 +193,17 @@ export default function AuthForm({
           {error && (
             <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
           )}
+          {mode !== "signIn" && (
+            <Captcha onToken={setCaptcha} resetKey={captchaRound} />
+          )}
           {mode === "register" && (
             <p className="text-xs opacity-60">{t("privacyNote")}</p>
           )}
           <button
             type="submit"
-            disabled={busy}
+            disabled={
+              busy || (mode !== "signIn" && !!CAPTCHA_SITE_KEY && !captcha)
+            }
             className="w-full rounded-lg bg-violet-600 py-2 font-medium text-white hover:bg-violet-700 disabled:opacity-50"
           >
             {t(

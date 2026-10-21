@@ -25,6 +25,7 @@ from app.api.email_links import send_link
 from app.config import settings
 from app.db.session import get_session
 from app.models import Audio, AuthSession, Form, User
+from app.turnstile import require_human
 
 router = APIRouter(prefix="/api/auth", tags=["accounts"])
 
@@ -156,6 +157,7 @@ class Credentials(BaseModel):
 class Registration(Credentials):
     name: str = Field(min_length=1, max_length=60)
     website: str = ""  # honeypot: hidden in the form, only bots fill it in
+    captcha: str = Field(default="", max_length=2048)  # Turnstile token (app/turnstile.py)
     locale: str = Field(default="uk", pattern="^(uk|en|pl|de|es|fr)$")  # of the email
 
     @field_validator("name")
@@ -183,6 +185,7 @@ def register(
     session: SessionDep,
 ) -> Me:
     check_limit("register", request, REGISTER_LIMIT)
+    require_human(request, data.captcha)
     if data.website:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Rejected")
     if not EMAIL.match(data.email):

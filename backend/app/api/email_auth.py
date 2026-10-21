@@ -19,6 +19,7 @@ from app.api.accounts import (
 )
 from app.api.email_links import prove_email, send_link, use_token
 from app.models import User
+from app.turnstile import require_human
 
 router = APIRouter(prefix="/api/auth", tags=["accounts"])
 
@@ -29,6 +30,7 @@ LOCALE = "^(uk|en|pl|de|es|fr)$"
 class EmailIn(BaseModel):
     email: str = Field(max_length=254)
     locale: str = Field(default="uk", pattern=LOCALE)
+    captcha: str = Field(default="", max_length=2048)  # Turnstile token
 
     @field_validator("email")
     @classmethod
@@ -75,6 +77,7 @@ def forgot_password(
     data: EmailIn, request: Request, background: BackgroundTasks, session: SessionDep
 ) -> None:
     check_limit("mail", request, MAIL_LIMIT)
+    require_human(request, data.captcha)
     if session.scalar(select(User.id).where(User.email == data.email)):
         send_link(session, background, "reset", data.email, data.locale)
 
@@ -100,6 +103,7 @@ def send_login_link(
 ) -> None:
     """A sign-in link; following it creates the account if there is none yet."""
     check_limit("mail", request, MAIL_LIMIT)
+    require_human(request, data.captcha)
     if not EMAIL.match(data.email):
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, "invalid_email")
     send_link(session, background, "login", data.email, data.locale)

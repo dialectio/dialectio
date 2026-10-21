@@ -35,6 +35,7 @@ services:
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
       BREVO_API_KEY: ${BREVO_API_KEY:-}
       MAIL_FROM: ${MAIL_FROM:-noreply@dialectio.org}
+      TURNSTILE_SECRET: ${TURNSTILE_SECRET:-}
     volumes:
       # TTS audio and visitors' recordings
       - ./data/media:/data/media
@@ -50,6 +51,7 @@ services:
         NEXT_PUBLIC_SITE_URL: https://${DOMAIN}
         NEXT_PUBLIC_UMAMI_SRC: ${UMAMI_SRC:-}
         NEXT_PUBLIC_UMAMI_WEBSITE_ID: ${UMAMI_WEBSITE_ID:-}
+        NEXT_PUBLIC_TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY:-}
     restart: unless-stopped
     environment:
       # Server-side rendering talks to the API inside the Docker network.

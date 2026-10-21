@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
 import { useAccount } from "@/components/Account";
+import Captcha, { CAPTCHA_SITE_KEY } from "@/components/Captcha";
 import { Link, usePathname } from "@/i18n/navigation";
 import { API_URL, localized } from "@/lib/api";
 import { listPublicVarieties, sortVarieties, type Variety } from "@/lib/varieties";
@@ -90,6 +91,8 @@ export default function ContributeDialog({
   const [spelling, setSpelling] = useState("");
   const [place, setPlace] = useState("");
   const { member } = useAccount();
+  const [captcha, setCaptcha] = useState(""); // Turnstile token, works once
+  const [captchaRound, setCaptchaRound] = useState(0);
   const pathname = usePathname();
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot, hidden from people
@@ -137,6 +140,7 @@ export default function ContributeDialog({
     data.append("place", place.trim());
     data.append("consent", "true");
     data.append("website", website);
+    data.append("captcha", captcha);
     if (recorder.blob) {
       const extension = recorder.blob.type.includes("mp4") ? "m4a" : recorder.blob.type.split("/")[1];
       data.append("audio", recorder.blob, `recording.${extension}`);
@@ -150,6 +154,7 @@ export default function ContributeDialog({
       });
       const failure = response.status === 401 ? "signedOut" : response.status === 429 ? "tooMany" : "error";
       setStatus(response.ok ? "sent" : failure);
+      if (!response.ok) setCaptchaRound((n) => n + 1);
     } catch {
       setStatus("error");
     }
@@ -292,11 +297,18 @@ export default function ContributeDialog({
               <span className="text-xs opacity-80">{t("consent")}</span>
             </label>
 
+            <Captcha onToken={setCaptcha} resetKey={captchaRound} />
             {status === "error" && <p className="text-red-600">{t("error")}</p>}
             {status === "tooMany" && <p className="text-red-600">{t("tooMany")}</p>}
             <button
               type="submit"
-              disabled={status === "sending" || !spelling.trim() || !consent || recorder.recording}
+              disabled={
+                status === "sending" ||
+                !spelling.trim() ||
+                !consent ||
+                recorder.recording ||
+                (!!CAPTCHA_SITE_KEY && !captcha)
+              }
               className="w-full rounded bg-blue-600 px-3 py-2 text-white disabled:opacity-40"
             >
               {status === "sending" ? t("sending") : t("send")}

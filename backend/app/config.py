@@ -27,6 +27,9 @@ class Settings(BaseSettings):
     mail_from: str = "noreply@dialectio.org"
     # Write emails to the log even with a key (local testing with made-up addresses)
     mail_to_log: bool = False
+    # Cloudflare Turnstile ("are you human?") on sign-up, emailed links and contributions;
+    # off when empty
+    turnstile_secret: str = ""
     # Generated files (e.g. TTS audio), served by the API under MEDIA_URL_PREFIX.
     media_dir: Path = REPO_DIR / "data" / "media"
 

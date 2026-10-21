@@ -161,7 +161,7 @@
     "browserTitle": "Dans votre navigateur",
     "browser": "Le site retient dans votre navigateur (localStorage) le dernier dialecte choisi dans le formulaire de contribution, vos votes, votre région et un identifiant aléatoire pour voter. À part les votes, rien de cela ne nous est envoyé.",
     "thirdTitle": "Services tiers",
-    "third": "Le fond de carte est chargé depuis les serveurs d'OpenFreeMap et une partie de l'audio depuis Wikimedia Commons. Ces services voient votre adresse IP, comme tout site depuis lequel votre navigateur charge quelque chose.",
+    "third": "Le fond de carte est chargé depuis les serveurs d'OpenFreeMap et une partie de l'audio depuis Wikimedia Commons. Ces services voient votre adresse IP, comme tout site depuis lequel votre navigateur charge quelque chose. Pour écarter les robots, les formulaires d'inscription, d'e-mail et d'ajout de mots sont vérifiés par Cloudflare Turnstile : il voit votre adresse IP et des données techniques du navigateur, mais ne dépose aucun cookie publicitaire.",
     "deleteTitle": "Suppression",
     "delete": "Pour supprimer votre contribution ou votre enregistrement de voix, écrivez-nous sur <link>GitHub</link> en indiquant le mot et le dialecte.",
     "statsTitle": "Statistiques de visite",
@@ -451,7 +451,8 @@
       "429": "Trop de tentatives. Réessayez dans quelques minutes.",
       "other": "Cela n'a pas marché. Réessayez.",
       "google": "La connexion avec Google a échoué. Veuillez réessayer.",
-      "google_off": "La connexion avec Google n'est pas encore configurée."
+      "google_off": "La connexion avec Google n'est pas encore configurée.",
+      "captcha": "La vérification « êtes-vous humain ? » a échoué. Réessayez."
     }
   },
   "Speaker": {

@@ -161,7 +161,7 @@
     "browserTitle": "En tu navegador",
     "browser": "El sitio guarda en tu navegador (localStorage) el último dialecto elegido en el formulario de aportación, tus votos, tu región y un identificador aleatorio para votar. Aparte de los votos, nada de esto se nos envía.",
     "thirdTitle": "Servicios de terceros",
-    "third": "El mapa base se carga desde servidores de OpenFreeMap y parte del audio desde Wikimedia Commons. Estos servicios ven tu dirección IP, como cualquier sitio del que tu navegador cargue algo.",
+    "third": "El mapa base se carga desde servidores de OpenFreeMap y parte del audio desde Wikimedia Commons. Estos servicios ven tu dirección IP, como cualquier sitio del que tu navegador cargue algo. Para frenar a los bots, los formularios de registro, de correo y de añadir palabras los comprueba Cloudflare Turnstile: ve tu dirección IP y datos técnicos del navegador, pero no pone cookies publicitarias.",
     "deleteTitle": "Eliminación",
     "delete": "Para eliminar tu aportación o tu grabación de voz, escríbenos en <link>GitHub</link> indicando la palabra y el dialecto.",
     "statsTitle": "Estadísticas de visitas",
@@ -451,7 +451,8 @@
       "429": "Demasiados intentos. Prueba dentro de unos minutos.",
       "other": "No ha funcionado. Inténtalo de nuevo.",
       "google": "No se pudo entrar con Google. Inténtalo de nuevo.",
-      "google_off": "El acceso con Google aún no está configurado."
+      "google_off": "El acceso con Google aún no está configurado.",
+      "captcha": "Falló la comprobación «¿eres humano?». Inténtalo de nuevo."
     }
   },
   "Speaker": {

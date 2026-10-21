@@ -161,7 +161,7 @@
     "browserTitle": "In your browser",
     "browser": "The site remembers in your browser (localStorage) the dialect you last picked in the contribution form, your votes, your region and a random id for voting. Apart from the votes, this is not sent to us.",
     "thirdTitle": "Third-party services",
-    "third": "The basemap is loaded from OpenFreeMap servers and some audio from Wikimedia Commons. These services see your IP address, like any site your browser loads something from.",
+    "third": "The basemap is loaded from OpenFreeMap servers and some audio from Wikimedia Commons. These services see your IP address, like any site your browser loads something from. To keep bots out, the sign-up, email and add-a-word forms are checked by Cloudflare Turnstile: it sees your IP address and technical browser data, but sets no advertising cookies.",
     "deleteTitle": "Deletion",
     "delete": "To delete your contribution or voice recording, write to us on <link>GitHub</link> with the word and the dialect.",
     "statsTitle": "Visit statistics",
@@ -451,7 +451,8 @@
       "429": "Too many attempts. Try again in a few minutes.",
       "other": "That didn't work. Please try again.",
       "google": "Signing in with Google failed. Please try again.",
-      "google_off": "Signing in with Google is not set up yet."
+      "google_off": "Signing in with Google is not set up yet.",
+      "captcha": "The \"are you human?\" check failed. Please try again."
     }
   },
   "Speaker": {
