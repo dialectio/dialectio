@@ -25,6 +25,7 @@ Full plan and decisions: [docs/plan.md](docs/plan.md). Communicate with the user
 - Only one uvicorn may listen on port 8000: an orphaned old server keeps serving stale code. If changes don't show up, check `Get-NetTCPConnection -LocalPort 8000` and stop stray processes.
 - Concept slugs (`/[locale]/word/[slug]`) are permanent once assigned (`app/slugs.py`); never recompute them, URLs are indexed by search engines.
 - Use only free/open data sources and libraries; no Google Maps.
+- German as an interface language is switched off (decision 2026-10-21) until the site has a postal address for an Impressum (§5 DDG): `de` is out of `routing.locales`, `/de/...` and German-first browsers get a temporary redirect to English (`frontend/src/proxy.ts`), the Impressum link is out of `INFO_PAGES`; `messages/de.json` and the backend's German texts stay, so bringing it back is one change. German words and dialect areas on the map are unaffected.
 - UI strings live in `frontend/messages/{uk,en,pl,de,es,fr}.json` (the editor section stays English in pl/de/es/fr); names of concepts, languages and regions in pl/de/es/fr come from the JSON `names` / `glosses` / `descriptions` columns (`app/locales.py`), picked with `localized(locale, en, uk, names)` (next-intl); routes are prefixed with the locale (`/uk`, `/en`), default `uk`. Never hardcode UI text in components.
 - Do not `git push` without discussing with the user first.
 

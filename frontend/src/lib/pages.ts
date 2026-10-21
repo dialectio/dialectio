@@ -8,7 +8,7 @@ export const INFO_PAGES = [
   "sources",
   "privacy",
   "terms",
-  "imprint",
+  // "imprint" comes back with the German version, once the site has its address
 ] as const;
 
 /** The header has room only for these; the legal pages are linked from footers and panels. */

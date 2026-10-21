@@ -9,7 +9,6 @@ const LABELS: Record<(typeof routing.locales)[number], string> = {
   uk: "Українська",
   en: "English",
   pl: "Polski",
-  de: "Deutsch",
   es: "Español",
   fr: "Français",
 };
