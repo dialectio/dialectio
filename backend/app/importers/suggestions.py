@@ -14,8 +14,8 @@ import sys
 
 from sqlalchemy import select
 
-from app.api.editor import EDITOR_SOURCE_LICENSE, EDITOR_SOURCE_URL, SUGGESTION_SOURCE_NAME
 from app.api.lexicon import MACHINE_SOURCE_NAME
+from app.api.word_actions import EDITOR_SOURCE_LICENSE, EDITOR_SOURCE_URL, SUGGESTION_SOURCE_NAME
 from app.db.session import SessionLocal
 from app.importers.common import upsert_source
 from app.importers.wikidata_lexemes import DATA_DIR

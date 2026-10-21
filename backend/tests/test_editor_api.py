@@ -80,7 +80,11 @@ def test_cannot_delete_imported_word() -> None:
 def test_pending_draft_is_public_but_unverified_until_approved() -> None:
     from sqlalchemy import select
 
-    from app.api.editor import EDITOR_SOURCE_LICENSE, EDITOR_SOURCE_URL, SUGGESTION_SOURCE_NAME
+    from app.api.word_actions import (
+        EDITOR_SOURCE_LICENSE,
+        EDITOR_SOURCE_URL,
+        SUGGESTION_SOURCE_NAME,
+    )
     from app.db.session import SessionLocal
     from app.importers.common import upsert_source
     from app.models import PENDING, Form, Variety

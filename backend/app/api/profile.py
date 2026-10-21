@@ -6,7 +6,10 @@ from pydantic import BaseModel, Field, field_validator
 from sqlalchemy import func, select, text
 
 from app.api.accounts import SessionDep, require_member, sign_contributions
+from app.api.expert import Role, roles_of
 from app.api.gold import voter_hash
+from app.api.speaker import root
+from app.api.trust import LanguageTrust, language_trust
 from app.models import Form, Vote
 
 router = APIRouter(prefix="/api/profile", tags=["accounts"])
@@ -64,6 +67,9 @@ class Profile(BaseModel):
     contributions: list[Contribution]
     contribution_count: int
     votes: int
+    # Per language the member speaks: how far they are from "trusted"
+    trust: list[LanguageTrust]
+    roles: list[Role]  # expert applications and expertise
 
 
 class NameIn(BaseModel):
@@ -79,8 +85,10 @@ class NameIn(BaseModel):
 def get_profile(request: Request, session: SessionDep) -> Profile:
     user = require_member(request, session)
     params = {"user_id": user.id, "limit": MAX_CONTRIBUTIONS}
+    varieties = [MemberVarietyOut(**r) for r in session.execute(VARIETIES, params).mappings()]
+    languages = dict.fromkeys(root(v.code) for v in varieties if v.tested)
     return Profile(
-        varieties=[MemberVarietyOut(**r) for r in session.execute(VARIETIES, params).mappings()],
+        varieties=varieties,
         contributions=[
             Contribution(**r) for r in session.execute(CONTRIBUTIONS, params).mappings()
         ],
@@ -92,6 +100,8 @@ def get_profile(request: Request, session: SessionDep) -> Profile:
             select(func.count()).where(Vote.voter == voter_hash(f"user:{user.id}"))
         )
         or 0,
+        trust=[language_trust(session, user.id, language) for language in languages],
+        roles=roles_of(session, user.id),
     )
 
 

@@ -69,7 +69,17 @@
     "moreRows": "Showing {shown} of {total}. Narrow the filter to find a concept.",
     "missing": "Searched but not found: {count}",
     "missingHint": "Words missing from the dictionary, most wanted first. Click to search Wiktionary; ✕ removes a word from the list.",
-    "dismiss": "Remove “{word}” from the list"
+    "dismiss": "Remove “{word}” from the list",
+    "experts": "Expert applications ({count} new)",
+    "expertStatus": {
+      "applied": "new application",
+      "expert": "expert",
+      "declined": "declined"
+    },
+    "makeExpert": "✓ Make expert",
+    "declineExpert": "Decline",
+    "revokeExpert": "Revoke",
+    "changes": "Change log"
   },
   "Word": {
     "title": "{word} in different languages — spelling and pronunciation | Dialectio",
@@ -171,7 +181,7 @@
     "searchTitle": "Search",
     "search": "When a search finds nothing, we keep the search text and a counter so we can add the word to the dictionary. Nothing about you is stored with it.",
     "accountTitle": "If you sign up",
-    "account": "We keep your email address, your name and a hash of your password (the password itself is neither stored nor recoverable from the hash). If you sign in with Google, Google gives us only your (verified) email address and your name; no password is needed then. After signing in, the browser gets a session cookie, used only to keep you signed in. Your votes and control-card answers are linked to the account. You can delete the account in your profile: email, name and sessions go at once, votes stay anonymous. The languages and dialects in your profile and your speaker test results are kept with the account and deleted with it; words you added stay on the site without your name. Emails (confirming your address, a new password, sign-in links) are sent through Brevo (Sendinblue SAS, France): it receives only your address and the email itself."
+    "account": "We keep your email address, your name and a hash of your password (the password itself is neither stored nor recoverable from the hash). If you sign in with Google, Google gives us only your (verified) email address and your name; no password is needed then. After signing in, the browser gets a session cookie, used only to keep you signed in. Your votes and control-card answers are linked to the account. You can delete the account in your profile: email, name and sessions go at once, votes stay anonymous. The languages and dialects in your profile and your speaker test results are kept with the account and deleted with it; words you added stay on the site without your name. Emails (confirming your address, a new password, sign-in links) are sent through Brevo (Sendinblue SAS, France): it receives only your address and the email itself. If you apply to be an expert, we keep your application text; what an expert does to words is written to the change log with their name."
   },
   "Home": {
     "intro": "Type a word in any language and see on the map how it is written, pronounced and sounds in the world's languages, their dialects and regional varieties. Or start with these examples:",
@@ -421,7 +431,7 @@
     "remove": "Remove",
     "noLanguages": "Nothing added yet.",
     "addLanguage": "Add a language or dialect:",
-    "levels": "Vote weight: guest after the mini quiz 0.25, member 0.5, speaker after the test 1. Later: \"trusted\" by answer accuracy, and dialect experts.",
+    "levels": "Vote weight: guest after the mini quiz 0.25, member 0.5, speaker after the test 1, trusted 2 (≥ 50 votes in the language and ≥ 85 % right answers on hidden control words), expert 3.",
     "contributionsTitle": "My contributions",
     "stats": "Words added: {words}. Votes: {votes}.",
     "status": {
@@ -442,6 +452,21 @@
     "unverified": "Your email isn't confirmed yet: we sent you a link.",
     "resendVerification": "Send it again",
     "verificationSent": "Sent, check your inbox.",
+    "trusted": "trusted",
+    "trustProgress": "To \"trusted\": votes {votes} of {need}, accuracy on control words {accuracy} % (85 % needed).",
+    "expertBadge": "expert",
+    "expertTitle": "Expert of a language or dialect",
+    "expertIntro": "Experts review their dialect's words: approve submissions, fix spellings, look into mistake reports; their vote counts 3. Write a few words about yourself; an editor reviews the application.",
+    "expertVariety": "Language or dialect",
+    "expertNoteHint": "Who you are: e.g. \"born and live in Verkhovyna, we speak Hutsul at home\" or \"I teach dialectology\"",
+    "expertApply": "Apply",
+    "expertApplied": "Application sent. An editor will review it soon.",
+    "expertOpen": "review words →",
+    "expertStatus": {
+      "applied": "application sent",
+      "expert": "expert",
+      "declined": "application declined"
+    },
     "errors": {
       "email_taken": "This email is already registered. Sign in instead.",
       "wrong_credentials": "Wrong email or password.",
@@ -494,5 +519,41 @@
     "toProfile": "To the profile",
     "invalid": "This link no longer works: it was used already or has expired. Ask for a new one.",
     "toSignIn": "To sign in"
+  },
+  "Expert": {
+    "title": "Review words",
+    "intro": "Words of your language or dialect waiting for review: members' submissions, \"≈\" drafts and words with mistake reports.",
+    "signIn": "Sign in to review words.",
+    "notExpert": "You aren't an expert yet. You can apply in your profile.",
+    "toProfile": "To the profile",
+    "variety": "Language or dialect",
+    "error": "Couldn't save. Please try again.",
+    "queueTitle": "Waiting for review ({count})",
+    "queueEmpty": "All reviewed. Thank you!",
+    "status": {
+      "submitted": "sent by a member",
+      "pending": "draft ≈",
+      "approved": "published"
+    },
+    "votes": "Votes (weighted): yes {yes}, no {no}",
+    "resolve": "close",
+    "spelling": "Spelling",
+    "save": "Save",
+    "cancel": "Cancel",
+    "approve": "Approve",
+    "reject": "Reject",
+    "edit": "Fix",
+    "makePrimary": "Make it the main word",
+    "changesTitle": "Change log",
+    "noChanges": "No changes yet.",
+    "editors": "Editors",
+    "action": {
+      "add": "added",
+      "approve": "approved",
+      "reject": "rejected",
+      "delete": "deleted",
+      "spelling": "fixed",
+      "primary": "made main"
+    }
   }
 }

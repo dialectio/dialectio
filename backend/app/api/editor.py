@@ -13,9 +13,17 @@ from pydantic import BaseModel, Field, field_validator
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session, selectinload
 
+from app.api import word_actions
 from app.api.lexicon import UNVERIFIED_SOURCES
 from app.api.votes import Tally, tallies
-from app.config import MEDIA_DIR, MEDIA_URL_PREFIX, settings
+from app.api.word_actions import (
+    EDITOR_SOURCE_LICENSE,
+    EDITOR_SOURCE_NAME,
+    EDITOR_SOURCE_URL,
+    OWN_SOURCES,
+    own_form,
+)
+from app.config import settings
 from app.db.session import get_session
 from app.importers.common import upsert_source
 from app.models import (
@@ -31,16 +39,6 @@ from app.models import (
     Variety,
     Vote,
 )
-
-EDITOR_SOURCE_NAME = "Dialectio editors"
-EDITOR_SOURCE_URL = "https://github.com/gmisha777/dialectio"
-# Own data stays closed until the project decides on an open license.
-EDITOR_SOURCE_LICENSE = "All rights reserved (Dialectio)"
-# Drafts proposed for review (e.g. generated); they become editor words once approved.
-SUGGESTION_SOURCE_NAME = "Dialectio suggestions (draft)"
-# Visitor submissions (see app.api.contribute)
-CONTRIBUTOR_SOURCE_NAME = "Dialectio contributors"
-OWN_SOURCES = (EDITOR_SOURCE_NAME, SUGGESTION_SOURCE_NAME, CONTRIBUTOR_SOURCE_NAME)
 
 # Varieties shown as hints next to each concept in the editor (standard Ukrainian first,
 # useful when editing dialects)
@@ -163,17 +161,6 @@ def has_approved_primary(session: Session, concept_id: int, variety_id: int) -> 
     )
 
 
-def get_own_form(session: Session, form_id: int) -> Form:
-    form = session.get(Form, form_id)
-    if form is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, "Form not found")
-    if form.source is None or form.source.name not in OWN_SOURCES:
-        raise HTTPException(
-            status.HTTP_403_FORBIDDEN, "Only editor words and drafts can be changed"
-        )
-    return form
-
-
 @router.get("/varieties")
 def list_varieties(session: SessionDep) -> list[EditorVariety]:
     """Languages and dialects that can be edited (dialect groups only group dialects)."""
@@ -270,6 +257,7 @@ def add_form(session: SessionDep, payload: NewForm) -> EditorForm:
         source=source,
     )
     session.add(form)
+    word_actions.log_added(session, form, None)
     session.commit()
     return to_editor_form(form)
 
@@ -304,25 +292,8 @@ def list_submissions(session: SessionDep) -> list[Submission]:
 
 @router.post("/forms/{form_id}/approve")
 def approve_form(session: SessionDep, form_id: int) -> EditorForm:
-    form = get_own_form(session, form_id)
-    if form.status not in (PENDING, SUBMITTED):
-        raise HTTPException(status.HTTP_409_CONFLICT, "Only drafts and submissions can be approved")
-    if form.status == PENDING:
-        # A reviewed draft is an editor's word from now on.
-        form.source = upsert_source(
-            session, EDITOR_SOURCE_NAME, EDITOR_SOURCE_URL, EDITOR_SOURCE_LICENSE
-        )
-    # Visitor words keep their source (and the visitor's name) for attribution.
-    others = session.scalars(
-        select(Form).where(
-            Form.concept_id == form.concept_id,
-            Form.variety_id == form.variety_id,
-            Form.id != form.id,
-        )
-    ).all()
-    # An approved word is added as a variant; it only becomes the main word if there is none.
-    form.is_primary = not any(o.is_primary and o.status in PUBLIC_STATUSES for o in others)
-    form.status = APPROVED
+    form = own_form(session, form_id)
+    word_actions.approve(session, form, None)
     session.commit()
     return to_editor_form(form)
 
@@ -330,19 +301,8 @@ def approve_form(session: SessionDep, form_id: int) -> EditorForm:
 @router.post("/forms/{form_id}/primary")
 def set_primary(session: SessionDep, form_id: int) -> EditorForm:
     """Make this word the main one for its concept and language (others become variants)."""
-    form = get_own_form(session, form_id)
-    if form.status not in PUBLIC_STATUSES:
-        raise HTTPException(status.HTTP_409_CONFLICT, "Approve the submission first")
-    others = session.scalars(
-        select(Form).where(
-            Form.concept_id == form.concept_id,
-            Form.variety_id == form.variety_id,
-            Form.id != form.id,
-        )
-    )
-    for other in others:
-        other.is_primary = False
-    form.is_primary = True
+    form = own_form(session, form_id)
+    word_actions.make_primary(session, form, None)
     session.commit()
     return to_editor_form(form)
 
@@ -350,54 +310,15 @@ def set_primary(session: SessionDep, form_id: int) -> EditorForm:
 @router.post("/forms/{form_id}/spelling")
 def change_spelling(session: SessionDep, form_id: int, change: SpellingChange) -> EditorForm:
     """Fix a word's spelling (typo, capital letter) without losing its recordings."""
-    form = get_own_form(session, form_id)
-    if change.spelling is None:
-        raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, "Spelling is empty")
-    duplicate = session.scalar(
-        select(Form.id).where(
-            Form.concept_id == form.concept_id,
-            Form.variety_id == form.variety_id,
-            Form.spelling == change.spelling,
-            Form.id != form.id,
-        )
-    )
-    if duplicate is not None:
-        raise HTTPException(status.HTTP_409_CONFLICT, "This word already exists")
-    if change.spelling != form.spelling:
-        # Synthetic audio says the old spelling; the TTS importer makes a new one later.
-        # Real recordings stay: the speaker said the word, only its spelling was wrong.
-        for audio in [a for a in form.audio if a.is_synthetic]:
-            form.audio.remove(audio)
-    form.spelling = change.spelling
-    form.ipa = change.ipa
+    form = own_form(session, form_id)
+    word_actions.change_spelling(session, form, change.spelling, change.ipa, None)
     session.commit()
     return to_editor_form(form)
 
 
 @router.delete("/forms/{form_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_form(session: SessionDep, form_id: int) -> None:
-    form = get_own_form(session, form_id)
-    was_primary = form.is_primary
-    concept_id, variety_id = form.concept_id, form.variety_id
-    # Visitors' recordings are our own files; imported audio points elsewhere.
-    for audio in form.audio:
-        if audio.url.startswith(f"{MEDIA_URL_PREFIX}/contrib/"):
-            (MEDIA_DIR / audio.url.removeprefix(f"{MEDIA_URL_PREFIX}/")).unlink(missing_ok=True)
-    session.delete(form)
-    session.flush()
-    if was_primary:
-        # Promote another word (oldest id) so the concept keeps a primary form in this language.
-        replacement = session.scalars(
-            select(Form)
-            .where(
-                Form.concept_id == concept_id,
-                Form.variety_id == variety_id,
-                Form.status.in_(PUBLIC_STATUSES),
-            )
-            .order_by((Form.status == APPROVED).desc(), Form.id)
-        ).first()
-        if replacement:
-            replacement.is_primary = True
+    word_actions.delete(session, own_form(session, form_id), None)
     session.commit()
 
 

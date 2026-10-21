@@ -6,8 +6,8 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 from sqlalchemy import text
 
-from app.api.editor import CONTRIBUTOR_SOURCE_NAME
 from app.api.lexicon import SessionDep
+from app.api.word_actions import CONTRIBUTOR_SOURCE_NAME
 from app.models.feedback import CONFIRM_MIN, CONFIRM_SHARE
 
 router = APIRouter(prefix="/api", tags=["community"])

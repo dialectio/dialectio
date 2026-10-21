@@ -1,5 +1,6 @@
 import { apiCall as call } from "@/lib/account";
 import type { Names } from "@/lib/api";
+import type { ExpertRole } from "@/lib/expert";
 
 /** A language or dialect with a speaker test, and the member's state in it. */
 export type TestableVariety = {
@@ -62,6 +63,16 @@ export type Profile = {
   }[];
   contribution_count: number;
   votes: number;
+  /** Per tested language: how far the member is from "trusted" */
+  trust: {
+    language: string;
+    speaker: boolean;
+    votes: number;
+    answers: number;
+    accuracy: number | null;
+    trusted: boolean;
+  }[];
+  roles: ExpertRole[];
 };
 
 export const testableVarieties = () =>

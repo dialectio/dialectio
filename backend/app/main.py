@@ -13,6 +13,7 @@ from app.api import (
     dialects,
     editor,
     email_auth,
+    expert,
     false_friends,
     feedback,
     gold,
@@ -42,6 +43,8 @@ app.include_router(accounts.router)
 app.include_router(email_auth.router)
 app.include_router(google_auth.router)
 app.include_router(speaker.router)
+app.include_router(expert.router)
+app.include_router(expert.editor_router)
 app.include_router(profile.router)
 app.include_router(false_friends.router)
 app.include_router(community.router)

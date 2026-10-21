@@ -25,6 +25,15 @@ from app.models.lexicon import (
     variety_region,
 )
 from app.models.speaker import SPEAKER_WEIGHT, MemberVariety, SpeakerTest
+from app.models.trust import (
+    APPLIED,
+    DECLINED,
+    EXPERT,
+    EXPERT_WEIGHT,
+    TRUSTED_WEIGHT,
+    ExpertRole,
+    FormChange,
+)
 
 __all__ = [
     "EDITOR",
@@ -56,4 +65,11 @@ __all__ = [
     "SPEAKER_WEIGHT",
     "MemberVariety",
     "SpeakerTest",
+    "APPLIED",
+    "DECLINED",
+    "EXPERT",
+    "EXPERT_WEIGHT",
+    "TRUSTED_WEIGHT",
+    "ExpertRole",
+    "FormChange",
 ]

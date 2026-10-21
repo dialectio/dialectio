@@ -69,7 +69,17 @@
     "moreRows": "Showing {shown} of {total}. Narrow the filter to find a concept.",
     "missing": "Searched but not found: {count}",
     "missingHint": "Words missing from the dictionary, most wanted first. Click to search Wiktionary; ✕ removes a word from the list.",
-    "dismiss": "Remove “{word}” from the list"
+    "dismiss": "Remove “{word}” from the list",
+    "experts": "Expert applications ({count} new)",
+    "expertStatus": {
+      "applied": "new application",
+      "expert": "expert",
+      "declined": "declined"
+    },
+    "makeExpert": "✓ Make expert",
+    "declineExpert": "Decline",
+    "revokeExpert": "Revoke",
+    "changes": "Change log"
   },
   "Word": {
     "title": "{word} en distintos idiomas — escritura y pronunciación | Dialectio",
@@ -171,7 +181,7 @@
     "searchTitle": "Búsqueda",
     "search": "Cuando una búsqueda no encuentra nada, guardamos el texto buscado y un contador para añadir la palabra al diccionario. No se guarda nada sobre ti.",
     "accountTitle": "Si te registras",
-    "account": "Guardamos tu correo, tu nombre y un hash de tu contraseña (la contraseña no se guarda ni se puede recuperar del hash). Si entras con Google, Google solo nos facilita tu dirección de correo (verificada) y tu nombre; en ese caso no hace falta contraseña. Al entrar, el navegador recibe una cookie de sesión, que solo sirve para mantenerte dentro. Tus votos y respuestas a las tarjetas de control quedan ligados a la cuenta. Puedes borrar la cuenta en tu perfil: correo, nombre y sesiones desaparecen enseguida; los votos se quedan anónimos. Los idiomas y variedades de tu perfil y los resultados de tus pruebas de hablante se guardan con la cuenta y se borran con ella; las palabras que añadiste siguen en el sitio, ya sin tu nombre. Los correos (confirmación de la dirección, contraseña nueva, enlaces para entrar) se envían a través de Brevo (Sendinblue SAS, Francia): solo recibe tu dirección y el propio correo."
+    "account": "Guardamos tu correo, tu nombre y un hash de tu contraseña (la contraseña no se guarda ni se puede recuperar del hash). Si entras con Google, Google solo nos facilita tu dirección de correo (verificada) y tu nombre; en ese caso no hace falta contraseña. Al entrar, el navegador recibe una cookie de sesión, que solo sirve para mantenerte dentro. Tus votos y respuestas a las tarjetas de control quedan ligados a la cuenta. Puedes borrar la cuenta en tu perfil: correo, nombre y sesiones desaparecen enseguida; los votos se quedan anónimos. Los idiomas y variedades de tu perfil y los resultados de tus pruebas de hablante se guardan con la cuenta y se borran con ella; las palabras que añadiste siguen en el sitio, ya sin tu nombre. Los correos (confirmación de la dirección, contraseña nueva, enlaces para entrar) se envían a través de Brevo (Sendinblue SAS, Francia): solo recibe tu dirección y el propio correo. Si solicitas ser experto, guardamos el texto de la solicitud; lo que un experto hace con las palabras queda en el registro de cambios con su nombre."
   },
   "Home": {
     "intro": "Escribe una palabra en cualquier idioma y mira en el mapa cómo se escribe, se pronuncia y suena en los idiomas del mundo, sus dialectos y variantes regionales. O empieza con estos ejemplos:",
@@ -421,7 +431,7 @@
     "remove": "Quitar",
     "noLanguages": "Aún no has añadido nada.",
     "addLanguage": "Añadir idioma o variedad:",
-    "levels": "Peso del voto: invitado tras el minitest 0,25, miembro 0,5, hablante tras la prueba 1. Más adelante: «experimentado» según el acierto y expertos en variedades.",
+    "levels": "Peso del voto: invitado tras el minitest 0,25, miembro 0,5, hablante tras la prueba 1, experimentado 2 (≥ 50 votos en el idioma y ≥ 85 % de aciertos en palabras de control ocultas), experto 3.",
     "contributionsTitle": "Mis aportaciones",
     "stats": "Palabras añadidas: {words}. Votos: {votes}.",
     "status": {
@@ -442,6 +452,21 @@
     "unverified": "Tu correo aún no está confirmado: te enviamos un enlace.",
     "resendVerification": "Enviar de nuevo",
     "verificationSent": "Enviado, revisa tu correo.",
+    "trusted": "experimentado",
+    "trustProgress": "Para «experimentado»: votos {votes} de {need}, acierto en palabras de control {accuracy} % (se necesita 85 %).",
+    "expertBadge": "experto",
+    "expertTitle": "Experto en un idioma o variedad",
+    "expertIntro": "Los expertos revisan las palabras de su variedad: aprueban envíos, corrigen la escritura, atienden los avisos de errores; su voto cuenta 3. Escribe unas palabras sobre ti; un editor revisará la solicitud.",
+    "expertVariety": "Idioma o variedad",
+    "expertNoteHint": "Quién eres: p. ej. «nací y vivo en Buenos Aires» o «enseño dialectología»",
+    "expertApply": "Enviar solicitud",
+    "expertApplied": "Solicitud enviada. Un editor la revisará pronto.",
+    "expertOpen": "revisar palabras →",
+    "expertStatus": {
+      "applied": "solicitud enviada",
+      "expert": "experto",
+      "declined": "solicitud rechazada"
+    },
     "errors": {
       "email_taken": "Este correo ya está registrado. Entra con él.",
       "wrong_credentials": "Correo o contraseña incorrectos.",
@@ -494,5 +519,41 @@
     "toProfile": "Al perfil",
     "invalid": "El enlace ya no funciona: se usó o caducó. Pide uno nuevo.",
     "toSignIn": "Ir a entrar"
+  },
+  "Expert": {
+    "title": "Revisar palabras",
+    "intro": "Palabras de tu idioma o variedad que esperan revisión: envíos de miembros, borradores «≈» y palabras con avisos de errores.",
+    "signIn": "Entra para revisar palabras.",
+    "notExpert": "Aún no eres experto. Puedes solicitarlo en tu perfil.",
+    "toProfile": "Al perfil",
+    "variety": "Idioma o variedad",
+    "error": "No se pudo guardar. Inténtalo de nuevo.",
+    "queueTitle": "Esperan revisión ({count})",
+    "queueEmpty": "Todo revisado. ¡Gracias!",
+    "status": {
+      "submitted": "enviada por un miembro",
+      "pending": "borrador ≈",
+      "approved": "publicada"
+    },
+    "votes": "Votos (ponderados): sí {yes}, no {no}",
+    "resolve": "cerrar",
+    "spelling": "Escritura",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "approve": "Aprobar",
+    "reject": "Rechazar",
+    "edit": "Corregir",
+    "makePrimary": "Hacerla la principal",
+    "changesTitle": "Registro de cambios",
+    "noChanges": "Aún no hay cambios.",
+    "editors": "Redacción",
+    "action": {
+      "add": "añadió",
+      "approve": "aprobó",
+      "reject": "rechazó",
+      "delete": "borró",
+      "spelling": "corrigió",
+      "primary": "hizo principal"
+    }
   }
 }

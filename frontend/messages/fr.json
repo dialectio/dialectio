@@ -69,7 +69,17 @@
     "moreRows": "Showing {shown} of {total}. Narrow the filter to find a concept.",
     "missing": "Searched but not found: {count}",
     "missingHint": "Words missing from the dictionary, most wanted first. Click to search Wiktionary; ✕ removes a word from the list.",
-    "dismiss": "Remove “{word}” from the list"
+    "dismiss": "Remove “{word}” from the list",
+    "experts": "Expert applications ({count} new)",
+    "expertStatus": {
+      "applied": "new application",
+      "expert": "expert",
+      "declined": "declined"
+    },
+    "makeExpert": "✓ Make expert",
+    "declineExpert": "Decline",
+    "revokeExpert": "Revoke",
+    "changes": "Change log"
   },
   "Word": {
     "title": "{word} dans différentes langues — orthographe et prononciation | Dialectio",
@@ -171,7 +181,7 @@
     "searchTitle": "Recherche",
     "search": "Quand une recherche ne trouve rien, nous conservons le texte recherché et un compteur afin d'ajouter le mot au dictionnaire. Rien vous concernant n'est enregistré.",
     "accountTitle": "Si vous vous inscrivez",
-    "account": "Nous gardons votre adresse e-mail, votre nom et une empreinte de votre mot de passe (le mot de passe lui-même n'est ni conservé ni récupérable). Si vous vous connectez avec Google, Google nous transmet uniquement votre adresse e-mail (vérifiée) et votre nom ; aucun mot de passe n'est alors nécessaire. Après connexion, le navigateur reçoit un cookie de session, qui sert uniquement à vous garder connecté. Vos votes et réponses aux cartes de contrôle sont liés au compte. Vous pouvez supprimer le compte dans votre profil : e-mail, nom et sessions disparaissent aussitôt, les votes restent anonymes. Les langues et parlers de votre profil et vos résultats aux tests de locuteur sont liés au compte et supprimés avec lui ; les mots que vous avez ajoutés restent sur le site, sans votre nom. Les e-mails (confirmation de l'adresse, nouveau mot de passe, liens de connexion) sont envoyés via Brevo (Sendinblue SAS, France) : il ne reçoit que votre adresse et le message lui-même."
+    "account": "Nous gardons votre adresse e-mail, votre nom et une empreinte de votre mot de passe (le mot de passe lui-même n'est ni conservé ni récupérable). Si vous vous connectez avec Google, Google nous transmet uniquement votre adresse e-mail (vérifiée) et votre nom ; aucun mot de passe n'est alors nécessaire. Après connexion, le navigateur reçoit un cookie de session, qui sert uniquement à vous garder connecté. Vos votes et réponses aux cartes de contrôle sont liés au compte. Vous pouvez supprimer le compte dans votre profil : e-mail, nom et sessions disparaissent aussitôt, les votes restent anonymes. Les langues et parlers de votre profil et vos résultats aux tests de locuteur sont liés au compte et supprimés avec lui ; les mots que vous avez ajoutés restent sur le site, sans votre nom. Les e-mails (confirmation de l'adresse, nouveau mot de passe, liens de connexion) sont envoyés via Brevo (Sendinblue SAS, France) : il ne reçoit que votre adresse et le message lui-même. Si vous demandez à devenir expert, nous gardons le texte de la demande ; ce qu'un expert fait aux mots est noté dans le journal des modifications avec son nom."
   },
   "Home": {
     "intro": "Saisissez un mot dans n'importe quelle langue et voyez sur la carte comment il s'écrit, se prononce et sonne dans les langues du monde, leurs dialectes et leurs variantes régionales. Ou commencez par ces exemples :",
@@ -421,7 +431,7 @@
     "remove": "Retirer",
     "noLanguages": "Rien d'indiqué pour l'instant.",
     "addLanguage": "Ajouter une langue ou un parler :",
-    "levels": "Poids du vote : invité après le mini-quiz 0,25, membre 0,5, locuteur après le test 1. Plus tard : « confirmé » selon la justesse des réponses, et experts des parlers.",
+    "levels": "Poids du vote : invité après le mini-quiz 0,25, membre 0,5, locuteur après le test 1, confirmé 2 (≥ 50 votes dans la langue et ≥ 85 % de bonnes réponses aux mots de contrôle cachés), expert 3.",
     "contributionsTitle": "Mes contributions",
     "stats": "Mots ajoutés : {words}. Votes : {votes}.",
     "status": {
@@ -442,6 +452,21 @@
     "unverified": "Votre e-mail n'est pas encore confirmé : nous vous avons envoyé un lien.",
     "resendVerification": "Renvoyer",
     "verificationSent": "Envoyé, vérifiez votre boîte.",
+    "trusted": "confirmé",
+    "trustProgress": "Vers « confirmé » : votes {votes} sur {need}, justesse sur les mots de contrôle {accuracy} % (85 % requis).",
+    "expertBadge": "expert",
+    "expertTitle": "Expert d'une langue ou d'un parler",
+    "expertIntro": "Les experts vérifient les mots de leur parler : valident les envois, corrigent l'orthographe, traitent les signalements d'erreurs ; leur vote compte 3. Présentez-vous en quelques mots ; un éditeur examinera la demande.",
+    "expertVariety": "Langue ou parler",
+    "expertNoteHint": "Qui vous êtes : p. ex. « née et vivant au Québec » ou « j'enseigne la dialectologie »",
+    "expertApply": "Envoyer la demande",
+    "expertApplied": "Demande envoyée. Un éditeur l'examinera bientôt.",
+    "expertOpen": "vérifier les mots →",
+    "expertStatus": {
+      "applied": "demande envoyée",
+      "expert": "expert",
+      "declined": "demande refusée"
+    },
     "errors": {
       "email_taken": "Cet e-mail est déjà inscrit. Connectez-vous.",
       "wrong_credentials": "E-mail ou mot de passe incorrect.",
@@ -494,5 +519,41 @@
     "toProfile": "Vers le profil",
     "invalid": "Ce lien ne fonctionne plus : il a déjà servi ou a expiré. Demandez-en un nouveau.",
     "toSignIn": "Vers la connexion"
+  },
+  "Expert": {
+    "title": "Vérifier les mots",
+    "intro": "Les mots de votre langue ou parler en attente de vérification : envois de membres, brouillons « ≈ » et mots signalés comme erronés.",
+    "signIn": "Connectez-vous pour vérifier les mots.",
+    "notExpert": "Vous n'êtes pas encore expert. Vous pouvez faire une demande dans votre profil.",
+    "toProfile": "Vers le profil",
+    "variety": "Langue ou parler",
+    "error": "Échec de l'enregistrement. Réessayez.",
+    "queueTitle": "En attente de vérification ({count})",
+    "queueEmpty": "Tout est vérifié. Merci !",
+    "status": {
+      "submitted": "envoyé par un membre",
+      "pending": "brouillon ≈",
+      "approved": "publié"
+    },
+    "votes": "Votes (pondérés) : oui {yes}, non {no}",
+    "resolve": "fermer",
+    "spelling": "Orthographe",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "approve": "Valider",
+    "reject": "Refuser",
+    "edit": "Corriger",
+    "makePrimary": "En faire le mot principal",
+    "changesTitle": "Journal des modifications",
+    "noChanges": "Aucune modification pour l'instant.",
+    "editors": "Rédaction",
+    "action": {
+      "add": "a ajouté",
+      "approve": "a validé",
+      "reject": "a refusé",
+      "delete": "a supprimé",
+      "spelling": "a corrigé",
+      "primary": "a fait principal"
+    }
   }
 }

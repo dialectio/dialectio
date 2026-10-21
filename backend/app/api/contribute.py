@@ -18,7 +18,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
 from app.api.accounts import require_member
-from app.api.editor import CONTRIBUTOR_SOURCE_NAME
+from app.api.word_actions import CONTRIBUTOR_SOURCE_NAME
 from app.config import MEDIA_DIR, MEDIA_URL_PREFIX
 from app.db.session import get_session
 from app.importers.common import upsert_source

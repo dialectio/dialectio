@@ -3,9 +3,14 @@
 import { useLocale, useTranslations } from "next-intl";
 import { type FormEvent, useEffect, useState } from "react";
 
+import ChangeLog from "@/components/ChangeLog";
 import { API_URL, localized } from "@/lib/api";
 import {
   addForm,
+  decideExpert,
+  type ExpertApplication,
+  listChanges,
+  listExperts,
   approveForm,
   changeSpelling,
   deleteForm,
@@ -25,6 +30,7 @@ import {
   type EditorVariety,
   type Submission,
 } from "@/lib/editor";
+import type { WordChange } from "@/lib/expert";
 import { listVoterRegions } from "@/lib/feedback";
 import { sortVarieties } from "@/lib/varieties";
 
@@ -555,6 +561,100 @@ function Submissions({ token }: { token: string }) {
   );
 }
 
+/** Applications to be an expert of a language or dialect, and the experts. */
+function Experts({ token }: { token: string }) {
+  const t = useTranslations("Editor");
+  const locale = useLocale();
+  const [items, setItems] = useState<ExpertApplication[]>([]);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    listExperts(token)
+      .then((result) => !cancelled && setItems(result))
+      .catch(() => !cancelled && setError(true));
+    return () => {
+      cancelled = true;
+    };
+  }, [token]);
+
+  const decide = async (item: ExpertApplication, status: "expert" | "declined") => {
+    setError(false);
+    try {
+      await decideExpert(token, item.user_id, item.variety_code, status);
+      setItems((all) =>
+        all.map((i) =>
+          i.user_id === item.user_id && i.variety_code === item.variety_code ? { ...i, status } : i,
+        ),
+      );
+    } catch {
+      setError(true);
+    }
+  };
+
+  if (items.length === 0 && !error) return null;
+  const waiting = items.filter((i) => i.status === "applied").length;
+  return (
+    <section className="mb-6 rounded-lg border border-violet-500/40 bg-violet-500/5 p-3">
+      <h2 className="mb-2 font-semibold">{t("experts", { count: waiting })}</h2>
+      {error && <p className="text-sm text-red-600">{t("saveError")}</p>}
+      <ul className="space-y-2 text-sm">
+        {items.map((item) => (
+          <li key={`${item.user_id}-${item.variety_code}`} className="space-y-1">
+            <p className="flex flex-wrap items-center gap-x-3 gap-y-1">
+              <span className="font-semibold">{item.name}</span>
+              <span className="opacity-70">{item.email}</span>
+              <span>{localized(locale, item.variety_name_en, item.variety_name_uk)}</span>
+              <span className="rounded bg-black/5 px-2 py-0.5 text-xs dark:bg-white/10">
+                {t(`expertStatus.${item.status}`)}
+              </span>
+              {item.status !== "expert" && (
+                <button
+                  type="button"
+                  onClick={() => decide(item, "expert")}
+                  className="font-semibold text-green-700 dark:text-green-400"
+                >
+                  {t("makeExpert")}
+                </button>
+              )}
+              {item.status !== "declined" && (
+                <button
+                  type="button"
+                  onClick={() => decide(item, "declined")}
+                  className="opacity-70 hover:opacity-100"
+                >
+                  {item.status === "expert" ? t("revokeExpert") : t("declineExpert")}
+                </button>
+              )}
+            </p>
+            {item.note && <p className="opacity-80">„{item.note}“</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
+/** What editors and experts did to words, newest first. */
+function Changes({ token }: { token: string }) {
+  const t = useTranslations("Editor");
+  const [changes, setChanges] = useState<WordChange[] | null>(null);
+  return (
+    <details
+      className="mb-6 rounded-lg border border-black/10 p-3 dark:border-white/15"
+      onToggle={(e) => {
+        if ((e.target as HTMLDetailsElement).open && changes === null)
+          listChanges(token)
+            .then(setChanges)
+            .catch(() => setChanges([]));
+      }}
+    >
+      <summary className="cursor-pointer font-semibold">{t("changes")}</summary>
+      <div className="mt-2">{changes ? <ChangeLog changes={changes} /> : "…"}</div>
+    </details>
+  );
+}
+
 export default function WordEditor() {
   const t = useTranslations("Editor");
   const locale = useLocale();
@@ -651,6 +751,8 @@ export default function WordEditor() {
       {token && !error && <Submissions token={token} />}
       {token && !error && <Feedback token={token} />}
       {token && !error && <Missing token={token} />}
+      {token && !error && <Experts token={token} />}
+      {token && !error && <Changes token={token} />}
 
       {concepts && (
         <>

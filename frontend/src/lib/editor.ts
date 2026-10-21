@@ -1,4 +1,5 @@
 import { API_URL } from "@/lib/api";
+import type { WordChange } from "@/lib/expert";
 
 export type EditorForm = {
   id: number;
@@ -124,3 +125,33 @@ export const listMissing = (token: string) => request<MissingSearch[]>(token, "/
 
 export const dismissMissing = (token: string, query: string) =>
   request<void>(token, `/missing/${encodeURIComponent(query)}`, { method: "DELETE" });
+
+export type ExpertApplication = {
+  user_id: number;
+  name: string;
+  email: string;
+  variety_code: string;
+  variety_name_en: string;
+  variety_name_uk: string | null;
+  status: "applied" | "expert" | "declined";
+  note: string;
+  created_at: string;
+};
+
+/** Applications to be an expert (waiting ones first), experts and declined ones. */
+export const listExperts = (token: string) => request<ExpertApplication[]>(token, "/experts");
+
+/** Approve an application, or decline it / take expertise back. */
+export const decideExpert = (
+  token: string,
+  userId: number,
+  variety: string,
+  status: "expert" | "declined",
+) =>
+  request<void>(token, "/experts/decision", {
+    method: "POST",
+    body: JSON.stringify({ user_id: userId, variety, status }),
+  });
+
+/** The change log of all words, newest first. */
+export const listChanges = (token: string) => request<WordChange[]>(token, "/changes");

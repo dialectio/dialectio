@@ -13,6 +13,7 @@ import { useAccount } from "@/components/Account";
 import { Link, useRouter } from "@/i18n/navigation";
 import { deleteAccount, resendVerification, signOut } from "@/lib/account";
 import { localized } from "@/lib/api";
+import { applyAsExpert } from "@/lib/expert";
 import {
   fetchProfile,
   type Profile,
@@ -26,6 +27,9 @@ import {
   sortVarieties,
   type Variety,
 } from "@/lib/varieties";
+
+// The votes a speaker needs to become "trusted" (app/api/trust.py)
+const TRUSTED_VOTES = 50;
 
 const BUTTON =
   "rounded-md border border-black/15 px-3 py-1.5 text-sm dark:border-white/20";
@@ -41,6 +45,8 @@ export default function AccountPanel() {
   const [all, setAll] = useState<Variety[]>([]);
   const [confirming, setConfirming] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [applied, setApplied] = useState(false);
+  const [applyError, setApplyError] = useState(false);
   const [resent, setResent] = useState(false);
 
   const reload = useCallback(() => {
@@ -92,6 +98,31 @@ export default function AccountPanel() {
   };
 
   const mine = new Set(profile?.varieties.map((v) => v.code));
+  const trust = new Map(profile?.trust.map((l) => [l.language, l]));
+  const experts = new Set(
+    profile?.roles
+      .filter((r) => r.status === "expert")
+      .map((r) => r.variety_code),
+  );
+  // An expert of a language or dialect needs the language's speaker test
+  const tested = new Set(profile?.trust.map((l) => l.language));
+  const expertChoices = all.filter(
+    (v) => tested.has(v.code.split("-")[0]) && !experts.has(v.code),
+  );
+  const apply = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    try {
+      await applyAsExpert(
+        String(form.get("variety") ?? ""),
+        String(form.get("note") ?? "").trim(),
+      );
+      setApplied(true);
+      reload();
+    } catch {
+      setApplyError(true);
+    }
+  };
   return (
     <div className="space-y-8">
       <dl className="grid grid-cols-[auto_1fr] items-center gap-x-4 gap-y-1">
@@ -162,10 +193,37 @@ export default function AccountPanel() {
                   <span className="font-medium">
                     {localized(locale, v.name_en, v.name_uk, v.names)}
                   </span>
+                  {experts.has(v.code) && (
+                    <Link
+                      href="/expert"
+                      className="rounded-full bg-violet-600/10 px-2 py-0.5 text-xs text-violet-800 no-underline! dark:text-violet-300"
+                    >
+                      🎓 {t("expertBadge")}
+                    </Link>
+                  )}
                   {v.tested ? (
-                    <span className="rounded-full bg-green-600/10 px-2 py-0.5 text-xs text-green-800 dark:text-green-300">
-                      ✓ {t("speaker")}
-                    </span>
+                    <>
+                      <span className="rounded-full bg-green-600/10 px-2 py-0.5 text-xs text-green-800 dark:text-green-300">
+                        ✓ {t("speaker")}
+                      </span>
+                      {trust.get(v.code)?.trusted ? (
+                        <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-xs">
+                          ★ {t("trusted")}
+                        </span>
+                      ) : (
+                        trust.has(v.code) && (
+                          <span className="basis-full text-xs opacity-70">
+                            {t("trustProgress", {
+                              votes: trust.get(v.code)!.votes,
+                              need: TRUSTED_VOTES,
+                              accuracy: Math.round(
+                                (trust.get(v.code)!.accuracy ?? 0) * 100,
+                              ),
+                            })}
+                          </span>
+                        )
+                      )}
+                    </>
                   ) : test?.retry_after ? (
                     <span className="text-xs opacity-70">
                       {t("retryIn", {
@@ -218,6 +276,66 @@ export default function AccountPanel() {
         </label>
         <p className="text-xs opacity-60">{t("levels")}</p>
       </section>
+
+      {tested.size > 0 && (
+        <section className="space-y-3">
+          <h2 className="text-xl font-semibold">{t("expertTitle")}</h2>
+          <p className="text-sm opacity-80">{t("expertIntro")}</p>
+          {profile?.roles.map((r) => (
+            <p key={r.variety_code} className="text-sm">
+              {localized(
+                locale,
+                r.variety_name_en,
+                r.variety_name_uk,
+                r.variety_names,
+              )}
+              {": "}
+              {r.status === "expert" ? (
+                <Link href="/expert">{t("expertOpen")}</Link>
+              ) : (
+                t(`expertStatus.${r.status}`)
+              )}
+            </p>
+          ))}
+          {applied ? (
+            <p className="text-sm font-medium">{t("expertApplied")}</p>
+          ) : (
+            <form onSubmit={apply} className="space-y-2">
+              <select
+                name="variety"
+                required
+                aria-label={t("expertVariety")}
+                className="max-w-full rounded-md border border-black/15 bg-transparent px-2 py-1 text-sm dark:border-white/20"
+              >
+                {expertChoices.map((v) => (
+                  <option key={v.code} value={v.code}>
+                    {v.kind === "dialect" ? "— " : ""}
+                    {localized(locale, v.name_en, v.name_uk, v.names)}
+                  </option>
+                ))}
+              </select>
+              <textarea
+                name="note"
+                required
+                minLength={10}
+                maxLength={1000}
+                rows={3}
+                placeholder={t("expertNoteHint")}
+                aria-label={t("expertNoteHint")}
+                className="block w-full rounded-md border border-black/15 bg-transparent px-2 py-1 text-sm dark:border-white/20"
+              />
+              {applyError && (
+                <p className="text-sm text-red-700 dark:text-red-300">
+                  {t("errors.other")}
+                </p>
+              )}
+              <button type="submit" className={BUTTON}>
+                {t("expertApply")}
+              </button>
+            </form>
+          )}
+        </section>
+      )}
 
       <section className="space-y-3">
         <h2 className="text-xl font-semibold">{t("contributionsTitle")}</h2>

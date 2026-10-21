@@ -69,7 +69,17 @@
     "moreRows": "Showing {shown} of {total}. Narrow the filter to find a concept.",
     "missing": "Searched but not found: {count}",
     "missingHint": "Words missing from the dictionary, most wanted first. Click to search Wiktionary; ✕ removes a word from the list.",
-    "dismiss": "Remove “{word}” from the list"
+    "dismiss": "Remove “{word}” from the list",
+    "experts": "Expert applications ({count} new)",
+    "expertStatus": {
+      "applied": "new application",
+      "expert": "expert",
+      "declined": "declined"
+    },
+    "makeExpert": "✓ Make expert",
+    "declineExpert": "Decline",
+    "revokeExpert": "Revoke",
+    "changes": "Change log"
   },
   "Word": {
     "title": "{word} w różnych językach — pisownia i wymowa | Dialectio",
@@ -171,7 +181,7 @@
     "searchTitle": "Wyszukiwanie",
     "search": "Gdy wyszukiwanie niczego nie znajdzie, zapisujemy sam tekst zapytania z licznikiem, aby dodać to słowo do słownika. Nic o tobie nie jest przy tym zapisywane.",
     "accountTitle": "Jeśli się rejestrujesz",
-    "account": "Przechowujemy adres e-mail, imię i skrót hasła (samo hasło nie jest przechowywane ani odtwarzalne ze skrótu). Przy logowaniu przez Google otrzymujemy od Google tylko Twój (potwierdzony) adres e-mail i imię; hasło nie jest wtedy potrzebne. Po zalogowaniu przeglądarka dostaje cookie sesji — służy wyłącznie do utrzymania zalogowania. Twoje głosy i odpowiedzi na karty kontrolne są powiązane z kontem. Konto można usunąć w profilu: e-mail, imię i sesje znikają od razu, głosy zostają anonimowe. Języki i gwary z Twojego profilu oraz wyniki testów są przechowywane na koncie i usuwane razem z nim; dodane przez Ciebie słowa zostają na stronie już bez Twojego imienia. Wiadomości (potwierdzenie adresu, nowe hasło, linki do logowania) wysyłamy przez Brevo (Sendinblue SAS, Francja): serwis otrzymuje tylko Twój adres i treść wiadomości."
+    "account": "Przechowujemy adres e-mail, imię i skrót hasła (samo hasło nie jest przechowywane ani odtwarzalne ze skrótu). Przy logowaniu przez Google otrzymujemy od Google tylko Twój (potwierdzony) adres e-mail i imię; hasło nie jest wtedy potrzebne. Po zalogowaniu przeglądarka dostaje cookie sesji — służy wyłącznie do utrzymania zalogowania. Twoje głosy i odpowiedzi na karty kontrolne są powiązane z kontem. Konto można usunąć w profilu: e-mail, imię i sesje znikają od razu, głosy zostają anonimowe. Języki i gwary z Twojego profilu oraz wyniki testów są przechowywane na koncie i usuwane razem z nim; dodane przez Ciebie słowa zostają na stronie już bez Twojego imienia. Wiadomości (potwierdzenie adresu, nowe hasło, linki do logowania) wysyłamy przez Brevo (Sendinblue SAS, Francja): serwis otrzymuje tylko Twój adres i treść wiadomości. Jeśli składasz wniosek o status eksperta, przechowujemy jego treść; działania eksperta na słowach trafiają do dziennika zmian z jego imieniem."
   },
   "Home": {
     "intro": "Wpisz słowo w dowolnym języku i zobacz na mapie, jak się je pisze, wymawia i jak brzmi w językach świata, ich gwarach i odmianach regionalnych. Albo zacznij od tych przykładów:",
@@ -421,7 +431,7 @@
     "remove": "Usuń",
     "noLanguages": "Jeszcze nic nie dodano.",
     "addLanguage": "Dodaj język lub gwarę:",
-    "levels": "Waga głosu: gość po mini teście 0,25, uczestnik 0,5, użytkownik języka po teście 1. Później: „zaufany” według trafności odpowiedzi i eksperci gwar.",
+    "levels": "Waga głosu: gość po mini teście 0,25, uczestnik 0,5, użytkownik języka po teście 1, zaufany 2 (≥ 50 głosów w języku i ≥ 85 % poprawnych odpowiedzi na ukryte słowa kontrolne), ekspert 3.",
     "contributionsTitle": "Mój wkład",
     "stats": "Dodane słowa: {words}. Głosy: {votes}.",
     "status": {
@@ -442,6 +452,21 @@
     "unverified": "Adres e-mail nie jest jeszcze potwierdzony: wysłaliśmy link.",
     "resendVerification": "Wyślij ponownie",
     "verificationSent": "Wysłano, sprawdź skrzynkę.",
+    "trusted": "zaufany",
+    "trustProgress": "Do „zaufanego”: głosy {votes} z {need}, trafność na słowach kontrolnych {accuracy} % (potrzeba 85 %).",
+    "expertBadge": "ekspert",
+    "expertTitle": "Ekspert języka lub gwary",
+    "expertIntro": "Eksperci sprawdzają słowa swojej gwary: zatwierdzają zgłoszenia, poprawiają pisownię, rozpatrują zgłoszenia błędów; ich głos waży 3. Napisz kilka słów o sobie, wniosek rozpatrzy redaktor.",
+    "expertVariety": "Język lub gwara",
+    "expertNoteHint": "Kim jesteś: np. „urodziłam się i mieszkam w Wierchowynie, w domu mówimy po huculsku” albo „uczę dialektologii”",
+    "expertApply": "Złóż wniosek",
+    "expertApplied": "Wniosek wysłany. Redaktor wkrótce go rozpatrzy.",
+    "expertOpen": "sprawdzaj słowa →",
+    "expertStatus": {
+      "applied": "wniosek złożony",
+      "expert": "ekspert",
+      "declined": "wniosek odrzucony"
+    },
     "errors": {
       "email_taken": "Ten e-mail jest już zarejestrowany. Zaloguj się.",
       "wrong_credentials": "Błędny e-mail lub hasło.",
@@ -494,5 +519,41 @@
     "toProfile": "Do profilu",
     "invalid": "Link nie działa: został już użyty albo wygasł. Poproś o nowy.",
     "toSignIn": "Do logowania"
+  },
+  "Expert": {
+    "title": "Sprawdzanie słów",
+    "intro": "Słowa Twojego języka lub gwary czekające na sprawdzenie: zgłoszenia uczestników, szkice „≈” i słowa ze zgłoszeniami błędów.",
+    "signIn": "Zaloguj się, aby sprawdzać słowa.",
+    "notExpert": "Nie jesteś jeszcze ekspertem. Wniosek złożysz w profilu.",
+    "toProfile": "Do profilu",
+    "variety": "Język lub gwara",
+    "error": "Nie udało się zapisać. Spróbuj ponownie.",
+    "queueTitle": "Czekają na sprawdzenie ({count})",
+    "queueEmpty": "Wszystko sprawdzone. Dziękujemy!",
+    "status": {
+      "submitted": "wysłane przez uczestnika",
+      "pending": "szkic ≈",
+      "approved": "opublikowane"
+    },
+    "votes": "Głosy (ważone): tak {yes}, nie {no}",
+    "resolve": "zamknij",
+    "spelling": "Pisownia",
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "approve": "Zatwierdź",
+    "reject": "Odrzuć",
+    "edit": "Popraw",
+    "makePrimary": "Ustaw jako główne",
+    "changesTitle": "Dziennik zmian",
+    "noChanges": "Jeszcze nie było zmian.",
+    "editors": "Redakcja",
+    "action": {
+      "add": "dodał(a)",
+      "approve": "zatwierdził(a)",
+      "reject": "odrzucił(a)",
+      "delete": "usunął(-ęła)",
+      "spelling": "poprawił(a)",
+      "primary": "ustawił(a) jako główne"
+    }
   }
 }

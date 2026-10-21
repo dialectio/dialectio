@@ -69,7 +69,17 @@
     "moreRows": "Showing {shown} of {total}. Narrow the filter to find a concept.",
     "missing": "Searched but not found: {count}",
     "missingHint": "Words missing from the dictionary, most wanted first. Click to search Wiktionary; ✕ removes a word from the list.",
-    "dismiss": "Remove “{word}” from the list"
+    "dismiss": "Remove “{word}” from the list",
+    "experts": "Expert applications ({count} new)",
+    "expertStatus": {
+      "applied": "new application",
+      "expert": "expert",
+      "declined": "declined"
+    },
+    "makeExpert": "✓ Make expert",
+    "declineExpert": "Decline",
+    "revokeExpert": "Revoke",
+    "changes": "Change log"
   },
   "Word": {
     "title": "{word} in verschiedenen Sprachen — Schreibung und Aussprache | Dialectio",
@@ -171,7 +181,7 @@
     "searchTitle": "Suche",
     "search": "Wenn eine Suche nichts findet, speichern wir den Suchtext und einen Zähler, um das Wort ins Wörterbuch aufzunehmen. Über dich wird dabei nichts gespeichert.",
     "accountTitle": "Wenn Sie sich registrieren",
-    "account": "Wir speichern Ihre E-Mail-Adresse, Ihren Namen und einen Hash Ihres Passworts (das Passwort selbst wird weder gespeichert noch ist es aus dem Hash wiederherstellbar). Wenn Sie sich mit Google anmelden, übermittelt uns Google nur Ihre (bestätigte) E-Mail-Adresse und Ihren Namen; ein Passwort ist dann nicht nötig. Nach der Anmeldung erhält der Browser ein Sitzungs-Cookie, das nur dazu dient, Sie angemeldet zu halten. Ihre Stimmen und Antworten auf Kontrollkarten sind mit dem Konto verknüpft. Das Konto können Sie im Profil löschen: E-Mail, Name und Sitzungen verschwinden sofort, Stimmen bleiben anonym. Die Sprachen und Dialekte in Ihrem Profil und Ihre Sprechertest-Ergebnisse gehören zum Konto und werden mit ihm gelöscht; von Ihnen hinzugefügte Wörter bleiben ohne Ihren Namen auf der Website. E-Mails (Bestätigung der Adresse, neues Passwort, Anmeldelinks) versenden wir über Brevo (Sendinblue SAS, Frankreich): Der Dienst erhält nur Ihre Adresse und die E-Mail selbst."
+    "account": "Wir speichern Ihre E-Mail-Adresse, Ihren Namen und einen Hash Ihres Passworts (das Passwort selbst wird weder gespeichert noch ist es aus dem Hash wiederherstellbar). Wenn Sie sich mit Google anmelden, übermittelt uns Google nur Ihre (bestätigte) E-Mail-Adresse und Ihren Namen; ein Passwort ist dann nicht nötig. Nach der Anmeldung erhält der Browser ein Sitzungs-Cookie, das nur dazu dient, Sie angemeldet zu halten. Ihre Stimmen und Antworten auf Kontrollkarten sind mit dem Konto verknüpft. Das Konto können Sie im Profil löschen: E-Mail, Name und Sitzungen verschwinden sofort, Stimmen bleiben anonym. Die Sprachen und Dialekte in Ihrem Profil und Ihre Sprechertest-Ergebnisse gehören zum Konto und werden mit ihm gelöscht; von Ihnen hinzugefügte Wörter bleiben ohne Ihren Namen auf der Website. E-Mails (Bestätigung der Adresse, neues Passwort, Anmeldelinks) versenden wir über Brevo (Sendinblue SAS, Frankreich): Der Dienst erhält nur Ihre Adresse und die E-Mail selbst. Wenn Sie sich als Experte bewerben, speichern wir den Text des Antrags; was Experten an Wörtern ändern, steht mit ihrem Namen im Änderungsprotokoll."
   },
   "Home": {
     "intro": "Gib ein Wort in einer beliebigen Sprache ein und sieh auf der Karte, wie es in den Sprachen der Welt, ihren Dialekten und regionalen Varianten geschrieben, ausgesprochen und gesprochen wird. Oder beginne mit diesen Beispielen:",
@@ -421,7 +431,7 @@
     "remove": "Entfernen",
     "noLanguages": "Noch nichts angegeben.",
     "addLanguage": "Sprache oder Dialekt hinzufügen:",
-    "levels": "Stimmgewicht: Gast nach dem Mini-Quiz 0,25, Mitglied 0,5, Sprecher nach dem Test 1. Später: „erfahren“ nach Treffsicherheit und Dialektexperten.",
+    "levels": "Stimmgewicht: Gast nach dem Mini-Quiz 0,25, Mitglied 0,5, Sprecher nach dem Test 1, erfahren 2 (≥ 50 Stimmen in der Sprache und ≥ 85 % richtige Antworten auf versteckte Kontrollwörter), Experte 3.",
     "contributionsTitle": "Mein Beitrag",
     "stats": "Hinzugefügte Wörter: {words}. Stimmen: {votes}.",
     "status": {
@@ -442,6 +452,21 @@
     "unverified": "Ihre E-Mail-Adresse ist noch nicht bestätigt: Wir haben Ihnen einen Link geschickt.",
     "resendVerification": "Erneut senden",
     "verificationSent": "Gesendet, bitte Postfach prüfen.",
+    "trusted": "erfahren",
+    "trustProgress": "Bis „erfahren“: Stimmen {votes} von {need}, Treffsicherheit bei Kontrollwörtern {accuracy} % (85 % nötig).",
+    "expertBadge": "Experte",
+    "expertTitle": "Experte für eine Sprache oder einen Dialekt",
+    "expertIntro": "Experten prüfen die Wörter ihres Dialekts: Einsendungen freigeben, Schreibungen korrigieren, Fehlermeldungen bearbeiten; ihre Stimme zählt 3. Schreiben Sie ein paar Worte über sich, eine Redakteurin oder ein Redakteur prüft den Antrag.",
+    "expertVariety": "Sprache oder Dialekt",
+    "expertNoteHint": "Wer Sie sind: z. B. „in Oberbayern geboren und aufgewachsen“ oder „ich unterrichte Dialektologie“",
+    "expertApply": "Antrag stellen",
+    "expertApplied": "Antrag gesendet. Er wird bald geprüft.",
+    "expertOpen": "Wörter prüfen →",
+    "expertStatus": {
+      "applied": "Antrag gestellt",
+      "expert": "Experte",
+      "declined": "Antrag abgelehnt"
+    },
     "errors": {
       "email_taken": "Diese E-Mail ist bereits registriert. Bitte anmelden.",
       "wrong_credentials": "E-Mail oder Passwort falsch.",
@@ -494,5 +519,41 @@
     "toProfile": "Zum Profil",
     "invalid": "Dieser Link gilt nicht mehr: Er wurde schon benutzt oder ist abgelaufen. Fordern Sie einen neuen an.",
     "toSignIn": "Zur Anmeldung"
+  },
+  "Expert": {
+    "title": "Wörter prüfen",
+    "intro": "Wörter Ihrer Sprache oder Ihres Dialekts, die auf Prüfung warten: Einsendungen von Mitgliedern, Entwürfe „≈“ und Wörter mit Fehlermeldungen.",
+    "signIn": "Melden Sie sich an, um Wörter zu prüfen.",
+    "notExpert": "Sie sind noch kein Experte. Den Antrag stellen Sie im Profil.",
+    "toProfile": "Zum Profil",
+    "variety": "Sprache oder Dialekt",
+    "error": "Speichern fehlgeschlagen. Bitte erneut versuchen.",
+    "queueTitle": "Warten auf Prüfung ({count})",
+    "queueEmpty": "Alles geprüft. Danke!",
+    "status": {
+      "submitted": "von einem Mitglied",
+      "pending": "Entwurf ≈",
+      "approved": "veröffentlicht"
+    },
+    "votes": "Stimmen (gewichtet): ja {yes}, nein {no}",
+    "resolve": "schließen",
+    "spelling": "Schreibung",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "approve": "Freigeben",
+    "reject": "Ablehnen",
+    "edit": "Korrigieren",
+    "makePrimary": "Zum Hauptwort machen",
+    "changesTitle": "Änderungsprotokoll",
+    "noChanges": "Noch keine Änderungen.",
+    "editors": "Redaktion",
+    "action": {
+      "add": "hinzugefügt",
+      "approve": "freigegeben",
+      "reject": "abgelehnt",
+      "delete": "gelöscht",
+      "spelling": "korrigiert",
+      "primary": "zum Hauptwort gemacht"
+    }
   }
 }
