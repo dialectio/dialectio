@@ -5,14 +5,24 @@ import { type FormEvent, useState } from "react";
 
 import { useAccount } from "@/components/Account";
 import { useRouter } from "@/i18n/navigation";
-import { AccountError, googleSignInUrl, register, signIn } from "@/lib/account";
+import {
+  AccountError,
+  forgotPassword,
+  googleSignInUrl,
+  register,
+  rememberNext,
+  sendLoginLink,
+  signIn,
+} from "@/lib/account";
 
 const FIELD =
   "w-full rounded-md border border-black/15 bg-transparent px-3 py-2 dark:border-white/20";
 
-/** Sign in with Google, or with an email and a password, or create an account (email,
- * password, the name shown under contributions). `failed` is the reason Google sign-in
- * came back with. */
+type Mode = "signIn" | "register" | "forgot" | "link";
+
+/** Sign in with Google, with an email and a password or with a link sent by email, create an
+ * account (email, password, the name shown under contributions), or ask for a new password.
+ * `failed` is the reason Google sign-in came back with. */
 export default function AuthForm({
   next,
   failed,
@@ -24,7 +34,8 @@ export default function AuthForm({
   const locale = useLocale();
   const router = useRouter();
   const { setMember } = useAccount();
-  const [mode, setMode] = useState<"signIn" | "register">("signIn");
+  const [mode, setMode] = useState<Mode>("signIn");
+  const [sentTo, setSentTo] = useState<string | null>(null);
   const message = (code: string) =>
     t.has(`errors.${code}`) ? t(`errors.${code}`) : t("errors.other");
   const [error, setError] = useState<string | null>(
@@ -39,6 +50,15 @@ export default function AuthForm({
     setBusy(true);
     setError(null);
     try {
+      if (mode === "forgot" || mode === "link") {
+        if (mode === "link") rememberNext(next);
+        await (mode === "link" ? sendLoginLink : forgotPassword)(
+          field("email"),
+          locale,
+        );
+        setSentTo(field("email"));
+        return;
+      }
       const member =
         mode === "signIn"
           ? await signIn(field("email"), field("password"))
@@ -47,6 +67,7 @@ export default function AuthForm({
               password: field("password"),
               name: field("name"),
               website: field("website"),
+              locale,
             });
       setMember(member);
       // Back where the visitor came from (only paths of this site)
@@ -58,6 +79,13 @@ export default function AuthForm({
       setBusy(false);
     }
   };
+
+  const switchTo = (m: Mode) => {
+    setMode(m);
+    setError(null);
+    setSentTo(null);
+  };
+  const withPassword = mode === "signIn" || mode === "register";
 
   return (
     <div className="max-w-sm space-y-4">
@@ -77,13 +105,10 @@ export default function AuthForm({
           <button
             key={m}
             type="button"
-            onClick={() => {
-              setMode(m);
-              setError(null);
-            }}
-            aria-pressed={mode === m}
+            onClick={() => switchTo(m)}
+            aria-pressed={mode === m || (m === "signIn" && !withPassword)}
             className={`flex-1 rounded-md py-1.5 ${
-              mode === m
+              mode === m || (m === "signIn" && !withPassword)
                 ? "bg-white font-medium shadow-sm dark:bg-neutral-800"
                 : "opacity-70"
             }`}
@@ -92,75 +117,124 @@ export default function AuthForm({
           </button>
         ))}
       </div>
-      <form onSubmit={submit} className="space-y-3">
-        {mode === "register" && (
+      {!withPassword && (
+        <p className="text-sm">
+          {t(mode === "forgot" ? "forgotIntro" : "linkIntro")}
+        </p>
+      )}
+      {sentTo ? (
+        <p className="rounded-md bg-green-600/10 p-3 text-sm text-green-900 dark:text-green-200">
+          {t(mode === "forgot" ? "resetSent" : "linkSent", { email: sentTo })}
+        </p>
+      ) : (
+        <form onSubmit={submit} className="space-y-3">
+          {mode === "register" && (
+            <label className="block text-sm">
+              {t("name")}
+              <input
+                name="name"
+                required
+                maxLength={60}
+                autoComplete="nickname"
+                className={FIELD}
+              />
+              <span className="mt-0.5 block text-xs opacity-60">
+                {t("nameHint")}
+              </span>
+            </label>
+          )}
           <label className="block text-sm">
-            {t("name")}
+            {t("email")}
             <input
-              name="name"
+              name="email"
+              type="email"
               required
-              maxLength={60}
-              autoComplete="nickname"
+              maxLength={254}
+              autoComplete="email"
               className={FIELD}
             />
-            <span className="mt-0.5 block text-xs opacity-60">
-              {t("nameHint")}
-            </span>
           </label>
-        )}
-        <label className="block text-sm">
-          {t("email")}
-          <input
-            name="email"
-            type="email"
-            required
-            maxLength={254}
-            autoComplete="email"
-            className={FIELD}
-          />
-        </label>
-        <label className="block text-sm">
-          {t("password")}
-          <input
-            name="password"
-            type="password"
-            required
-            minLength={mode === "register" ? 8 : undefined}
-            maxLength={200}
-            autoComplete={
-              mode === "register" ? "new-password" : "current-password"
-            }
-            className={FIELD}
-          />
-          {mode === "register" && (
-            <span className="mt-0.5 block text-xs opacity-60">
-              {t("passwordHint")}
-            </span>
+          {withPassword && (
+            <label className="block text-sm">
+              {t("password")}
+              <input
+                name="password"
+                type="password"
+                required
+                minLength={mode === "register" ? 8 : undefined}
+                maxLength={200}
+                autoComplete={
+                  mode === "register" ? "new-password" : "current-password"
+                }
+                className={FIELD}
+              />
+              {mode === "register" && (
+                <span className="mt-0.5 block text-xs opacity-60">
+                  {t("passwordHint")}
+                </span>
+              )}
+            </label>
           )}
-        </label>
-        {/* Honeypot: hidden from people, bots fill it in */}
-        <input
-          name="website"
-          tabIndex={-1}
-          autoComplete="off"
-          className="hidden"
-          aria-hidden
-        />
-        {error && (
-          <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
+          {/* Honeypot: hidden from people, bots fill it in */}
+          <input
+            name="website"
+            tabIndex={-1}
+            autoComplete="off"
+            className="hidden"
+            aria-hidden
+          />
+          {error && (
+            <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
+          )}
+          {mode === "register" && (
+            <p className="text-xs opacity-60">{t("privacyNote")}</p>
+          )}
+          <button
+            type="submit"
+            disabled={busy}
+            className="w-full rounded-lg bg-violet-600 py-2 font-medium text-white hover:bg-violet-700 disabled:opacity-50"
+          >
+            {t(
+              {
+                signIn: "signInButton",
+                register: "registerButton",
+                forgot: "sendReset",
+                link: "sendLink",
+              }[mode],
+            )}
+          </button>
+        </form>
+      )}
+      <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+        {mode === "signIn" ? (
+          <>
+            <button
+              type="button"
+              onClick={() => switchTo("link")}
+              className="underline"
+            >
+              {t("withLink")}
+            </button>
+            <button
+              type="button"
+              onClick={() => switchTo("forgot")}
+              className="underline opacity-70"
+            >
+              {t("forgot")}
+            </button>
+          </>
+        ) : (
+          !withPassword && (
+            <button
+              type="button"
+              onClick={() => switchTo("signIn")}
+              className="underline"
+            >
+              {t("withPassword")}
+            </button>
+          )
         )}
-        {mode === "register" && (
-          <p className="text-xs opacity-60">{t("privacyNote")}</p>
-        )}
-        <button
-          type="submit"
-          disabled={busy}
-          className="w-full rounded-lg bg-violet-600 py-2 font-medium text-white hover:bg-violet-700 disabled:opacity-50"
-        >
-          {t(mode === "signIn" ? "signInButton" : "registerButton")}
-        </button>
-      </form>
-      <p className="text-xs opacity-60">{t("soon")}</p>
+      </div>
     </div>
   );
 }

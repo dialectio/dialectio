@@ -12,6 +12,7 @@ from app.api import (
     dialect_words,
     dialects,
     editor,
+    email_auth,
     false_friends,
     feedback,
     gold,
@@ -38,6 +39,7 @@ app.include_router(dialect_words.router)
 app.include_router(feedback.router)
 app.include_router(gold.router)
 app.include_router(accounts.router)
+app.include_router(email_auth.router)
 app.include_router(google_auth.router)
 app.include_router(speaker.router)
 app.include_router(profile.router)

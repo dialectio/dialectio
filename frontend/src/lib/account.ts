@@ -2,7 +2,14 @@ import { API_URL } from "@/lib/api";
 import { forgetQuizzes } from "@/lib/feedback";
 
 /** A signed-in member (the session is an HttpOnly cookie the API sets). */
-export type Member = { id: number; email: string; name: string; role: string };
+export type Member = {
+  id: number;
+  email: string;
+  name: string;
+  role: string;
+  /** Proven with an emailed link or Google */
+  email_verified: boolean;
+};
 
 /** The API's reason for a refused sign-up or sign-in ("email_taken", "wrong_credentials" ...). */
 export class AccountError extends Error {}
@@ -60,6 +67,8 @@ export async function register(data: {
   password: string;
   name: string;
   website: string;
+  /** Language of the confirmation email */
+  locale: string;
 }) {
   const member = await call<Member>("/register", "POST", data);
   forgetQuizzes(); // the quizzes a guest passed in this browser are not the member's
@@ -80,4 +89,54 @@ export async function signOut() {
 export async function deleteAccount() {
   await call<null>("/me", "DELETE");
   forgetQuizzes();
+}
+
+// --- Emailed links ------------------------------------------------------------------------
+
+const NEXT_KEY = "dialectio.afterLink";
+
+/** Where to go after following a sign-in link (the link opens a page of its own). */
+export function rememberNext(path: string) {
+  try {
+    localStorage.setItem(NEXT_KEY, path);
+  } catch {
+    // the member lands on the home page instead
+  }
+}
+
+export function takeNext(): string {
+  try {
+    const next = localStorage.getItem(NEXT_KEY) ?? "/";
+    localStorage.removeItem(NEXT_KEY);
+    return next.startsWith("/") && !next.startsWith("//") ? next : "/";
+  } catch {
+    return "/";
+  }
+}
+
+export const sendLoginLink = (email: string, locale: string) =>
+  call<null>("/email/login-link", "POST", { email, locale });
+
+export const forgotPassword = (email: string, locale: string) =>
+  call<null>("/password/forgot", "POST", { email, locale });
+
+export const resendVerification = (locale: string) =>
+  call<null>("/email/verification", "POST", { locale });
+
+export const verifyEmail = (token: string) =>
+  call<Member>("/email/verify", "POST", { token });
+
+export async function signInWithLink(token: string) {
+  const member = await call<Member>("/email/login", "POST", { token });
+  forgetQuizzes();
+  return member;
+}
+
+export async function resetPassword(token: string, password: string) {
+  const member = await call<Member>("/password/reset", "POST", {
+    token,
+    password,
+  });
+  forgetQuizzes();
+  return member;
 }

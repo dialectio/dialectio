@@ -19,11 +19,12 @@ from urllib.parse import urlencode
 import httpx2
 from fastapi import APIRouter, Request
 from fastapi.responses import RedirectResponse
-from sqlalchemy import delete, select
+from sqlalchemy import select
 
 from app.api.accounts import SessionDep, start_session
+from app.api.email_links import prove_email
 from app.config import settings
-from app.models import AuthSession, User
+from app.models import User
 
 router = APIRouter(prefix="/api/auth/google", tags=["accounts"])
 
@@ -133,18 +134,13 @@ def callback(
     ):
         return failed(locale, path, "google")
 
-    now = datetime.now(UTC)
     user = session.scalar(select(User).where(User.email == email))
     if user is None:
         name = str(claims.get("given_name") or claims.get("name") or email.split("@")[0])
-        user = User(email=email, name=name.strip()[:60] or "?", email_verified_at=now)
+        user = User(email=email, name=name.strip()[:60] or "?")
         session.add(user)
         session.flush()
-    elif user.email_verified_at is None:
-        # Not proven before: whoever set the password may not own this email
-        user.password_hash = None
-        user.email_verified_at = now
-        session.execute(delete(AuthSession).where(AuthSession.user_id == user.id))
+    prove_email(session, user)
 
     response = RedirectResponse(site_page(locale, path), status_code=303)
     response.delete_cookie(STATE_COOKIE, path="/api/auth/google")

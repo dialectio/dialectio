@@ -22,6 +22,11 @@ class Settings(BaseSettings):
     # "Sign in with Google" (OAuth client of the Google Cloud project); off when empty
     google_client_id: str = ""
     google_client_secret: str = ""
+    # Email (Brevo transactional API); without a key, emails are written to the log
+    brevo_api_key: str = ""
+    mail_from: str = "noreply@dialectio.org"
+    # Write emails to the log even with a key (local testing with made-up addresses)
+    mail_to_log: bool = False
     # Generated files (e.g. TTS audio), served by the API under MEDIA_URL_PREFIX.
     media_dir: Path = REPO_DIR / "data" / "media"
 

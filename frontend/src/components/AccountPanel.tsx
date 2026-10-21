@@ -11,7 +11,7 @@ import {
 
 import { useAccount } from "@/components/Account";
 import { Link, useRouter } from "@/i18n/navigation";
-import { deleteAccount, signOut } from "@/lib/account";
+import { deleteAccount, resendVerification, signOut } from "@/lib/account";
 import { localized } from "@/lib/api";
 import {
   fetchProfile,
@@ -41,6 +41,7 @@ export default function AccountPanel() {
   const [all, setAll] = useState<Variety[]>([]);
   const [confirming, setConfirming] = useState(false);
   const [editing, setEditing] = useState(false);
+  const [resent, setResent] = useState(false);
 
   const reload = useCallback(() => {
     fetchProfile()
@@ -125,6 +126,26 @@ export default function AccountPanel() {
         <dt className="opacity-60">{t("email")}</dt>
         <dd>{member.email}</dd>
       </dl>
+      {!member.email_verified && (
+        <p className="rounded-md bg-amber-500/10 p-3 text-sm">
+          {t("unverified")}{" "}
+          {resent ? (
+            <span className="font-medium">{t("verificationSent")}</span>
+          ) : (
+            <button
+              type="button"
+              onClick={() =>
+                resendVerification(locale)
+                  .then(() => setResent(true))
+                  .catch(() => {})
+              }
+              className="underline"
+            >
+              {t("resendVerification")}
+            </button>
+          )}
+        </p>
+      )}
 
       <section className="space-y-3">
         <h2 className="text-xl font-semibold">{t("languagesTitle")}</h2>

@@ -1,4 +1,4 @@
-from app.models.account import EDITOR, MEMBER, AuthSession, User
+from app.models.account import EDITOR, MEMBER, AuthSession, EmailToken, User
 from app.models.base import Base
 from app.models.feedback import (
     CONFIRMED,
@@ -30,6 +30,7 @@ __all__ = [
     "EDITOR",
     "MEMBER",
     "AuthSession",
+    "EmailToken",
     "User",
     "CONFIRMED",
     "DISPUTED",

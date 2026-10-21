@@ -152,10 +152,10 @@
   "Privacy": {
     "title": "Datenschutzerklärung",
     "metaDescription": "Welche Daten Dialectio erhebt und wie sie verwendet werden.",
-    "updated": "Stand: 11. Oktober 2026",
+    "updated": "Stand: 21. Oktober 2026",
     "intro": "Dialectio kann ohne Konto genutzt werden. Wir verwenden keine Tracking-Cookies und geben keine Daten an Werbenetzwerke weiter.",
     "contribTitle": "Wenn du ein Wort hinzufügst",
-    "contrib": "Wir speichern, was du im Formular eingibst: das Wort, die Sprache oder den Dialekt, den Ort, deinen Namen (optional) und eine Sprachaufnahme (optional). Name und Ort können nach der Prüfung neben dem Wort angezeigt werden. Mit dem Senden erlaubst du Dialectio, den Beitrag zu veröffentlichen.",
+    "contrib": "Wir speichern, was du im Formular eingibst: das Wort, die Sprache oder den Dialekt, den Ort und eine Sprachaufnahme (optional), sowie dass dein Konto den Beitrag geschickt hat. Nach der Prüfung können der Name deines Kontos und der Ort neben dem Wort angezeigt werden. Mit dem Senden erlaubst du Dialectio, den Beitrag zu veröffentlichen.",
     "ipTitle": "IP-Adresse",
     "ip": "Zum Schutz vor Spam merkt sich der Server vorübergehend, wie viele Beiträge, Stimmen und Meldungen von einer IP-Adresse kamen (in der letzten Stunde oder am letzten Tag). Dies wird nicht in der Datenbank gespeichert.",
     "browserTitle": "In deinem Browser",
@@ -171,7 +171,7 @@
     "searchTitle": "Suche",
     "search": "Wenn eine Suche nichts findet, speichern wir den Suchtext und einen Zähler, um das Wort ins Wörterbuch aufzunehmen. Über dich wird dabei nichts gespeichert.",
     "accountTitle": "Wenn Sie sich registrieren",
-    "account": "Wir speichern Ihre E-Mail-Adresse, Ihren Namen und einen Hash Ihres Passworts (das Passwort selbst wird weder gespeichert noch ist es aus dem Hash wiederherstellbar). Wenn Sie sich mit Google anmelden, übermittelt uns Google nur Ihre (bestätigte) E-Mail-Adresse und Ihren Namen; ein Passwort ist dann nicht nötig. Nach der Anmeldung erhält der Browser ein Sitzungs-Cookie, das nur dazu dient, Sie angemeldet zu halten. Ihre Stimmen und Antworten auf Kontrollkarten sind mit dem Konto verknüpft. Das Konto können Sie im Profil löschen: E-Mail, Name und Sitzungen verschwinden sofort, Stimmen bleiben anonym. Die Sprachen und Dialekte in Ihrem Profil und Ihre Sprechertest-Ergebnisse gehören zum Konto und werden mit ihm gelöscht; von Ihnen hinzugefügte Wörter bleiben ohne Ihren Namen auf der Website."
+    "account": "Wir speichern Ihre E-Mail-Adresse, Ihren Namen und einen Hash Ihres Passworts (das Passwort selbst wird weder gespeichert noch ist es aus dem Hash wiederherstellbar). Wenn Sie sich mit Google anmelden, übermittelt uns Google nur Ihre (bestätigte) E-Mail-Adresse und Ihren Namen; ein Passwort ist dann nicht nötig. Nach der Anmeldung erhält der Browser ein Sitzungs-Cookie, das nur dazu dient, Sie angemeldet zu halten. Ihre Stimmen und Antworten auf Kontrollkarten sind mit dem Konto verknüpft. Das Konto können Sie im Profil löschen: E-Mail, Name und Sitzungen verschwinden sofort, Stimmen bleiben anonym. Die Sprachen und Dialekte in Ihrem Profil und Ihre Sprechertest-Ergebnisse gehören zum Konto und werden mit ihm gelöscht; von Ihnen hinzugefügte Wörter bleiben ohne Ihren Namen auf der Website. E-Mails (Bestätigung der Adresse, neues Passwort, Anmeldelinks) versenden wir über Brevo (Sendinblue SAS, Frankreich): Der Dienst erhält nur Ihre Adresse und die E-Mail selbst."
   },
   "Home": {
     "intro": "Gib ein Wort in einer beliebigen Sprache ein und sieh auf der Karte, wie es in den Sprachen der Welt, ihren Dialekten und regionalen Varianten geschrieben, ausgesprochen und gesprochen wird. Oder beginne mit diesen Beispielen:",
@@ -406,7 +406,6 @@
     "signInButton": "Anmelden",
     "registerButton": "Konto erstellen",
     "privacyNote": "Wir speichern E-Mail, Namen und einen Hash des Passworts (nicht das Passwort selbst). Das Konto lässt sich jederzeit im Profil löschen.",
-    "soon": "Demnächst: Anmeldung per E-Mail-Link.",
     "delete": "Konto löschen",
     "deleteConfirm": "Konto endgültig löschen? Ihre Stimmen bleiben, anonym.",
     "deleteYes": "Ja, löschen",
@@ -431,6 +430,18 @@
       "pending": "Entwurf"
     },
     "noContributions": "Sie haben noch keine Wörter hinzugefügt. Öffnen Sie ein Wort auf der Karte und tippen Sie auf „Füge das Wort hinzu“.",
+    "withLink": "Ohne Passwort anmelden, per E-Mail-Link",
+    "forgot": "Passwort vergessen?",
+    "withPassword": "← Mit Passwort anmelden",
+    "linkIntro": "Geben Sie Ihre E-Mail-Adresse ein, wir schicken einen Anmeldelink. Gibt es noch kein Konto, wird eines angelegt.",
+    "forgotIntro": "Geben Sie die E-Mail-Adresse Ihres Kontos ein, wir schicken einen Link für ein neues Passwort.",
+    "sendLink": "Link senden",
+    "sendReset": "E-Mail senden",
+    "linkSent": "Der Anmeldelink ging an {email}. Er gilt 15 Minuten. Keine E-Mail? Schauen Sie im Spam-Ordner nach.",
+    "resetSent": "Falls es ein Konto mit {email} gibt, haben wir eine E-Mail geschickt. Der Link gilt eine Stunde.",
+    "unverified": "Ihre E-Mail-Adresse ist noch nicht bestätigt: Wir haben Ihnen einen Link geschickt.",
+    "resendVerification": "Erneut senden",
+    "verificationSent": "Gesendet, bitte Postfach prüfen.",
     "errors": {
       "email_taken": "Diese E-Mail ist bereits registriert. Bitte anmelden.",
       "wrong_credentials": "E-Mail oder Passwort falsch.",
@@ -465,5 +476,22 @@
     "later": "Nächster Versuch in {hours} Std. möglich.",
     "unavailable": "Für diese Sprache oder diesen Dialekt gibt es noch keinen Test: zu wenige geprüfte Wörter.",
     "error": "Etwas ist schiefgelaufen. Bitte später erneut versuchen."
+  },
+  "EmailLink": {
+    "title": {
+      "verify": "E-Mail bestätigen",
+      "reset": "Neues Passwort",
+      "login": "Anmeldung per Link"
+    },
+    "confirm": "E-Mail bestätigen",
+    "signIn": "Anmelden",
+    "newPassword": "Neues Passwort",
+    "passwordHint": "Mindestens 8 Zeichen.",
+    "savePassword": "Speichern und anmelden",
+    "verified": "Danke, Ihre E-Mail-Adresse ist bestätigt.",
+    "passwordSet": "Passwort geändert, Sie sind angemeldet.",
+    "toProfile": "Zum Profil",
+    "invalid": "Dieser Link gilt nicht mehr: Er wurde schon benutzt oder ist abgelaufen. Fordern Sie einen neuen an.",
+    "toSignIn": "Zur Anmeldung"
   }
 }

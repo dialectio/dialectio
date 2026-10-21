@@ -152,10 +152,10 @@
   "Privacy": {
     "title": "Política de privacidad",
     "metaDescription": "Qué datos recoge Dialectio y cómo los utiliza.",
-    "updated": "Actualizado: 11 de octubre de 2026",
+    "updated": "Actualizado: 21 de octubre de 2026",
     "intro": "Puedes usar Dialectio sin cuenta. No usamos cookies de seguimiento ni compartimos datos con redes publicitarias.",
     "contribTitle": "Cuando añades una palabra",
-    "contrib": "Guardamos lo que escribes en el formulario: la palabra, el idioma o dialecto, el lugar, tu nombre (opcional) y una grabación de voz (opcional). Tu nombre y lugar pueden mostrarse junto a la palabra tras la revisión. Al enviar una aportación, permites que Dialectio la publique.",
+    "contrib": "Guardamos lo que escribes en el formulario: la palabra, el idioma o dialecto, el lugar y una grabación de voz (opcional), y que la envió tu cuenta. Tras la revisión, el nombre de tu cuenta y el lugar pueden mostrarse junto a la palabra. Al enviar una aportación, permites que Dialectio la publique.",
     "ipTitle": "Dirección IP",
     "ip": "Para combatir el spam, el servidor recuerda temporalmente cuántas aportaciones, votos e informes llegaron desde una dirección IP (en la última hora o día). Esto no se guarda en la base de datos.",
     "browserTitle": "En tu navegador",
@@ -171,7 +171,7 @@
     "searchTitle": "Búsqueda",
     "search": "Cuando una búsqueda no encuentra nada, guardamos el texto buscado y un contador para añadir la palabra al diccionario. No se guarda nada sobre ti.",
     "accountTitle": "Si te registras",
-    "account": "Guardamos tu correo, tu nombre y un hash de tu contraseña (la contraseña no se guarda ni se puede recuperar del hash). Si entras con Google, Google solo nos facilita tu dirección de correo (verificada) y tu nombre; en ese caso no hace falta contraseña. Al entrar, el navegador recibe una cookie de sesión, que solo sirve para mantenerte dentro. Tus votos y respuestas a las tarjetas de control quedan ligados a la cuenta. Puedes borrar la cuenta en tu perfil: correo, nombre y sesiones desaparecen enseguida; los votos se quedan anónimos. Los idiomas y variedades de tu perfil y los resultados de tus pruebas de hablante se guardan con la cuenta y se borran con ella; las palabras que añadiste siguen en el sitio, ya sin tu nombre."
+    "account": "Guardamos tu correo, tu nombre y un hash de tu contraseña (la contraseña no se guarda ni se puede recuperar del hash). Si entras con Google, Google solo nos facilita tu dirección de correo (verificada) y tu nombre; en ese caso no hace falta contraseña. Al entrar, el navegador recibe una cookie de sesión, que solo sirve para mantenerte dentro. Tus votos y respuestas a las tarjetas de control quedan ligados a la cuenta. Puedes borrar la cuenta en tu perfil: correo, nombre y sesiones desaparecen enseguida; los votos se quedan anónimos. Los idiomas y variedades de tu perfil y los resultados de tus pruebas de hablante se guardan con la cuenta y se borran con ella; las palabras que añadiste siguen en el sitio, ya sin tu nombre. Los correos (confirmación de la dirección, contraseña nueva, enlaces para entrar) se envían a través de Brevo (Sendinblue SAS, Francia): solo recibe tu dirección y el propio correo."
   },
   "Home": {
     "intro": "Escribe una palabra en cualquier idioma y mira en el mapa cómo se escribe, se pronuncia y suena en los idiomas del mundo, sus dialectos y variantes regionales. O empieza con estos ejemplos:",
@@ -406,7 +406,6 @@
     "signInButton": "Entrar",
     "registerButton": "Crear cuenta",
     "privacyNote": "Guardamos tu correo, tu nombre y un hash de la contraseña (no la contraseña). Puedes borrar la cuenta cuando quieras desde tu perfil.",
-    "soon": "Pronto: entrar con un enlace por correo.",
     "delete": "Borrar cuenta",
     "deleteConfirm": "¿Borrar la cuenta para siempre? Tus votos se quedan, anónimos.",
     "deleteYes": "Sí, borrar",
@@ -431,6 +430,18 @@
       "pending": "borrador"
     },
     "noContributions": "Aún no has añadido palabras. Abre cualquier palabra en el mapa y pulsa «Añade la palabra».",
+    "withLink": "Entrar sin contraseña, con un enlace por correo",
+    "forgot": "¿Olvidaste la contraseña?",
+    "withPassword": "← Entrar con contraseña",
+    "linkIntro": "Escribe tu correo y te enviaremos un enlace para entrar. Si aún no tienes cuenta, se creará.",
+    "forgotIntro": "Escribe el correo de tu cuenta y te enviaremos un enlace para crear una contraseña nueva.",
+    "sendLink": "Enviar el enlace",
+    "sendReset": "Enviar el correo",
+    "linkSent": "Enviamos un enlace para entrar a {email}. Funciona 15 minutos. ¿No llega? Revisa el spam.",
+    "resetSent": "Si existe una cuenta con {email}, le enviamos un correo. El enlace funciona una hora.",
+    "unverified": "Tu correo aún no está confirmado: te enviamos un enlace.",
+    "resendVerification": "Enviar de nuevo",
+    "verificationSent": "Enviado, revisa tu correo.",
     "errors": {
       "email_taken": "Este correo ya está registrado. Entra con él.",
       "wrong_credentials": "Correo o contraseña incorrectos.",
@@ -465,5 +476,22 @@
     "later": "Podrás intentarlo de nuevo en {hours} h.",
     "unavailable": "Aún no hay prueba para este idioma o variedad: pocas palabras comprobadas.",
     "error": "Algo salió mal. Inténtalo más tarde."
+  },
+  "EmailLink": {
+    "title": {
+      "verify": "Confirmar el correo",
+      "reset": "Contraseña nueva",
+      "login": "Entrar con un enlace"
+    },
+    "confirm": "Confirmar correo",
+    "signIn": "Entrar",
+    "newPassword": "Contraseña nueva",
+    "passwordHint": "Al menos 8 caracteres.",
+    "savePassword": "Guardar y entrar",
+    "verified": "Gracias, tu correo está confirmado.",
+    "passwordSet": "Contraseña cambiada, has entrado.",
+    "toProfile": "Al perfil",
+    "invalid": "El enlace ya no funciona: se usó o caducó. Pide uno nuevo.",
+    "toSignIn": "Ir a entrar"
   }
 }

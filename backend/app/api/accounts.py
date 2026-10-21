@@ -16,11 +16,12 @@ from collections import defaultdict, deque
 from datetime import UTC, datetime, timedelta
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request, Response, status
 from pydantic import BaseModel, Field, field_validator
 from sqlalchemy import delete, select, update
 from sqlalchemy.orm import Session
 
+from app.api.email_links import send_link
 from app.config import settings
 from app.db.session import get_session
 from app.models import Audio, AuthSession, Form, User
@@ -139,6 +140,7 @@ class Me(BaseModel):
     email: str
     name: str
     role: str
+    email_verified: bool
 
 
 class Credentials(BaseModel):
@@ -154,6 +156,7 @@ class Credentials(BaseModel):
 class Registration(Credentials):
     name: str = Field(min_length=1, max_length=60)
     website: str = ""  # honeypot: hidden in the form, only bots fill it in
+    locale: str = Field(default="uk", pattern="^(uk|en|pl|de|es|fr)$")  # of the email
 
     @field_validator("name")
     @classmethod
@@ -162,11 +165,23 @@ class Registration(Credentials):
 
 
 def me(user: User) -> Me:
-    return Me(id=user.id, email=user.email, name=user.name, role=user.role)
+    return Me(
+        id=user.id,
+        email=user.email,
+        name=user.name,
+        role=user.role,
+        email_verified=user.email_verified_at is not None,
+    )
 
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)
-def register(data: Registration, request: Request, response: Response, session: SessionDep) -> Me:
+def register(
+    data: Registration,
+    request: Request,
+    response: Response,
+    background: BackgroundTasks,
+    session: SessionDep,
+) -> Me:
     check_limit("register", request, REGISTER_LIMIT)
     if data.website:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, "Rejected")
@@ -182,6 +197,7 @@ def register(data: Registration, request: Request, response: Response, session: 
     session.add(user)
     session.flush()
     start_session(session, response, user)
+    send_link(session, background, "verify", user.email, data.locale)
     return me(user)
 
 

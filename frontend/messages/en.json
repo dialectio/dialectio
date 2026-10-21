@@ -152,10 +152,10 @@
   "Privacy": {
     "title": "Privacy policy",
     "metaDescription": "What data Dialectio collects and how it is used.",
-    "updated": "Updated: 11 October 2026",
+    "updated": "Updated: 21 October 2026",
     "intro": "You can use Dialectio without an account. We use no tracking cookies and share no data with ad networks.",
     "contribTitle": "When you add a word",
-    "contrib": "We store what you enter in the form: the word, the language or dialect, the place, your name (optional) and a voice recording (optional). Your name and place may be shown next to the word after review. By sending a contribution you allow Dialectio to publish it.",
+    "contrib": "We store what you enter in the form: the word, the language or dialect, the place and a voice recording (optional), and that your account sent it. After review, the name of your account and the place may be shown next to the word. By sending a contribution you allow Dialectio to publish it.",
     "ipTitle": "IP address",
     "ip": "To fight spam, the server temporarily remembers how many contributions, votes and reports came from an IP address (in the last hour or day). This is not written to the database.",
     "browserTitle": "In your browser",
@@ -171,7 +171,7 @@
     "searchTitle": "Search",
     "search": "When a search finds nothing, we keep the search text and a counter so we can add the word to the dictionary. Nothing about you is stored with it.",
     "accountTitle": "If you sign up",
-    "account": "We keep your email address, your name and a hash of your password (the password itself is neither stored nor recoverable from the hash). If you sign in with Google, Google gives us only your (verified) email address and your name; no password is needed then. After signing in, the browser gets a session cookie, used only to keep you signed in. Your votes and control-card answers are linked to the account. You can delete the account in your profile: email, name and sessions go at once, votes stay anonymous. The languages and dialects in your profile and your speaker test results are kept with the account and deleted with it; words you added stay on the site without your name."
+    "account": "We keep your email address, your name and a hash of your password (the password itself is neither stored nor recoverable from the hash). If you sign in with Google, Google gives us only your (verified) email address and your name; no password is needed then. After signing in, the browser gets a session cookie, used only to keep you signed in. Your votes and control-card answers are linked to the account. You can delete the account in your profile: email, name and sessions go at once, votes stay anonymous. The languages and dialects in your profile and your speaker test results are kept with the account and deleted with it; words you added stay on the site without your name. Emails (confirming your address, a new password, sign-in links) are sent through Brevo (Sendinblue SAS, France): it receives only your address and the email itself."
   },
   "Home": {
     "intro": "Type a word in any language and see on the map how it is written, pronounced and sounds in the world's languages, their dialects and regional varieties. Or start with these examples:",
@@ -406,7 +406,6 @@
     "signInButton": "Sign in",
     "registerButton": "Create account",
     "privacyNote": "We keep your email, name and a hash of your password (not the password itself). You can delete the account anytime in your profile.",
-    "soon": "Coming soon: sign in with an email link.",
     "delete": "Delete account",
     "deleteConfirm": "Delete the account for good? Your votes stay, anonymous.",
     "deleteYes": "Yes, delete",
@@ -431,6 +430,18 @@
       "pending": "draft"
     },
     "noContributions": "You haven't added any words yet. Open any word on the map and press \"Add the word\".",
+    "withLink": "Sign in without a password, with an email link",
+    "forgot": "Forgot your password?",
+    "withPassword": "← Sign in with a password",
+    "linkIntro": "Enter your email and we'll send you a sign-in link. If you have no account yet, one is created.",
+    "forgotIntro": "Enter your account's email and we'll send you a link to set a new password.",
+    "sendLink": "Send the link",
+    "sendReset": "Send the email",
+    "linkSent": "A sign-in link went to {email}. It works for 15 minutes. No email? Check your spam folder.",
+    "resetSent": "If there is an account with {email}, we sent it an email. The link works for an hour.",
+    "unverified": "Your email isn't confirmed yet: we sent you a link.",
+    "resendVerification": "Send it again",
+    "verificationSent": "Sent, check your inbox.",
     "errors": {
       "email_taken": "This email is already registered. Sign in instead.",
       "wrong_credentials": "Wrong email or password.",
@@ -465,5 +476,22 @@
     "later": "You can try again in {hours} h.",
     "unavailable": "There is no test for this language or dialect yet: too few checked words.",
     "error": "Something went wrong. Please try again later."
+  },
+  "EmailLink": {
+    "title": {
+      "verify": "Confirm your email",
+      "reset": "New password",
+      "login": "Sign in with a link"
+    },
+    "confirm": "Confirm email",
+    "signIn": "Sign in",
+    "newPassword": "New password",
+    "passwordHint": "At least 8 characters.",
+    "savePassword": "Save and sign in",
+    "verified": "Thank you, your email is confirmed.",
+    "passwordSet": "Password changed, you're signed in.",
+    "toProfile": "To the profile",
+    "invalid": "This link no longer works: it was used already or has expired. Ask for a new one.",
+    "toSignIn": "To sign in"
   }
 }

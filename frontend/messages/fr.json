@@ -152,10 +152,10 @@
   "Privacy": {
     "title": "Politique de confidentialité",
     "metaDescription": "Quelles données Dialectio collecte et comment elles sont utilisées.",
-    "updated": "Mise à jour : 11 octobre 2026",
+    "updated": "Mise à jour : 21 octobre 2026",
     "intro": "Vous pouvez utiliser Dialectio sans compte. Nous n'utilisons pas de cookies de suivi et ne partageons aucune donnée avec des régies publicitaires.",
     "contribTitle": "Quand vous ajoutez un mot",
-    "contrib": "Nous enregistrons ce que vous saisissez dans le formulaire : le mot, la langue ou le dialecte, le lieu, votre nom (facultatif) et un enregistrement de voix (facultatif). Votre nom et votre lieu peuvent être affichés à côté du mot après vérification. En envoyant une contribution, vous autorisez Dialectio à la publier.",
+    "contrib": "Nous enregistrons ce que vous saisissez dans le formulaire : le mot, la langue ou le dialecte, le lieu et un enregistrement de voix (facultatif), ainsi que le fait que votre compte l'a envoyé. Après vérification, le nom de votre compte et le lieu peuvent être affichés à côté du mot. En envoyant une contribution, vous autorisez Dialectio à la publier.",
     "ipTitle": "Adresse IP",
     "ip": "Pour lutter contre le spam, le serveur retient temporairement combien de contributions, de votes et de signalements sont venus d'une adresse IP (dans la dernière heure ou la dernière journée). Cela n'est pas enregistré dans la base de données.",
     "browserTitle": "Dans votre navigateur",
@@ -171,7 +171,7 @@
     "searchTitle": "Recherche",
     "search": "Quand une recherche ne trouve rien, nous conservons le texte recherché et un compteur afin d'ajouter le mot au dictionnaire. Rien vous concernant n'est enregistré.",
     "accountTitle": "Si vous vous inscrivez",
-    "account": "Nous gardons votre adresse e-mail, votre nom et une empreinte de votre mot de passe (le mot de passe lui-même n'est ni conservé ni récupérable). Si vous vous connectez avec Google, Google nous transmet uniquement votre adresse e-mail (vérifiée) et votre nom ; aucun mot de passe n'est alors nécessaire. Après connexion, le navigateur reçoit un cookie de session, qui sert uniquement à vous garder connecté. Vos votes et réponses aux cartes de contrôle sont liés au compte. Vous pouvez supprimer le compte dans votre profil : e-mail, nom et sessions disparaissent aussitôt, les votes restent anonymes. Les langues et parlers de votre profil et vos résultats aux tests de locuteur sont liés au compte et supprimés avec lui ; les mots que vous avez ajoutés restent sur le site, sans votre nom."
+    "account": "Nous gardons votre adresse e-mail, votre nom et une empreinte de votre mot de passe (le mot de passe lui-même n'est ni conservé ni récupérable). Si vous vous connectez avec Google, Google nous transmet uniquement votre adresse e-mail (vérifiée) et votre nom ; aucun mot de passe n'est alors nécessaire. Après connexion, le navigateur reçoit un cookie de session, qui sert uniquement à vous garder connecté. Vos votes et réponses aux cartes de contrôle sont liés au compte. Vous pouvez supprimer le compte dans votre profil : e-mail, nom et sessions disparaissent aussitôt, les votes restent anonymes. Les langues et parlers de votre profil et vos résultats aux tests de locuteur sont liés au compte et supprimés avec lui ; les mots que vous avez ajoutés restent sur le site, sans votre nom. Les e-mails (confirmation de l'adresse, nouveau mot de passe, liens de connexion) sont envoyés via Brevo (Sendinblue SAS, France) : il ne reçoit que votre adresse et le message lui-même."
   },
   "Home": {
     "intro": "Saisissez un mot dans n'importe quelle langue et voyez sur la carte comment il s'écrit, se prononce et sonne dans les langues du monde, leurs dialectes et leurs variantes régionales. Ou commencez par ces exemples :",
@@ -406,7 +406,6 @@
     "signInButton": "Se connecter",
     "registerButton": "Créer un compte",
     "privacyNote": "Nous gardons votre e-mail, votre nom et une empreinte du mot de passe (pas le mot de passe). Vous pouvez supprimer le compte à tout moment dans votre profil.",
-    "soon": "Bientôt : connexion par lien envoyé par e-mail.",
     "delete": "Supprimer le compte",
     "deleteConfirm": "Supprimer le compte définitivement ? Vos votes restent, anonymes.",
     "deleteYes": "Oui, supprimer",
@@ -431,6 +430,18 @@
       "pending": "brouillon"
     },
     "noContributions": "Vous n'avez encore ajouté aucun mot. Ouvrez un mot sur la carte et appuyez sur « Ajoutez le mot ».",
+    "withLink": "Se connecter sans mot de passe, par lien e-mail",
+    "forgot": "Mot de passe oublié ?",
+    "withPassword": "← Se connecter avec un mot de passe",
+    "linkIntro": "Indiquez votre e-mail, nous vous enverrons un lien de connexion. Sans compte, un compte est créé.",
+    "forgotIntro": "Indiquez l'e-mail de votre compte, nous vous enverrons un lien pour choisir un nouveau mot de passe.",
+    "sendLink": "Envoyer le lien",
+    "sendReset": "Envoyer l'e-mail",
+    "linkSent": "Un lien de connexion a été envoyé à {email}. Il est valable 15 minutes. Rien reçu ? Vérifiez les spams.",
+    "resetSent": "S'il existe un compte avec {email}, nous lui avons envoyé un e-mail. Le lien est valable une heure.",
+    "unverified": "Votre e-mail n'est pas encore confirmé : nous vous avons envoyé un lien.",
+    "resendVerification": "Renvoyer",
+    "verificationSent": "Envoyé, vérifiez votre boîte.",
     "errors": {
       "email_taken": "Cet e-mail est déjà inscrit. Connectez-vous.",
       "wrong_credentials": "E-mail ou mot de passe incorrect.",
@@ -465,5 +476,22 @@
     "later": "Nouvel essai possible dans {hours} h.",
     "unavailable": "Pas encore de test pour cette langue ou ce parler : trop peu de mots vérifiés.",
     "error": "Une erreur s'est produite. Réessayez plus tard."
+  },
+  "EmailLink": {
+    "title": {
+      "verify": "Confirmer l'e-mail",
+      "reset": "Nouveau mot de passe",
+      "login": "Connexion par lien"
+    },
+    "confirm": "Confirmer l'e-mail",
+    "signIn": "Se connecter",
+    "newPassword": "Nouveau mot de passe",
+    "passwordHint": "Au moins 8 caractères.",
+    "savePassword": "Enregistrer et se connecter",
+    "verified": "Merci, votre e-mail est confirmé.",
+    "passwordSet": "Mot de passe changé, vous êtes connecté.",
+    "toProfile": "Vers le profil",
+    "invalid": "Ce lien ne fonctionne plus : il a déjà servi ou a expiré. Demandez-en un nouveau.",
+    "toSignIn": "Vers la connexion"
   }
 }
