@@ -101,6 +101,17 @@ crontab -e
 
 [UptimeRobot](https://uptimerobot.com) (безкоштовно, 50 перевірок): додати HTTP-монітор на `https://<домен>/health` з інтервалом 5 хвилин і сповіщенням на email чи в Telegram. Адреса `/health` перевіряє і API, і базу: якщо щось ляже, прийде лист.
 
+Щотижневий звіт на пошту проєкту (`REPORT_TO`, за замовчуванням dialectio.team@gmail.com): трафік з Umami, пошуки без результату, спільнота, що чекає на перевірку, диск. Запуск щопонеділка о 9:00 за Києвом:
+
+```bash
+cat > /etc/cron.d/dialectio-report <<'CRON'
+CRON_TZ=Europe/Kyiv
+0 9 * * 1 root cd /srv/dialectio && docker compose -f docker-compose.prod.yml --env-file .env.prod exec -T backend python -m app.report >> /var/log/dialectio-report.log 2>&1
+CRON
+```
+
+Перевірити вручну: `$COMPOSE exec backend python -m app.report --print` (без листа) або без `--print` (з листом).
+
 ## 8. Пошукові системи
 
 1. [Google Search Console](https://search.google.com/search-console): додати домен (підтвердження через DNS-запис TXT), надіслати `https://<домен>/sitemap.xml`.

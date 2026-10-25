@@ -25,6 +25,8 @@ class Settings(BaseSettings):
     # Email (Brevo transactional API); without a key, emails are written to the log
     brevo_api_key: str = ""
     mail_from: str = "noreply@dialectio.org"
+    # Where the weekly report goes (python -m app.report)
+    report_to: str = "dialectio.team@gmail.com"
     # Write emails to the log even with a key (local testing with made-up addresses)
     mail_to_log: bool = False
     # Cloudflare Turnstile ("are you human?") on sign-up, emailed links and contributions;

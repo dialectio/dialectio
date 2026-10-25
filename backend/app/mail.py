@@ -1,4 +1,5 @@
-"""Emails to members: confirm the address, set a new password, sign in with a link.
+"""Emails to members: confirm the address, set a new password, sign in with a link (and the
+weekly report to the project mailbox, app/report.py).
 
 Sent through Brevo's transactional API (free plan: 300 emails a day) from MAIL_FROM. Without
 BREVO_API_KEY, or with MAIL_TO_LOG=true (local testing with made-up addresses), the email is
@@ -168,26 +169,35 @@ border-radius:8px;text-decoration:none;font-weight:600">{html.escape(button)}</a
     return subject, text, body
 
 
-def send(to: str, purpose: str, locale: str, link: str) -> None:
-    """Send one email (run as a background task: the request does not wait for Brevo)."""
-    subject, text, body = render(purpose, locale, link)
+def deliver(to: str, subject: str, text: str, body: str | None, tag: str) -> bool:
+    """Send one email through Brevo (or write it to the log); False if it failed."""
     if not settings.brevo_api_key or settings.mail_to_log:
         log.warning("Email not sent (written to the log) to %s: %s\n%s", to, subject, text)
-        return
+        return True
+    message = {
+        "sender": {"name": "Dialectio", "email": settings.mail_from},
+        "to": [{"email": to}],
+        "subject": subject,
+        "textContent": text,
+        "tags": [tag],
+    }
+    if body:
+        message["htmlContent"] = body
     try:
         response = httpx2.post(
             BREVO_URL,
             headers={"api-key": settings.brevo_api_key, "accept": "application/json"},
-            json={
-                "sender": {"name": "Dialectio", "email": settings.mail_from},
-                "to": [{"email": to}],
-                "subject": subject,
-                "textContent": text,
-                "htmlContent": body,
-                "tags": [purpose],
-            },
+            json=message,
             timeout=20,
         )
         response.raise_for_status()
     except httpx2.HTTPError:
-        log.exception("Email to %s (%s) failed", to, purpose)
+        log.exception("Email to %s (%s) failed", to, tag)
+        return False
+    return True
+
+
+def send(to: str, purpose: str, locale: str, link: str) -> None:
+    """Send one email with a link (run as a background task: the request does not wait)."""
+    subject, text, body = render(purpose, locale, link)
+    deliver(to, subject, text, body, purpose)
