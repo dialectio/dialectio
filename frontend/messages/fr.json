@@ -141,7 +141,7 @@
     "dialects": "Les dialectes suivent le schéma classique : trois groupes dialectaux (Nord, Sud-Ouest, Sud-Est) et 15 dialectes. Leurs aires sont approximées par des régions administratives, ce qui est une simplification : les vraies limites des dialectes ne suivent pas les limites administratives. Le lemko et le dialecte du San sont aussi montrés en Pologne et en Slovaquie.",
     "helpTitle": "Comment aider",
     "help": "Vous savez comment on dit ce mot dans votre village ou votre ville ? Cliquez sur « Vous savez comment on le dit chez vous ? » dans le panneau du mot, saisissez-le et, si vous le souhaitez, enregistrez-le. Les contributions apparaissent sur le site après vérification par un éditeur.",
-    "feedback": "Vous avez repéré une erreur ? Écrivez-nous sur <link>GitHub</link>."
+    "feedback": "Vous avez repéré une erreur ? Écrivez-nous à <link>dialectio.team@gmail.com</link>."
   },
   "Sources": {
     "title": "Sources et licences",
@@ -173,7 +173,7 @@
     "thirdTitle": "Services tiers",
     "third": "Le fond de carte est chargé depuis les serveurs d'OpenFreeMap et une partie de l'audio depuis Wikimedia Commons. Ces services voient votre adresse IP, comme tout site depuis lequel votre navigateur charge quelque chose. Pour écarter les robots, les formulaires d'inscription, d'e-mail et d'ajout de mots sont vérifiés par Cloudflare Turnstile : il voit votre adresse IP et des données techniques du navigateur, mais ne dépose aucun cookie publicitaire.",
     "deleteTitle": "Suppression",
-    "delete": "Pour supprimer votre contribution ou votre enregistrement de voix, écrivez-nous sur <link>GitHub</link> en indiquant le mot et le dialecte.",
+    "delete": "Pour supprimer votre contribution ou votre enregistrement de voix, écrivez-nous à <link>dialectio.team@gmail.com</link> en indiquant le mot et le dialecte.",
     "statsTitle": "Statistiques de visite",
     "stats": "Pour savoir quels mots intéressent, nous comptons les pages vues avec Umami, installé sur notre propre serveur. Il n'utilise pas de cookies, ne conserve pas d'adresses IP et ne vous suit pas d'un site à l'autre : nous ne voyons que des totaux — combien de fois une page a été ouverte, depuis quel pays et depuis quel site.",
     "votesTitle": "Quand vous votez ou signalez une erreur",
@@ -329,7 +329,7 @@
     "liability": "Le site est fourni « en l'état », sans garantie d'exactitude ni de disponibilité. Nous ne sommes pas responsables des conséquences de l'utilisation des données. Les liens vers d'autres sites mènent à des ressources sous la responsabilité de leurs propriétaires.",
     "changesTitle": "Modifications",
     "changes": "Nous pouvons mettre à jour ces conditions ; la date de la dernière mise à jour figure en haut de la page.",
-    "contact": "Questions et réclamations : <link>GitHub</link>."
+    "contact": "Questions et réclamations : <link>dialectio.team@gmail.com</link>."
   },
   "Imprint": {
     "title": "Mentions légales",

@@ -30,7 +30,7 @@ router = APIRouter(prefix="/api", tags=["contribute"])
 
 SessionDep = Annotated[Session, Depends(get_session)]
 
-CONTRIBUTOR_SOURCE_URL = "https://github.com/gmisha777/dialectio"
+CONTRIBUTOR_SOURCE_URL = "https://github.com/dialectio/dialectio"
 CONTRIBUTOR_LICENSE = "Contributor permission to Dialectio"
 
 MAX_AUDIO_BYTES = 1_000_000  # ~10 s of compressed speech is well under this

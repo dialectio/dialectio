@@ -141,7 +141,7 @@
     "dialects": "Los dialectos siguen el esquema clásico: tres grupos dialectales (norte, suroeste, sureste) y 15 dialectos. Sus zonas se aproximan por regiones administrativas, lo cual es una simplificación: las fronteras reales de los dialectos no coinciden con las administrativas. Los dialectos lemko y del San también se muestran en Polonia y Eslovaquia.",
     "helpTitle": "Cómo ayudar",
     "help": "¿Sabes cómo se dice esta palabra en tu pueblo o ciudad? Haz clic en «¿Sabes cómo se dice donde vives?» en el panel de la palabra, escríbela y, si quieres, grábala. Las aportaciones aparecen en el sitio tras la revisión de un editor.",
-    "feedback": "¿Has visto un error? Escríbenos en <link>GitHub</link>."
+    "feedback": "¿Has visto un error? Escríbenos a <link>dialectio.team@gmail.com</link>."
   },
   "Sources": {
     "title": "Fuentes y licencias",
@@ -173,7 +173,7 @@
     "thirdTitle": "Servicios de terceros",
     "third": "El mapa base se carga desde servidores de OpenFreeMap y parte del audio desde Wikimedia Commons. Estos servicios ven tu dirección IP, como cualquier sitio del que tu navegador cargue algo. Para frenar a los bots, los formularios de registro, de correo y de añadir palabras los comprueba Cloudflare Turnstile: ve tu dirección IP y datos técnicos del navegador, pero no pone cookies publicitarias.",
     "deleteTitle": "Eliminación",
-    "delete": "Para eliminar tu aportación o tu grabación de voz, escríbenos en <link>GitHub</link> indicando la palabra y el dialecto.",
+    "delete": "Para eliminar tu aportación o tu grabación de voz, escríbenos a <link>dialectio.team@gmail.com</link> indicando la palabra y el dialecto.",
     "statsTitle": "Estadísticas de visitas",
     "stats": "Para saber qué palabras interesan, contamos las visitas a las páginas con Umami, instalado en nuestro propio servidor. No usa cookies, no guarda direcciones IP ni te sigue entre sitios: solo vemos totales — cuántas veces se abrió una página, desde qué país y desde qué sitio.",
     "votesTitle": "Cuando votas o informas de un error",
@@ -329,7 +329,7 @@
     "liability": "El sitio se ofrece «tal cual», sin garantía de exactitud ni de disponibilidad. No respondemos de las consecuencias del uso de los datos. Los enlaces a otros sitios llevan a recursos de los que son responsables sus propietarios.",
     "changesTitle": "Cambios",
     "changes": "Podemos actualizar estas condiciones; la fecha de la última actualización figura al principio de la página.",
-    "contact": "Preguntas y reclamaciones: <link>GitHub</link>."
+    "contact": "Preguntas y reclamaciones: <link>dialectio.team@gmail.com</link>."
   },
   "Imprint": {
     "title": "Aviso legal",

@@ -141,7 +141,7 @@
     "dialects": "Gwary są pogrupowane według klasycznego schematu: trzy grupy dialektalne (północna, południowo-zachodnia, południowo-wschodnia) i 15 gwar. Obszary gwar są przybliżone granicami obwodów i regionów, co jest uproszczeniem: prawdziwe granice gwar nie pokrywają się z administracyjnymi. Gwary łemkowska i nadsańska są pokazane także w Polsce i na Słowacji.",
     "helpTitle": "Jak pomóc",
     "help": "Wiesz, jak to słowo mówi się w twojej wsi lub mieście? Kliknij „Wiesz, jak to się mówi u was?” w panelu słowa, wpisz słowo i, jeśli chcesz, nagraj wymowę. Zgłoszenia pojawiają się na stronie po sprawdzeniu przez redaktora.",
-    "feedback": "Zauważyłeś błąd? Napisz do nas na <link>GitHubie</link>."
+    "feedback": "Zauważyłeś błąd? Napisz do nas: <link>dialectio.team@gmail.com</link>."
   },
   "Sources": {
     "title": "Źródła i licencje",
@@ -173,7 +173,7 @@
     "thirdTitle": "Usługi zewnętrzne",
     "third": "Mapa podkładowa jest wczytywana z serwerów OpenFreeMap, a część nagrań z Wikimedia Commons. Te usługi widzą twój adres IP, jak każda strona, z której przeglądarka coś pobiera. Aby odsiać boty, formularze rejestracji, wiadomości e-mail i dodawania słów sprawdza Cloudflare Turnstile: widzi Twój adres IP i dane techniczne przeglądarki, ale nie ustawia reklamowych plików cookie.",
     "deleteTitle": "Usunięcie",
-    "delete": "Aby usunąć swoje zgłoszenie lub nagranie głosu, napisz do nas na <link>GitHubie</link>, podając słowo i gwarę.",
+    "delete": "Aby usunąć swoje zgłoszenie lub nagranie głosu, napisz do nas na <link>dialectio.team@gmail.com</link>, podając słowo i gwarę.",
     "statsTitle": "Statystyki odwiedzin",
     "stats": "Aby wiedzieć, które słowa interesują ludzi, liczymy odsłony stron za pomocą Umami działającego na naszym serwerze. Nie używa plików cookie, nie przechowuje adresów IP i nie śledzi cię na innych stronach: widzimy tylko liczby ogólne — ile razy otwarto stronę, z jakiego kraju i z jakiej witryny.",
     "votesTitle": "Gdy głosujesz lub zgłaszasz błąd",
@@ -329,7 +329,7 @@
     "liability": "Strona jest udostępniana „tak jak jest”, bez gwarancji dokładności ani ciągłości działania. Nie odpowiadamy za skutki korzystania z danych. Linki do innych stron prowadzą do zasobów, za które odpowiadają ich właściciele.",
     "changesTitle": "Zmiany regulaminu",
     "changes": "Możemy aktualizować ten regulamin; data aktualizacji jest podana na górze strony.",
-    "contact": "Pytania i skargi: <link>GitHub</link>."
+    "contact": "Pytania i skargi: <link>dialectio.team@gmail.com</link>."
   },
   "Imprint": {
     "title": "Nota prawna",

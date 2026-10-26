@@ -16,7 +16,7 @@ from app.importers.common import upsert_source
 from app.models import APPROVED, PENDING, PUBLIC_STATUSES, SUBMITTED, Form, FormChange, User
 
 EDITOR_SOURCE_NAME = "Dialectio editors"
-EDITOR_SOURCE_URL = "https://github.com/gmisha777/dialectio"
+EDITOR_SOURCE_URL = "https://github.com/dialectio/dialectio"
 # Own data stays closed until the project decides on an open license.
 EDITOR_SOURCE_LICENSE = "All rights reserved (Dialectio)"
 # Drafts proposed for review (e.g. generated); they become editor words once approved.

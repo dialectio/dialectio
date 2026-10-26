@@ -28,7 +28,7 @@ apt update && apt upgrade -y
 curl -fsSL https://get.docker.com | sh
 ufw allow OpenSSH && ufw allow 80 && ufw allow 443 && ufw --force enable
 mkdir -p /srv && cd /srv
-git clone https://github.com/gmisha777/dialectio.git
+git clone https://github.com/dialectio/dialectio.git
 cd dialectio
 cp .env.prod.example .env.prod
 nano .env.prod   # домен, паролі (див. нижче)

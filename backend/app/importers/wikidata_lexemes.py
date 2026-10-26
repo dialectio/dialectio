@@ -34,7 +34,7 @@ from app.slugs import assign_missing_slugs
 
 SPARQL_URL = "https://query.wikidata.org/sparql"
 COMMONS_API = "https://commons.wikimedia.org/w/api.php"
-USER_AGENT = "Dialectio/0.1 (https://github.com/gmisha777/dialectio)"
+USER_AGENT = "Dialectio/0.1 (https://github.com/dialectio/dialectio)"
 DATA_DIR = Path(__file__).parent / "data"
 # English word lists that seed concepts, as (concept category, file). Earlier lists win when
 # the same concept is reached from several lists.

@@ -8,8 +8,9 @@ import MobileMenu from "@/components/MobileMenu";
 import { Link } from "@/i18n/navigation";
 import { INFO_PAGES } from "@/lib/pages";
 
-export const GITHUB_ISSUES_URL =
-  "https://github.com/gmisha777/dialectio/issues";
+/** Where visitors write: mistakes, deleting their contributions, questions. */
+export const CONTACT_EMAIL = "dialectio.team@gmail.com";
+export const CONTACT_HREF = `mailto:${CONTACT_EMAIL}`;
 
 export { HEADER_PAGES, INFO_PAGES } from "@/lib/pages";
 
@@ -78,9 +79,14 @@ export default function InfoPage({
 export function externalLink(href: string) {
   function ExternalLink(chunks: ReactNode) {
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer">
-        {chunks}
-      </a>
+      // An email address opens the mail app, not a new tab
+      href.startsWith("mailto:") ? (
+        <a href={href}>{chunks}</a>
+      ) : (
+        <a href={href} target="_blank" rel="noopener noreferrer">
+          {chunks}
+        </a>
+      )
     );
   }
   return ExternalLink;

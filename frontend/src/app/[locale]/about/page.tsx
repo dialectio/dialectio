@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { connection } from "next/server";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 
-import InfoPage, { externalLink, GITHUB_ISSUES_URL } from "@/components/InfoPage";
+import InfoPage, { externalLink, CONTACT_HREF } from "@/components/InfoPage";
 import { getStats } from "@/lib/api";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -46,7 +46,7 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
       <p>{t("dialects")}</p>
       <h2>{t("helpTitle")}</h2>
       <p>{t("help")}</p>
-      <p>{t.rich("feedback", { link: externalLink(GITHUB_ISSUES_URL) })}</p>
+      <p>{t.rich("feedback", { link: externalLink(CONTACT_HREF) })}</p>
     </InfoPage>
   );
 }

@@ -141,7 +141,7 @@
     "dialects": "Dialects follow the classic scheme: three dialect groups (Northern, South-Western, South-Eastern) and 15 dialects. Dialect areas are approximated by regions, which is a simplification: real dialect borders do not follow administrative ones. Lemko and Nadsian are also shown in Poland and Slovakia.",
     "helpTitle": "How to help",
     "help": "Do you know how this word is said in your village or town? Click “Know how it’s said where you live?” in the word panel, type the word and, if you like, record it. Contributions appear on the site after an editor reviews them.",
-    "feedback": "Spotted a mistake? Tell us on <link>GitHub</link>."
+    "feedback": "Spotted a mistake? Write to us at <link>dialectio.team@gmail.com</link>."
   },
   "Sources": {
     "title": "Sources and licenses",
@@ -173,7 +173,7 @@
     "thirdTitle": "Third-party services",
     "third": "The basemap is loaded from OpenFreeMap servers and some audio from Wikimedia Commons. These services see your IP address, like any site your browser loads something from. To keep bots out, the sign-up, email and add-a-word forms are checked by Cloudflare Turnstile: it sees your IP address and technical browser data, but sets no advertising cookies.",
     "deleteTitle": "Deletion",
-    "delete": "To delete your contribution or voice recording, write to us on <link>GitHub</link> with the word and the dialect.",
+    "delete": "To delete your contribution or voice recording, write to us at <link>dialectio.team@gmail.com</link> with the word and the dialect.",
     "statsTitle": "Visit statistics",
     "stats": "To learn which words people find interesting, we count page views with Umami, running on our own server. It uses no cookies, stores no IP addresses and does not follow you across sites: we only see totals — how often a page was opened, from which country and which site.",
     "votesTitle": "When you vote or report a mistake",
@@ -329,7 +329,7 @@
     "liability": "The site is provided “as is”, without any guarantee of accuracy or availability. We are not liable for consequences of using the data. Links to other sites lead to resources their owners are responsible for.",
     "changesTitle": "Changes",
     "changes": "We may update these terms; the date of the last update is shown at the top of the page.",
-    "contact": "Questions and complaints: <link>GitHub</link>."
+    "contact": "Questions and complaints: <link>dialectio.team@gmail.com</link>."
   },
   "Imprint": {
     "title": "Legal notice",

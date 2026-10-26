@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import InfoPage, {
   externalLink,
-  GITHUB_ISSUES_URL,
+  CONTACT_HREF,
 } from "@/components/InfoPage";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -44,7 +44,7 @@ export default async function PrivacyPage({
         </section>
       ))}
       <h2>{t("deleteTitle")}</h2>
-      <p>{t.rich("delete", { link: externalLink(GITHUB_ISSUES_URL) })}</p>
+      <p>{t.rich("delete", { link: externalLink(CONTACT_HREF) })}</p>
     </InfoPage>
   );
 }

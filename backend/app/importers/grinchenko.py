@@ -37,7 +37,7 @@ from app.models import PENDING, Form, Variety
 API_URL = "https://uk.wikisource.org/w/api.php"
 PAGE_PREFIX = "Грінченко. Словарь української мови (1924). Том {volume}.djvu/"
 PAGES_PATH = RAW_DIR / "grinchenko" / "pages.jsonl"
-USER_AGENT = "DialectioBot/0.1 (https://github.com/gmisha777/dialectio)"
+USER_AGENT = "DialectioBot/0.1 (https://github.com/dialectio/dialectio)"
 
 SOURCE_NAME = "Словарь української мови Б. Грінченка (1907–1909), Вікіджерела"
 SOURCE_URL = "https://uk.wikisource.org/wiki/Словарь_української_мови_(1924)"

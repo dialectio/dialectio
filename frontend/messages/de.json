@@ -141,7 +141,7 @@
     "dialects": "Die Dialekte folgen dem klassischen Schema: drei Dialektgruppen (Nord, Südwest, Südost) und 15 Dialekte. Die Dialektgebiete sind an Verwaltungsregionen angenähert, eine Vereinfachung: echte Dialektgrenzen folgen nicht den Verwaltungsgrenzen. Der lemkische und der San-Dialekt werden auch in Polen und der Slowakei gezeigt.",
     "helpTitle": "Wie du helfen kannst",
     "help": "Weißt du, wie man dieses Wort in deinem Dorf oder deiner Stadt sagt? Klicke im Wortbereich auf „Weißt du, wie man es bei euch sagt?“, gib das Wort ein und nimm es, wenn du möchtest, auf. Beiträge erscheinen nach der Prüfung durch die Redaktion.",
-    "feedback": "Einen Fehler entdeckt? Schreib uns auf <link>GitHub</link>."
+    "feedback": "Einen Fehler entdeckt? Schreib uns an <link>dialectio.team@gmail.com</link>."
   },
   "Sources": {
     "title": "Quellen und Lizenzen",
@@ -173,7 +173,7 @@
     "thirdTitle": "Dienste Dritter",
     "third": "Die Grundkarte wird von Servern von OpenFreeMap geladen, ein Teil der Aufnahmen von Wikimedia Commons. Diese Dienste sehen deine IP-Adresse, wie jede Website, von der dein Browser etwas lädt. Um Bots fernzuhalten, prüft Cloudflare Turnstile die Formulare für Registrierung, E-Mail-Links und neue Wörter: Es sieht Ihre IP-Adresse und technische Browserdaten, setzt aber keine Werbe-Cookies.",
     "deleteTitle": "Löschung",
-    "delete": "Um deinen Beitrag oder deine Sprachaufnahme löschen zu lassen, schreib uns auf <link>GitHub</link> mit dem Wort und dem Dialekt.",
+    "delete": "Um deinen Beitrag oder deine Sprachaufnahme löschen zu lassen, schreib uns an <link>dialectio.team@gmail.com</link> mit dem Wort und dem Dialekt.",
     "statsTitle": "Besuchsstatistik",
     "stats": "Um zu erfahren, welche Wörter interessieren, zählen wir Seitenaufrufe mit Umami auf unserem eigenen Server. Es verwendet keine Cookies, speichert keine IP-Adressen und verfolgt dich nicht über Websites hinweg: Wir sehen nur Summen — wie oft eine Seite geöffnet wurde, aus welchem Land und von welcher Website.",
     "votesTitle": "Wenn du abstimmst oder einen Fehler meldest",
@@ -329,7 +329,7 @@
     "liability": "Die Website wird „wie besehen“ bereitgestellt, ohne Gewähr für Richtigkeit oder Verfügbarkeit. Für Folgen der Nutzung der Daten haften wir nicht, soweit gesetzlich zulässig. Für verlinkte fremde Websites sind deren Betreiber verantwortlich.",
     "changesTitle": "Änderungen",
     "changes": "Wir können diese Bedingungen aktualisieren; das Datum der letzten Änderung steht oben auf der Seite.",
-    "contact": "Fragen und Beschwerden: <link>GitHub</link>."
+    "contact": "Fragen und Beschwerden: <link>dialectio.team@gmail.com</link>."
   },
   "Imprint": {
     "title": "Impressum",
