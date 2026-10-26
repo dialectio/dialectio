@@ -191,6 +191,8 @@ export default function MapShell({ children }: { children: ReactNode }) {
                 }`}
               >
                 {children}
+                {/* Every map page ends with the project's pages (support, privacy ...) */}
+                <InfoNav className="px-4 pt-2 pb-6" />
               </div>
             </div>
           </main>

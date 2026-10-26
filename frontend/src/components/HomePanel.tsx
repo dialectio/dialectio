@@ -3,7 +3,6 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo } from "react";
 
-import { InfoNav } from "@/components/InfoPage";
 import { useConceptOnMap } from "@/components/MapShell";
 import { familyColors, wordFamilies } from "@/components/OriginTools";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -132,7 +131,6 @@ export default function HomePanel({
         </section>
       )}
 
-      <InfoNav />
     </aside>
   );
 }
