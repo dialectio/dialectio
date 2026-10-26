@@ -59,7 +59,8 @@ app.add_middleware(
 )
 
 
-@app.get("/health")
+# HEAD too: uptime monitors (UptimeRobot) ask with HEAD
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health(response: Response) -> dict[str, str]:
     """For uptime monitoring: also checks that the database answers."""
     try:
