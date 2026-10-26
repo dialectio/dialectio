@@ -366,7 +366,7 @@
   "Community": {
     "title": "Aportes de la comunidad",
     "metaDescription": "Cuántas palabras han revisado y añadido los visitantes de Dialectio, de dónde son y quién ha grabado sus dialectos.",
-    "intro": "Dialectio lo construyen y revisan personas: los hablantes votan si de verdad se dice así, añaden palabras y graban su pronunciación. Esto es lo que hemos hecho juntos.",
+    "intro": "Dialectio lo llenan y revisan personas: los hablantes votan si de verdad se dice así, añaden palabras y graban la pronunciación.",
     "totals": {
       "votes": "votos «¿se dice así?»",
       "voters": "participantes",
@@ -386,7 +386,20 @@
     "noContributors": "Aquí aparecerán los nombres de quienes añadan una palabra o una grabación y la firmen.",
     "contribution": "Palabras: {words}, grabaciones: {recordings}",
     "ctaCheck": "Revisar palabras →",
-    "ctaAdd": "Añadir una palabra de tu dialecto"
+    "ctaAdd": "Añadir una palabra de tu dialecto",
+    "mapTitle": "Ya en el mapa",
+    "map": {
+      "words": "palabras",
+      "languages": "idiomas",
+      "dialects": "dialectos y variedades regionales",
+      "pages": "páginas de palabras",
+      "recordings": "grabaciones de voces reales"
+    },
+    "communityTitle": "Hecho entre todos",
+    "communityStart": "La comunidad está empezando, así que tu voto o tu palabra estarán entre los primeros. Las cifras aparecerán aquí cuando crezcan.",
+    "needsHelpTitle": "Donde más falta ayuda",
+    "needsHelpIntro": "Estas variedades tienen más palabras «≈» que nadie ha revisado todavía. ¿Conoces alguna? Dinos si se dice así:",
+    "unchecked": "{count, plural, one {# palabra sin revisar} other {# palabras sin revisar}}"
   },
   "Quiz": {
     "title": "Una comprobación rápida",

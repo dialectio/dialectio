@@ -1,6 +1,7 @@
 """What visitors have done for the dictionary: checked words, words and recordings they added,
 where they live (the "Community" page). Only totals and the names contributors chose to
-sign their words with are public, nothing about single voters."""
+sign their words with are public, nothing about single voters. Next to them: what the map
+already holds, and the dialects whose words most need checking."""
 
 from fastapi import APIRouter
 from pydantic import BaseModel
@@ -24,10 +25,12 @@ TOTALS = text("""
         (SELECT count(*) FROM vote WHERE created_at > now() - make_interval(days => :days))
             AS recent_votes,
         (SELECT count(*) FROM report) AS reports,
+        -- Weighted, like the "confirmed by speakers" mark on words (community_status)
         (SELECT count(*) FROM (
             SELECT form_id FROM vote GROUP BY form_id
-            HAVING count(*) FILTER (WHERE value > 0) >= :confirm_min
-               AND count(*) FILTER (WHERE value > 0) >= :confirm_share * count(*)
+            HAVING coalesce(sum(weight) FILTER (WHERE value > 0), 0) >= :confirm_min
+               AND coalesce(sum(weight) FILTER (WHERE value > 0), 0)
+                   >= :confirm_share * sum(weight)
         ) confirmed) AS confirmed,
         (SELECT count(*) FROM form f JOIN source s ON s.id = f.source_id
           WHERE s.name = :contributors AND f.status IN ('approved', 'pending')) AS words,
@@ -57,6 +60,31 @@ DIALECTS = text("""
     ORDER BY votes DESC, va.code
     LIMIT :top
 """)
+
+# What the map holds: public words, the languages and dialects they are in, word pages,
+# recordings of real voices
+MAP_TOTALS = text("""
+    SELECT
+        (SELECT count(*) FROM form WHERE status IN ('approved', 'pending')) AS words,
+        (SELECT count(DISTINCT v.id) FROM variety v JOIN form f ON f.variety_id = v.id
+          WHERE v.kind = 'language' AND f.status IN ('approved', 'pending')) AS languages,
+        (SELECT count(DISTINCT v.id) FROM variety v JOIN form f ON f.variety_id = v.id
+          WHERE v.kind = 'dialect' AND f.status IN ('approved', 'pending')) AS dialects,
+        (SELECT count(*) FROM concept WHERE slug IS NOT NULL) AS pages,
+        (SELECT count(*) FROM audio a JOIN form f ON f.id = a.form_id
+          WHERE NOT a.is_synthetic AND f.status IN ('approved', 'pending')) AS recordings
+""")
+
+# Dialects with the most unverified ("≈") words: where checking helps most
+NEEDS_HELP = text("""
+    SELECT v.code, v.name_en, v.name_uk, v.names, count(*) AS words
+    FROM form f JOIN variety v ON v.id = f.variety_id
+    WHERE v.kind = 'dialect' AND f.status = 'pending'
+    GROUP BY v.code, v.name_en, v.name_uk, v.names
+    ORDER BY words DESC, v.code
+    LIMIT :top
+""")
+NEEDS_HELP_SHOWN = 8
 
 # Names under public words and recordings, with how much each person added
 CONTRIBUTOR_NAMES = text("""
@@ -91,6 +119,22 @@ class Totals(BaseModel):
     recordings: int
 
 
+class MapTotals(BaseModel):
+    words: int
+    languages: int
+    dialects: int
+    pages: int
+    recordings: int
+
+
+class Unchecked(BaseModel):
+    code: str
+    name_en: str
+    name_uk: str | None
+    names: dict[str, str]
+    words: int
+
+
 class Activity(BaseModel):
     code: str
     name_en: str
@@ -111,6 +155,8 @@ class Community(BaseModel):
     regions: list[Activity]
     dialects: list[Activity]
     contributors: list[Contributor]
+    map: MapTotals
+    needs_help: list[Unchecked]
 
 
 @router.get("/community")
@@ -138,5 +184,10 @@ def get_community(session: SessionDep) -> Community:
                 CONTRIBUTOR_NAMES,
                 {"contributors": CONTRIBUTOR_SOURCE_NAME, "limit": CONTRIBUTORS},
             )
+        ],
+        map=MapTotals.model_validate(session.execute(MAP_TOTALS).one()._asdict()),
+        needs_help=[
+            Unchecked.model_validate(r._asdict())
+            for r in session.execute(NEEDS_HELP, {"top": NEEDS_HELP_SHOWN})
         ],
     )

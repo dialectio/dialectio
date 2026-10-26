@@ -424,6 +424,22 @@ export type Community = {
   recent_days: number;
   regions: CommunityActivity[];
   dialects: CommunityActivity[];
+  /** What the map holds */
+  map?: {
+    words: number;
+    languages: number;
+    dialects: number;
+    pages: number;
+    recordings: number;
+  };
+  /** Dialects with the most unverified ("≈") words */
+  needs_help?: {
+    code: string;
+    name_en: string;
+    name_uk: string | null;
+    names: Names;
+    words: number;
+  }[];
   contributors: { name: string; words: number; recordings: number }[];
 };
 

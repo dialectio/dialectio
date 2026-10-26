@@ -366,7 +366,7 @@
   "Community": {
     "title": "Wkład społeczności",
     "metaDescription": "Ile słów sprawdzili i dodali odwiedzający Dialectio, skąd pochodzą i kto nagrał swoje gwary.",
-    "intro": "Dialectio tworzą i sprawdzają ludzie: użytkownicy gwar głosują, czy naprawdę tak się mówi, dodają słowa i nagrywają wymowę. Oto, co zrobiliśmy razem.",
+    "intro": "Dialectio tworzą i sprawdzają ludzie: użytkownicy gwar głosują, czy naprawdę tak się mówi, dodają słowa i nagrywają wymowę.",
     "totals": {
       "votes": "głosów „czy tak się mówi?”",
       "voters": "uczestników",
@@ -386,7 +386,20 @@
     "noContributors": "Tu pojawią się imiona osób, które dodadzą słowo lub nagranie i się podpiszą.",
     "contribution": "Słowa: {words}, nagrania: {recordings}",
     "ctaCheck": "Sprawdź słowa →",
-    "ctaAdd": "Dodaj słowo ze swojej gwary"
+    "ctaAdd": "Dodaj słowo ze swojej gwary",
+    "mapTitle": "Już na mapie",
+    "map": {
+      "words": "słów",
+      "languages": "języków",
+      "dialects": "gwar i odmian regionalnych",
+      "pages": "stron słów",
+      "recordings": "nagrań żywych głosów"
+    },
+    "communityTitle": "Zrobione razem",
+    "communityStart": "Społeczność dopiero się zbiera, więc Twój głos lub słowo będą wśród pierwszych. Liczby pojawią się tu, gdy urosną.",
+    "needsHelpTitle": "Gdzie pomoc jest najbardziej potrzebna",
+    "needsHelpIntro": "W tych gwarach jest najwięcej słów „≈”, których nikt jeszcze nie sprawdził. Znasz którąś? Powiedz, czy tak się mówi:",
+    "unchecked": "{count, plural, one {# niesprawdzone słowo} few {# niesprawdzone słowa} many {# niesprawdzonych słów} other {# niesprawdzonego słowa}}"
   },
   "Quiz": {
     "title": "Krótkie sprawdzenie",

@@ -366,7 +366,7 @@
   "Community": {
     "title": "Beiträge der Gemeinschaft",
     "metaDescription": "Wie viele Wörter Besucher von Dialectio geprüft und hinzugefügt haben, woher sie kommen und wer seine Dialekte aufgenommen hat.",
-    "intro": "Dialectio wird von Menschen gefüllt und geprüft: Sprecher stimmen ab, ob man wirklich so sagt, fügen Wörter hinzu und nehmen die Aussprache auf. Das haben wir gemeinsam geschafft.",
+    "intro": "Dialectio wird von Menschen gefüllt und geprüft: Dialektsprecher stimmen ab, ob man wirklich so sagt, fügen Wörter hinzu und nehmen die Aussprache auf.",
     "totals": {
       "votes": "Stimmen „Sagt man so?“",
       "voters": "Teilnehmende",
@@ -386,7 +386,20 @@
     "noContributors": "Hier erscheinen die Namen derer, die ein Wort oder eine Aufnahme hinzufügen und unterschreiben.",
     "contribution": "Wörter: {words}, Aufnahmen: {recordings}",
     "ctaCheck": "Wörter prüfen →",
-    "ctaAdd": "Ein Wort aus Ihrem Dialekt hinzufügen"
+    "ctaAdd": "Ein Wort aus Ihrem Dialekt hinzufügen",
+    "mapTitle": "Schon auf der Karte",
+    "map": {
+      "words": "Wörter",
+      "languages": "Sprachen",
+      "dialects": "Dialekte und regionale Varianten",
+      "pages": "Wortseiten",
+      "recordings": "Aufnahmen echter Stimmen"
+    },
+    "communityTitle": "Gemeinsam geschafft",
+    "communityStart": "Die Gemeinschaft entsteht gerade, deine Stimme oder dein Wort ist also unter den ersten. Die Zahlen erscheinen hier, sobald sie wachsen.",
+    "needsHelpTitle": "Wo Hilfe am meisten gebraucht wird",
+    "needsHelpIntro": "In diesen Dialekten gibt es die meisten „≈“-Wörter, die noch niemand geprüft hat. Kennst du einen? Sag uns, ob man so sagt:",
+    "unchecked": "{count, plural, one {# ungeprüftes Wort} other {# ungeprüfte Wörter}}"
   },
   "Quiz": {
     "title": "Kurzer Check",

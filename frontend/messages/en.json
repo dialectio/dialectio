@@ -366,7 +366,7 @@
   "Community": {
     "title": "Community contributions",
     "metaDescription": "How many words Dialectio visitors have checked and added, where they are from, and who recorded their dialects.",
-    "intro": "Dialectio is built and checked by people: speakers vote on whether words are really said that way, add words and record how they sound. Here is what has been done together.",
+    "intro": "Dialectio is built and checked by people: speakers vote on whether words are really said that way, add words and record how they sound.",
     "totals": {
       "votes": "“do people say it?” votes",
       "voters": "participants",
@@ -386,7 +386,20 @@
     "noContributors": "The names of people who add a word or a recording and sign it will appear here.",
     "contribution": "Words: {words}, recordings: {recordings}",
     "ctaCheck": "Check words →",
-    "ctaAdd": "Add a word from your dialect"
+    "ctaAdd": "Add a word from your dialect",
+    "mapTitle": "Already on the map",
+    "map": {
+      "words": "words",
+      "languages": "languages",
+      "dialects": "dialects and regional varieties",
+      "pages": "word pages",
+      "recordings": "recordings of real voices"
+    },
+    "communityTitle": "Done together",
+    "communityStart": "The community is just getting started, so your vote or word will be among the first. The numbers will show up here as they grow.",
+    "needsHelpTitle": "Where help is needed most",
+    "needsHelpIntro": "These dialects have the most \"≈\" words nobody has checked yet. Know one? Tell us if people really say it:",
+    "unchecked": "{count, plural, one {# unchecked word} other {# unchecked words}}"
   },
   "Quiz": {
     "title": "A quick check",

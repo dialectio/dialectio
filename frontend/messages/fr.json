@@ -366,7 +366,7 @@
   "Community": {
     "title": "Contributions de la communauté",
     "metaDescription": "Combien de mots les visiteurs de Dialectio ont vérifiés et ajoutés, d'où ils viennent et qui a enregistré ses dialectes.",
-    "intro": "Dialectio est construit et vérifié par des personnes : les locuteurs votent pour dire si l'on parle vraiment ainsi, ajoutent des mots et enregistrent leur prononciation. Voici ce que nous avons fait ensemble.",
+    "intro": "Dialectio est enrichi et vérifié par des personnes : les locuteurs votent pour dire si l'on parle vraiment ainsi, ajoutent des mots et enregistrent leur prononciation.",
     "totals": {
       "votes": "votes « ça se dit ? »",
       "voters": "participants",
@@ -386,7 +386,20 @@
     "noContributors": "Ici apparaîtront les noms de celles et ceux qui ajoutent un mot ou un enregistrement et le signent.",
     "contribution": "Mots : {words}, enregistrements : {recordings}",
     "ctaCheck": "Vérifier des mots →",
-    "ctaAdd": "Ajouter un mot de votre dialecte"
+    "ctaAdd": "Ajouter un mot de votre dialecte",
+    "mapTitle": "Déjà sur la carte",
+    "map": {
+      "words": "mots",
+      "languages": "langues",
+      "dialects": "parlers et variantes régionales",
+      "pages": "pages de mots",
+      "recordings": "enregistrements de vraies voix"
+    },
+    "communityTitle": "Fait ensemble",
+    "communityStart": "La communauté ne fait que commencer : votre vote ou votre mot sera parmi les premiers. Les chiffres apparaîtront ici dès qu'ils grandiront.",
+    "needsHelpTitle": "Là où l'aide compte le plus",
+    "needsHelpIntro": "Ces parlers ont le plus de mots « ≈ » que personne n'a encore vérifiés. Vous en connaissez un ? Dites-nous si on le dit ainsi :",
+    "unchecked": "{count, plural, one {# mot non vérifié} other {# mots non vérifiés}}"
   },
   "Quiz": {
     "title": "Une petite vérification",

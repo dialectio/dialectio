@@ -3,7 +3,11 @@
 import { useLocale, useTranslations } from "next-intl";
 import { useMemo } from "react";
 
-import { EUROPE_BOUNDS, UKRAINE_BOUNDS, useMapView } from "@/components/MapShell";
+import {
+  EUROPE_BOUNDS,
+  UKRAINE_BOUNDS,
+  useMapView,
+} from "@/components/MapShell";
 import { Link } from "@/i18n/navigation";
 import {
   capitalize,
@@ -15,6 +19,8 @@ import {
 // Map fill from few to many votes (violet, as the dialects)
 const SHADES = ["#ddd6fe", "#c4b5fd", "#a78bfa", "#8b5cf6", "#6d28d9"];
 const TOP_REGIONS = 10;
+// Community numbers are shown once they say something: a tile with "1 vote" doesn't
+const MIN_SHOWN = 20;
 
 function shade(votes: number, max: number) {
   const i = Math.floor(
@@ -54,22 +60,58 @@ export default function CommunityView({ community }: { community: Community }) {
     colors,
   });
 
-  const numbers: [string, number][] = [
-    ["votes", totals.votes],
-    ["voters", totals.voters],
-    ["confirmed", totals.confirmed],
-    ["words", totals.words],
-    ["recordings", totals.recordings],
-    ["reports", totals.reports],
-  ];
+  const numbers = (
+    [
+      ["votes", totals.votes],
+      ["voters", totals.voters],
+      ["confirmed", totals.confirmed],
+      ["words", totals.words],
+      ["recordings", totals.recordings],
+      ["reports", totals.reports],
+    ] as [string, number][]
+  ).filter(([, value]) => value >= MIN_SHOWN);
+  // Older API answers had no map numbers or unchecked dialects: show the rest then
+  const map = community.map;
+  const mapNumbers: [string, number][] = map
+    ? [
+        ["words", map.words],
+        ["languages", map.languages],
+        ["dialects", map.dialects],
+        ["pages", map.pages],
+        ["recordings", map.recordings],
+      ]
+    : [];
+  const needsHelp = community.needs_help ?? [];
   const maxDialect = Math.max(1, ...community.dialects.map((d) => d.votes));
+  const dialectVotes = community.dialects.reduce((sum, d) => sum + d.votes, 0);
 
   return (
     <article className="space-y-5 p-4">
       <h1 className="font-serif text-2xl font-semibold">{t("title")}</h1>
       <p className="text-sm leading-relaxed">{t("intro")}</p>
 
-      <dl className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+      <section className="empty:hidden">
+        {mapNumbers.length > 0 && (
+          <h2 className="mb-1 font-medium">{t("mapTitle")}</h2>
+        )}
+        <dl className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+          {mapNumbers.map(([key, value]) => (
+            <div
+              key={key}
+              className="rounded-md bg-violet-500/5 p-2 ring-1 ring-violet-500/20"
+            >
+              <dd className="text-xl font-semibold">
+                {value.toLocaleString(locale)}
+              </dd>
+              <dt className="text-xs opacity-70">{t(`map.${key}`)}</dt>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <h2 className="font-medium">{t("communityTitle")}</h2>
+      {numbers.length === 0 && <p className="text-sm">{t("communityStart")}</p>}
+      <dl className="grid grid-cols-2 gap-2 sm:grid-cols-3 empty:hidden">
         {numbers.map(([key, value]) => (
           <div
             key={key}
@@ -82,7 +124,7 @@ export default function CommunityView({ community }: { community: Community }) {
           </div>
         ))}
       </dl>
-      {totals.recent_votes > 0 && (
+      {totals.recent_votes >= MIN_SHOWN && (
         <p className="text-sm opacity-80">
           {t("recent", {
             count: totals.recent_votes,
@@ -117,7 +159,38 @@ export default function CommunityView({ community }: { community: Community }) {
         )}
       </section>
 
-      {community.dialects.length > 0 && (
+      {needsHelp.length > 0 && (
+        <section>
+          <h2 className="mb-1 font-medium">{t("needsHelpTitle")}</h2>
+          <p className="mb-1 text-sm opacity-80">{t("needsHelpIntro")}</p>
+          <ul className="space-y-0.5 text-sm">
+            {needsHelp.map((dialect) => (
+              <li key={dialect.code}>
+                <Link
+                  href={`/check?deck=${dialect.code}`}
+                  className="flex justify-between gap-2 hover:underline"
+                >
+                  <span>
+                    {capitalize(
+                      localized(
+                        locale,
+                        dialect.name_en,
+                        dialect.name_uk,
+                        dialect.names,
+                      ),
+                    )}
+                  </span>
+                  <span className="shrink-0 opacity-60">
+                    {t("unchecked", { count: dialect.words })}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {dialectVotes >= MIN_SHOWN && (
         <section>
           <h2 className="mb-1 font-medium">{t("dialectsTitle")}</h2>
           <ul className="space-y-1 text-sm">
