@@ -6,6 +6,7 @@ export const INFO_PAGES = [
   "false-friends",
   "about",
   "sources",
+  "support",
   "privacy",
   "terms",
   // "imprint" comes back with the German version, once the site has its address

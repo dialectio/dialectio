@@ -124,7 +124,8 @@
     "imprint": "Aviso legal",
     "false-friends": "Falsos amigos",
     "community": "Comunidad",
-    "menu": "Menú"
+    "menu": "Menú",
+    "support": "Apoyar"
   },
   "About": {
     "title": "Acerca del proyecto",
@@ -555,5 +556,21 @@
       "spelling": "corrigió",
       "primary": "hizo principal"
     }
+  },
+  "Support": {
+    "title": "Apoya el proyecto",
+    "metaDescription": "Cómo ayudar a Dialectio, el mapa de palabras y variedades: donar, revisar palabras, añadir palabras y grabaciones.",
+    "intro": "Dialectio es un proyecto de divulgación sin fines comerciales que lleva una sola persona. El sitio es gratuito, sin anuncios y sin rastreo.",
+    "costsTitle": "En qué se usa el dinero",
+    "costs": "El servidor, el dominio y el correo cuestan unos 25 dólares al mes. El resto es tiempo: revisar palabras, nuevos idiomas y variedades, grabaciones de pronunciación. Cada donación ayuda a que el sitio siga funcionando y crezca.",
+    "donateTitle": "Donar",
+    "monobank": "Monobank (hucha)",
+    "kofi": "Ko-fi (tarjeta, PayPal)",
+    "donateNote": "Cualquier cantidad ayuda. ¡Gracias!",
+    "helpTitle": "Otras formas de ayudar",
+    "helpCheck": "<link>Revisa palabras</link> de tu idioma o variedad: ¿se dice así?",
+    "helpWords": "Añade palabras y grabaciones de pronunciación: en la página de cualquier palabra, pulsa «Añade la palabra».",
+    "helpShare": "Cuéntales del sitio a tus amigos, profesores y comunidades locales.",
+    "helpPartner": "¿Eres de una universidad, escuela, museo o medio y quieres colaborar? Escribe a <link>dialectio.team@gmail.com</link>."
   }
 }

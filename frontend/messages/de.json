@@ -124,7 +124,8 @@
     "imprint": "Impressum",
     "false-friends": "Falsche Freunde",
     "community": "Gemeinschaft",
-    "menu": "Menü"
+    "menu": "Menü",
+    "support": "Unterstützen"
   },
   "About": {
     "title": "Über das Projekt",
@@ -555,5 +556,21 @@
       "spelling": "korrigiert",
       "primary": "zum Hauptwort gemacht"
     }
+  },
+  "Support": {
+    "title": "Projekt unterstützen",
+    "metaDescription": "Wie man Dialectio, der Karte der Wörter und Dialekte, helfen kann: spenden, Wörter prüfen, Wörter und Aufnahmen hinzufügen.",
+    "intro": "Dialectio ist ein nichtkommerzielles populärwissenschaftliches Projekt einer einzelnen Person. Die Website ist kostenlos, ohne Werbung und ohne Tracking.",
+    "costsTitle": "Wofür das Geld verwendet wird",
+    "costs": "Server, Domain und E-Mail kosten etwa 25 Dollar im Monat. Der Rest ist Zeit: Wörter prüfen, neue Sprachen und Dialekte, Ausspracheaufnahmen. Jede Spende hilft der Website weiterzulaufen und zu wachsen.",
+    "donateTitle": "Spenden",
+    "monobank": "Monobank (Spardose)",
+    "kofi": "Ko-fi (Karte, PayPal)",
+    "donateNote": "Jeder Betrag hilft. Danke!",
+    "helpTitle": "Andere Möglichkeiten zu helfen",
+    "helpCheck": "<link>Prüfe Wörter</link> deiner Sprache oder deines Dialekts: sagt man das so?",
+    "helpWords": "Füge Wörter und Ausspracheaufnahmen hinzu: auf der Seite eines Wortes über „Füge das Wort hinzu“.",
+    "helpShare": "Erzähle Freunden, Lehrkräften und deiner Region von der Website.",
+    "helpPartner": "Du bist an einer Universität, Schule, einem Museum oder in einer Redaktion und möchtest zusammenarbeiten? Schreib an <link>dialectio.team@gmail.com</link>."
   }
 }

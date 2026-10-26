@@ -124,7 +124,8 @@
     "imprint": "Mentions légales",
     "false-friends": "Faux amis",
     "community": "Communauté",
-    "menu": "Menu"
+    "menu": "Menu",
+    "support": "Soutenir"
   },
   "About": {
     "title": "À propos",
@@ -555,5 +556,21 @@
       "spelling": "a corrigé",
       "primary": "a fait principal"
     }
+  },
+  "Support": {
+    "title": "Soutenir le projet",
+    "metaDescription": "Comment aider Dialectio, la carte des mots et des parlers : faire un don, vérifier des mots, ajouter des mots et des enregistrements.",
+    "intro": "Dialectio est un projet de vulgarisation non commercial mené par une seule personne. Le site est gratuit, sans publicité ni pistage.",
+    "costsTitle": "À quoi sert l'argent",
+    "costs": "Le serveur, le domaine et l'e-mail coûtent environ 25 dollars par mois. Le reste, c'est du temps : vérifier des mots, de nouvelles langues et de nouveaux parlers, des enregistrements de prononciation. Chaque don aide le site à fonctionner et à grandir.",
+    "donateTitle": "Faire un don",
+    "monobank": "Monobank (cagnotte)",
+    "kofi": "Ko-fi (carte, PayPal)",
+    "donateNote": "Chaque montant aide. Merci !",
+    "helpTitle": "Autres façons d'aider",
+    "helpCheck": "<link>Vérifiez des mots</link> de votre langue ou de votre parler : le dit-on ainsi ?",
+    "helpWords": "Ajoutez des mots et des enregistrements de prononciation : sur la page d'un mot, appuyez sur « Ajoutez le mot ».",
+    "helpShare": "Parlez du site à vos amis, à vos enseignants et à vos communautés locales.",
+    "helpPartner": "Vous êtes dans une université, une école, un musée ou une rédaction et souhaitez collaborer ? Écrivez à <link>dialectio.team@gmail.com</link>."
   }
 }

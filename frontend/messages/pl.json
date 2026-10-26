@@ -124,7 +124,8 @@
     "imprint": "Nota prawna",
     "false-friends": "Fałszywi przyjaciele",
     "community": "Społeczność",
-    "menu": "Menu"
+    "menu": "Menu",
+    "support": "Wesprzyj"
   },
   "About": {
     "title": "O projekcie",
@@ -555,5 +556,21 @@
       "spelling": "poprawił(a)",
       "primary": "ustawił(a) jako główne"
     }
+  },
+  "Support": {
+    "title": "Wesprzyj projekt",
+    "metaDescription": "Jak pomóc Dialectio, mapie słów i gwar: darowizna, sprawdzanie słów, nowe słowa i nagrania.",
+    "intro": "Dialectio to niekomercyjny projekt popularnonaukowy prowadzony przez jedną osobę. Strona jest bezpłatna, bez reklam i bez śledzenia.",
+    "costsTitle": "Na co idą pieniądze",
+    "costs": "Serwer, domena i poczta kosztują około 25 dolarów miesięcznie. Reszta to czas: sprawdzanie słów, nowe języki i gwary, nagrania wymowy. Każda darowizna pomaga stronie działać i rosnąć.",
+    "donateTitle": "Wpłać darowiznę",
+    "monobank": "Monobank (skarbonka)",
+    "kofi": "Ko-fi (karta, PayPal)",
+    "donateNote": "Każda kwota pomaga. Dziękujemy!",
+    "helpTitle": "Inne sposoby pomocy",
+    "helpCheck": "<link>Sprawdzaj słowa</link> swojego języka lub gwary: czy tak się mówi?",
+    "helpWords": "Dodawaj słowa i nagrania wymowy: na stronie dowolnego słowa naciśnij „Dodaj słowo”.",
+    "helpShare": "Opowiedz o stronie znajomym, nauczycielom i lokalnym społecznościom.",
+    "helpPartner": "Jesteś z uczelni, szkoły, muzeum lub redakcji i chcesz współpracować? Napisz na <link>dialectio.team@gmail.com</link>."
   }
 }

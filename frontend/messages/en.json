@@ -124,7 +124,8 @@
     "imprint": "Legal notice",
     "false-friends": "False friends",
     "community": "Community",
-    "menu": "Menu"
+    "menu": "Menu",
+    "support": "Support us"
   },
   "About": {
     "title": "About",
@@ -555,5 +556,21 @@
       "spelling": "fixed",
       "primary": "made main"
     }
+  },
+  "Support": {
+    "title": "Support the project",
+    "metaDescription": "How to help Dialectio, the map of words and dialects: donate, check words, add words and recordings.",
+    "intro": "Dialectio is a non-commercial popular-science project run by one person. The site is free, with no ads and no tracking.",
+    "costsTitle": "Where the money goes",
+    "costs": "The server, domain and email cost about 25 dollars a month. The rest is time: checking words, new languages and dialects, pronunciation recordings. Every donation helps the site keep running and growing.",
+    "donateTitle": "Donate",
+    "monobank": "Monobank jar",
+    "kofi": "Ko-fi (card, PayPal)",
+    "donateNote": "Any amount helps. Thank you!",
+    "helpTitle": "Other ways to help",
+    "helpCheck": "<link>Check words</link> of your language or dialect: do people say it like this?",
+    "helpWords": "Add words and pronunciation recordings: on any word's page, press \"Add the word\".",
+    "helpShare": "Tell your friends, teachers and local communities about the site.",
+    "helpPartner": "From a university, school, museum or newsroom and want to work together? Write to <link>dialectio.team@gmail.com</link>."
   }
 }
