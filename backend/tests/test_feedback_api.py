@@ -208,7 +208,8 @@ def test_check_game_decks_and_cards() -> None:
             session.commit()
 
     polish = client.get("/api/check/cards", params={"voter": voter, "deck": "pol"}).json()
-    assert polish and all(c["variety_code"] == "pol" for c in polish)
+    # A language's deck: its own words and its regional areas' (pol-silesia ...)
+    assert polish and all(c["variety_code"].split("-")[0] == "pol" for c in polish)
 
 
 def test_votes_on_a_verified_word_are_usage_data() -> None:
