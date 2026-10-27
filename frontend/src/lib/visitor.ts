@@ -23,6 +23,8 @@ export const DIALECT_BOUNDS: Record<string, number[]> = {
   spa: [-118, -56, 4, 44], // Spain and Latin America
   fra: [-80, 41, 11, 52], // France, Belgium, Switzerland and Quebec
   ita: [6, 36, 19, 47.5], // Italy
+  pol: [14, 49, 24.2, 55], // Poland
+  por: [-74, -34, -6, 43], // Portugal and Brazil
 };
 
 /** The dialect language of the interface language, Ukrainian by default. */
