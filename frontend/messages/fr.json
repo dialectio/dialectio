@@ -79,7 +79,23 @@
     "makeExpert": "✓ Make expert",
     "declineExpert": "Decline",
     "revokeExpert": "Revoke",
-    "changes": "Change log"
+    "changes": "Change log",
+    "quickReview": "Quick review",
+    "reviewProgress": "reviewed: {done} · in the queue: {left}",
+    "reviewEmpty": "Everything here is reviewed. Pick another dialect or language.",
+    "reviewStatus": {
+      "pending": "draft ≈",
+      "submitted": "sent by a member",
+      "approved": "published, has a report"
+    },
+    "reviewMeans": "means",
+    "reviewStandard": "standard: {word}",
+    "reviewVotes": "Votes (weighted): yes {yes}, no {no}",
+    "reviewApprove": "Approve",
+    "reviewReject": "Reject",
+    "reviewRejectSure": "Sure? ← again",
+    "reviewSkip": "Skip",
+    "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel"
   },
   "Word": {
     "title": "{word} dans différentes langues — orthographe et prononciation | Dialectio",

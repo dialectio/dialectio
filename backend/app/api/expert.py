@@ -11,14 +11,14 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from pydantic import BaseModel, Field
-from sqlalchemy import or_, select
+from sqlalchemy import or_, select, text, true
 from sqlalchemy.dialects.postgresql import insert
 from sqlalchemy.orm import Session, selectinload
 
 from app.api import word_actions
 from app.api.accounts import SessionDep, require_member
 from app.api.editor import EditorForm, SpellingChange, require_editor, to_editor_form
-from app.api.speaker import is_speaker
+from app.api.speaker import is_speaker, root
 from app.api.trust import covers, expert_scope
 from app.api.votes import Tally, tallies
 from app.models import (
@@ -77,6 +77,10 @@ class QueueItem(BaseModel):
     variety_name_en: str
     variety_name_uk: str | None
     variety_names: dict[str, str] = {}
+    concept_description_en: str | None = None
+    concept_description_uk: str | None = None
+    # The main word of the variety's language for the concept (a dialect word's standard)
+    standard: str | None = None
     yes: float
     no: float
     community: str | None
@@ -125,11 +129,6 @@ def expert_form(session: Session, user: User, form_id: int) -> Form:
     return form
 
 
-def scope_filter(variety: str):
-    """Words of the variety; for a language, its dialects too."""
-    return or_(Variety.code == variety, Variety.code.like(f"{variety}-%"))
-
-
 @router.get("/roles")
 def my_roles(request: Request, session: SessionDep) -> list[Role]:
     return roles_of(session, require_member(request, session).id)
@@ -164,15 +163,34 @@ def apply(data: ApplicationIn, request: Request, session: SessionDep) -> None:
     session.commit()
 
 
-@router.get("/queue")
-def queue(
-    request: Request,
-    session: SessionDep,
-    variety: Annotated[str, Query(max_length=40)],
-) -> list[QueueItem]:
-    """Submitted words first, then words with open mistake reports, then drafts."""
-    user = require_member(request, session)
-    require_scope(session, user, variety)
+def scope_filter(variety: str | None):
+    """Words of the variety; for a language, its dialects too; None: every variety."""
+    if variety is None:
+        return true()
+    return or_(Variety.code == variety, Variety.code.like(f"{variety}-%"))
+
+
+def standard_words(session: Session, forms: list[Form]) -> dict[tuple[int, str], str]:
+    """{(concept id, language): the language's main word}, for the forms' languages."""
+    pairs = {(f.concept_id, root(f.variety.code)) for f in forms}
+    if not pairs:
+        return {}
+    rows = session.execute(
+        select(Form.concept_id, Variety.code, Form.spelling)
+        .join(Variety, Variety.id == Form.variety_id)
+        .where(
+            Form.concept_id.in_({c for c, _ in pairs}),
+            Variety.code.in_({lang for _, lang in pairs}),
+            Form.is_primary,
+            Form.status.in_(PUBLIC_STATUSES),
+        )
+    )
+    return {(c, code): spelling for c, code, spelling in rows}
+
+
+def review_queue(session: Session, variety: str | None, limit: int) -> list[QueueItem]:
+    """Submitted words first, then words with open mistake reports, then drafts (the most
+    voted on first)."""
     open_reports: dict[int, list[Report]] = {}
     for report in session.scalars(
         select(Report)
@@ -205,19 +223,26 @@ def queue(
             f.status != SUBMITTED,
             f.id not in open_reports,
             -(weights.get(f.id, Tally()).yes_weight + weights.get(f.id, Tally()).no_weight),
+            f.variety.code,
             f.id,
         )
     )
+    forms = forms[:limit]
+    standards = standard_words(session, forms)
     items = []
-    for form in forms[:QUEUE_LIMIT]:
+    for form in forms:
         tally = weights.get(form.id, Tally())
+        concept = form.concept
         items.append(
             QueueItem(
                 form=to_editor_form(form),
-                concept_slug=form.concept.slug,
-                concept_gloss_en=form.concept.gloss_en,
-                concept_gloss_uk=form.concept.gloss_uk,
-                concept_glosses=form.concept.glosses,
+                concept_slug=concept.slug,
+                concept_gloss_en=concept.gloss_en,
+                concept_gloss_uk=concept.gloss_uk,
+                concept_glosses=concept.glosses,
+                concept_description_en=concept.description_en,
+                concept_description_uk=concept.description_uk,
+                standard=standards.get((form.concept_id, root(form.variety.code))),
                 variety_code=form.variety.code,
                 variety_name_en=form.variety.name_en,
                 variety_name_uk=form.variety.name_uk,
@@ -232,6 +257,17 @@ def queue(
             )
         )
     return items
+
+
+@router.get("/queue")
+def queue(
+    request: Request,
+    session: SessionDep,
+    variety: Annotated[str, Query(max_length=40)],
+) -> list[QueueItem]:
+    user = require_member(request, session)
+    require_scope(session, user, variety)
+    return review_queue(session, variety, QUEUE_LIMIT)
 
 
 @router.post("/forms/{form_id}/approve")
@@ -371,6 +407,39 @@ def decide(data: Decision, session: SessionDep) -> None:
     role.status = data.status
     role.decided_at = datetime.now(UTC)
     session.commit()
+
+
+REVIEW_LIMIT = 200
+
+
+class ReviewVariety(BaseModel):
+    code: str
+    name_en: str
+    name_uk: str | None
+    waiting: int
+
+
+REVIEW_VARIETIES = text("""
+    SELECT v.code, v.name_en, v.name_uk, count(*) AS waiting
+    FROM form f JOIN variety v ON v.id = f.variety_id
+    WHERE f.status IN ('pending', 'submitted')
+    GROUP BY v.code, v.name_en, v.name_uk
+    ORDER BY waiting DESC, v.code
+""")
+
+
+@editor_router.get("/review")
+def editor_review(
+    session: SessionDep, variety: Annotated[str | None, Query(max_length=40)] = None
+) -> list[QueueItem]:
+    """The quick review: drafts, submissions and reported words, of one variety or all."""
+    return review_queue(session, variety or None, REVIEW_LIMIT)
+
+
+@editor_router.get("/review/varieties")
+def editor_review_varieties(session: SessionDep) -> list[ReviewVariety]:
+    """Varieties with words waiting for review, the most first."""
+    return [ReviewVariety.model_validate(r._asdict()) for r in session.execute(REVIEW_VARIETIES)]
 
 
 @editor_router.get("/changes")

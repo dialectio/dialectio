@@ -79,7 +79,23 @@
     "makeExpert": "✓ Зробити експертом",
     "declineExpert": "Відхилити",
     "revokeExpert": "Забрати права",
-    "changes": "Журнал змін"
+    "changes": "Журнал змін",
+    "quickReview": "Швидка перевірка",
+    "reviewProgress": "перевірено: {done} · у черзі: {left}",
+    "reviewEmpty": "Тут усе перевірено. Виберіть інший говір чи мову.",
+    "reviewStatus": {
+      "pending": "чернетка ≈",
+      "submitted": "надіслав учасник",
+      "approved": "опубліковано, є повідомлення"
+    },
+    "reviewMeans": "означає",
+    "reviewStandard": "літературне: {word}",
+    "reviewVotes": "Голоси (зважено): так {yes}, ні {no}",
+    "reviewApprove": "Схвалити",
+    "reviewReject": "Відхилити",
+    "reviewRejectSure": "Точно? ← ще раз",
+    "reviewSkip": "Пропустити",
+    "reviewKeys": "Клавіші: → схвалити · ← відхилити (двічі) · ↓ пропустити · Esc скасувати"
   },
   "Word": {
     "title": "{word} — як пишеться і звучить різними мовами | Dialectio",

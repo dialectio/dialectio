@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { type FormEvent, useEffect, useState } from "react";
 
 import ChangeLog from "@/components/ChangeLog";
+import QuickReview from "@/components/QuickReview";
 import { API_URL, localized } from "@/lib/api";
 import {
   addForm,
@@ -748,6 +749,7 @@ export default function WordEditor() {
       )}
       {error && <p className="mb-4 text-red-600">{error}</p>}
 
+      {token && !error && <QuickReview token={token} />}
       {token && !error && <Submissions token={token} />}
       {token && !error && <Feedback token={token} />}
       {token && !error && <Missing token={token} />}

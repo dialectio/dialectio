@@ -1,5 +1,5 @@
 import { API_URL } from "@/lib/api";
-import type { WordChange } from "@/lib/expert";
+import type { QueueItem, WordChange } from "@/lib/expert";
 
 export type EditorForm = {
   id: number;
@@ -155,3 +155,13 @@ export const decideExpert = (
 
 /** The change log of all words, newest first. */
 export const listChanges = (token: string) => request<WordChange[]>(token, "/changes");
+
+export type ReviewVariety = { code: string; name_en: string; name_uk: string | null; waiting: number };
+
+/** Varieties with words waiting for review, the most first. */
+export const listReviewVarieties = (token: string) =>
+  request<ReviewVariety[]>(token, "/review/varieties");
+
+/** The quick review queue: drafts, submissions and reported words of one variety (or all). */
+export const listReview = (token: string, variety: string) =>
+  request<QueueItem[]>(token, `/review?variety=${encodeURIComponent(variety)}`);

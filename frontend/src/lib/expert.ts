@@ -22,6 +22,10 @@ export type QueueItem = {
   variety_name_en: string;
   variety_name_uk: string | null;
   variety_names: Names;
+  concept_description_en?: string | null;
+  concept_description_uk?: string | null;
+  /** The main word of the variety's language for the concept */
+  standard?: string | null;
   /** Weighted votes */
   yes: number;
   no: number;
