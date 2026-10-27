@@ -140,5 +140,10 @@
     "spa-spain": "colega", "spa-mexico": "cuate", "spa-caribbean": "pana",
     "spa-centralamerica": "mae", "spa-colombia": "parcero", "spa-venezuela": "pana",
     "spa-andes": "pata", "spa-chile": "amigo", "spa-rioplatense": "amigo"
+  },
+  "spectacles": {
+    "spa-spain": "gafas", "spa-mexico": "lentes", "spa-caribbean": "espejuelos",
+    "spa-centralamerica": "anteojos", "spa-colombia": "gafas", "spa-venezuela": "lentes",
+    "spa-andes": "lentes", "spa-chile": "lentes", "spa-rioplatense": "anteojos"
   }
 }

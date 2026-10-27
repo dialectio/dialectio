@@ -1,71 +1,459 @@
 {
  "_comment": "Names of Ukrainian dialect groups and dialects in the extra interface languages.",
- "ukr-north": {"pl": "dialekty północnoukraińskie", "de": "nordukrainische Dialekte", "es": "dialectos ucranianos del norte", "fr": "dialectes ukrainiens du Nord"},
- "ukr-southwest": {"pl": "dialekty południowo-zachodnie", "de": "südwestukrainische Dialekte", "es": "dialectos ucranianos del suroeste", "fr": "dialectes ukrainiens du Sud-Ouest"},
- "ukr-southeast": {"pl": "dialekty południowo-wschodnie", "de": "südostukrainische Dialekte", "es": "dialectos ucranianos del sureste", "fr": "dialectes ukrainiens du Sud-Est"},
- "ukr-polissia-west": {"pl": "gwara zachodniopoleska", "de": "westpolessischer Dialekt", "es": "dialecto de Polesia occidental", "fr": "dialecte de Polésie occidentale"},
- "ukr-polissia-central": {"pl": "gwara środkowopoleska", "de": "mittelpolessischer Dialekt", "es": "dialecto de Polesia central", "fr": "dialecte de Polésie centrale"},
- "ukr-polissia-east": {"pl": "gwara wschodniopoleska", "de": "ostpolessischer Dialekt", "es": "dialecto de Polesia oriental", "fr": "dialecte de Polésie orientale"},
- "ukr-volhynian": {"pl": "gwara wołyńska", "de": "wolhynischer Dialekt", "es": "dialecto de Volinia", "fr": "dialecte volhynien"},
- "ukr-podillian": {"pl": "gwara podolska", "de": "podolischer Dialekt", "es": "dialecto de Podolia", "fr": "dialecte podolien"},
- "ukr-dniester": {"pl": "gwara naddniestrzańska", "de": "Dnister-Dialekt", "es": "dialecto del Dniéster", "fr": "dialecte du Dniestr"},
- "ukr-nadsian": {"pl": "gwara nadsańska", "de": "San-Dialekt (Nadsjanisch)", "es": "dialecto del San", "fr": "dialecte du San"},
- "ukr-boyko": {"pl": "gwara bojkowska", "de": "bojkischer Dialekt", "es": "dialecto boiko", "fr": "dialecte boïko"},
- "ukr-hutsul": {"pl": "gwara huculska", "de": "huzulischer Dialekt", "es": "dialecto hutsul", "fr": "dialecte houtsoule"},
- "ukr-pokuttia-bukovyna": {"pl": "gwara pokucko-bukowińska", "de": "pokutisch-bukowinischer Dialekt", "es": "dialecto de Pokutia y Bucovina", "fr": "dialecte de Pokoutie et de Bucovine"},
- "ukr-transcarpathian": {"pl": "gwara zakarpacka", "de": "transkarpatischer Dialekt", "es": "dialecto transcarpático", "fr": "dialecte transcarpatique"},
- "ukr-lemko": {"pl": "gwara łemkowska", "de": "lemkischer Dialekt", "es": "dialecto lemko", "fr": "dialecte lemko"},
- "ukr-middle-dnieper": {"pl": "gwara środkowonaddnieprzańska", "de": "mittleres Dnipro-Dialekt", "es": "dialecto del Dniéper medio", "fr": "dialecte du Dniepr moyen"},
- "ukr-slobozhan": {"pl": "gwara słobodzka", "de": "slobodaukrainischer Dialekt", "es": "dialecto de Slobozhanshchyna", "fr": "dialecte de Slobojanchtchyna"},
- "ukr-steppe": {"pl": "gwara stepowa", "de": "Steppendialekt", "es": "dialecto de la estepa", "fr": "dialecte des steppes"},
- "deu-regional": {"pl": "regionalna niemczyzna", "de": "regionales Deutsch", "es": "alemán regional", "fr": "allemand régional"},
- "deu-north": {"pl": "niemiecki — Niemcy Północne", "de": "Deutsch — Norddeutschland", "es": "alemán — norte de Alemania", "fr": "allemand — Allemagne du Nord"},
- "deu-northeast": {"pl": "niemiecki — Berlin, Brandenburgia, Meklemburgia", "de": "Deutsch — Berlin, Brandenburg, Mecklenburg", "es": "alemán — Berlín, Brandeburgo, Mecklemburgo", "fr": "allemand — Berlin, Brandebourg, Mecklembourg"},
- "deu-central-east": {"pl": "niemiecki — Saksonia, Turyngia, Saksonia-Anhalt", "de": "Deutsch — Sachsen, Thüringen, Sachsen-Anhalt", "es": "alemán — Sajonia, Turingia, Sajonia-Anhalt", "fr": "allemand — Saxe, Thuringe, Saxe-Anhalt"},
- "deu-northrhine": {"pl": "niemiecki — Nadrenia Północna-Westfalia", "de": "Deutsch — Nordrhein-Westfalen", "es": "alemán — Renania del Norte-Westfalia", "fr": "allemand — Rhénanie-du-Nord-Westphalie"},
- "deu-central-west": {"pl": "niemiecki — Hesja, Nadrenia-Palatynat, Saara", "de": "Deutsch — Hessen, Rheinland-Pfalz, Saarland", "es": "alemán — Hesse, Renania-Palatinado, Sarre", "fr": "allemand — Hesse, Rhénanie-Palatinat, Sarre"},
- "deu-swabian": {"pl": "niemiecki — Badenia-Wirtembergia", "de": "Deutsch — Baden-Württemberg", "es": "alemán — Baden-Wurtemberg", "fr": "allemand — Bade-Wurtemberg"},
- "deu-bavarian": {"pl": "niemiecki — Bawaria", "de": "Deutsch — Bayern", "es": "alemán — Baviera", "fr": "allemand — Bavière"},
- "deu-austria": {"pl": "niemiecki — Austria", "de": "Deutsch — Österreich", "es": "alemán — Austria", "fr": "allemand — Autriche"},
- "deu-switzerland": {"pl": "niemiecki — Szwajcaria", "de": "Deutsch — Schweiz", "es": "alemán — Suiza", "fr": "allemand — Suisse"},
- "ita-regional": {"pl": "regionalny włoski", "de": "regionales Italienisch", "es": "italiano regional", "fr": "italien régional"},
- "ita-northwest": {"pl": "włoski — Piemont, Liguria, Dolina Aosty", "de": "Italienisch — Piemont, Ligurien, Aostatal", "es": "italiano — Piamonte, Liguria, Valle de Aosta", "fr": "italien — Piémont, Ligurie, Vallée d'Aoste"},
- "ita-lombardy": {"pl": "włoski — Lombardia", "de": "Italienisch — Lombardei", "es": "italiano — Lombardía", "fr": "italien — Lombardie"},
- "ita-northeast": {"pl": "włoski — Wenecja Euganejska, Trydent, Friuli", "de": "Italienisch — Venetien, Trentino, Friaul", "es": "italiano — Véneto, Trentino, Friuli", "fr": "italien — Vénétie, Trentin, Frioul"},
- "ita-emilia": {"pl": "włoski — Emilia-Romania", "de": "Italienisch — Emilia-Romagna", "es": "italiano — Emilia-Romaña", "fr": "italien — Émilie-Romagne"},
- "ita-tuscany": {"pl": "włoski — Toskania", "de": "Italienisch — Toskana", "es": "italiano — Toscana", "fr": "italien — Toscane"},
- "ita-center": {"pl": "włoski — Lacjum, Umbria, Marche, Abruzja", "de": "Italienisch — Latium, Umbrien, Marken, Abruzzen", "es": "italiano — Lacio, Umbría, Marcas, Abruzos", "fr": "italien — Latium, Ombrie, Marches, Abruzzes"},
- "ita-south": {"pl": "włoski — Kampania, Apulia, Kalabria, Basilicata, Molise", "de": "Italienisch — Kampanien, Apulien, Kalabrien, Basilikata, Molise", "es": "italiano — Campania, Apulia, Calabria, Basilicata, Molise", "fr": "italien — Campanie, Pouilles, Calabre, Basilicate, Molise"},
- "ita-sicily": {"pl": "włoski — Sycylia", "de": "Italienisch — Sizilien", "es": "italiano — Sicilia", "fr": "italien — Sicile"},
- "ita-sardinia": {"pl": "włoski — Sardynia", "de": "Italienisch — Sardinien", "es": "italiano — Cerdeña", "fr": "italien — Sardaigne"},
- "eng-regional": {"pl": "regionalny angielski", "de": "regionales Englisch", "es": "inglés regional", "fr": "anglais régional"},
- "eng-us-newengland": {"pl": "angielski — Nowa Anglia", "de": "Englisch — Neuengland", "es": "inglés — Nueva Inglaterra", "fr": "anglais — Nouvelle-Angleterre"},
- "eng-us-midatlantic": {"pl": "angielski — stany środkowoatlantyckie", "de": "Englisch — Mittelatlantikstaaten", "es": "inglés — Atlántico Medio de EE. UU.", "fr": "anglais — Centre-Atlantique des États-Unis"},
- "eng-us-south": {"pl": "angielski — Południe USA", "de": "Englisch — Südstaaten der USA", "es": "inglés — Sur de EE. UU.", "fr": "anglais — Sud des États-Unis"},
- "eng-us-midwest": {"pl": "angielski — Środkowy Zachód USA", "de": "Englisch — Mittlerer Westen der USA", "es": "inglés — Medio Oeste de EE. UU.", "fr": "anglais — Midwest des États-Unis"},
- "eng-us-west": {"pl": "angielski — Zachód USA", "de": "Englisch — Westen der USA", "es": "inglés — Oeste de EE. UU.", "fr": "anglais — Ouest des États-Unis"},
- "eng-uk-northeast": {"pl": "angielski — Anglia Północno-Wschodnia", "de": "Englisch — Nordostengland", "es": "inglés — Nordeste de Inglaterra", "fr": "anglais — Nord-Est de l'Angleterre"},
- "eng-uk-northwest": {"pl": "angielski — Anglia Północno-Zachodnia", "de": "Englisch — Nordwestengland", "es": "inglés — Noroeste de Inglaterra", "fr": "anglais — Nord-Ouest de l'Angleterre"},
- "eng-uk-yorkshire": {"pl": "angielski — Yorkshire", "de": "Englisch — Yorkshire", "es": "inglés — Yorkshire", "fr": "anglais — Yorkshire"},
- "eng-uk-eastmidlands": {"pl": "angielski — East Midlands", "de": "Englisch — East Midlands", "es": "inglés — Midlands del Este", "fr": "anglais — Midlands de l'Est"},
- "eng-uk-westmidlands": {"pl": "angielski — West Midlands", "de": "Englisch — West Midlands", "es": "inglés — Midlands del Oeste", "fr": "anglais — Midlands de l'Ouest"},
- "eng-uk-south": {"pl": "angielski — Londyn i południowy wschód Anglii", "de": "Englisch — London und Südostengland", "es": "inglés — Londres y el sudeste de Inglaterra", "fr": "anglais — Londres et le Sud-Est de l'Angleterre"},
- "eng-uk-southwest": {"pl": "angielski — Anglia Południowo-Zachodnia", "de": "Englisch — Südwestengland", "es": "inglés — Sudoeste de Inglaterra", "fr": "anglais — Sud-Ouest de l'Angleterre"},
- "eng-uk-scotland": {"pl": "angielski — Szkocja", "de": "Englisch — Schottland", "es": "inglés — Escocia", "fr": "anglais — Écosse"},
- "spa-regional": {"pl": "regionalny hiszpański", "de": "regionales Spanisch", "es": "español regional", "fr": "espagnol régional"},
- "spa-spain": {"pl": "hiszpański — Hiszpania", "de": "Spanisch — Spanien", "es": "español — España", "fr": "espagnol — Espagne"},
- "spa-mexico": {"pl": "hiszpański — Meksyk", "de": "Spanisch — Mexiko", "es": "español — México", "fr": "espagnol — Mexique"},
- "spa-caribbean": {"pl": "hiszpański — Kuba, Dominikana, Portoryko", "de": "Spanisch — Kuba, Dominikanische Republik, Puerto Rico", "es": "español — Cuba, República Dominicana, Puerto Rico", "fr": "espagnol — Cuba, République dominicaine, Porto Rico"},
- "spa-centralamerica": {"pl": "hiszpański — Ameryka Środkowa", "de": "Spanisch — Zentralamerika", "es": "español — Centroamérica", "fr": "espagnol — Amérique centrale"},
- "spa-colombia": {"pl": "hiszpański — Kolumbia", "de": "Spanisch — Kolumbien", "es": "español — Colombia", "fr": "espagnol — Colombie"},
- "spa-venezuela": {"pl": "hiszpański — Wenezuela", "de": "Spanisch — Venezuela", "es": "español — Venezuela", "fr": "espagnol — Venezuela"},
- "spa-andes": {"pl": "hiszpański — Peru, Boliwia, Ekwador", "de": "Spanisch — Peru, Bolivien, Ecuador", "es": "español — Perú, Bolivia, Ecuador", "fr": "espagnol — Pérou, Bolivie, Équateur"},
- "spa-chile": {"pl": "hiszpański — Chile", "de": "Spanisch — Chile", "es": "español — Chile", "fr": "espagnol — Chili"},
- "spa-rioplatense": {"pl": "hiszpański — Argentyna, Urugwaj, Paragwaj", "de": "Spanisch — Argentinien, Uruguay, Paraguay", "es": "español — Argentina, Uruguay, Paraguay", "fr": "espagnol — Argentine, Uruguay, Paraguay"},
- "fra-regional": {"pl": "regionalny francuski", "de": "regionales Französisch", "es": "francés regional", "fr": "français régional"},
- "fra-france": {"pl": "francuski — Francja", "de": "Französisch — Frankreich", "es": "francés — Francia", "fr": "français — France"},
- "fra-southwest": {"pl": "francuski — południowo-zachodnia Francja", "de": "Französisch — Südwestfrankreich", "es": "francés — suroeste de Francia", "fr": "français — Sud-Ouest de la France"},
- "fra-belgium": {"pl": "francuski — Belgia", "de": "Französisch — Belgien", "es": "francés — Bélgica", "fr": "français — Belgique"},
- "fra-switzerland": {"pl": "francuski — Szwajcaria", "de": "Französisch — Schweiz", "es": "francés — Suiza", "fr": "français — Suisse"},
- "fra-quebec": {"pl": "francuski — Quebec", "de": "Französisch — Québec", "es": "francés — Quebec", "fr": "français — Québec"}
+ "ukr-north": {
+  "pl": "dialekty północnoukraińskie",
+  "de": "nordukrainische Dialekte",
+  "es": "dialectos ucranianos del norte",
+  "fr": "dialectes ukrainiens du Nord"
+ },
+ "ukr-southwest": {
+  "pl": "dialekty południowo-zachodnie",
+  "de": "südwestukrainische Dialekte",
+  "es": "dialectos ucranianos del suroeste",
+  "fr": "dialectes ukrainiens du Sud-Ouest"
+ },
+ "ukr-southeast": {
+  "pl": "dialekty południowo-wschodnie",
+  "de": "südostukrainische Dialekte",
+  "es": "dialectos ucranianos del sureste",
+  "fr": "dialectes ukrainiens du Sud-Est"
+ },
+ "ukr-polissia-west": {
+  "pl": "gwara zachodniopoleska",
+  "de": "westpolessischer Dialekt",
+  "es": "dialecto de Polesia occidental",
+  "fr": "dialecte de Polésie occidentale"
+ },
+ "ukr-polissia-central": {
+  "pl": "gwara środkowopoleska",
+  "de": "mittelpolessischer Dialekt",
+  "es": "dialecto de Polesia central",
+  "fr": "dialecte de Polésie centrale"
+ },
+ "ukr-polissia-east": {
+  "pl": "gwara wschodniopoleska",
+  "de": "ostpolessischer Dialekt",
+  "es": "dialecto de Polesia oriental",
+  "fr": "dialecte de Polésie orientale"
+ },
+ "ukr-volhynian": {
+  "pl": "gwara wołyńska",
+  "de": "wolhynischer Dialekt",
+  "es": "dialecto de Volinia",
+  "fr": "dialecte volhynien"
+ },
+ "ukr-podillian": {
+  "pl": "gwara podolska",
+  "de": "podolischer Dialekt",
+  "es": "dialecto de Podolia",
+  "fr": "dialecte podolien"
+ },
+ "ukr-dniester": {
+  "pl": "gwara naddniestrzańska",
+  "de": "Dnister-Dialekt",
+  "es": "dialecto del Dniéster",
+  "fr": "dialecte du Dniestr"
+ },
+ "ukr-nadsian": {
+  "pl": "gwara nadsańska",
+  "de": "San-Dialekt (Nadsjanisch)",
+  "es": "dialecto del San",
+  "fr": "dialecte du San"
+ },
+ "ukr-boyko": {
+  "pl": "gwara bojkowska",
+  "de": "bojkischer Dialekt",
+  "es": "dialecto boiko",
+  "fr": "dialecte boïko"
+ },
+ "ukr-hutsul": {
+  "pl": "gwara huculska",
+  "de": "huzulischer Dialekt",
+  "es": "dialecto hutsul",
+  "fr": "dialecte houtsoule"
+ },
+ "ukr-pokuttia-bukovyna": {
+  "pl": "gwara pokucko-bukowińska",
+  "de": "pokutisch-bukowinischer Dialekt",
+  "es": "dialecto de Pokutia y Bucovina",
+  "fr": "dialecte de Pokoutie et de Bucovine"
+ },
+ "ukr-transcarpathian": {
+  "pl": "gwara zakarpacka",
+  "de": "transkarpatischer Dialekt",
+  "es": "dialecto transcarpático",
+  "fr": "dialecte transcarpatique"
+ },
+ "ukr-lemko": {
+  "pl": "gwara łemkowska",
+  "de": "lemkischer Dialekt",
+  "es": "dialecto lemko",
+  "fr": "dialecte lemko"
+ },
+ "ukr-middle-dnieper": {
+  "pl": "gwara środkowonaddnieprzańska",
+  "de": "mittleres Dnipro-Dialekt",
+  "es": "dialecto del Dniéper medio",
+  "fr": "dialecte du Dniepr moyen"
+ },
+ "ukr-slobozhan": {
+  "pl": "gwara słobodzka",
+  "de": "slobodaukrainischer Dialekt",
+  "es": "dialecto de Slobozhanshchyna",
+  "fr": "dialecte de Slobojanchtchyna"
+ },
+ "ukr-steppe": {
+  "pl": "gwara stepowa",
+  "de": "Steppendialekt",
+  "es": "dialecto de la estepa",
+  "fr": "dialecte des steppes"
+ },
+ "deu-regional": {
+  "pl": "regionalna niemczyzna",
+  "de": "regionales Deutsch",
+  "es": "alemán regional",
+  "fr": "allemand régional"
+ },
+ "deu-north": {
+  "pl": "niemiecki — Niemcy Północne",
+  "de": "Deutsch — Norddeutschland",
+  "es": "alemán — norte de Alemania",
+  "fr": "allemand — Allemagne du Nord"
+ },
+ "deu-northeast": {
+  "pl": "niemiecki — Berlin, Brandenburgia, Meklemburgia",
+  "de": "Deutsch — Berlin, Brandenburg, Mecklenburg",
+  "es": "alemán — Berlín, Brandeburgo, Mecklemburgo",
+  "fr": "allemand — Berlin, Brandebourg, Mecklembourg"
+ },
+ "deu-central-east": {
+  "pl": "niemiecki — Saksonia, Turyngia, Saksonia-Anhalt",
+  "de": "Deutsch — Sachsen, Thüringen, Sachsen-Anhalt",
+  "es": "alemán — Sajonia, Turingia, Sajonia-Anhalt",
+  "fr": "allemand — Saxe, Thuringe, Saxe-Anhalt"
+ },
+ "deu-northrhine": {
+  "pl": "niemiecki — Nadrenia Północna-Westfalia",
+  "de": "Deutsch — Nordrhein-Westfalen",
+  "es": "alemán — Renania del Norte-Westfalia",
+  "fr": "allemand — Rhénanie-du-Nord-Westphalie"
+ },
+ "deu-central-west": {
+  "pl": "niemiecki — Hesja, Nadrenia-Palatynat, Saara",
+  "de": "Deutsch — Hessen, Rheinland-Pfalz, Saarland",
+  "es": "alemán — Hesse, Renania-Palatinado, Sarre",
+  "fr": "allemand — Hesse, Rhénanie-Palatinat, Sarre"
+ },
+ "deu-swabian": {
+  "pl": "niemiecki — Badenia-Wirtembergia",
+  "de": "Deutsch — Baden-Württemberg",
+  "es": "alemán — Baden-Wurtemberg",
+  "fr": "allemand — Bade-Wurtemberg"
+ },
+ "deu-bavarian": {
+  "pl": "niemiecki — Bawaria",
+  "de": "Deutsch — Bayern",
+  "es": "alemán — Baviera",
+  "fr": "allemand — Bavière"
+ },
+ "deu-austria": {
+  "pl": "niemiecki — Austria",
+  "de": "Deutsch — Österreich",
+  "es": "alemán — Austria",
+  "fr": "allemand — Autriche"
+ },
+ "deu-switzerland": {
+  "pl": "niemiecki — Szwajcaria",
+  "de": "Deutsch — Schweiz",
+  "es": "alemán — Suiza",
+  "fr": "allemand — Suisse"
+ },
+ "ita-regional": {
+  "pl": "regionalny włoski",
+  "de": "regionales Italienisch",
+  "es": "italiano regional",
+  "fr": "italien régional"
+ },
+ "ita-northwest": {
+  "pl": "włoski — Piemont, Liguria, Dolina Aosty",
+  "de": "Italienisch — Piemont, Ligurien, Aostatal",
+  "es": "italiano — Piamonte, Liguria, Valle de Aosta",
+  "fr": "italien — Piémont, Ligurie, Vallée d'Aoste"
+ },
+ "ita-lombardy": {
+  "pl": "włoski — Lombardia",
+  "de": "Italienisch — Lombardei",
+  "es": "italiano — Lombardía",
+  "fr": "italien — Lombardie"
+ },
+ "ita-northeast": {
+  "pl": "włoski — Wenecja Euganejska, Trydent, Friuli",
+  "de": "Italienisch — Venetien, Trentino, Friaul",
+  "es": "italiano — Véneto, Trentino, Friuli",
+  "fr": "italien — Vénétie, Trentin, Frioul"
+ },
+ "ita-emilia": {
+  "pl": "włoski — Emilia-Romania",
+  "de": "Italienisch — Emilia-Romagna",
+  "es": "italiano — Emilia-Romaña",
+  "fr": "italien — Émilie-Romagne"
+ },
+ "ita-tuscany": {
+  "pl": "włoski — Toskania",
+  "de": "Italienisch — Toskana",
+  "es": "italiano — Toscana",
+  "fr": "italien — Toscane"
+ },
+ "ita-center": {
+  "pl": "włoski — Lacjum, Umbria, Marche, Abruzja",
+  "de": "Italienisch — Latium, Umbrien, Marken, Abruzzen",
+  "es": "italiano — Lacio, Umbría, Marcas, Abruzos",
+  "fr": "italien — Latium, Ombrie, Marches, Abruzzes"
+ },
+ "ita-south": {
+  "pl": "włoski — Kampania, Apulia, Kalabria, Basilicata, Molise",
+  "de": "Italienisch — Kampanien, Apulien, Kalabrien, Basilikata, Molise",
+  "es": "italiano — Campania, Apulia, Calabria, Basilicata, Molise",
+  "fr": "italien — Campanie, Pouilles, Calabre, Basilicate, Molise"
+ },
+ "ita-sicily": {
+  "pl": "włoski — Sycylia",
+  "de": "Italienisch — Sizilien",
+  "es": "italiano — Sicilia",
+  "fr": "italien — Sicile"
+ },
+ "ita-sardinia": {
+  "pl": "włoski — Sardynia",
+  "de": "Italienisch — Sardinien",
+  "es": "italiano — Cerdeña",
+  "fr": "italien — Sardaigne"
+ },
+ "eng-regional": {
+  "pl": "regionalny angielski",
+  "de": "regionales Englisch",
+  "es": "inglés regional",
+  "fr": "anglais régional"
+ },
+ "eng-us-newengland": {
+  "pl": "angielski — Nowa Anglia",
+  "de": "Englisch — Neuengland",
+  "es": "inglés — Nueva Inglaterra",
+  "fr": "anglais — Nouvelle-Angleterre"
+ },
+ "eng-us-midatlantic": {
+  "pl": "angielski — stany środkowoatlantyckie",
+  "de": "Englisch — Mittelatlantikstaaten",
+  "es": "inglés — Atlántico Medio de EE. UU.",
+  "fr": "anglais — Centre-Atlantique des États-Unis"
+ },
+ "eng-us-south": {
+  "pl": "angielski — Południe USA",
+  "de": "Englisch — Südstaaten der USA",
+  "es": "inglés — Sur de EE. UU.",
+  "fr": "anglais — Sud des États-Unis"
+ },
+ "eng-us-midwest": {
+  "pl": "angielski — Środkowy Zachód USA",
+  "de": "Englisch — Mittlerer Westen der USA",
+  "es": "inglés — Medio Oeste de EE. UU.",
+  "fr": "anglais — Midwest des États-Unis"
+ },
+ "eng-us-west": {
+  "pl": "angielski — Zachód USA",
+  "de": "Englisch — Westen der USA",
+  "es": "inglés — Oeste de EE. UU.",
+  "fr": "anglais — Ouest des États-Unis"
+ },
+ "eng-uk-northeast": {
+  "pl": "angielski — Anglia Północno-Wschodnia",
+  "de": "Englisch — Nordostengland",
+  "es": "inglés — Nordeste de Inglaterra",
+  "fr": "anglais — Nord-Est de l'Angleterre"
+ },
+ "eng-uk-northwest": {
+  "pl": "angielski — Anglia Północno-Zachodnia",
+  "de": "Englisch — Nordwestengland",
+  "es": "inglés — Noroeste de Inglaterra",
+  "fr": "anglais — Nord-Ouest de l'Angleterre"
+ },
+ "eng-uk-yorkshire": {
+  "pl": "angielski — Yorkshire",
+  "de": "Englisch — Yorkshire",
+  "es": "inglés — Yorkshire",
+  "fr": "anglais — Yorkshire"
+ },
+ "eng-uk-eastmidlands": {
+  "pl": "angielski — East Midlands",
+  "de": "Englisch — East Midlands",
+  "es": "inglés — Midlands del Este",
+  "fr": "anglais — Midlands de l'Est"
+ },
+ "eng-uk-westmidlands": {
+  "pl": "angielski — West Midlands",
+  "de": "Englisch — West Midlands",
+  "es": "inglés — Midlands del Oeste",
+  "fr": "anglais — Midlands de l'Ouest"
+ },
+ "eng-uk-south": {
+  "pl": "angielski — Londyn i południowy wschód Anglii",
+  "de": "Englisch — London und Südostengland",
+  "es": "inglés — Londres y el sudeste de Inglaterra",
+  "fr": "anglais — Londres et le Sud-Est de l'Angleterre"
+ },
+ "eng-uk-southwest": {
+  "pl": "angielski — Anglia Południowo-Zachodnia",
+  "de": "Englisch — Südwestengland",
+  "es": "inglés — Sudoeste de Inglaterra",
+  "fr": "anglais — Sud-Ouest de l'Angleterre"
+ },
+ "eng-uk-scotland": {
+  "pl": "angielski — Szkocja",
+  "de": "Englisch — Schottland",
+  "es": "inglés — Escocia",
+  "fr": "anglais — Écosse"
+ },
+ "spa-regional": {
+  "pl": "regionalny hiszpański",
+  "de": "regionales Spanisch",
+  "es": "español regional",
+  "fr": "espagnol régional"
+ },
+ "spa-spain": {
+  "pl": "hiszpański — Hiszpania",
+  "de": "Spanisch — Spanien",
+  "es": "español — España",
+  "fr": "espagnol — Espagne"
+ },
+ "spa-mexico": {
+  "pl": "hiszpański — Meksyk",
+  "de": "Spanisch — Mexiko",
+  "es": "español — México",
+  "fr": "espagnol — Mexique"
+ },
+ "spa-caribbean": {
+  "pl": "hiszpański — Kuba, Dominikana, Portoryko",
+  "de": "Spanisch — Kuba, Dominikanische Republik, Puerto Rico",
+  "es": "español — Cuba, República Dominicana, Puerto Rico",
+  "fr": "espagnol — Cuba, République dominicaine, Porto Rico"
+ },
+ "spa-centralamerica": {
+  "pl": "hiszpański — Ameryka Środkowa",
+  "de": "Spanisch — Zentralamerika",
+  "es": "español — Centroamérica",
+  "fr": "espagnol — Amérique centrale"
+ },
+ "spa-colombia": {
+  "pl": "hiszpański — Kolumbia",
+  "de": "Spanisch — Kolumbien",
+  "es": "español — Colombia",
+  "fr": "espagnol — Colombie"
+ },
+ "spa-venezuela": {
+  "pl": "hiszpański — Wenezuela",
+  "de": "Spanisch — Venezuela",
+  "es": "español — Venezuela",
+  "fr": "espagnol — Venezuela"
+ },
+ "spa-andes": {
+  "pl": "hiszpański — Peru, Boliwia, Ekwador",
+  "de": "Spanisch — Peru, Bolivien, Ecuador",
+  "es": "español — Perú, Bolivia, Ecuador",
+  "fr": "espagnol — Pérou, Bolivie, Équateur"
+ },
+ "spa-chile": {
+  "pl": "hiszpański — Chile",
+  "de": "Spanisch — Chile",
+  "es": "español — Chile",
+  "fr": "espagnol — Chili"
+ },
+ "spa-rioplatense": {
+  "pl": "hiszpański — Argentyna, Urugwaj, Paragwaj",
+  "de": "Spanisch — Argentinien, Uruguay, Paraguay",
+  "es": "español — Argentina, Uruguay, Paraguay",
+  "fr": "espagnol — Argentine, Uruguay, Paraguay"
+ },
+ "fra-regional": {
+  "pl": "regionalny francuski",
+  "de": "regionales Französisch",
+  "es": "francés regional",
+  "fr": "français régional"
+ },
+ "fra-france": {
+  "pl": "francuski — Francja",
+  "de": "Französisch — Frankreich",
+  "es": "francés — Francia",
+  "fr": "français — France"
+ },
+ "fra-southwest": {
+  "pl": "francuski — południowo-zachodnia Francja",
+  "de": "Französisch — Südwestfrankreich",
+  "es": "francés — suroeste de Francia",
+  "fr": "français — Sud-Ouest de la France"
+ },
+ "fra-belgium": {
+  "pl": "francuski — Belgia",
+  "de": "Französisch — Belgien",
+  "es": "francés — Bélgica",
+  "fr": "français — Belgique"
+ },
+ "fra-switzerland": {
+  "pl": "francuski — Szwajcaria",
+  "de": "Französisch — Schweiz",
+  "es": "francés — Suiza",
+  "fr": "français — Suisse"
+ },
+ "fra-quebec": {
+  "pl": "francuski — Quebec",
+  "de": "Französisch — Québec",
+  "es": "francés — Quebec",
+  "fr": "français — Québec"
+ },
+ "pol-regional": {
+  "pl": "regionalny polski",
+  "de": "regionales Polnisch",
+  "es": "polaco regional",
+  "fr": "polonais régional"
+ },
+ "pol-mazovia": {
+  "pl": "polski — Mazowsze i Łódź",
+  "de": "Polnisch — Masowien und Łódź",
+  "es": "polaco — Mazovia y Łódź",
+  "fr": "polonais — Mazovie et Łódź"
+ },
+ "pol-greater-poland": {
+  "pl": "polski — Wielkopolska",
+  "de": "Polnisch — Großpolen",
+  "es": "polaco — Gran Polonia",
+  "fr": "polonais — Grande-Pologne"
+ },
+ "pol-lesser-poland": {
+  "pl": "polski — Małopolska",
+  "de": "Polnisch — Kleinpolen",
+  "es": "polaco — Pequeña Polonia",
+  "fr": "polonais — Petite-Pologne"
+ },
+ "pol-silesia": {
+  "pl": "polski — Śląsk",
+  "de": "Polnisch — Schlesien",
+  "es": "polaco — Silesia",
+  "fr": "polonais — Silésie"
+ },
+ "por-regional": {
+  "pl": "regionalny portugalski",
+  "de": "regionales Portugiesisch",
+  "es": "portugués regional",
+  "fr": "portugais régional"
+ },
+ "por-portugal": {
+  "pl": "portugalski — Portugalia",
+  "de": "Portugiesisch — Portugal",
+  "es": "portugués — Portugal",
+  "fr": "portugais — Portugal"
+ },
+ "por-brazil": {
+  "pl": "portugalski — Brazylia",
+  "de": "Portugiesisch — Brasilien",
+  "es": "portugués — Brasil",
+  "fr": "portugais — Brésil"
+ }
 }

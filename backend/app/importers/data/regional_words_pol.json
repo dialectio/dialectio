@@ -1,0 +1,41 @@
+{
+  "_comment": "Regional Polish everyday words by area (drafts written by Dialectio from well-known regional variation, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Areas are approximate; the most widespread word of an area is given. Loaded by app.importers.regional_words.",
+  "_main": {
+    "potato": "ziemniak",
+    "bun": "bułka"
+  },
+  "potato": {
+    "pol-mazovia": "ziemniak",
+    "pol-greater-poland": "pyra",
+    "pol-silesia": "kartofel"
+  },
+  "outside": {
+    "pol-mazovia": "na dworze",
+    "pol-greater-poland": "na dworze",
+    "pol-lesser-poland": "na polu"
+  },
+  "bun": {
+    "pol-mazovia": "bułka",
+    "pol-silesia": "żymła"
+  },
+  "sandwich": {
+    "pol-mazovia": "kanapka",
+    "pol-silesia": "sznita"
+  },
+  "grandmother": {
+    "pol-mazovia": "babcia",
+    "pol-silesia": "oma"
+  },
+  "candy": {
+    "pol-mazovia": "cukierek",
+    "pol-silesia": "bombon"
+  },
+  "girl": {
+    "pol-mazovia": "dziewczyna",
+    "pol-silesia": "dziołcha"
+  },
+  "bucket": {
+    "pol-mazovia": "wiadro",
+    "pol-silesia": "ajmer"
+  }
+}

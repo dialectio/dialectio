@@ -42,6 +42,9 @@ FREQUENCY_PATH = Path(__file__).parent / "data" / "frequency_en.txt"
 # Words imported first whatever their frequency: the ones regional words need (apricot ->
 # Marille, cauliflower -> Karfiol)
 EXTRA_PATH = Path(__file__).parent / "data" / "extra_words_en.txt"
+# Words not worth a page (hesitation sounds like "hmm"); remove their concepts with
+# python -m app.importers.datapack remove <slug>
+EXCLUDED_PATH = Path(__file__).parent / "data" / "excluded_words_en.txt"
 
 SOURCE_NAME = "Wiktionary translations"
 # Croatian and Bosnian taken from Wiktionary's joint Serbo-Croatian table: its Latin forms
@@ -236,17 +239,19 @@ def download() -> Path:
 
 
 def extra_words() -> list[str]:
-    lines = EXTRA_PATH.read_text(encoding="utf-8").splitlines()
+    return word_list(EXTRA_PATH)
+
+
+def word_list(path: Path) -> list[str]:
+    lines = path.read_text(encoding="utf-8").splitlines()
     return [w.split("#")[0].strip() for w in lines if w.strip() and not w.startswith("#")]
 
 
 def frequent_words() -> list[str]:
-    """The extra words, then the most frequent English words."""
-    words: list[str] = []
-    for path in (EXTRA_PATH, FREQUENCY_PATH):
-        lines = path.read_text(encoding="utf-8").splitlines()
-        words += [w.split("#")[0].strip() for w in lines if w.strip() and not w.startswith("#")]
-    return list(dict.fromkeys(words))
+    """The extra words, then the most frequent English words, without the excluded ones."""
+    excluded = set(word_list(EXCLUDED_PATH))
+    words = word_list(EXTRA_PATH) + word_list(FREQUENCY_PATH)
+    return [w for w in dict.fromkeys(words) if w not in excluded]
 
 
 def target_codes(item: dict) -> list[tuple[str, bool]]:

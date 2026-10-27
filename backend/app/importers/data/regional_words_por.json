@@ -1,0 +1,73 @@
+{
+  "_comment": "Regional Portuguese everyday words: Portugal and Brazil (drafts written by Dialectio from well-known variation, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Loaded by app.importers.regional_words.",
+  "_main": {
+    "bus": "autocarro",
+    "breakfast": "pequeno-almoço",
+    "mobile-phone": "telemóvel",
+    "cup": "chávena",
+    "screen": "ecrã",
+    "refrigerator": "frigorífico",
+    "bathroom": "casa de banho",
+    "pineapple": "ananás",
+    "train": "comboio",
+    "juice": "sumo",
+    "sidewalk": "passeio",
+    "candy": "rebuçado"
+  },
+  "bus": {
+    "por-portugal": "autocarro",
+    "por-brazil": "ônibus"
+  },
+  "train": {
+    "por-portugal": "comboio",
+    "por-brazil": "trem"
+  },
+  "breakfast": {
+    "por-portugal": "pequeno-almoço",
+    "por-brazil": "café da manhã"
+  },
+  "juice": {
+    "por-portugal": "sumo",
+    "por-brazil": "suco"
+  },
+  "mobile-phone": {
+    "por-portugal": "telemóvel",
+    "por-brazil": "celular"
+  },
+  "refrigerator": {
+    "por-portugal": "frigorífico",
+    "por-brazil": "geladeira"
+  },
+  "bathroom": {
+    "por-portugal": "casa de banho",
+    "por-brazil": "banheiro"
+  },
+  "pineapple": {
+    "por-portugal": "ananás",
+    "por-brazil": "abacaxi"
+  },
+  "cup": {
+    "por-portugal": "chávena",
+    "por-brazil": "xícara"
+  },
+  "screen": {
+    "por-portugal": "ecrã",
+    "por-brazil": "tela"
+  },
+  "sidewalk": {
+    "por-portugal": "passeio",
+    "por-brazil": "calçada"
+  },
+  "candy": {
+    "por-portugal": "rebuçado",
+    "por-brazil": "bala"
+  },
+  "t-shirt": {
+    "por-portugal": "t-shirt",
+    "por-brazil": "camiseta"
+  },
+  "girl": {
+    "por-portugal": "rapariga",
+    "por-brazil": "menina"
+  }
+}

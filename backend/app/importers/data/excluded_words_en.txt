@@ -1,0 +1,6 @@
+# English words the Wiktionary import skips: not worth a word page.
+# One per line, comment after "#". Their existing concepts go with
+#   python -m app.importers.datapack remove <slug>
+hmm   # hesitation sound
+huh   # hesitation sound
+eh    # hesitation sound

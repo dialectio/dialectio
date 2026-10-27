@@ -582,6 +582,60 @@ DIALECTS: tuple[Dialect, ...] = (
         "французька — Квебек",
         ("CA-QC",),
     ),
+    # Polish: regional everyday words (pyra, żymła, na polu / na dworze).
+    Dialect("pol-regional", "pol", "dialect_group", "Regional Polish", "регіональна польська"),
+    Dialect(
+        "pol-mazovia",
+        "pol-regional",
+        "dialect",
+        "Polish (Mazovia and Łódź)",
+        "польська — Мазовія й Лодзь",
+        ("PL-MZ", "PL-LD"),
+    ),
+    Dialect(
+        "pol-greater-poland",
+        "pol-regional",
+        "dialect",
+        "Polish (Greater Poland)",
+        "польська — Велика Польща",
+        ("PL-WP",),
+    ),
+    Dialect(
+        "pol-lesser-poland",
+        "pol-regional",
+        "dialect",
+        "Polish (Lesser Poland)",
+        "польська — Мала Польща",
+        ("PL-MA",),
+    ),
+    Dialect(
+        "pol-silesia",
+        "pol-regional",
+        "dialect",
+        "Polish (Silesia)",
+        "польська — Сілезія",
+        ("PL-SL", "PL-OP"),
+    ),
+    # Portuguese: everyday words of Portugal and Brazil (autocarro / ônibus).
+    Dialect(
+        "por-regional", "por", "dialect_group", "Regional Portuguese", "регіональна португальська"
+    ),
+    Dialect(
+        "por-portugal",
+        "por-regional",
+        "dialect",
+        "Portuguese (Portugal)",
+        "португальська — Португалія",
+        ("PRT",),
+    ),
+    Dialect(
+        "por-brazil",
+        "por-regional",
+        "dialect",
+        "Portuguese (Brazil)",
+        "португальська — Бразилія",
+        ("BRA",),
+    ),
 )
 
 

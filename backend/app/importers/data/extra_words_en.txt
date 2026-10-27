@@ -19,3 +19,4 @@ mobile phone # móvil / celular; portable / GSM / natel / cellulaire
 swimsuit     # bañador / traje de baño / malla
 mop          # serpillière / panosse / moppe
 chewing gum  # chewing-gum / gomme (Quebec)
+spectacles   # окуляри: gafas / anteojos / lentes / espejuelos ("glasses" has no table)
