@@ -66,6 +66,7 @@ export function AccountButton() {
     return (
       <Link
         href={`/login?next=${encodeURIComponent(pathname)}`}
+        rel="nofollow"
         className="shrink-0 rounded-md border border-violet-500/40 px-3 py-1 text-sm text-violet-800 hover:bg-violet-500/10 dark:text-violet-300"
       >
         {t("signIn")}

@@ -66,6 +66,7 @@ export default function SpeakerTestView({ code }: { code: string }) {
         {t("signInFirst")}{" "}
         <Link
           href={`/login?next=${encodeURIComponent(`/account/test/${code}`)}`}
+          rel="nofollow"
         >
           {t("signIn")}
         </Link>

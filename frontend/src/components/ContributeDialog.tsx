@@ -187,6 +187,7 @@ export default function ContributeDialog({
             <p>{t("signInFirst")}</p>
             <Link
               href={`/login?next=${encodeURIComponent(pathname)}`}
+              rel="nofollow"
               className="inline-block rounded bg-blue-600 px-3 py-1.5 text-white no-underline!"
             >
               {t("signIn")}
