@@ -1,173 +1,173 @@
 {
-  "_comment": "Regional German everyday words by area (drafts written by Dialectio from well-known regional variation, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Areas are approximate: a state can use several words; the most widespread one is given. Loaded by app.importers.regional_words.",
+  "_comment": "Regional German everyday words by area (drafts written by Dialectio from well-known regional variation, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Areas are approximate: a state can use several words; the most widespread one is given (Schrippe is Berlin only, not all of Brandenburg: feedback from the Deutscher Sprachatlas, 2026-10-30). Loaded by app.importers.regional_words.",
   "_main": {"goat": "Ziege", "horse": "Pferd", "cabbage": "Weißkohl", "bag": "Tüte", "hello": "Hallo", "carrot": "Möhre", "girlfriend": "Freundin"},
   "bun": {
-    "deu-north": "Brötchen", "deu-northeast": "Schrippe", "deu-central-east": "Semmel",
+    "deu-north": "Brötchen", "deu-berlin": "Schrippe", "deu-northeast": "Brötchen", "deu-central-east": "Semmel",
     "deu-northrhine": "Brötchen", "deu-central-west": "Weck", "deu-swabian": "Weckle",
     "deu-bavarian": "Semmel", "deu-austria": "Semmel", "deu-switzerland": "Brötli"
   },
   "potato": {
-    "deu-north": "Kartoffel", "deu-northeast": "Kartoffel", "deu-central-east": "Kartoffel",
+    "deu-north": "Kartoffel", "deu-berlin": "Kartoffel", "deu-northeast": "Kartoffel", "deu-central-east": "Kartoffel",
     "deu-northrhine": "Kartoffel", "deu-central-west": "Grumbeer", "deu-swabian": "Grombir",
     "deu-bavarian": "Erdäpfel", "deu-austria": "Erdapfel", "deu-switzerland": "Härdöpfel"
   },
   "cream": {
-    "deu-north": "Sahne", "deu-northeast": "Sahne", "deu-central-east": "Sahne",
+    "deu-north": "Sahne", "deu-berlin": "Sahne", "deu-northeast": "Sahne", "deu-central-east": "Sahne",
     "deu-northrhine": "Sahne", "deu-central-west": "Sahne", "deu-swabian": "Rahm",
     "deu-bavarian": "Rahm", "deu-austria": "Obers", "deu-switzerland": "Rahm"
   },
   "saturday": {
-    "deu-north": "Sonnabend", "deu-northeast": "Sonnabend", "deu-central-east": "Sonnabend",
+    "deu-north": "Sonnabend", "deu-berlin": "Sonnabend", "deu-northeast": "Sonnabend", "deu-central-east": "Sonnabend",
     "deu-northrhine": "Samstag", "deu-central-west": "Samstag", "deu-swabian": "Samstag",
     "deu-bavarian": "Samstag", "deu-austria": "Samstag", "deu-switzerland": "Samstag"
   },
   "stairs": {
-    "deu-north": "Treppe", "deu-northeast": "Treppe", "deu-central-east": "Treppe",
+    "deu-north": "Treppe", "deu-berlin": "Treppe", "deu-northeast": "Treppe", "deu-central-east": "Treppe",
     "deu-northrhine": "Treppe", "deu-central-west": "Treppe", "deu-swabian": "Stäffele",
     "deu-bavarian": "Stiege", "deu-austria": "Stiege", "deu-switzerland": "Stäge"
   },
   "butcher": {
-    "deu-north": "Schlachter", "deu-northeast": "Fleischer", "deu-central-east": "Fleischer",
+    "deu-north": "Schlachter", "deu-berlin": "Fleischer", "deu-northeast": "Fleischer", "deu-central-east": "Fleischer",
     "deu-northrhine": "Metzger", "deu-central-west": "Metzger", "deu-swabian": "Metzger",
     "deu-bavarian": "Metzger", "deu-austria": "Fleischhauer", "deu-switzerland": "Metzger"
   },
   "sweep": {
-    "deu-north": "fegen", "deu-northeast": "fegen", "deu-central-east": "fegen",
+    "deu-north": "fegen", "deu-berlin": "fegen", "deu-northeast": "fegen", "deu-central-east": "fegen",
     "deu-northrhine": "fegen", "deu-central-west": "kehren", "deu-swabian": "kehren",
     "deu-bavarian": "kehren", "deu-austria": "kehren", "deu-switzerland": "wüschen"
   },
   "plum": {
-    "deu-north": "Pflaume", "deu-northeast": "Pflaume", "deu-central-east": "Pflaume",
+    "deu-north": "Pflaume", "deu-berlin": "Pflaume", "deu-northeast": "Pflaume", "deu-central-east": "Pflaume",
     "deu-northrhine": "Pflaume", "deu-central-west": "Quetsche", "deu-swabian": "Zwetschge",
     "deu-bavarian": "Zwetschge", "deu-austria": "Zwetschke", "deu-switzerland": "Zwetschge"
   },
   "carrot": {
-    "deu-north": "Wurzel", "deu-northeast": "Mohrrübe", "deu-central-east": "Möhre",
+    "deu-north": "Wurzel", "deu-berlin": "Mohrrübe", "deu-northeast": "Mohrrübe", "deu-central-east": "Möhre",
     "deu-northrhine": "Möhre", "deu-central-west": "gelbe Rübe", "deu-swabian": "gelbe Rübe",
     "deu-bavarian": "gelbe Rübe", "deu-austria": "Karotte", "deu-switzerland": "Rüebli"
   },
   "girl": {
-    "deu-north": "Deern", "deu-northeast": "Mädchen", "deu-central-east": "Mädel",
+    "deu-north": "Deern", "deu-berlin": "Mädchen", "deu-northeast": "Mädchen", "deu-central-east": "Mädel",
     "deu-northrhine": "Mädchen", "deu-central-west": "Mädchen", "deu-swabian": "Mädle",
     "deu-bavarian": "Madl", "deu-austria": "Mädel", "deu-switzerland": "Meitli"
   },
   "boy": {
-    "deu-north": "Junge", "deu-northeast": "Junge", "deu-central-east": "Junge",
+    "deu-north": "Junge", "deu-berlin": "Junge", "deu-northeast": "Junge", "deu-central-east": "Junge",
     "deu-northrhine": "Junge", "deu-central-west": "Bub", "deu-swabian": "Bub",
     "deu-bavarian": "Bua", "deu-austria": "Bub", "deu-switzerland": "Bueb"
   },
   "goat": {
-    "deu-north": "Ziege", "deu-northeast": "Ziege", "deu-central-east": "Ziege",
+    "deu-north": "Ziege", "deu-berlin": "Ziege", "deu-northeast": "Ziege", "deu-central-east": "Ziege",
     "deu-northrhine": "Ziege", "deu-central-west": "Geiß", "deu-swabian": "Geiß",
     "deu-bavarian": "Goaß", "deu-austria": "Geiß", "deu-switzerland": "Geiss"
   },
   "horse": {
-    "deu-north": "Pferd", "deu-northeast": "Pferd", "deu-central-east": "Pferd",
+    "deu-north": "Pferd", "deu-berlin": "Pferd", "deu-northeast": "Pferd", "deu-central-east": "Pferd",
     "deu-northrhine": "Pferd", "deu-central-west": "Gaul", "deu-swabian": "Gaul",
     "deu-bavarian": "Ross", "deu-austria": "Ross", "deu-switzerland": "Ross"
   },
   "bucket": {
-    "deu-north": "Eimer", "deu-northeast": "Eimer", "deu-central-east": "Eimer",
+    "deu-north": "Eimer", "deu-berlin": "Eimer", "deu-northeast": "Eimer", "deu-central-east": "Eimer",
     "deu-northrhine": "Eimer", "deu-central-west": "Eimer", "deu-swabian": "Kübel",
     "deu-bavarian": "Kübel", "deu-austria": "Kübel", "deu-switzerland": "Kessel"
   },
   "pancake": {
-    "deu-north": "Pfannkuchen", "deu-northeast": "Eierkuchen", "deu-central-east": "Eierkuchen",
+    "deu-north": "Pfannkuchen", "deu-berlin": "Eierkuchen", "deu-northeast": "Eierkuchen", "deu-central-east": "Eierkuchen",
     "deu-northrhine": "Pfannkuchen", "deu-central-west": "Pfannkuchen", "deu-swabian": "Pfannkuchen",
     "deu-bavarian": "Pfannkuchen", "deu-austria": "Palatschinke", "deu-switzerland": "Omelette"
   },
   "tomato-q20638126": {
-    "deu-north": "Tomate", "deu-northeast": "Tomate", "deu-central-east": "Tomate",
+    "deu-north": "Tomate", "deu-berlin": "Tomate", "deu-northeast": "Tomate", "deu-central-east": "Tomate",
     "deu-northrhine": "Tomate", "deu-central-west": "Tomate", "deu-swabian": "Tomate",
     "deu-bavarian": "Tomate", "deu-austria": "Paradeiser", "deu-switzerland": "Tomate"
   },
   "hospital": {
-    "deu-north": "Krankenhaus", "deu-northeast": "Krankenhaus", "deu-central-east": "Krankenhaus",
+    "deu-north": "Krankenhaus", "deu-berlin": "Krankenhaus", "deu-northeast": "Krankenhaus", "deu-central-east": "Krankenhaus",
     "deu-northrhine": "Krankenhaus", "deu-central-west": "Krankenhaus", "deu-swabian": "Krankenhaus",
     "deu-bavarian": "Krankenhaus", "deu-austria": "Spital", "deu-switzerland": "Spital"
   },
   "jam": {
-    "deu-north": "Marmelade", "deu-northeast": "Marmelade", "deu-central-east": "Marmelade",
+    "deu-north": "Marmelade", "deu-berlin": "Marmelade", "deu-northeast": "Marmelade", "deu-central-east": "Marmelade",
     "deu-northrhine": "Marmelade", "deu-central-west": "Marmelade", "deu-swabian": "Gsälz",
     "deu-bavarian": "Marmelade", "deu-austria": "Marmelade", "deu-switzerland": "Konfitüre"
   },
   "bicycle": {
-    "deu-north": "Fahrrad", "deu-northeast": "Fahrrad", "deu-central-east": "Fahrrad",
+    "deu-north": "Fahrrad", "deu-berlin": "Fahrrad", "deu-northeast": "Fahrrad", "deu-central-east": "Fahrrad",
     "deu-northrhine": "Fahrrad", "deu-central-west": "Fahrrad", "deu-swabian": "Fahrrad",
     "deu-bavarian": "Radl", "deu-austria": "Radl", "deu-switzerland": "Velo"
   },
   "carnival": {
-    "deu-north": "Karneval", "deu-northeast": "Fasching", "deu-central-east": "Fasching",
+    "deu-north": "Karneval", "deu-berlin": "Fasching", "deu-northeast": "Fasching", "deu-central-east": "Fasching",
     "deu-northrhine": "Karneval", "deu-central-west": "Fastnacht", "deu-swabian": "Fasnet",
     "deu-bavarian": "Fasching", "deu-austria": "Fasching", "deu-switzerland": "Fasnacht"
   },
   "cookie": {
-    "deu-north": "Keks", "deu-northeast": "Plätzchen", "deu-central-east": "Plätzchen",
+    "deu-north": "Keks", "deu-berlin": "Plätzchen", "deu-northeast": "Plätzchen", "deu-central-east": "Plätzchen",
     "deu-northrhine": "Plätzchen", "deu-central-west": "Plätzchen", "deu-swabian": "Gutsle",
     "deu-bavarian": "Platzerl", "deu-austria": "Kekserl", "deu-switzerland": "Guetzli"
   },
   "rooster": {
-    "deu-north": "Hahn", "deu-northeast": "Hahn", "deu-central-east": "Hahn",
+    "deu-north": "Hahn", "deu-berlin": "Hahn", "deu-northeast": "Hahn", "deu-central-east": "Hahn",
     "deu-northrhine": "Hahn", "deu-central-west": "Gickel", "deu-swabian": "Gockeler",
     "deu-bavarian": "Gockel", "deu-austria": "Hahn", "deu-switzerland": "Güggel"
   },
   "cabbage": {
-    "deu-north": "Weißkohl", "deu-northeast": "Weißkohl", "deu-central-east": "Weißkraut",
+    "deu-north": "Weißkohl", "deu-berlin": "Weißkohl", "deu-northeast": "Weißkohl", "deu-central-east": "Weißkraut",
     "deu-northrhine": "Weißkohl", "deu-central-west": "Weißkraut", "deu-swabian": "Kraut",
     "deu-bavarian": "Kraut", "deu-austria": "Kraut", "deu-switzerland": "Kabis"
   },
   "apricot": {
-    "deu-north": "Aprikose", "deu-northeast": "Aprikose", "deu-central-east": "Aprikose",
+    "deu-north": "Aprikose", "deu-berlin": "Aprikose", "deu-northeast": "Aprikose", "deu-central-east": "Aprikose",
     "deu-northrhine": "Aprikose", "deu-central-west": "Aprikose", "deu-swabian": "Aprikose",
     "deu-bavarian": "Aprikose", "deu-austria": "Marille", "deu-switzerland": "Aprikose"
   },
   "cauliflower": {
-    "deu-north": "Blumenkohl", "deu-northeast": "Blumenkohl", "deu-central-east": "Blumenkohl",
+    "deu-north": "Blumenkohl", "deu-berlin": "Blumenkohl", "deu-northeast": "Blumenkohl", "deu-central-east": "Blumenkohl",
     "deu-northrhine": "Blumenkohl", "deu-central-west": "Blumenkohl", "deu-swabian": "Blumenkohl",
     "deu-bavarian": "Blumenkohl", "deu-austria": "Karfiol", "deu-switzerland": "Blumenkohl"
   },
   "doughnut": {
-    "deu-north": "Berliner", "deu-northeast": "Pfannkuchen", "deu-central-east": "Pfannkuchen",
+    "deu-north": "Berliner", "deu-berlin": "Pfannkuchen", "deu-northeast": "Pfannkuchen", "deu-central-east": "Pfannkuchen",
     "deu-northrhine": "Berliner", "deu-central-west": "Kreppel", "deu-swabian": "Berliner",
     "deu-bavarian": "Krapfen", "deu-austria": "Krapfen", "deu-switzerland": "Berliner"
   },
   "hello": {
-    "deu-north": "Moin", "deu-northeast": "Tach", "deu-central-east": "Hallo",
+    "deu-north": "Moin", "deu-berlin": "Tach", "deu-northeast": "Tach", "deu-central-east": "Hallo",
     "deu-northrhine": "Tach", "deu-central-west": "Gude", "deu-swabian": "Grüß Gott",
     "deu-bavarian": "Servus", "deu-austria": "Grüß Gott", "deu-switzerland": "Grüezi"
   },
   "goodbye": {
-    "deu-north": "Tschüss", "deu-northeast": "Tschüss", "deu-central-east": "Tschüss",
+    "deu-north": "Tschüss", "deu-berlin": "Tschüss", "deu-northeast": "Tschüss", "deu-central-east": "Tschüss",
     "deu-northrhine": "Tschö", "deu-central-west": "Tschüss", "deu-swabian": "Ade",
     "deu-bavarian": "Pfiat di", "deu-austria": "Servus", "deu-switzerland": "Uf Wiederluege"
   },
   "bag": {
-    "deu-north": "Tüte", "deu-northeast": "Tüte", "deu-central-east": "Tüte",
+    "deu-north": "Tüte", "deu-berlin": "Tüte", "deu-northeast": "Tüte", "deu-central-east": "Tüte",
     "deu-northrhine": "Tüte", "deu-central-west": "Tüte", "deu-swabian": "Gugg",
     "deu-bavarian": "Tüte", "deu-austria": "Sackerl", "deu-switzerland": "Säckli"
   },
   "sidewalk": {
-    "deu-north": "Bürgersteig", "deu-northeast": "Gehweg", "deu-central-east": "Fußweg",
+    "deu-north": "Bürgersteig", "deu-berlin": "Gehweg", "deu-northeast": "Gehweg", "deu-central-east": "Fußweg",
     "deu-northrhine": "Bürgersteig", "deu-central-west": "Trottoir", "deu-swabian": "Gehweg",
     "deu-bavarian": "Gehsteig", "deu-austria": "Gehsteig", "deu-switzerland": "Trottoir"
   },
   "breakfast": {
-    "deu-north": "Frühstück", "deu-northeast": "Frühstück", "deu-central-east": "Frühstück",
+    "deu-north": "Frühstück", "deu-berlin": "Frühstück", "deu-northeast": "Frühstück", "deu-central-east": "Frühstück",
     "deu-northrhine": "Frühstück", "deu-central-west": "Frühstück", "deu-swabian": "Frühstück",
     "deu-bavarian": "Frühstück", "deu-austria": "Frühstück", "deu-switzerland": "Zmorge"
   },
   "mobile-phone": {
-    "deu-north": "Handy", "deu-northeast": "Handy", "deu-central-east": "Handy",
+    "deu-north": "Handy", "deu-berlin": "Handy", "deu-northeast": "Handy", "deu-central-east": "Handy",
     "deu-northrhine": "Handy", "deu-central-west": "Handy", "deu-swabian": "Handy",
     "deu-bavarian": "Handy", "deu-austria": "Handy", "deu-switzerland": "Natel"
   },
   "peanut": {
-    "deu-north": "Erdnuss", "deu-northeast": "Erdnuss", "deu-central-east": "Erdnuss",
+    "deu-north": "Erdnuss", "deu-berlin": "Erdnuss", "deu-northeast": "Erdnuss", "deu-central-east": "Erdnuss",
     "deu-northrhine": "Erdnuss", "deu-central-west": "Erdnuss", "deu-swabian": "Erdnuss",
     "deu-bavarian": "Erdnuss", "deu-austria": "Erdnuss", "deu-switzerland": "Spanischnüssli"
   },
   "girlfriend": {
-    "deu-north": "Freundin", "deu-northeast": "Freundin", "deu-central-east": "Freundin",
+    "deu-north": "Freundin", "deu-berlin": "Freundin", "deu-northeast": "Freundin", "deu-central-east": "Freundin",
     "deu-northrhine": "Freundin", "deu-central-west": "Freundin", "deu-swabian": "Freundin",
     "deu-bavarian": "Freundin", "deu-austria": "Freundin", "deu-switzerland": "Schatz"
   }

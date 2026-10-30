@@ -31,7 +31,8 @@
     "wiktionary": "Wikisłownik",
     "dialectCount": "{count, plural, one {# gwara} few {# gwary} many {# gwar} other {# gwary}}",
     "liveCount": "{count, plural, one {# nagranie na żywo} few {# nagrania na żywo} many {# nagrań na żywo} other {# nagrania na żywo}}",
-    "liveRecording": "nagranie użytkownika języka"
+    "liveRecording": "nagranie użytkownika języka",
+    "areasNote": "Obszary gwar są przybliżone: dla regionu podano najczęstsze słowo, a prawdziwe granice słów nie pokrywają się z administracyjnymi."
   },
   "Editor": {
     "title": "Word editor: {variety}",

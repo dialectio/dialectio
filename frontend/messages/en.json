@@ -31,7 +31,8 @@
     "wiktionary": "Wiktionary",
     "dialectCount": "{count, plural, one {# dialect} other {# dialects}}",
     "liveCount": "{count, plural, one {# real recording} other {# real recordings}}",
-    "liveRecording": "recorded by a speaker"
+    "liveRecording": "recorded by a speaker",
+    "areasNote": "Dialect areas are approximate: a region shows the word most often given for it, while real word borders do not follow administrative ones."
   },
   "Editor": {
     "title": "Word editor: {variety}",

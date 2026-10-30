@@ -120,11 +120,17 @@
   "es": "alemán — norte de Alemania",
   "fr": "allemand — Allemagne du Nord"
  },
+ "deu-berlin": {
+  "pl": "niemiecki — Berlin",
+  "de": "Deutsch — Berlin",
+  "es": "alemán — Berlín",
+  "fr": "allemand — Berlin"
+ },
  "deu-northeast": {
-  "pl": "niemiecki — Berlin, Brandenburgia, Meklemburgia",
-  "de": "Deutsch — Berlin, Brandenburg, Mecklenburg",
-  "es": "alemán — Berlín, Brandeburgo, Mecklemburgo",
-  "fr": "allemand — Berlin, Brandebourg, Mecklembourg"
+  "pl": "niemiecki — Brandenburgia, Meklemburgia",
+  "de": "Deutsch — Brandenburg, Mecklenburg",
+  "es": "alemán — Brandeburgo, Mecklemburgo",
+  "fr": "allemand — Brandebourg, Mecklembourg"
  },
  "deu-central-east": {
   "pl": "niemiecki — Saksonia, Turyngia, Saksonia-Anhalt",

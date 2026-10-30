@@ -31,7 +31,8 @@
     "wiktionary": "Wikcionario",
     "dialectCount": "{count, plural, one {# dialecto} other {# dialectos}}",
     "liveCount": "{count, plural, one {# grabación real} other {# grabaciones reales}}",
-    "liveRecording": "grabación de un hablante"
+    "liveRecording": "grabación de un hablante",
+    "areasNote": "Las zonas son aproximadas: para cada región se muestra la palabra más habitual, pero los límites reales de las palabras no siguen los administrativos."
   },
   "Editor": {
     "title": "Word editor: {variety}",

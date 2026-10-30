@@ -6,7 +6,8 @@ language's standard word where Wiktionary's first translation is odd (popcorn: "
 
 Words become drafts ("pending", shown with "≈") under the source "Dialectio suggestions
 (draft)", to be checked by speakers in the game and by editors. Re-runnable: earlier drafts
-of the language's areas are replaced; words an editor approved are kept.
+still in the file stay with their votes, drafts dropped from it are deleted; words an editor
+approved are kept.
 
 Run after `dialects` (which creates the areas):
     uv run python -m app.importers.regional_words [language ...]   (default: every file)
@@ -39,22 +40,28 @@ def load(language: str) -> None:
             v.code: v
             for v in session.scalars(select(Variety).where(Variety.code.like(f"{language}-%")))
         }
-        session.execute(
-            delete(Form).where(
-                Form.variety_id.in_([v.id for v in areas.values()]),
-                Form.source_id == source.id,
-                Form.status == PENDING,
+        # Earlier drafts still in the file stay (with their votes); the others go
+        drafts = {
+            (f.concept_id, f.variety_id, f.spelling): f
+            for f in session.scalars(
+                select(Form).where(
+                    Form.variety_id.in_([v.id for v in areas.values()]),
+                    Form.source_id == source.id,
+                    Form.status == PENDING,
+                )
             )
-        )
+        }
         concepts = {
             c.slug: c for c in session.scalars(select(Concept).where(Concept.slug.in_(list(words))))
         }
         # Areas that already have a (checked) word for a concept keep it as their main word
+        draft_ids = [f.id for f in drafts.values()]
         has_word = {
             (concept_id, variety_id)
             for concept_id, variety_id in session.execute(
                 select(Form.concept_id, Form.variety_id).where(
-                    Form.variety_id.in_([v.id for v in areas.values()])
+                    Form.variety_id.in_([v.id for v in areas.values()]),
+                    Form.id.not_in(draft_ids),
                 )
             )
         }
@@ -69,17 +76,24 @@ def load(language: str) -> None:
                 if variety is None:
                     print(f"  unknown area {area}, run the dialects importer first")
                     continue
+                primary = (concept.id, variety.id) not in has_word
+                kept = drafts.pop((concept.id, variety.id, word.strip()), None)
+                if kept is not None:
+                    kept.is_primary = primary
+                    continue
                 session.add(
                     Form(
                         concept=concept,
                         variety=variety,
                         spelling=word.strip(),
-                        is_primary=(concept.id, variety.id) not in has_word,
+                        is_primary=primary,
                         status=PENDING,
                         source=source,
                     )
                 )
                 added += 1
+        if drafts:
+            session.execute(delete(Form).where(Form.id.in_([f.id for f in drafts.values()])))
         session.flush()
         fixed = set_main_words(session, language, main_words, source)
         session.commit()

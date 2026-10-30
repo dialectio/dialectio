@@ -179,12 +179,20 @@ DIALECTS: tuple[Dialect, ...] = (
         ("DE-SH", "DE-HH", "DE-HB", "DE-NI"),
     ),
     Dialect(
+        "deu-berlin",
+        "deu-regional",
+        "dialect",
+        "German (Berlin)",
+        "німецька — Берлін",
+        ("DE-BE",),
+    ),
+    Dialect(
         "deu-northeast",
         "deu-regional",
         "dialect",
-        "German (Berlin, Brandenburg, Mecklenburg)",
-        "німецька — Берлін, Бранденбург, Мекленбург",
-        ("DE-BE", "DE-BB", "DE-MV"),
+        "German (Brandenburg, Mecklenburg)",
+        "німецька — Бранденбург, Мекленбург",
+        ("DE-BB", "DE-MV"),
     ),
     Dialect(
         "deu-central-east",

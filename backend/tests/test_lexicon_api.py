@@ -282,6 +282,12 @@ def test_german_regional_words_compare_with_standard_german() -> None:
     meaning = next(m for m in semmel["meanings"] if m["slug"] == "bun")
     assert {"deu-bavarian", "deu-austria"} <= {d["code"] for d in meaning["dialects"]}
     assert "Schrippe" in {o["spelling"] for o in meaning["others"]}
+    # Schrippe is Berlin's, not Brandenburg's (Deutscher Sprachatlas)
+    berlin = client.get("/api/dialects/deu-berlin").json()
+    assert berlin["region_codes"] == ["DE-BE"]
+    assert "Schrippe" in {w["spelling"] for w in berlin["words_list"]}
+    northeast = client.get("/api/dialects/deu-northeast").json()
+    assert "Schrippe" not in {w["spelling"] for w in northeast["words_list"]}
     # The standard German word is not a dialect word
     assert client.get("/api/dialect-words/brötchen").status_code == 404
 

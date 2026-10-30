@@ -326,6 +326,9 @@ export default function ConceptPanel({
             </span>
           )}
         </p>
+        {dialects > 0 && (
+          <p className="mt-1 text-xs opacity-60">{t("areasNote")}</p>
+        )}
         {region && (
           <button
             type="button"
