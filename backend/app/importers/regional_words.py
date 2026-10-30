@@ -1,8 +1,8 @@
 """Regional words of other languages' dialect areas (German Brötchen / Schrippe / Semmel,
 Spanish palomitas / pochoclo ...) from data/regional_words_<language>.json:
-{concept slug: {area code: word}}. An optional "_main": {concept slug: word} names the
-language's standard word where Wiktionary's first translation is odd (popcorn: "piras" ->
-"palomitas"); regional words are compared with it.
+{concept slug: {area code: word or [words, the most widespread first]}}. An optional
+"_main": {concept slug: word} names the language's standard word where Wiktionary's first
+translation is odd (popcorn: "piras" -> "palomitas"); regional words are compared with it.
 
 Words become drafts ("pending", shown with "≈") under the source "Dialectio suggestions
 (draft)", to be checked by speakers in the game and by editors. Re-runnable: earlier drafts
@@ -27,7 +27,7 @@ from app.models import PENDING, Concept, Form, Source, Variety
 
 
 def load(language: str) -> None:
-    words: dict[str, dict[str, str]] = json.loads(
+    words: dict[str, dict[str, str | list[str]]] = json.loads(
         (DATA_DIR / f"regional_words_{language}.json").read_text(encoding="utf-8")
     )
     words.pop("_comment", None)
@@ -71,27 +71,30 @@ def load(language: str) -> None:
             if concept is None:
                 print(f"  unknown concept {slug}, skipped")
                 continue
-            for area, word in by_area.items():
+            for area, value in by_area.items():
                 variety = areas.get(area)
                 if variety is None:
                     print(f"  unknown area {area}, run the dialects importer first")
                     continue
-                primary = (concept.id, variety.id) not in has_word
-                kept = drafts.pop((concept.id, variety.id, word.strip()), None)
-                if kept is not None:
-                    kept.is_primary = primary
-                    continue
-                session.add(
-                    Form(
-                        concept=concept,
-                        variety=variety,
-                        spelling=word.strip(),
-                        is_primary=primary,
-                        status=PENDING,
-                        source=source,
+                # An area can have several words, the most widespread first
+                spellings = [value] if isinstance(value, str) else value
+                for index, word in enumerate(spellings):
+                    primary = index == 0 and (concept.id, variety.id) not in has_word
+                    kept = drafts.pop((concept.id, variety.id, word.strip()), None)
+                    if kept is not None:
+                        kept.is_primary = primary
+                        continue
+                    session.add(
+                        Form(
+                            concept=concept,
+                            variety=variety,
+                            spelling=word.strip(),
+                            is_primary=primary,
+                            status=PENDING,
+                            source=source,
+                        )
                     )
-                )
-                added += 1
+                    added += 1
         if drafts:
             session.execute(delete(Form).where(Form.id.in_([f.id for f in drafts.values()])))
         session.flush()

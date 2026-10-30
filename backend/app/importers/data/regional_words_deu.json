@@ -1,9 +1,9 @@
 {
-  "_comment": "Regional German everyday words by area (drafts written by Dialectio from well-known regional variation, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Areas are approximate: a state can use several words; the most widespread one is given (Schrippe is Berlin only, not all of Brandenburg: feedback from the Deutscher Sprachatlas, 2026-10-30). Loaded by app.importers.regional_words.",
+  "_comment": "Regional German everyday words by area (drafts written by Dialectio from well-known regional variation, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Areas are approximate: a state can use several words; the most widespread one is given (Schrippe is Berlin only, not all of Brandenburg; Semmel only in parts of Saxony and Thuringia, Weck in the Saarland, the Palatinate and southern Hesse: feedback from the Deutscher Sprachatlas and its Atlas zur deutschen Alltagssprache, 2026-10-30). A list gives several words of an area, the most widespread first. Loaded by app.importers.regional_words.",
   "_main": {"goat": "Ziege", "horse": "Pferd", "cabbage": "Weißkohl", "bag": "Tüte", "hello": "Hallo", "carrot": "Möhre", "girlfriend": "Freundin"},
   "bun": {
-    "deu-north": "Brötchen", "deu-berlin": "Schrippe", "deu-northeast": "Brötchen", "deu-central-east": "Semmel",
-    "deu-northrhine": "Brötchen", "deu-central-west": "Weck", "deu-swabian": "Weckle",
+    "deu-north": "Brötchen", "deu-berlin": "Schrippe", "deu-northeast": "Brötchen", "deu-central-east": ["Brötchen", "Semmel"],
+    "deu-northrhine": "Brötchen", "deu-central-west": ["Weck", "Brötchen"], "deu-swabian": "Weckle",
     "deu-bavarian": "Semmel", "deu-austria": "Semmel", "deu-switzerland": "Brötli"
   },
   "potato": {
