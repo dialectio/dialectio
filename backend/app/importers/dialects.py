@@ -14,6 +14,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.db.session import SessionLocal
+from app.importers.languages import SWISS_GERMAN
 from app.models import Region, Variety
 
 
@@ -248,7 +249,7 @@ DIALECTS: tuple[Dialect, ...] = (
         "dialect",
         "German (Switzerland)",
         "німецька — Швейцарія",
-        tuple(f"CH-{c}" for c in "AG AI AR BE BL BS GL LU NW OW SG SH SO SZ TG UR ZG ZH".split()),
+        SWISS_GERMAN,
     ),
     # Italian: regional everyday Italian (anguria / cocomero / melone d'acqua ...), by areas of
     # regions; the regional languages (Sicilian, Neapolitan ...) are separate varieties.

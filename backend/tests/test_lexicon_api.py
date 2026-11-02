@@ -343,3 +343,15 @@ def test_featured_regional_words_by_language() -> None:
     assert all(not any(ch.isascii() and ch.isalpha() for ch in c["examples"][0]) for c in ukrainian)
     # Word pages link to words with regional variants of every language
     assert client.get("/api/concepts/by-slug/candy").status_code == 200
+
+
+def test_swiss_cantons_show_their_own_languages() -> None:
+    labels = {
+        f["properties"]["code"]: f["properties"]["text"]
+        for f in client.get("/api/concepts/by-slug/potato").json()["labels"]["features"]
+    }
+    # Idiotikon: French for the Romandie, Italian for Ticino, no Italian in Valais
+    assert labels["CH-TI"] == "patata"
+    assert labels["CH-GE"] == "pomme de terre"
+    assert "patata" not in labels["CH-VS"] and "pomme de terre" in labels["CH-VS"]
+    assert labels["CH-ZH"] == "Härdöpfel"

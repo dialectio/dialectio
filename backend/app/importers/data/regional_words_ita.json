@@ -7,9 +7,9 @@
     "ita-south": "melone d'acqua", "ita-sicily": "melone d'acqua", "ita-sardinia": "anguria"
   },
   "garbage": {
-    "ita-northwest": "rumenta", "ita-lombardy": "spazzatura", "ita-northeast": "scoasse",
-    "ita-emilia": "rusco", "ita-tuscany": "pattume", "ita-center": "monnezza",
-    "ita-south": "immondizia", "ita-sicily": "munnizza", "ita-sardinia": "spazzatura"
+    "ita-northwest": "rumenta", "ita-lombardy": ["rüf", "rudo"], "ita-northeast": "scoasse",
+    "ita-emilia": "rusco", "ita-tuscany": ["sudicio", "pattume"], "ita-center": "monnezza",
+    "ita-south": "immondizia", "ita-sicily": "munnizza", "ita-sardinia": ["spazzatura", "arga"]
   },
   "daddy": {
     "ita-northwest": "papà", "ita-lombardy": "papà", "ita-northeast": "papà",

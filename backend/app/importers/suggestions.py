@@ -5,7 +5,8 @@
     uv run python -m app.importers.suggestions --machine <code> [...]
         data/machine/<code>.json -> public right away, marked unverified ("≈" on the site)
 
-Files map Wikidata items to words: {"<Wikidata item>": "<word>"}. Concepts that already
+Files map Wikidata items (or, for Wiktionary concepts, slugs) to words:
+{"<Wikidata item or slug>": "<word>"}. Concepts that already
 have any word in that language are skipped, so real data always wins.
 """
 
@@ -47,12 +48,12 @@ def load(code: str, machine: bool) -> None:
             EDITOR_SOURCE_URL,
             EDITOR_SOURCE_LICENSE,
         )
-        concepts = {
-            c.wikidata_id: c
-            for c in session.scalars(
-                select(Concept).where(Concept.wikidata_id.in_(list(suggestions)))
-            )
-        }
+        keys = list(suggestions)
+        concepts = {}
+        for c in session.scalars(
+            select(Concept).where(Concept.wikidata_id.in_(keys) | Concept.slug.in_(keys))
+        ):
+            concepts[c.wikidata_id if c.wikidata_id in suggestions else c.slug] = c
         has_word = set(
             session.scalars(select(Form.concept_id).where(Form.variety_id == variety.id))
         )

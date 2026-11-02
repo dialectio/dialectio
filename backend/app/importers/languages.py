@@ -18,13 +18,30 @@ class Language:
     countries: tuple[str, ...]
 
 
+# Swiss cantons by language (bilingual BE, FR, VS; trilingual GR), so a canton without a
+# dialect word shows its own languages, not all of Switzerland's
+SWISS_GERMAN = tuple(
+    f"CH-{c}" for c in "AG AI AR BE BL BS FR GL GR LU NW OW SG SH SO SZ TG UR VS ZG ZH".split()
+)
+SWISS_FRENCH = tuple(f"CH-{c}" for c in "BE FR GE JU NE VD VS".split())
+SWISS_ITALIAN = ("CH-GR", "CH-TI")
+
 LANGUAGES: tuple[Language, ...] = (
     Language("Q8798", "ukr", "uk", "Ukrainian", "українська", ("UKR",)),
     Language(
         "Q1860", "eng", "en", "English", "англійська", ("GBR", "USA", "CAN", "AUS", "NZL", "IRL")
     ),
-    Language("Q188", "deu", "de", "German", "німецька", ("DEU", "AUT", "CHE", "LIE")),
-    Language("Q150", "fra", "fr", "French", "французька", ("FRA", "BEL", "CHE", "LUX", "MCO")),
+    Language(
+        "Q188", "deu", "de", "German", "німецька", ("DEU", "AUT", "CHE", "LIE", *SWISS_GERMAN)
+    ),
+    Language(
+        "Q150",
+        "fra",
+        "fr",
+        "French",
+        "французька",
+        ("FRA", "BEL", "CHE", "LUX", "MCO", *SWISS_FRENCH),
+    ),
     Language(
         "Q1321",
         "spa",
@@ -53,7 +70,7 @@ LANGUAGES: tuple[Language, ...] = (
             "URY",
         ),
     ),
-    Language("Q652", "ita", "it", "Italian", "італійська", ("ITA", "SMR", "CHE")),
+    Language("Q652", "ita", "it", "Italian", "італійська", ("ITA", "SMR", "CHE", *SWISS_ITALIAN)),
     Language("Q5146", "por", "pt", "Portuguese", "португальська", ("PRT", "BRA", "AGO", "MOZ")),
     Language("Q809", "pol", "pl", "Polish", "польська", ("POL",)),
     Language("Q9056", "ces", "cs", "Czech", "чеська", ("CZE",)),
@@ -141,7 +158,7 @@ LANGUAGES: tuple[Language, ...] = (
         (
             "DE-BW",
             "AT-8",
-            *(f"CH-{c}" for c in "AG AI AR BE BL BS GL LU NW OW SG SH SO SZ TG UR ZG ZH".split()),
+            *SWISS_GERMAN,
         ),
     ),
     Language("Q13248", "hsb", "hsb", "Upper Sorbian", "верхньолужицька", ("DE-SN",)),
