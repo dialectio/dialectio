@@ -1,3 +1,4 @@
+import time
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -282,6 +283,29 @@ NEIGHBOURS = text("""
 """)
 
 
+# The pool is the same for every page: computing it took ~40 % of a word page's time
+RELATED_CACHE_SECONDS = 600
+_related_pool: tuple[float, list[dict]] = (0.0, [])
+
+
+def related_pool(session: Session) -> list[dict]:
+    global _related_pool
+    if time.monotonic() - _related_pool[0] < RELATED_CACHE_SECONDS:
+        return _related_pool[1]
+    # A concept can have regional variants in several languages (bun): list it once
+    pool = list(
+        {
+            row["id"]: dict(row)
+            for language in RELATED_LANGUAGES
+            for row in session.execute(
+                FEATURED, {"min_words": 2, "limit": RELATED_POOL + 1, "language": language}
+            ).mappings()
+        }.values()
+    )
+    _related_pool = (time.monotonic(), pool)
+    return pool
+
+
 def related_concepts(session: Session, concept: Concept) -> list[ConceptLink]:
     """Links from a word page to other word pages.
 
@@ -291,17 +315,7 @@ def related_concepts(session: Session, concept: Concept) -> list[ConceptLink]:
     """
     if not concept.slug:
         return []
-    # A concept can have regional variants in several languages (bun): list it once
-    pool = list(
-        {
-            row["id"]: row
-            for language in RELATED_LANGUAGES
-            for row in session.execute(
-                FEATURED, {"min_words": 2, "limit": RELATED_POOL, "language": language}
-            ).mappings()
-            if row["id"] != concept.id
-        }.values()
-    )
+    pool = [row for row in related_pool(session) if row["id"] != concept.id]
     start = concept.id % len(pool) if pool else 0
     window = (pool[start:] + pool[:start])[:RELATED_FEATURED]
     related = [

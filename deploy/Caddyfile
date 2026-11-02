@@ -1,6 +1,10 @@
 # Site, API and media on one domain; statistics on stats.<domain>.
 {$DOMAIN} {
 	encode zstd gzip
+	# A scraper that took the site down (2026-11-02) fakes a Google search Referer;
+	# real Google sends only the origin, never the query
+	@fakeGoogle header_regexp Referer ^https?://(www\.)?google\.[a-z.]+/search\?
+	respond @fakeGoogle 403
 	@api path /api/* /media/* /health
 	handle @api {
 		reverse_proxy backend:8000
