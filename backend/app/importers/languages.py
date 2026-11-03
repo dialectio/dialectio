@@ -25,11 +25,22 @@ SWISS_GERMAN = tuple(
 )
 SWISS_FRENCH = tuple(f"CH-{c}" for c in "BE FR GE JU NE VD VS".split())
 SWISS_ITALIAN = ("CH-GR", "CH-TI")
+# Belgium: Dutch in Flanders, French in Wallonia, both in Brussels
+BELGIAN_DUTCH = ("BE-VLG", "BE-BRU")
+BELGIAN_FRENCH = ("BE-WAL", "BE-BRU")
+# Canada: French in Quebec, both in bilingual New Brunswick
+CANADIAN_FRENCH = ("CA-QC", "CA-NB")
+CANADIAN_ENGLISH = tuple(f"CA-{p}" for p in "AB BC MB NB NL NS NT NU ON PE SK YT".split())
 
 LANGUAGES: tuple[Language, ...] = (
     Language("Q8798", "ukr", "uk", "Ukrainian", "українська", ("UKR",)),
     Language(
-        "Q1860", "eng", "en", "English", "англійська", ("GBR", "USA", "CAN", "AUS", "NZL", "IRL")
+        "Q1860",
+        "eng",
+        "en",
+        "English",
+        "англійська",
+        ("GBR", "USA", "CAN", "AUS", "NZL", "IRL", *CANADIAN_ENGLISH),
     ),
     Language(
         "Q188", "deu", "de", "German", "німецька", ("DEU", "AUT", "CHE", "LIE", *SWISS_GERMAN)
@@ -40,7 +51,17 @@ LANGUAGES: tuple[Language, ...] = (
         "fr",
         "French",
         "французька",
-        ("FRA", "BEL", "CHE", "LUX", "MCO", *SWISS_FRENCH),
+        (
+            "FRA",
+            "BEL",
+            "CHE",
+            "LUX",
+            "MCO",
+            "CAN",
+            *SWISS_FRENCH,
+            *BELGIAN_FRENCH,
+            *CANADIAN_FRENCH,
+        ),
     ),
     Language(
         "Q1321",
@@ -83,7 +104,7 @@ LANGUAGES: tuple[Language, ...] = (
     Language("Q9063", "slv", "sl", "Slovene", "словенська", ("SVN",)),
     Language("Q7913", "ron", "ro", "Romanian", "румунська", ("ROU", "MDA")),
     Language("Q9067", "hun", "hu", "Hungarian", "угорська", ("HUN",)),
-    Language("Q7411", "nld", "nl", "Dutch", "нідерландська", ("NLD", "BEL")),
+    Language("Q7411", "nld", "nl", "Dutch", "нідерландська", ("NLD", "BEL", *BELGIAN_DUTCH)),
     Language("Q9027", "swe", "sv", "Swedish", "шведська", ("SWE",)),
     Language("Q25167", "nob", "nb", "Norwegian Bokmål", "норвезька (букмол)", ("NOR",)),
     Language("Q9035", "dan", "da", "Danish", "данська", ("DNK",)),

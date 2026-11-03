@@ -355,3 +355,15 @@ def test_swiss_cantons_show_their_own_languages() -> None:
     assert labels["CH-GE"] == "pomme de terre"
     assert "patata" not in labels["CH-VS"] and "pomme de terre" in labels["CH-VS"]
     assert labels["CH-ZH"] == "Härdöpfel"
+
+
+def test_belgian_and_canadian_regions_show_their_own_languages() -> None:
+    labels = {
+        f["properties"]["code"]: f["properties"]["text"]
+        for f in client.get("/api/concepts/by-slug/potato").json()["labels"]["features"]
+    }
+    assert labels["BE-VLG"] == "aardappel"
+    assert "aardappel" not in labels["BE-WAL"] and "pomme de terre" in labels["BE-WAL"]
+    assert "aardappel" in labels["BE-BRU"] and "pomme de terre" in labels["BE-BRU"]
+    assert labels["CA-QC"] == "pomme de terre"
+    assert labels["CA-ON"] == "potato"
