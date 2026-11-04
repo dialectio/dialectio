@@ -130,6 +130,10 @@
     "signIn": "Sign in or create an account",
     "signedAs": "The word will carry your name: {name}."
   },
+  "VarietySelect": {
+    "search": "Search languages and dialects…",
+    "nothing": "Nothing found"
+  },
   "Nav": {
     "about": "About",
     "sources": "Sources",

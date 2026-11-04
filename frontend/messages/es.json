@@ -130,6 +130,10 @@
     "signIn": "Entrar o crear una cuenta",
     "signedAs": "La palabra llevará tu nombre: {name}."
   },
+  "VarietySelect": {
+    "search": "Buscar lengua o dialecto…",
+    "nothing": "No se encontró nada"
+  },
   "Nav": {
     "about": "Acerca del proyecto",
     "sources": "Fuentes",

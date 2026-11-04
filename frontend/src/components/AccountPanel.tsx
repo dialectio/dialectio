@@ -10,6 +10,7 @@ import {
 } from "react";
 
 import { useAccount } from "@/components/Account";
+import { VarietySelect } from "@/components/VarietySelect";
 import { Link, useRouter } from "@/i18n/navigation";
 import { deleteAccount, resendVerification, signOut } from "@/lib/account";
 import { localized } from "@/lib/api";
@@ -258,21 +259,13 @@ export default function AccountPanel() {
         )}
         <label className="flex flex-wrap items-center gap-2 text-sm">
           {t("addLanguage")}
-          <select
+          <VarietySelect
+            varieties={all.filter((v) => !mine.has(v.code))}
             value=""
-            onChange={(e) => e.target.value && speaks(e.target.value, true)}
-            className="max-w-full rounded-md border border-black/15 bg-transparent px-2 py-1 dark:border-white/20"
-          >
-            <option value="">…</option>
-            {all
-              .filter((v) => !mine.has(v.code))
-              .map((v) => (
-                <option key={v.code} value={v.code}>
-                  {v.kind === "dialect" ? "— " : ""}
-                  {localized(locale, v.name_en, v.name_uk, v.names)}
-                </option>
-              ))}
-          </select>
+            onChange={(code) => code && speaks(code, true)}
+            placeholder="…"
+            className="w-full max-w-xs"
+          />
         </label>
         <p className="text-xs opacity-60">{t("levels")}</p>
       </section>

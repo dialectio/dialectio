@@ -130,6 +130,10 @@
     "signIn": "Se connecter ou créer un compte",
     "signedAs": "Le mot portera votre nom : {name}."
   },
+  "VarietySelect": {
+    "search": "Chercher une langue ou un dialecte…",
+    "nothing": "Aucun résultat"
+  },
   "Nav": {
     "about": "À propos",
     "sources": "Sources",

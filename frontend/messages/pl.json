@@ -130,6 +130,10 @@
     "signIn": "Zaloguj się lub załóż konto",
     "signedAs": "Pod słowem pojawi się Twoje imię: {name}."
   },
+  "VarietySelect": {
+    "search": "Szukaj języka lub gwary…",
+    "nothing": "Nic nie znaleziono"
+  },
   "Nav": {
     "about": "O projekcie",
     "sources": "Źródła",

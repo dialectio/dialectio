@@ -6,7 +6,8 @@ import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useAccount } from "@/components/Account";
 import Captcha, { CAPTCHA_SITE_KEY } from "@/components/Captcha";
 import { Link, usePathname } from "@/i18n/navigation";
-import { API_URL, localized } from "@/lib/api";
+import { API_URL } from "@/lib/api";
+import { VarietySelect } from "@/components/VarietySelect";
 import { listPublicVarieties, sortVarieties, type Variety } from "@/lib/varieties";
 
 const MAX_RECORDING_MS = 10_000;
@@ -204,21 +205,14 @@ export default function ContributeDialog({
           <form onSubmit={submit} className="space-y-3 text-sm">
             <label className="block">
               <span className="mb-1 block opacity-70">{t("variety")}</span>
-              <select
+              <VarietySelect
+                varieties={varieties}
                 value={variety}
-                onChange={(e) => {
-                  setVariety(e.target.value);
-                  rememberVariety(e.target.value);
+                onChange={(code) => {
+                  setVariety(code);
+                  rememberVariety(code);
                 }}
-                className="w-full rounded border border-black/15 bg-transparent px-2 py-1.5 dark:border-white/20"
-              >
-                {varieties.map((v) => (
-                  <option key={v.code} value={v.code}>
-                    {v.kind === "dialect" ? "— " : ""}
-                    {localized(locale, v.name_en, v.name_uk, v.names)}
-                  </option>
-                ))}
-              </select>
+              />
             </label>
             <label className="block">
               <span className="mb-1 block opacity-70">{t("word")}</span>

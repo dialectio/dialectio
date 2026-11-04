@@ -130,6 +130,10 @@
     "signIn": "Anmelden oder registrieren",
     "signedAs": "Das Wort trägt Ihren Namen: {name}."
   },
+  "VarietySelect": {
+    "search": "Sprache oder Mundart suchen…",
+    "nothing": "Nichts gefunden"
+  },
   "Nav": {
     "about": "Über das Projekt",
     "sources": "Quellen",
