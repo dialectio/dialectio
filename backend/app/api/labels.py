@@ -3,8 +3,9 @@
 Countries show the main word of every language mapped to them (main language first); where
 a dialect area covers the whole country (Spanish of Argentina), its word replaces its
 language's word there.
-First-level regions (oblasts) show dialect words when a dialect of that region has a word
-for the concept, otherwise the country's word, plus regional languages mapped to the region
+First-level regions (oblasts) show the word of the region's dialect first, if it has one,
+then the country's word ("газда / господар": a dialect area covers only part of an oblast
+and its people know the standard word too), plus regional languages mapped to the region
 (e.g. Crimean Tatar in Crimea). A country's language that is also mapped to some of its
 regions (French in Geneva) is shown only there: Ticino gets Italian, not all of Switzerland's
 languages. The map shows region labels instead of their country's label
@@ -87,23 +88,18 @@ def build_labels(session: Session, concept_id: int) -> dict[str, Any]:
             codes = languages[region.id]
             national = set(languages[region.parent_id])
             dialect_words = [s for _, kind, s in own if kind == "dialect"]
-            # The country's languages spoken here, unless a dialect of them has a word
-            replaced = {
-                code.split("-")[0]
-                for code, (_, kind, _) in zip(codes, own, strict=True)
-                if kind == "dialect"
-            }
+            # The country's languages spoken here
             local = [
                 s
                 for code, (_, kind, s) in zip(codes, own, strict=True)
-                if kind != "dialect" and code in national and code not in replaced
+                if kind != "dialect" and code in national
             ]
             regional = [
                 s
                 for code, (_, kind, s) in zip(codes, own, strict=True)
                 if kind != "dialect" and code not in national
             ]
-            base = dialect_words + local or country_words(region.parent_id)[0]
+            base = dialect_words + (local or country_words(region.parent_id)[0])
             if not base and not regional:
                 continue
             label = join_words(base + regional)

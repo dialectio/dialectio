@@ -117,7 +117,8 @@ def test_region_labels_show_dialect_words() -> None:
             for f in client.get("/api/concepts/by-slug/water").json()["labels"]["features"]
         }
         # Hutsul is mapped to Ivano-Frankivsk, Chernivtsi and Transcarpathia
-        assert labels["UA-26"]["text"] == "тестводиця"
+        # the dialect's word first, then the standard one: the dialect covers only part of it
+        assert labels["UA-26"]["text"] == "тестводиця / вода"
         assert labels["UA-26"]["dialect"] and labels["UA-26"]["parent_code"] == "UKR"
         # other oblasts inherit the standard Ukrainian word; Crimea adds Crimean Tatar
         assert labels["UA-63"]["text"] == "вода" and not labels["UA-63"]["dialect"]
@@ -354,7 +355,7 @@ def test_swiss_cantons_show_their_own_languages() -> None:
     assert labels["CH-TI"] == "patata"
     assert labels["CH-GE"] == "pomme de terre"
     assert "patata" not in labels["CH-VS"] and "pomme de terre" in labels["CH-VS"]
-    assert labels["CH-ZH"] == "Härdöpfel"
+    assert labels["CH-ZH"] == "Härdöpfel / Kartoffel"
 
 
 def test_belgian_and_canadian_regions_show_their_own_languages() -> None:
