@@ -1,0 +1,6 @@
+{
+  "_comment": "Finnish has no dialect areas yet; only the standard words where Wiktionary's first translation is odd. Loaded by app.importers.regional_words.",
+  "_main": {
+    "hello": "hei"
+  }
+}

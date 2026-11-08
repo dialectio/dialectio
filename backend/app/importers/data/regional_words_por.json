@@ -1,6 +1,7 @@
 {
   "_comment": "Regional Portuguese everyday words: Portugal and Brazil (drafts written by Dialectio from well-known variation, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Loaded by app.importers.regional_words.",
   "_main": {
+    "hello": "olá",
     "bus": "autocarro",
     "breakfast": "pequeno-almoço",
     "mobile-phone": "telemóvel",

@@ -2,7 +2,8 @@
   "_comment": "Regional Polish everyday words by area (drafts written by Dialectio from well-known regional variation, to be checked by speakers). Keys: concept slug -> {area variety code: word}. Areas are approximate; the most widespread word of an area is given. Loaded by app.importers.regional_words.",
   "_main": {
     "potato": "ziemniak",
-    "bun": "bułka"
+    "bun": "bułka",
+    "hello": "cześć"
   },
   "potato": {
     "pol-mazovia": "ziemniak",
