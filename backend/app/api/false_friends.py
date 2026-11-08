@@ -26,17 +26,22 @@ MIN_LENGTH = 3  # letters in the key: shorter words match by chance
 MAX_PAIRS = 200
 CACHE_SECONDS = 3600
 
-# Latin alphabets: letters and digraphs spelled for the same sound as the Ukrainian romanization
+# Hushing sounds and "kh" are one symbol each: as digraphs ("zh") they also matched a
+# z + h pair (Czech "ženatý" ~ Ukrainian "згинати").
+CYRILLIC_SOUNDS = str.maketrans({"ж": "ʒ", "ш": "ʃ", "ч": "ʧ", "щ": "ʃʧ", "х": "x"})
+
+# Latin alphabets: letters and digraphs spelled for the same sound as the Cyrillic letters
 LATIN = {
     "pol": [
-        ("ch", "kh"),
-        ("cz", "ch"),
-        ("sz", "sh"),
-        ("rz", "zh"),
-        ("ż", "zh"),
-        ("ź", "zh"),
-        ("ś", "sh"),
-        ("ć", "ch"),
+        ("szcz", "ʃʧ"),
+        ("ch", "x"),
+        ("cz", "ʧ"),
+        ("sz", "ʃ"),
+        ("rz", "ʒ"),
+        ("ż", "ʒ"),
+        ("ź", "ʒ"),
+        ("ś", "ʃ"),
+        ("ć", "ʧ"),
         ("ł", "l"),
         ("w", "v"),
         ("ą", "on"),
@@ -44,15 +49,15 @@ LATIN = {
         ("ó", "u"),
         ("ń", "n"),
     ],
-    "ces": [("ch", "kh"), ("č", "ch"), ("š", "sh"), ("ž", "zh"), ("ř", "rzh"), ("w", "v")],
-    "slk": [("ch", "kh"), ("č", "ch"), ("š", "sh"), ("ž", "zh"), ("ä", "e"), ("w", "v")],
+    "ces": [("ch", "x"), ("č", "ʧ"), ("š", "ʃ"), ("ž", "ʒ"), ("ř", "rʒ"), ("w", "v")],
+    "slk": [("ch", "x"), ("č", "ʧ"), ("š", "ʃ"), ("ž", "ʒ"), ("ä", "e"), ("w", "v")],
     "hrv": [
-        ("č", "ch"),
-        ("ć", "ch"),
-        ("š", "sh"),
-        ("ž", "zh"),
-        ("đ", "dzh"),
-        ("dž", "dzh"),
+        ("dž", "dʒ"),
+        ("č", "ʧ"),
+        ("ć", "ʧ"),
+        ("š", "ʃ"),
+        ("ž", "ʒ"),
+        ("đ", "dʒ"),
         ("lj", "l"),
         ("nj", "n"),
         ("j", "i"),
@@ -63,6 +68,8 @@ LATIN = {
 def sound_key(code: str, word: str) -> str:
     """A rough Latin "sound" of the word: "dywan" (pol) and "диван" (ukr) -> "divan"."""
     word = word.lower()
+    if code not in LATIN:
+        word = word.translate(CYRILLIC_SOUNDS)
     if code == "ukr":
         key = "".join(UKRAINIAN.get(ch, ch) for ch in word)
     elif code in LATIN:
@@ -75,6 +82,16 @@ def sound_key(code: str, word: str) -> str:
     key = "".join(ch for ch in key if ch.isalpha() and not unicodedata.combining(ch))
     # Vowels that swap between related languages (неділя / неделя) count as one
     return key.translate(str.maketrans({"e": "i", "y": "i"}))
+
+
+def same_root(foreign: str, ukrainian: str) -> bool:
+    """The same word in another part of speech, not a false friend: an adverb or verbal noun
+    and an adjective (Polish "dokładnie" / "докладний"), a verb and its doer ("czytać" /
+    "читач")."""
+    foreign, ukrainian = foreign.lower(), ukrainian.lower()
+    if foreign.endswith("nie") and ukrainian.endswith(("ний", "ній")):
+        return True
+    return foreign.endswith(("ć", "t", "ť", "ti", "ть")) and ukrainian.endswith(("ач", "яч"))
 
 
 class Word(BaseModel):
@@ -168,6 +185,8 @@ def find_pairs(session: SessionDep, code: str) -> list[FalseFriend]:
         for u in ukr_keys.get(sound_key(code, f.spelling), []):
             pair_words = (f.spelling.lower(), u.spelling.lower())
             if u.concept_id == f.concept_id or pair_words in seen:
+                continue
+            if same_root(f.spelling, u.spelling):
                 continue
             key = sound_key(code, f.spelling)
             # No false friend if the words share a meaning after all: the foreign word also

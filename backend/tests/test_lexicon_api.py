@@ -237,10 +237,14 @@ def test_search_ignores_accents_and_script() -> None:
 
 
 def test_false_friends() -> None:
-    from app.api.false_friends import sound_key
+    from app.api.false_friends import same_root, sound_key
 
     assert sound_key("pol", "dywan") == sound_key("ukr", "диван")
     assert sound_key("rus", "неделя") == sound_key("ukr", "неділя")
+    assert sound_key("pol", "szczur") == sound_key("ukr", "щур")
+    assert sound_key("ces", "ženatý") != sound_key("ukr", "згинати")  # ž is not z + h
+    assert same_root("dokładnie", "докладний") and same_root("czytać", "читач")
+    assert not same_root("dywan", "диван")
 
     languages = {lang["code"]: lang["count"] for lang in client.get("/api/false-friends").json()}
     assert languages["pol"] > 10 and languages["rus"] > 5
