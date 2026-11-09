@@ -194,3 +194,14 @@ def test_cannot_change_spelling_of_imported_word() -> None:
     assert response.status_code == 403
     response = client.post("/api/editor/forms/{0}/spelling", json={"spelling": "x"}, headers=auth())
     assert response.status_code == 422  # not an id
+
+
+def test_imported_drafts_are_editable() -> None:
+    """Drafts from any source (Hrinchenko's dialect words) can be approved or rejected;
+    approved imported words stay fixed."""
+    from app.api.word_actions import is_editable
+    from app.models import APPROVED, PENDING, Form, Source
+
+    hrinchenko = Source(name="Словарь української мови Б. Грінченка", url="", license="")
+    assert is_editable(Form(spelling="ялець", status=PENDING, source=hrinchenko))
+    assert not is_editable(Form(spelling="вода", status=APPROVED, source=hrinchenko))

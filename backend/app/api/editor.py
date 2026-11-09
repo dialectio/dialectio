@@ -20,7 +20,6 @@ from app.api.word_actions import (
     EDITOR_SOURCE_LICENSE,
     EDITOR_SOURCE_NAME,
     EDITOR_SOURCE_URL,
-    OWN_SOURCES,
     own_form,
 )
 from app.config import settings
@@ -140,7 +139,7 @@ def to_editor_form(form: Form) -> EditorForm:
         is_primary=form.is_primary,
         status=form.status,
         source=source,
-        editable=source in OWN_SOURCES,
+        editable=word_actions.is_editable(form),
         contributor=form.contributor,
         place=form.note if form.status == SUBMITTED else None,
         audio_urls=[a.url for a in form.audio] if form.status == SUBMITTED else [],

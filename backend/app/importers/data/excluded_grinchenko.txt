@@ -1,0 +1,22 @@
+# Hrinchenko entries tied to the wrong concept (checked by hand against the printed entry).
+# Mostly ambiguous Russian definitions: "Ключевой" (spring water) became "crucial",
+# "Снарядъ" (gear) a bullet, "Походить" (walk about) "resemble". One word per line.
+ялець  # a particular fish (Alburnus), not "fish"
+змантити  # "обмануть" (verb), not "trick"
+лудіння  # clothing, not a dress
+ґаздівство  # household, farm, not economy
+маранча  # a multitude, not a (mathematical) set
+шулькнути  # "шмыгнуть" (dart), not sniff
+фарагон  # "pharaoh" as an insult, not a police officer
+рихтино  # "exactly, surely", not "specifically"
+попростювати  # "походить" = walk about, not resemble
+джерельний  # spring (water), not crucial
+знадоб'я  # gear, tackle, not a bullet
+облітку  # "in summer" (adverb), not summer
+будущий  # future, not next
+полюбляти  # standard Ukrainian
+прохідка  # a walk, not a hike
+пшенишний  # adjective "wheaten", not wheat
+ділний  # "working, busy" (adjective), not a worker
+вальбійка  # a trough, not a car
+плодник  # "матка" (womb / queen), not mother

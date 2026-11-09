@@ -93,6 +93,13 @@ CITATION = re.compile(
 SYNONYMS = re.compile(r"[а-яёѣіѳѵъ-]+(\s*,\s*[а-яёѣіѳѵъ-]+)*", re.IGNORECASE)
 # Words this frequent in today's Ukrainian (wordfreq Zipf scale) are standard, not dialect
 STANDARD_ZIPF = 2.0
+# Entries tied to the wrong concept, found by hand: never imported
+EXCLUDED_PATH = Path(__file__).parent / "data" / "excluded_grinchenko.txt"
+
+
+def excluded_words() -> set[str]:
+    lines = EXCLUDED_PATH.read_text(encoding="utf-8").splitlines()
+    return {w for line in lines if (w := line.split("#")[0].strip())}
 
 SECTION = re.compile(r'<section begin="([^"]+)"\s*/>(.*?)<section end="\1"\s*/>', re.S)
 BOLD = re.compile(r"'''(.+?)'''")
@@ -225,10 +232,13 @@ def candidates() -> list[tuple[Entry, int]]:
         ukrainian: dict[int, set[str]] = defaultdict(set)
         for concept_id, spelling in session.execute(UKRAINIAN_WORDS, {"source": SOURCE_NAME}):
             ukrainian[concept_id].add(spelling)
+    excluded = excluded_words()
     found = []
     for section, body in sections().items():
         entry = parse(section, body)
         if not entry or len(entry.dialects) != 1 or entry.other_sources or not entry.meanings:
+            continue
+        if entry.plain in excluded:
             continue
         concepts = russian.get(entry.meanings[0], [])
         if len(concepts) != 1 or entry.plain in ukrainian[concepts[0]]:

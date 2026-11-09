@@ -1,7 +1,8 @@
 """Changes to words made by editors and experts, each written to the change log.
 
-Only our own words can be changed (editor words, drafts, members' submissions); words
-imported from Wikidata or Wiktionary are fixed at their source. `actor` is the expert who
+Only our own words (editor words, drafts, members' submissions) and imported drafts (such as
+Hrinchenko's dialect words) can be changed; approved words imported from Wikidata or
+Wiktionary are fixed at their source. `actor` is the expert who
 acts, or None for the editors.
 """
 
@@ -59,11 +60,18 @@ def log_change(
     )
 
 
+def is_editable(form: Form) -> bool:
+    """Our own words, and drafts from any source (editors approve or reject them)."""
+    return form.status == PENDING or (
+        form.source is not None and form.source.name in OWN_SOURCES
+    )
+
+
 def own_form(session: Session, form_id: int) -> Form:
     form = session.get(Form, form_id)
     if form is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Form not found")
-    if form.source is None or form.source.name not in OWN_SOURCES:
+    if not is_editable(form):
         raise HTTPException(
             status.HTTP_403_FORBIDDEN, "Only editor words and drafts can be changed"
         )
