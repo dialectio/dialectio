@@ -3,9 +3,11 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { cache } from "react";
 
+import JsonLd from "@/components/JsonLd";
 import WordView from "@/components/WordView";
 import { routing } from "@/i18n/routing";
 import { type ConceptDetail, getConceptBySlug, inLocale, localized, SITE_URL } from "@/lib/api";
+import { conceptData } from "@/lib/structuredData";
 
 // Languages quoted first in the page description (most searched), then the rest.
 const DESCRIPTION_LANGUAGES = ["eng", "ukr", "deu", "fra", "spa", "pol", "ita"];
@@ -78,5 +80,10 @@ export default async function WordPage({ params }: PageProps<"/[locale]/word/[sl
   const concept = await loadConcept(slug);
   if (!concept) notFound();
 
-  return <WordView key={slug} initialConcept={concept} />;
+  return (
+    <>
+      <JsonLd data={conceptData(concept, locale)} />
+      <WordView key={slug} initialConcept={concept} />
+    </>
+  );
 }

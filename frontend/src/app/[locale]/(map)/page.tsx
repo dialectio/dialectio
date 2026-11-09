@@ -1,8 +1,10 @@
 import { connection } from "next/server";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import HomePanel from "@/components/HomePanel";
+import JsonLd from "@/components/JsonLd";
 import { getConceptBySlug, listFeaturedConcepts } from "@/lib/api";
+import { siteData } from "@/lib/structuredData";
 import { dialectLanguage } from "@/lib/visitor";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -27,7 +29,11 @@ export default async function Home({ params }: PageProps<"/[locale]">) {
     ? await getConceptBySlug(wordOfDay.slug).catch(() => null)
     : null;
 
+  const t = await getTranslations({ locale, namespace: "Metadata" });
   return (
-    <HomePanel featured={featured} preview={preview} language={language} />
+    <>
+      <JsonLd data={siteData(locale, t("description"))} />
+      <HomePanel featured={featured} preview={preview} language={language} />
+    </>
   );
 }

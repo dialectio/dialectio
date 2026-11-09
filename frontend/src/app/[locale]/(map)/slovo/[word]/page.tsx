@@ -4,8 +4,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { cache } from "react";
 
 import DialectWordView from "@/components/DialectWordView";
+import JsonLd from "@/components/JsonLd";
 import { getDialectWord, localized, meaningOf } from "@/lib/api";
 import { pageMetadata } from "@/lib/metadata";
+import { dialectWordData } from "@/lib/structuredData";
 
 // generateMetadata and the page both need the word; fetch it once per request.
 const loadWord = cache(getDialectWord);
@@ -36,5 +38,10 @@ export default async function DialectWordPage({ params }: PageProps<"/[locale]/s
   setRequestLocale(locale);
   const entry = await loadWord(decodeURIComponent(word));
   if (!entry) notFound();
-  return <DialectWordView key={word} entry={entry} />;
+  return (
+    <>
+      <JsonLd data={dialectWordData(entry, locale)} />
+      <DialectWordView key={word} entry={entry} />
+    </>
+  );
 }

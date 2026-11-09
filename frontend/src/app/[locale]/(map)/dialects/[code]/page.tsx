@@ -4,8 +4,10 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { cache } from "react";
 
 import DialectView from "@/components/DialectView";
+import JsonLd from "@/components/JsonLd";
 import { capitalize, getDialect, localized } from "@/lib/api";
 import { pageMetadata } from "@/lib/metadata";
+import { dialectData } from "@/lib/structuredData";
 
 const DESCRIPTION_EXAMPLES = 4;
 
@@ -50,5 +52,11 @@ export default async function DialectPage({
   setRequestLocale(locale);
   const dialect = await loadDialect(code);
   if (!dialect) notFound();
-  return <DialectView key={code} dialect={dialect} />;
+  const t = await getTranslations({ locale, namespace: "Dialects" });
+  return (
+    <>
+      <JsonLd data={dialectData(dialect, locale, t("allDialects"))} />
+      <DialectView key={code} dialect={dialect} />
+    </>
+  );
 }
