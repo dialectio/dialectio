@@ -78,9 +78,10 @@ export default function OriginTools({
       const title = localized(locale, concept.gloss_en, concept.gloss_uk, concept.glosses);
       const blob = await snapshot({
         title,
-        subtitle: byOrigin
-          ? families.map((f) => f.words[0]).join(" · ")
-          : t("snapshotSubtitle"),
+        subtitle: t("snapshotSubtitle"),
+        legend: byOrigin
+          ? families.map((f) => ({ color: f.color, label: f.words.join(", ") }))
+          : undefined,
         footer: `${new URL(SITE_URL).host}/${locale}/word/${concept.slug}`,
       });
       if (blob) download(blob, `dialectio-${concept.slug}.png`);

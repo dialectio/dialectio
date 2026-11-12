@@ -1,9 +1,36 @@
 import type { Map as MapLibreMap } from "maplibre-gl";
 
-export type SnapshotText = { title: string; subtitle?: string; footer: string };
+export type LegendItem = { color: string; label: string };
+export type SnapshotText = {
+  title: string;
+  subtitle?: string;
+  /** Colour key drawn under the title instead of the subtitle (map coloured by origin). */
+  legend?: LegendItem[];
+  footer: string;
+};
 
 const HEADER = 64; // CSS pixels above the map for the title
 const FOOTER = 32; // CSS pixels below it for the site address
+const LEGEND_FONT = "14px system-ui, sans-serif";
+const LEGEND_ROW = 22;
+const SWATCH = 12;
+
+/** Legend items placed in rows that fit the width: [{item, x}] per row. */
+function legendRows(ctx: CanvasRenderingContext2D, items: LegendItem[], width: number) {
+  ctx.font = LEGEND_FONT;
+  const rows: { item: LegendItem; x: number }[][] = [[]];
+  let x = 16;
+  for (const item of items) {
+    const w = SWATCH + 6 + ctx.measureText(item.label).width + 18;
+    if (x + w > width - 16 && rows[rows.length - 1].length) {
+      rows.push([]);
+      x = 16;
+    }
+    rows[rows.length - 1].push({ item, x });
+    x += w;
+  }
+  return rows;
+}
 
 /**
  * The map as a PNG: the WebGL canvas (read during a render, so no preserveDrawingBuffer is
@@ -22,15 +49,20 @@ export function snapshotMap(
       const width = source.clientWidth;
       const height = source.clientHeight;
       const canvas = document.createElement("canvas");
+      const measure = canvas.getContext("2d");
+      if (!measure) return resolve(null);
+      const rows = text.legend?.length ? legendRows(measure, text.legend, width) : [];
+      // The first legend row takes the subtitle's place; further rows make the header taller
+      const header = HEADER + Math.max(0, rows.length - 1) * LEGEND_ROW;
       canvas.width = Math.round(width * scale);
-      canvas.height = Math.round((height + HEADER + FOOTER) * scale);
+      canvas.height = Math.round((height + header + FOOTER) * scale);
       const ctx = canvas.getContext("2d");
       if (!ctx) return resolve(null);
       ctx.scale(scale, scale);
 
       ctx.fillStyle = "#ffffff";
-      ctx.fillRect(0, 0, width, height + HEADER + FOOTER);
-      ctx.drawImage(source, 0, HEADER, width, height);
+      ctx.fillRect(0, 0, width, height + header + FOOTER);
+      ctx.drawImage(source, 0, header, width, height);
 
       const box = container.getBoundingClientRect();
       ctx.textBaseline = "middle";
@@ -40,7 +72,7 @@ export function snapshotMap(
         if (el.style.visibility === "hidden") continue;
         const r = el.getBoundingClientRect();
         const x = r.left - box.left;
-        const y = r.top - box.top + HEADER;
+        const y = r.top - box.top + header;
         if (
           x + r.width < 0 ||
           x > width ||
@@ -67,21 +99,34 @@ export function snapshotMap(
       ctx.fillStyle = "#0f172a";
       ctx.font = `700 26px system-ui, sans-serif`;
       ctx.fillText(text.title, 16, 26);
-      if (text.subtitle) {
+      if (rows.length) {
+        ctx.font = LEGEND_FONT;
+        rows.forEach((row, i) => {
+          const y = 50 + i * LEGEND_ROW;
+          for (const { item, x } of row) {
+            ctx.fillStyle = item.color;
+            ctx.beginPath();
+            ctx.roundRect(x, y - SWATCH / 2, SWATCH, SWATCH, 2);
+            ctx.fill();
+            ctx.fillStyle = "#334155";
+            ctx.fillText(item.label, x + SWATCH + 6, y);
+          }
+        });
+      } else if (text.subtitle) {
         ctx.fillStyle = "#475569";
         ctx.font = `14px system-ui, sans-serif`;
         ctx.fillText(text.subtitle, 16, 50, width - 32);
       }
       ctx.fillStyle = "#4338ca";
       ctx.font = `600 14px system-ui, sans-serif`;
-      ctx.fillText(text.footer, 16, HEADER + height + FOOTER / 2);
+      ctx.fillText(text.footer, 16, header + height + FOOTER / 2);
       ctx.fillStyle = "#64748b";
       ctx.font = `11px system-ui, sans-serif`;
       const credit = "© OpenStreetMap, OpenMapTiles, OpenFreeMap";
       ctx.fillText(
         credit,
         width - 16 - ctx.measureText(credit).width,
-        HEADER + height + FOOTER / 2,
+        header + height + FOOTER / 2,
       );
 
       canvas.toBlob(resolve, "image/png");
