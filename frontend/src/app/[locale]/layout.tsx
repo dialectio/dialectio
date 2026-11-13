@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Noto_Serif } from "next/font/google";
 import { notFound } from "next/navigation";
-import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { AccountProvider } from "@/components/Account";
+import Analytics from "@/components/Analytics";
 import { routing } from "@/i18n/routing";
 
 import "flag-icons/css/flag-icons.min.css";
@@ -59,14 +59,7 @@ export default async function LocaleLayout({
           <AccountProvider>{children}</AccountProvider>
         </NextIntlClientProvider>
         {UMAMI_SRC && UMAMI_WEBSITE_ID && (
-          // Every word is its own page, tracked on navigation; ?region= is a filter on the same
-          // page, so the query string is left out.
-          <Script
-            src={UMAMI_SRC}
-            data-website-id={UMAMI_WEBSITE_ID}
-            data-exclude-search="true"
-            strategy="afterInteractive"
-          />
+          <Analytics src={UMAMI_SRC} websiteId={UMAMI_WEBSITE_ID} />
         )}
       </body>
     </html>

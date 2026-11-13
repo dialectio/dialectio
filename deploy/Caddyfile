@@ -7,6 +7,11 @@
 	handle @fakeGoogle {
 		respond 403
 	}
+	# Headless scraping browser that crawls every page (2026-11-13)
+	@scraper header_regexp User-Agent (?i)lightpanda
+	handle @scraper {
+		respond 403
+	}
 	@api path /api/* /media/* /health
 	handle @api {
 		reverse_proxy backend:8000
