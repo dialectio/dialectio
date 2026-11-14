@@ -96,7 +96,8 @@
     "reviewReject": "Reject",
     "reviewRejectSure": "Sure? ← again",
     "reviewSkip": "Skip",
-    "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel"
+    "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel",
+    "changeVariety": "change language or dialect"
   },
   "Word": {
     "title": "{word} in different languages — spelling and pronunciation | Dialectio",
@@ -111,8 +112,8 @@
     "close": "Close",
     "variety": "Language or dialect",
     "word": "Word",
-    "place": "Town or region (optional)",
-    "placeHint": "e.g. Vyzhnytsia, Chernivtsi Oblast",
+    "place": "Town or village (optional)",
+    "placeHint": "Town or village, if the search did not find it (optional)",
     "recording": "Pronunciation (optional)",
     "record": "Record",
     "recordAgain": "Record again",
@@ -128,7 +129,24 @@
     "tooMany": "Too many submissions. Please try later.",
     "signInFirst": "Members add words: that way we know who sent a word, and it carries your name.",
     "signIn": "Sign in or create an account",
-    "signedAs": "The word will carry your name: {name}."
+    "signedAs": "The word will carry your name: {name}.",
+    "where": "Where do people say it?",
+    "settlement": "Town or village",
+    "settlementHint": "Start typing a town or village",
+    "noSettlements": "Nothing found. Pick a region below.",
+    "myLocation": "I am there now",
+    "locating": "Locating…",
+    "locationDenied": "The browser did not allow access to your location.",
+    "noNearby": "No town or village found nearby.",
+    "locationError": "Could not find your location.",
+    "orRegion": "or pick a region or country",
+    "otherCountries": "Other countries",
+    "privacy": "We keep only the town or village, not your coordinates. Places: GeoNames (CC BY 4.0).",
+    "change": "change",
+    "dontKnowDialect": "{language}, not sure of the dialect",
+    "otherVariety": "another language…",
+    "severalDialects": "Several dialects are spoken here. Pick yours, or \"not sure\": the editors will decide.",
+    "varietyFromPlace": "Found from the place."
   },
   "VarietySelect": {
     "search": "Search languages and dialects…",
@@ -174,7 +192,7 @@
     "words": "Words",
     "recordings": "Recordings",
     "mapTitle": "Map",
-    "map": "Country and region borders come from Natural Earth (public domain), in the Ukrainian point-of-view edition. Basemap: OpenFreeMap, © OpenMapTiles, data © OpenStreetMap contributors (ODbL). The map is rendered with MapLibre GL.",
+    "map": "Country and region borders come from Natural Earth (public domain), in the Ukrainian point-of-view edition. Basemap: OpenFreeMap, © OpenMapTiles, data © OpenStreetMap contributors (ODbL). The map is rendered with MapLibre GL. Towns and villages for “Where do people say it?”: GeoNames (CC BY 4.0).",
     "ttsTitle": "Synthetic pronunciation",
     "tts": "Where no real recording exists, pronunciation is synthesized with Piper, using only voices whose license allows this use. These recordings are marked TTS.",
     "ownTitle": "Dialectio's own data",
@@ -588,7 +606,8 @@
       "reject": "rejected",
       "delete": "deleted",
       "spelling": "fixed",
-      "primary": "made main"
+      "primary": "made main",
+      "variety": "moved to another variety"
     }
   },
   "Support": {

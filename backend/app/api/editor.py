@@ -315,6 +315,19 @@ def change_spelling(session: SessionDep, form_id: int, change: SpellingChange) -
     return to_editor_form(form)
 
 
+class VarietyChange(BaseModel):
+    variety: str = Field(min_length=2, max_length=40)
+
+
+@router.post("/forms/{form_id}/variety")
+def change_variety(session: SessionDep, form_id: int, change: VarietyChange) -> EditorForm:
+    """Move a word to another language or dialect (a member did not know their dialect)."""
+    form = own_form(session, form_id)
+    word_actions.change_variety(session, form, get_variety(session, change.variety), None)
+    session.commit()
+    return to_editor_form(form)
+
+
 @router.delete("/forms/{form_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_form(session: SessionDep, form_id: int) -> None:
     word_actions.delete(session, own_form(session, form_id), None)

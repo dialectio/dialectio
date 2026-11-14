@@ -14,7 +14,16 @@ from sqlalchemy.orm import Session
 
 from app.config import MEDIA_DIR, MEDIA_URL_PREFIX
 from app.importers.common import upsert_source
-from app.models import APPROVED, PENDING, PUBLIC_STATUSES, SUBMITTED, Form, FormChange, User
+from app.models import (
+    APPROVED,
+    PENDING,
+    PUBLIC_STATUSES,
+    SUBMITTED,
+    Form,
+    FormChange,
+    User,
+    Variety,
+)
 
 EDITOR_SOURCE_NAME = "Dialectio editors"
 EDITOR_SOURCE_URL = "https://github.com/dialectio/dialectio"
@@ -34,6 +43,7 @@ def snapshot(form: Form) -> dict[str, Any]:
         "ipa": form.ipa,
         "status": form.status,
         "primary": form.is_primary,
+        "variety": form.variety.code,
     }
 
 
@@ -62,9 +72,7 @@ def log_change(
 
 def is_editable(form: Form) -> bool:
     """Our own words, and drafts from any source (editors approve or reject them)."""
-    return form.status == PENDING or (
-        form.source is not None and form.source.name in OWN_SOURCES
-    )
+    return form.status == PENDING or (form.source is not None and form.source.name in OWN_SOURCES)
 
 
 def own_form(session: Session, form_id: int) -> Form:
@@ -157,15 +165,48 @@ def delete(session: Session, form: Form, actor: User | None) -> None:
     session.delete(form)
     session.flush()
     if was_primary:
-        # Promote another word (oldest id) so the concept keeps a primary form in this variety.
-        replacement = session.scalars(
-            select(Form)
-            .where(
-                Form.concept_id == concept_id,
-                Form.variety_id == variety_id,
-                Form.status.in_(PUBLIC_STATUSES),
-            )
-            .order_by((Form.status == APPROVED).desc(), Form.id)
-        ).first()
-        if replacement:
-            replacement.is_primary = True
+        promote_replacement(session, concept_id, variety_id)
+
+
+def promote_replacement(session: Session, concept_id: int, variety_id: int) -> None:
+    """Make another word (approved first, then the oldest) the main one, so the concept keeps
+    a primary form in this variety."""
+    replacement = session.scalars(
+        select(Form)
+        .where(
+            Form.concept_id == concept_id,
+            Form.variety_id == variety_id,
+            Form.status.in_(PUBLIC_STATUSES),
+        )
+        .order_by((Form.status == APPROVED).desc(), Form.id)
+    ).first()
+    if replacement:
+        replacement.is_primary = True
+
+
+def change_variety(session: Session, form: Form, variety: Variety, actor: User | None) -> None:
+    """Move a word to another language or dialect: a member who did not know their dialect
+    sent it to the language (or to one of their oblast's dialects)."""
+    if variety.kind == "dialect_group":
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_CONTENT, "Choose a dialect")
+    if variety.id == form.variety_id:
+        return
+    duplicate = session.scalar(
+        select(Form.id).where(
+            Form.concept_id == form.concept_id,
+            Form.variety_id == variety.id,
+            Form.spelling == form.spelling,
+        )
+    )
+    if duplicate is not None:
+        raise HTTPException(status.HTTP_409_CONFLICT, "This word already exists there")
+    before = snapshot(form)
+    old_variety_id, was_primary = form.variety_id, form.is_primary
+    form.variety = variety
+    form.is_primary = form.status in PUBLIC_STATUSES and not any(
+        o.is_primary and o.status in PUBLIC_STATUSES for o in others_of(session, form)
+    )
+    session.flush()
+    if was_primary:
+        promote_replacement(session, form.concept_id, old_variety_id)
+    log_change(session, form, "variety", before, actor)

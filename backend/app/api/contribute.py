@@ -1,5 +1,9 @@
 """Visitor contributions: "how do you say it where you live?" with an optional recording.
 
+The member says where the word is said: a settlement (GeoNames) or an oblast or country; the
+page suggests the language or dialect from that place. The place is kept as a `FormPlace`,
+also when the word is already known (one more "they say it here").
+
 Only signed-in members contribute; the word and recording carry their name (it changes with
 their name, and goes when they delete the account). Submissions are stored with status
 "submitted" and stay hidden until an editor approves them. Contributors grant Dialectio
@@ -22,7 +26,7 @@ from app.api.word_actions import CONTRIBUTOR_SOURCE_NAME
 from app.config import MEDIA_DIR, MEDIA_URL_PREFIX
 from app.db.session import get_session
 from app.importers.common import upsert_source
-from app.models import SUBMITTED, Audio, Concept, Variety
+from app.models import SUBMITTED, Audio, Concept, FormPlace, Region, Settlement, User, Variety
 from app.models import Form as WordForm
 from app.turnstile import require_human
 
@@ -99,6 +103,9 @@ async def contribute(
     spelling: Annotated[str, Form(min_length=1, max_length=200)],
     consent: Annotated[bool, Form()],
     place: Annotated[str, Form(max_length=200)] = "",
+    # Where it is said: a settlement, else an oblast or country code
+    settlement_id: Annotated[int | None, Form()] = None,
+    region: Annotated[str, Form(max_length=10)] = "",
     # Honeypot: hidden in the form, so only bots fill it in.
     website: Annotated[str, Form()] = "",
     captcha: Annotated[str, Form(max_length=2048)] = "",  # Turnstile token
@@ -121,15 +128,22 @@ async def contribute(
     if concept is None or target is None or target.kind == "dialect_group":
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Unknown concept or variety")
 
+    settlement, where = find_place(session, settlement_id, region)
+    if settlement is not None and not place.strip():
+        place = settlement.names.get("uk") or settlement.name
+
     duplicate = session.scalar(
-        select(WordForm.id).where(
+        select(WordForm).where(
             WordForm.concept_id == concept.id,
             WordForm.variety_id == target.id,
             WordForm.spelling == spelling,
         )
     )
     if duplicate is not None:
-        # Already known (or sent twice): nothing to review, but no error for the visitor.
+        # Already known (or sent twice): nothing to review, but no error for the visitor;
+        # where they say it still counts.
+        add_place(session, duplicate, member, settlement, where)
+        session.commit()
         return {"status": "exists"}
 
     source = upsert_source(
@@ -169,5 +183,51 @@ async def contribute(
         )
 
     session.add(form)
+    add_place(session, form, member, settlement, where)
     session.commit()
     return {"status": "received"}
+
+
+def find_place(
+    session: Session, settlement_id: int | None, region_code: str
+) -> tuple[Settlement | None, Region | None]:
+    """The settlement and its region, or only the region the member chose."""
+    if settlement_id is not None:
+        settlement = session.get(Settlement, settlement_id)
+        if settlement is None or settlement.region is None:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "Unknown settlement")
+        return settlement, settlement.region
+    if region_code:
+        region = session.scalars(
+            select(Region).where(Region.code == region_code).order_by(Region.level != "adm1")
+        ).first()
+        if region is None:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "Unknown region")
+        return None, region
+    return None, None
+
+
+def add_place(
+    session: Session,
+    form: WordForm,
+    member: User,
+    settlement: Settlement | None,
+    region: Region | None,
+) -> None:
+    if region is None:
+        return
+    session.flush()
+    known = session.scalar(
+        select(FormPlace.id).where(
+            FormPlace.form_id == form.id,
+            FormPlace.user_id == member.id,
+            FormPlace.settlement_id == settlement.id
+            if settlement
+            else FormPlace.settlement_id.is_(None),
+            FormPlace.region_id == region.id,
+        )
+    )
+    if known is None:
+        session.add(
+            FormPlace(form_id=form.id, user_id=member.id, settlement=settlement, region=region)
+        )

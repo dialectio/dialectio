@@ -6,8 +6,10 @@ import { type FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { useAccount } from "@/components/Account";
 import Captcha, { CAPTCHA_SITE_KEY } from "@/components/Captcha";
 import { Link, usePathname } from "@/i18n/navigation";
-import { API_URL } from "@/lib/api";
+import PlacePicker, { regionCodesOf, type Where } from "@/components/PlacePicker";
+import { API_URL, localized } from "@/lib/api";
 import { VarietySelect } from "@/components/VarietySelect";
+import { settlementArea, settlementName, varietiesOf } from "@/lib/settlements";
 import { listPublicVarieties, sortVarieties, type Variety } from "@/lib/varieties";
 
 const MAX_RECORDING_MS = 10_000;
@@ -81,14 +83,17 @@ export default function ContributeDialog({
 }: {
   conceptId: number;
   conceptName: string;
-  /** Oblast selected on the map, if any: its dialect is suggested */
+  /** Oblast selected on the map, if any: "where do they say it?" starts there */
   regionCode: string | null;
   onClose: () => void;
 }) {
   const t = useTranslations("Contribute");
   const locale = useLocale();
   const [varieties, setVarieties] = useState<Variety[]>([]);
-  const [variety, setVariety] = useState("ukr");
+  const [where, setWhere] = useState<Where | null>(null);
+  // The language or dialect the visitor picked; null = the place's suggestion
+  const [chosen, setChosen] = useState<string | null>(null);
+  const [anyVariety, setAnyVariety] = useState(false); // the full list instead of the place's
   const [spelling, setSpelling] = useState("");
   const [place, setPlace] = useState("");
   const { member } = useAccount();
@@ -107,22 +112,38 @@ export default function ContributeDialog({
 
   useEffect(() => {
     listPublicVarieties()
-      .then((result) => {
-        setVarieties(sortVarieties(result, locale));
-        // Suggest what the visitor chose last time if it fits the selected oblast, else the
-        // oblast's dialect (an oblast can have several), else the last choice, else Ukrainian.
-        const regional = result.filter(
-          (v) => v.kind === "dialect" && regionCode && v.region_codes.includes(regionCode),
-        );
-        const last = lastVariety();
-        const remembered = result.find((v) => v.code === last);
-        const suggested = regionCode
-          ? (regional.find((v) => v.code === last) ?? regional[0] ?? remembered)
-          : remembered;
-        setVariety(suggested?.code ?? "ukr");
-      })
+      .then((result) => setVarieties(sortVarieties(result, locale)))
       .catch(() => setVarieties([]));
-  }, [locale, regionCode]);
+  }, [locale]);
+
+  // The languages and dialects of the place, most specific first
+  const candidates = useMemo(() => varietiesOf(varieties, regionCodesOf(where)), [varieties, where]);
+  const dialects = candidates.filter((v) => v.kind === "dialect");
+  // Suggested for the place: the last choice if it is spoken there, the oblast's only dialect,
+  // nothing when it has several (the visitor picks one, or "don't know"), else its language
+  const suggested = (() => {
+    const last = lastVariety();
+    if (candidates.some((v) => v.code === last)) return last;
+    if (dialects.length === 1) return dialects[0].code;
+    if (dialects.length > 1) return null;
+    return candidates[0]?.code ?? null;
+  })();
+  const fullList = anyVariety || candidates.length === 0;
+  const variety = chosen ?? (fullList ? (lastVariety() ?? "ukr") : suggested);
+  /** The language of the place's dialects: picking it means "I don't know my dialect" */
+  const dialectLanguage = (v: Variety) =>
+    v.kind === "language" && dialects.some((d) => d.code.split("-")[0] === v.code);
+  const varietyName = (v: Variety) => localized(locale, v.name_en, v.name_uk, v.names);
+
+  const changeWhere = (next: Where | null) => {
+    setWhere(next);
+    setChosen(null);
+    setAnyVariety(false);
+  };
+  const pick = (code: string) => {
+    setChosen(code);
+    rememberVariety(code);
+  };
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
@@ -132,13 +153,22 @@ export default function ContributeDialog({
 
   const submit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!spelling.trim() || !consent) return;
+    if (!spelling.trim() || !consent || !where || !variety) return;
     setStatus("sending");
     const data = new FormData();
     data.append("concept_id", String(conceptId));
     data.append("variety", variety);
     data.append("spelling", spelling.trim());
-    data.append("place", place.trim());
+    if (where.kind === "settlement") {
+      const s = where.settlement;
+      data.append("settlement_id", String(s.id));
+      // What editors see, in Ukrainian where GeoNames has it
+      data.append("place", `${settlementName(s, "uk")}, ${settlementArea(s, "uk")}`);
+    } else {
+      const region = localized("uk", where.region.name_en, where.region.name_uk);
+      data.append("region", where.region.code);
+      data.append("place", [place.trim(), region].filter(Boolean).join(", "));
+    }
     data.append("consent", "true");
     data.append("website", website);
     data.append("captcha", captcha);
@@ -203,17 +233,61 @@ export default function ContributeDialog({
           </div>
         ) : (
           <form onSubmit={submit} className="space-y-3 text-sm">
-            <label className="block">
-              <span className="mb-1 block opacity-70">{t("variety")}</span>
-              <VarietySelect
-                varieties={varieties}
-                value={variety}
-                onChange={(code) => {
-                  setVariety(code);
-                  rememberVariety(code);
-                }}
-              />
-            </label>
+            <fieldset>
+              <legend className="mb-1 font-medium">{t("where")}</legend>
+              <PlacePicker regionCode={regionCode} value={where} onChange={changeWhere} />
+              {where?.kind === "region" && (
+                <input
+                  maxLength={120}
+                  value={place}
+                  onChange={(e) => setPlace(e.target.value)}
+                  placeholder={t("placeHint")}
+                  aria-label={t("place")}
+                  className="mt-2 w-full rounded border border-black/15 bg-transparent px-2 py-1.5 dark:border-white/20"
+                />
+              )}
+            </fieldset>
+            {where && (
+              <fieldset>
+                <legend className="mb-1 opacity-70">{t("variety")}</legend>
+                {fullList ? (
+                  <VarietySelect varieties={varieties} value={variety ?? ""} onChange={pick} />
+                ) : (
+                  <div className="flex flex-wrap gap-1.5">
+                    {candidates.map((v) => (
+                      <button
+                        key={v.code}
+                        type="button"
+                        aria-pressed={variety === v.code}
+                        onClick={() => pick(v.code)}
+                        className={`rounded-full border px-2.5 py-1 ${
+                          variety === v.code
+                            ? "border-blue-600 bg-blue-600 text-white"
+                            : "border-current/30"
+                        }`}
+                      >
+                        {dialectLanguage(v)
+                          ? t("dontKnowDialect", { language: varietyName(v) })
+                          : varietyName(v)}
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      onClick={() => setAnyVariety(true)}
+                      className="px-1 text-xs opacity-60 hover:underline"
+                    >
+                      {t("otherVariety")}
+                    </button>
+                  </div>
+                )}
+                {!fullList && dialects.length > 1 && !variety && (
+                  <p className="mt-1 text-xs opacity-70">{t("severalDialects")}</p>
+                )}
+                {!fullList && !chosen && dialects.length === 1 && variety === dialects[0].code && (
+                  <p className="mt-1 text-xs opacity-60">{t("varietyFromPlace")}</p>
+                )}
+              </fieldset>
+            )}
             <label className="block">
               <span className="mb-1 block opacity-70">{t("word")}</span>
               <input
@@ -222,16 +296,6 @@ export default function ContributeDialog({
                 value={spelling}
                 onChange={(e) => setSpelling(e.target.value)}
                 className="w-full rounded border border-black/15 bg-transparent px-2 py-1.5 text-base dark:border-white/20"
-              />
-            </label>
-            <label className="block">
-              <span className="mb-1 block opacity-70">{t("place")}</span>
-              <input
-                maxLength={200}
-                value={place}
-                onChange={(e) => setPlace(e.target.value)}
-                placeholder={t("placeHint")}
-                className="w-full rounded border border-black/15 bg-transparent px-2 py-1.5 dark:border-white/20"
               />
             </label>
             <p className="text-xs opacity-70">{t("signedAs", { name: member.name })}</p>
@@ -301,6 +365,8 @@ export default function ContributeDialog({
                 status === "sending" ||
                 !spelling.trim() ||
                 !consent ||
+                !where ||
+                !variety ||
                 recorder.recording ||
                 (!!CAPTCHA_SITE_KEY && !captcha)
               }

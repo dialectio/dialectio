@@ -19,6 +19,7 @@ from app.api import (
     gold,
     google_auth,
     lexicon,
+    places,
     profile,
     regions,
     speaker,
@@ -34,6 +35,7 @@ app.include_router(regions.router)
 app.include_router(lexicon.router)
 app.include_router(editor.router)
 app.include_router(contribute.router)
+app.include_router(places.router)
 app.include_router(stats.router)
 app.include_router(dialects.router)
 app.include_router(dialect_words.router)

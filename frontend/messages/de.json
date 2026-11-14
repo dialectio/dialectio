@@ -96,7 +96,8 @@
     "reviewReject": "Reject",
     "reviewRejectSure": "Sure? ← again",
     "reviewSkip": "Skip",
-    "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel"
+    "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel",
+    "changeVariety": "change language or dialect"
   },
   "Word": {
     "title": "{word} in verschiedenen Sprachen — Schreibung und Aussprache | Dialectio",
@@ -111,8 +112,8 @@
     "close": "Schließen",
     "variety": "Sprache oder Dialekt",
     "word": "Wort",
-    "place": "Ort oder Region (optional)",
-    "placeHint": "z. B. Wyschnyzja, Oblast Czernowitz",
+    "place": "Ort (optional)",
+    "placeHint": "Ort, falls die Suche ihn nicht findet (optional)",
     "recording": "Aussprache (optional)",
     "record": "Aufnehmen",
     "recordAgain": "Neu aufnehmen",
@@ -128,7 +129,24 @@
     "tooMany": "Zu viele Einsendungen. Bitte versuche es später.",
     "signInFirst": "Wörter fügen Mitglieder hinzu: So wissen wir, wer ein Wort geschickt hat, und es trägt Ihren Namen.",
     "signIn": "Anmelden oder registrieren",
-    "signedAs": "Das Wort trägt Ihren Namen: {name}."
+    "signedAs": "Das Wort trägt Ihren Namen: {name}.",
+    "where": "Wo sagt man das?",
+    "settlement": "Ort",
+    "settlementHint": "Ortsnamen eingeben",
+    "noSettlements": "Nichts gefunden. Wähle unten eine Region.",
+    "myLocation": "Ich bin gerade dort",
+    "locating": "Wird ermittelt…",
+    "locationDenied": "Der Browser hat den Zugriff auf den Standort nicht erlaubt.",
+    "noNearby": "Kein Ort in der Nähe gefunden.",
+    "locationError": "Der Standort konnte nicht ermittelt werden.",
+    "orRegion": "oder wähle eine Region oder ein Land",
+    "otherCountries": "Andere Länder",
+    "privacy": "Wir speichern nur den Ort, nicht deine Koordinaten. Orte: GeoNames (CC BY 4.0).",
+    "change": "ändern",
+    "dontKnowDialect": "{language}, Dialekt unbekannt",
+    "otherVariety": "andere Sprache…",
+    "severalDialects": "Hier spricht man mehrere Dialekte. Wähle deinen oder „unbekannt“: die Redaktion entscheidet.",
+    "varietyFromPlace": "Aus dem Ort ermittelt."
   },
   "VarietySelect": {
     "search": "Sprache oder Mundart suchen…",
@@ -174,7 +192,7 @@
     "words": "Wörter",
     "recordings": "Aufnahmen",
     "mapTitle": "Karte",
-    "map": "Länder- und Regionsgrenzen stammen von Natural Earth (gemeinfrei), in der Ausgabe aus ukrainischer Sicht. Grundkarte: OpenFreeMap, © OpenMapTiles, Daten © OpenStreetMap-Mitwirkende (ODbL). Die Karte wird mit MapLibre GL dargestellt.",
+    "map": "Länder- und Regionsgrenzen stammen von Natural Earth (gemeinfrei), in der Ausgabe aus ukrainischer Sicht. Grundkarte: OpenFreeMap, © OpenMapTiles, Daten © OpenStreetMap-Mitwirkende (ODbL). Die Karte wird mit MapLibre GL dargestellt. Orte für „Wo sagt man das?“: GeoNames (CC BY 4.0).",
     "ttsTitle": "Synthetische Aussprache",
     "tts": "Wo es keine echte Aufnahme gibt, wird die Aussprache mit Piper synthetisiert, nur mit Stimmen, deren Lizenz das erlaubt. Solche Aufnahmen sind mit TTS gekennzeichnet.",
     "ownTitle": "Eigene Daten von Dialectio",
@@ -588,7 +606,8 @@
       "reject": "abgelehnt",
       "delete": "gelöscht",
       "spelling": "korrigiert",
-      "primary": "zum Hauptwort gemacht"
+      "primary": "zum Hauptwort gemacht",
+      "variety": "in eine andere Varietät verschoben"
     }
   },
   "Support": {

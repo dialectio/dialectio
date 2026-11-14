@@ -14,6 +14,7 @@ import {
   listExperts,
   approveForm,
   changeSpelling,
+  changeVariety,
   deleteForm,
   type EditorConcept,
   EditorError,
@@ -33,7 +34,8 @@ import {
 } from "@/lib/editor";
 import type { WordChange } from "@/lib/expert";
 import { listVoterRegions } from "@/lib/feedback";
-import { sortVarieties } from "@/lib/varieties";
+import { VarietySelect } from "@/components/VarietySelect";
+import { listPublicVarieties, sortVarieties, type Variety } from "@/lib/varieties";
 
 const DEFAULT_VARIETY = "ukr";
 // Rows rendered at once; thousands of rows with inputs make the page sluggish.
@@ -500,6 +502,32 @@ function Submissions({ token }: { token: string }) {
   const locale = useLocale();
   const [items, setItems] = useState<Submission[]>([]);
   const [error, setError] = useState(false);
+  const [varieties, setVarieties] = useState<Variety[]>([]);
+  const [moving, setMoving] = useState<number | null>(null); // form id
+
+  useEffect(() => {
+    listPublicVarieties()
+      .then((result) => setVarieties(sortVarieties(result, locale)))
+      .catch(() => {});
+  }, [locale]);
+
+  const move = async (item: Submission, code: string) => {
+    setError(false);
+    try {
+      await changeVariety(token, item.form.id, code);
+      const v = varieties.find((x) => x.code === code);
+      setItems((all) =>
+        all.map((i) =>
+          i.form.id === item.form.id && v
+            ? { ...i, variety_code: code, variety_name_en: v.name_en, variety_name_uk: v.name_uk }
+            : i,
+        ),
+      );
+      setMoving(null);
+    } catch {
+      setError(true);
+    }
+  };
 
   useEffect(() => {
     let cancelled = false;
@@ -533,6 +561,21 @@ function Submissions({ token }: { token: string }) {
               {localized(locale, item.concept_gloss_en, item.concept_gloss_uk)} ·{" "}
               {localized(locale, item.variety_name_en, item.variety_name_uk)}
             </span>
+            <button
+              type="button"
+              onClick={() => setMoving(moving === item.form.id ? null : item.form.id)}
+              className="text-xs opacity-60 hover:underline"
+            >
+              {t("changeVariety")}
+            </button>
+            {moving === item.form.id && (
+              <VarietySelect
+                varieties={varieties}
+                value={item.variety_code}
+                onChange={(code) => move(item, code)}
+                ariaLabel={t("changeVariety")}
+              />
+            )}
             <span className="text-base font-semibold">{item.form.spelling}</span>
             {item.form.place && <span className="opacity-70">📍 {item.form.place}</span>}
             {item.form.contributor && <span className="opacity-70">— {item.form.contributor}</span>}

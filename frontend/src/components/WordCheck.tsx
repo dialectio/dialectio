@@ -62,7 +62,7 @@ export function TrustMark({
 }
 
 /** Regions grouped by country (Ukraine first, then by name), then whole countries. */
-function regionGroups(regions: RegionOption[], locale: string) {
+export function regionGroups(regions: RegionOption[], locale: string) {
   const byName = (a: string, b: string) => a.localeCompare(b, locale);
   const name = (r: RegionOption) =>
     localized(locale, r.name_en, r.name_uk, r.names);
