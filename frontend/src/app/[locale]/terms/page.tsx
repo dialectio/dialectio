@@ -4,7 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import InfoPage, { externalLink, CONTACT_HREF } from "@/components/InfoPage";
 import { pageMetadata } from "@/lib/metadata";
 
-const SECTIONS = ["service", "content", "contributions", "conduct", "liability", "changes"] as const;
+const SECTIONS = ["service", "content", "contributions", "discussions", "conduct", "liability", "changes"] as const;
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/terms">): Promise<Metadata> {
   const { locale } = await params;

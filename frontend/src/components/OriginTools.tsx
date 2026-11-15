@@ -91,46 +91,49 @@ export default function OriginTools({
   };
 
   return (
-    <div className="mt-2 space-y-2 text-sm">
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
+    <div className="mt-2 text-xs">
+      <div className="flex flex-wrap items-center gap-2">
         {families.length > 1 && (
-          <label className="inline-flex cursor-pointer items-center gap-1.5">
-            <input
-              type="checkbox"
-              checked={byOrigin}
-              onChange={(e) => onByOrigin(e.target.checked)}
-            />
-            {t("toggle")}
-          </label>
+          <button
+            type="button"
+            onClick={() => onByOrigin(!byOrigin)}
+            aria-pressed={byOrigin}
+            className={`rounded-full border px-2.5 py-1 ${
+              byOrigin
+                ? "border-blue-500 bg-blue-500/10 text-blue-700 dark:text-blue-300"
+                : "border-black/15 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+            }`}
+          >
+            🎨 {t("toggle")}
+          </button>
         )}
         <button
           type="button"
           onClick={save}
           disabled={saving || !snapshot}
-          className="text-blue-700 hover:underline disabled:opacity-50 dark:text-blue-300"
+          className="rounded-full border border-black/15 px-2.5 py-1 hover:bg-black/5 disabled:opacity-50 dark:border-white/20 dark:hover:bg-white/10"
         >
           ⬇ {saving ? t("saving") : t("save")}
         </button>
       </div>
       {byOrigin && (
-        <div>
-          <ul className="space-y-0.5">
-            {families.map((family) => (
-              <li key={family.color} className="flex items-center gap-2">
-                <span
-                  aria-hidden="true"
-                  className="inline-block h-3 w-3 shrink-0 rounded-sm"
-                  style={{ background: family.color }}
-                />
-                <span>{family.words.join(", ")}</span>
-                <span className="text-xs opacity-60">
-                  {t("languages", { count: family.languages })}
-                </span>
-              </li>
-            ))}
-          </ul>
-          <p className="mt-1 text-xs opacity-60">{t("note")}</p>
-        </div>
+        // Compact legend: the families wrap side by side
+        <ul className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+          {families.map((family) => (
+            <li key={family.color} className="flex items-center gap-1">
+              <span
+                aria-hidden="true"
+                className="inline-block h-2.5 w-2.5 shrink-0 rounded-sm"
+                style={{ background: family.color }}
+              />
+              <span>{family.words.join(", ")}</span>
+              <span className="opacity-60">
+                {t("languages", { count: family.languages })}
+              </span>
+            </li>
+          ))}
+          <li className="w-full opacity-60">{t("note")}</li>
+        </ul>
       )}
     </div>
   );

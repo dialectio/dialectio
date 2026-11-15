@@ -97,7 +97,13 @@
     "reviewRejectSure": "Sure? ← again",
     "reviewSkip": "Skip",
     "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel",
-    "changeVariety": "change language or dialect"
+    "changeVariety": "change language or dialect",
+    "comments": "Reported or hidden comments ({count})",
+    "commentHidden": "hidden ({by})",
+    "commentHide": "hide",
+    "commentRestore": "show and close the reports",
+    "commentDelete": "delete",
+    "guest": "guest"
   },
   "Word": {
     "title": "{word} w różnych językach — pisownia i wymowa | Dialectio",
@@ -202,7 +208,7 @@
   "Privacy": {
     "title": "Polityka prywatności",
     "metaDescription": "Jakie dane zbiera Dialectio i jak je wykorzystuje.",
-    "updated": "Aktualizacja: 21 października 2026 r.",
+    "updated": "Aktualizacja: 15 listopada 2026 r.",
     "intro": "Z Dialectio można korzystać bez rejestracji. Nie używamy śledzących plików cookie i nie przekazujemy danych sieciom reklamowym.",
     "contribTitle": "Gdy dodajesz słowo",
     "contrib": "Przechowujemy to, co wpiszesz w formularzu: słowo, język lub gwarę, miejscowość i nagranie głosu (opcjonalnie), a także to, że wysłało je Twoje konto. Po sprawdzeniu obok słowa mogą być pokazane imię z konta i miejscowość. Wysyłając zgłoszenie, zgadzasz się na jego publikację przez Dialectio.",
@@ -221,7 +227,9 @@
     "searchTitle": "Wyszukiwanie",
     "search": "Gdy wyszukiwanie niczego nie znajdzie, zapisujemy sam tekst zapytania z licznikiem, aby dodać to słowo do słownika. Nic o tobie nie jest przy tym zapisywane.",
     "accountTitle": "Jeśli się rejestrujesz",
-    "account": "Przechowujemy adres e-mail, imię i skrót hasła (samo hasło nie jest przechowywane ani odtwarzalne ze skrótu). Przy logowaniu przez Google otrzymujemy od Google tylko Twój (potwierdzony) adres e-mail i imię; hasło nie jest wtedy potrzebne. Po zalogowaniu przeglądarka dostaje cookie sesji — służy wyłącznie do utrzymania zalogowania. Twoje głosy i odpowiedzi na karty kontrolne są powiązane z kontem. Konto można usunąć w profilu: e-mail, imię i sesje znikają od razu, głosy zostają anonimowe. Języki i gwary z Twojego profilu oraz wyniki testów są przechowywane na koncie i usuwane razem z nim; dodane przez Ciebie słowa zostają na stronie już bez Twojego imienia. Wiadomości (potwierdzenie adresu, nowe hasło, linki do logowania) wysyłamy przez Brevo (Sendinblue SAS, Francja): serwis otrzymuje tylko Twój adres i treść wiadomości. Jeśli składasz wniosek o status eksperta, przechowujemy jego treść; działania eksperta na słowach trafiają do dziennika zmian z jego imieniem."
+    "account": "Przechowujemy adres e-mail, imię i skrót hasła (samo hasło nie jest przechowywane ani odtwarzalne ze skrótu). Przy logowaniu przez Google otrzymujemy od Google tylko Twój (potwierdzony) adres e-mail i imię; hasło nie jest wtedy potrzebne. Po zalogowaniu przeglądarka dostaje cookie sesji — służy wyłącznie do utrzymania zalogowania. Twoje głosy i odpowiedzi na karty kontrolne są powiązane z kontem. Konto można usunąć w profilu: e-mail, imię i sesje znikają od razu, głosy zostają anonimowe. Języki i gwary z Twojego profilu oraz wyniki testów są przechowywane na koncie i usuwane razem z nim; dodane przez Ciebie słowa zostają na stronie już bez Twojego imienia. Wiadomości (potwierdzenie adresu, nowe hasło, linki do logowania) wysyłamy przez Brevo (Sendinblue SAS, Francja): serwis otrzymuje tylko Twój adres i treść wiadomości. Jeśli składasz wniosek o status eksperta, przechowujemy jego treść; działania eksperta na słowach trafiają do dziennika zmian z jego imieniem.",
+    "commentsTitle": "Dyskusje o słowach",
+    "comments": "Komentarze w dyskusjach o słowach są publiczne: każdy widzi je z imieniem z Twojego profilu i datą. Możesz edytować lub usunąć swój komentarz; usunięcie konta usuwa wszystkie Twoje komentarze. Zgłoszenia komentarzy przechowujemy z hashem identyfikatora zgłaszającego (nie z imieniem), aby jedna osoba nie zgłaszała dwa razy."
   },
   "Home": {
     "intro": "Wpisz słowo w dowolnym języku i zobacz na mapie, jak się je pisze, wymawia i jak brzmi w językach świata, ich gwarach i odmianach regionalnych. Albo zacznij od tych przykładów:",
@@ -316,7 +324,8 @@
     "reportThanks": "Dziękujemy! Redaktor to sprawdzi.",
     "error": "Nie udało się wysłać. Spróbuj ponownie.",
     "usageQuestion": "A u was tak się mówi?",
-    "otherCountries": "Inne kraje"
+    "otherCountries": "Inne kraje",
+    "discuss": "{count, plural, =0 {💬 dyskutuj} other {💬 dyskusja · #}}"
   },
   "Game": {
     "title": "Sprawdź słowa",
@@ -356,7 +365,7 @@
   "Terms": {
     "title": "Regulamin",
     "metaDescription": "Zasady korzystania z Dialectio: dane, zgłoszenia, odpowiedzialność.",
-    "updated": "Aktualizacja: 12 października 2026 r.",
+    "updated": "Aktualizacja: 15 listopada 2026 r.",
     "serviceTitle": "Czym jest Dialectio",
     "service": "Dialectio to popularnonaukowa strona, która pokazuje na mapie, jak brzmią słowa w różnych językach i gwarach. Część słów zebrano automatycznie lub to niezweryfikowane szkice (znak „≈”), więc dane mogą zawierać błędy. Strona nie zastępuje słownika ani opracowania naukowego.",
     "contentTitle": "Korzystanie z treści strony",
@@ -369,7 +378,9 @@
     "liability": "Strona jest udostępniana „tak jak jest”, bez gwarancji dokładności ani ciągłości działania. Nie odpowiadamy za skutki korzystania z danych. Linki do innych stron prowadzą do zasobów, za które odpowiadają ich właściciele.",
     "changesTitle": "Zmiany regulaminu",
     "changes": "Możemy aktualizować ten regulamin; data aktualizacji jest podana na górze strony.",
-    "contact": "Pytania i skargi: <link>dialectio.team@gmail.com</link>."
+    "contact": "Pytania i skargi: <link>dialectio.team@gmail.com</link>.",
+    "discussionsTitle": "Dyskusje",
+    "discussions": "W dyskusjach mogą pisać zarejestrowani użytkownicy, w dowolnym języku. Komentarz pojawia się od razu i odpowiada za niego autor. Każdy może zgłosić komentarz; po trzech zgłoszeniach od różnych użytkowników jest on ukrywany do decyzji redaktora. Redaktorzy i eksperci gwary mogą ukryć lub usunąć komentarz naruszający zasady lub prawo."
   },
   "Imprint": {
     "title": "Nota prawna",
@@ -625,5 +636,46 @@
     "helpWords": "Dodawaj słowa i nagrania wymowy: na stronie dowolnego słowa naciśnij „Dodaj słowo”.",
     "helpShare": "Opowiedz o stronie znajomym, nauczycielom i lokalnym społecznościom.",
     "helpPartner": "Jesteś z uczelni, szkoły, muzeum lub redakcji i chcesz współpracować? Napisz na <link>dialectio.team@gmail.com</link>."
+  },
+  "Discussion": {
+    "title": "Dyskusja o słowie",
+    "loading": "Ładowanie…",
+    "error": "Nie udało się. Spróbuj ponownie.",
+    "tooMany": "Za dużo komentarzy w krótkim czasie. Spróbuj później.",
+    "captcha": "Potwierdź, że nie jesteś robotem.",
+    "meaning": "Znaczenie",
+    "whereSaid": "Gdzie się tak mówi",
+    "source": "Źródło",
+    "addedBy": "dodał(-a) {name}",
+    "unverified": "≈ jeszcze niesprawdzone",
+    "votes": "głosy: tak {yes}, nie {no}",
+    "confirmed": "👥 potwierdzone przez użytkowników języka",
+    "disputed": "⚠ zakwestionowane",
+    "noComments": "Nikt jeszcze nie pisał. Napisz, co wiesz o tym słowie.",
+    "placeholder": "Gdzie się tak mówi, jak się wymawia, skąd pochodzi słowo, przykłady… Pisz w dowolnym języku.",
+    "send": "Wyślij",
+    "sending": "Wysyłanie…",
+    "signIn": "Zaloguj się, aby pisać w dyskusji",
+    "rules": "Komentarz pojawia się od razu. Bądź uprzejmy: po trzech zgłoszeniach komentarz jest ukrywany do decyzji redaktora.",
+    "reply": "odpowiedz",
+    "replyingTo": "Odpowiedź dla {name}",
+    "cancel": "anuluj",
+    "edit": "edytuj",
+    "save": "Zapisz",
+    "delete": "usuń",
+    "confirmDelete": "Usunąć ten komentarz?",
+    "edited": "edytowano",
+    "report": "zgłoś",
+    "reportReason": "Co jest nie tak? (opcjonalnie)",
+    "reportSend": "Wyślij zgłoszenie",
+    "reported": "Dziękujemy, moderatorzy to sprawdzą.",
+    "hide": "ukryj",
+    "restore": "pokaż ponownie",
+    "hiddenNote": "ukryty · zgłoszeń: {count}",
+    "reports": "zgłoszeń: {count}",
+    "badge": {
+      "expert": "ekspert",
+      "editor": "redaktor"
+    }
   }
 }

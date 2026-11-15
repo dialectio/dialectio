@@ -22,7 +22,10 @@ import {
   dismissMissing,
   type FeedbackItem,
   listConcepts,
+  listComments,
   listFeedback,
+  moderateComment,
+  type ReportedComment,
   listMissing,
   type MissingSearch,
   listSubmissions,
@@ -436,6 +439,98 @@ function Feedback({ token }: { token: string }) {
   );
 }
 
+function Comments({ token }: { token: string }) {
+  const t = useTranslations("Editor");
+  const locale = useLocale();
+  const [items, setItems] = useState<ReportedComment[]>([]);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    listComments(token)
+      .then((result) => !cancelled && setItems(result))
+      .catch(() => !cancelled && setError(true));
+    return () => {
+      cancelled = true;
+    };
+  }, [token]);
+
+  const act = async (item: ReportedComment, action: "hide" | "restore" | "delete") => {
+    setError(false);
+    try {
+      await moderateComment(token, item.id, action);
+      // A decision answers the reports: the comment leaves the list unless it stays hidden
+      setItems((all) =>
+        action === "hide"
+          ? all.map((i) => (i.id === item.id ? { ...i, hidden: true, reports: [] } : i))
+          : all.filter((i) => i.id !== item.id),
+      );
+    } catch {
+      setError(true);
+    }
+  };
+
+  if (items.length === 0 && !error) return null;
+  return (
+    <section className="mb-6 rounded-lg border border-rose-500/40 bg-rose-500/5 p-3">
+      <h2 className="mb-2 font-semibold">{t("comments", { count: items.length })}</h2>
+      {error && <p className="text-sm text-red-600">{t("saveError")}</p>}
+      <ul className="space-y-3">
+        {items.map((item) => (
+          <li key={item.id} className="text-sm">
+            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <span className="font-semibold">{item.spelling}</span>
+              <span className="text-xs opacity-60">{item.variety_code}</span>
+              <span className="opacity-80">{item.author}</span>
+              {item.hidden && (
+                <span className="text-xs text-red-700 dark:text-red-400">
+                  {t("commentHidden", { by: item.hidden_by ?? "" })}
+                </span>
+              )}
+              {item.concept_slug && (
+                <a
+                  href={`/${locale}/word/${item.concept_slug}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-xs underline opacity-60"
+                >
+                  {t("openWord")}
+                </a>
+              )}
+            </div>
+            <p className="mt-0.5 whitespace-pre-wrap break-words rounded bg-black/5 px-2 py-1 dark:bg-white/10">
+              {item.body}
+            </p>
+            {item.reports.map((report, i) => (
+              <div key={i} className="mt-0.5 text-xs opacity-80">
+                ⚑ {report.reason || "—"} {report.member ? "" : `(${t("guest")})`}
+              </div>
+            ))}
+            <div className="mt-1 flex gap-4 text-xs">
+              {item.hidden ? (
+                <button type="button" onClick={() => act(item, "restore")} className="underline">
+                  {t("commentRestore")}
+                </button>
+              ) : (
+                <button type="button" onClick={() => act(item, "hide")} className="underline">
+                  {t("commentHide")}
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => act(item, "delete")}
+                className="text-red-700 underline dark:text-red-400"
+              >
+                {t("commentDelete")}
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 function Missing({ token }: { token: string }) {
   const t = useTranslations("Editor");
   const [items, setItems] = useState<MissingSearch[]>([]);
@@ -795,6 +890,7 @@ export default function WordEditor() {
       {token && !error && <QuickReview token={token} />}
       {token && !error && <Submissions token={token} />}
       {token && !error && <Feedback token={token} />}
+      {token && !error && <Comments token={token} />}
       {token && !error && <Missing token={token} />}
       {token && !error && <Experts token={token} />}
       {token && !error && <Changes token={token} />}

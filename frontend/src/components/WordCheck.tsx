@@ -6,6 +6,7 @@ import { type FormEvent, useEffect, useState } from "react";
 import type { Form } from "@/lib/api";
 import { localized } from "@/lib/api";
 import { visitorCountry } from "@/lib/visitor";
+import Discussion from "@/components/Discussion";
 import { useQuizGate } from "@/components/QuizGate";
 import {
   ABROAD,
@@ -238,12 +239,15 @@ export default function WordCheck({
   variety,
   onCounts,
   askUsage = false,
+  comments,
 }: {
   form: Checkable;
   /** The word's variety code ("ukr-hutsul"): the quiz is per language */
   variety: string;
   onCounts: (counts: Counts) => void;
   askUsage?: boolean;
+  /** Visible comments in the word's discussion; undefined = no discussion button */
+  comments?: number;
 }) {
   const gate = useQuizGate();
   const t = useTranslations("Check");
@@ -256,6 +260,8 @@ export default function WordCheck({
   const [askRegion, setAskRegion] = useState(false);
   const [reporting, setReporting] = useState(false);
   const [error, setError] = useState(false);
+  const [discussing, setDiscussing] = useState(false);
+  const [commentCount, setCommentCount] = useState(comments ?? 0);
 
   useEffect(() => {
     // localStorage is only available in the browser, after hydration.
@@ -314,6 +320,16 @@ export default function WordCheck({
             {button(-1, t("no"), counts.no)}
           </>
         )}
+        {comments !== undefined && (
+          <button
+            type="button"
+            onClick={() => setDiscussing(!discussing)}
+            aria-expanded={discussing}
+            className="opacity-70 hover:underline hover:opacity-100"
+          >
+            {t("discuss", { count: commentCount })}
+          </button>
+        )}
         {!reporting && (
           <button
             type="button"
@@ -329,6 +345,7 @@ export default function WordCheck({
       {reporting && (
         <ReportForm form={form} onClose={() => setReporting(false)} />
       )}
+      {discussing && <Discussion formId={form.id} onCount={setCommentCount} />}
     </div>
   );
 }

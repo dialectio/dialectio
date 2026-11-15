@@ -120,6 +120,35 @@ export type FeedbackItem = {
 };
 
 /** Words visitors voted on or reported (disputed and reported first). */
+/** A comment with open reports, or hidden. */
+export type ReportedComment = {
+  id: number;
+  form_id: number;
+  spelling: string;
+  variety_code: string;
+  concept_slug: string | null;
+  author: string;
+  body: string;
+  created_at: string;
+  hidden: boolean;
+  /** "editor", "expert:<id>" or "reports" */
+  hidden_by: string | null;
+  reports: { reason: string; member: boolean; created_at: string }[];
+};
+
+export const listComments = (token: string) => request<ReportedComment[]>(token, "/comments");
+
+export const moderateComment = (
+  token: string,
+  id: number,
+  action: "hide" | "restore" | "delete",
+) =>
+  request<void>(
+    token,
+    action === "delete" ? `/comments/${id}` : `/comments/${id}/${action}`,
+    { method: action === "delete" ? "DELETE" : "POST" },
+  );
+
 export const listFeedback = (token: string) => request<FeedbackItem[]>(token, "/feedback");
 
 export const resolveReport = (token: string, id: number) =>

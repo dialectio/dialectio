@@ -97,7 +97,13 @@
     "reviewRejectSure": "Sure? ← again",
     "reviewSkip": "Skip",
     "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel",
-    "changeVariety": "change language or dialect"
+    "changeVariety": "change language or dialect",
+    "comments": "Reported or hidden comments ({count})",
+    "commentHidden": "hidden ({by})",
+    "commentHide": "hide",
+    "commentRestore": "show and close the reports",
+    "commentDelete": "delete",
+    "guest": "guest"
   },
   "Word": {
     "title": "{word} in verschiedenen Sprachen — Schreibung und Aussprache | Dialectio",
@@ -202,7 +208,7 @@
   "Privacy": {
     "title": "Datenschutzerklärung",
     "metaDescription": "Welche Daten Dialectio erhebt und wie sie verwendet werden.",
-    "updated": "Stand: 21. Oktober 2026",
+    "updated": "Stand: 15. November 2026",
     "intro": "Dialectio kann ohne Konto genutzt werden. Wir verwenden keine Tracking-Cookies und geben keine Daten an Werbenetzwerke weiter.",
     "contribTitle": "Wenn du ein Wort hinzufügst",
     "contrib": "Wir speichern, was du im Formular eingibst: das Wort, die Sprache oder den Dialekt, den Ort und eine Sprachaufnahme (optional), sowie dass dein Konto den Beitrag geschickt hat. Nach der Prüfung können der Name deines Kontos und der Ort neben dem Wort angezeigt werden. Mit dem Senden erlaubst du Dialectio, den Beitrag zu veröffentlichen.",
@@ -221,7 +227,9 @@
     "searchTitle": "Suche",
     "search": "Wenn eine Suche nichts findet, speichern wir den Suchtext und einen Zähler, um das Wort ins Wörterbuch aufzunehmen. Über dich wird dabei nichts gespeichert.",
     "accountTitle": "Wenn Sie sich registrieren",
-    "account": "Wir speichern Ihre E-Mail-Adresse, Ihren Namen und einen Hash Ihres Passworts (das Passwort selbst wird weder gespeichert noch ist es aus dem Hash wiederherstellbar). Wenn Sie sich mit Google anmelden, übermittelt uns Google nur Ihre (bestätigte) E-Mail-Adresse und Ihren Namen; ein Passwort ist dann nicht nötig. Nach der Anmeldung erhält der Browser ein Sitzungs-Cookie, das nur dazu dient, Sie angemeldet zu halten. Ihre Stimmen und Antworten auf Kontrollkarten sind mit dem Konto verknüpft. Das Konto können Sie im Profil löschen: E-Mail, Name und Sitzungen verschwinden sofort, Stimmen bleiben anonym. Die Sprachen und Dialekte in Ihrem Profil und Ihre Sprechertest-Ergebnisse gehören zum Konto und werden mit ihm gelöscht; von Ihnen hinzugefügte Wörter bleiben ohne Ihren Namen auf der Website. E-Mails (Bestätigung der Adresse, neues Passwort, Anmeldelinks) versenden wir über Brevo (Sendinblue SAS, Frankreich): Der Dienst erhält nur Ihre Adresse und die E-Mail selbst. Wenn Sie sich als Experte bewerben, speichern wir den Text des Antrags; was Experten an Wörtern ändern, steht mit ihrem Namen im Änderungsprotokoll."
+    "account": "Wir speichern Ihre E-Mail-Adresse, Ihren Namen und einen Hash Ihres Passworts (das Passwort selbst wird weder gespeichert noch ist es aus dem Hash wiederherstellbar). Wenn Sie sich mit Google anmelden, übermittelt uns Google nur Ihre (bestätigte) E-Mail-Adresse und Ihren Namen; ein Passwort ist dann nicht nötig. Nach der Anmeldung erhält der Browser ein Sitzungs-Cookie, das nur dazu dient, Sie angemeldet zu halten. Ihre Stimmen und Antworten auf Kontrollkarten sind mit dem Konto verknüpft. Das Konto können Sie im Profil löschen: E-Mail, Name und Sitzungen verschwinden sofort, Stimmen bleiben anonym. Die Sprachen und Dialekte in Ihrem Profil und Ihre Sprechertest-Ergebnisse gehören zum Konto und werden mit ihm gelöscht; von Ihnen hinzugefügte Wörter bleiben ohne Ihren Namen auf der Website. E-Mails (Bestätigung der Adresse, neues Passwort, Anmeldelinks) versenden wir über Brevo (Sendinblue SAS, Frankreich): Der Dienst erhält nur Ihre Adresse und die E-Mail selbst. Wenn Sie sich als Experte bewerben, speichern wir den Text des Antrags; was Experten an Wörtern ändern, steht mit ihrem Namen im Änderungsprotokoll.",
+    "commentsTitle": "Diskussionen zu Wörtern",
+    "comments": "Kommentare in den Diskussionen zu Wörtern sind öffentlich: Alle sehen sie mit dem Namen aus deinem Profil und dem Datum. Du kannst deinen Kommentar bearbeiten oder löschen; mit dem Konto werden alle deine Kommentare gelöscht. Meldungen zu Kommentaren speichern wir mit einem Hash der Kennung der meldenden Person (nicht mit dem Namen), damit niemand doppelt meldet."
   },
   "Home": {
     "intro": "Gib ein Wort in einer beliebigen Sprache ein und sieh auf der Karte, wie es in den Sprachen der Welt, ihren Dialekten und regionalen Varianten geschrieben, ausgesprochen und gesprochen wird. Oder beginne mit diesen Beispielen:",
@@ -316,7 +324,8 @@
     "reportThanks": "Danke! Die Redaktion prüft es.",
     "error": "Senden fehlgeschlagen. Bitte versuche es erneut.",
     "usageQuestion": "Sagt man das bei euch so?",
-    "otherCountries": "Andere Länder"
+    "otherCountries": "Andere Länder",
+    "discuss": "{count, plural, =0 {💬 diskutieren} other {💬 Diskussion · #}}"
   },
   "Game": {
     "title": "Wörter prüfen",
@@ -356,7 +365,7 @@
   "Terms": {
     "title": "Nutzungsbedingungen",
     "metaDescription": "Regeln für die Nutzung von Dialectio: Daten, Beiträge, Haftung.",
-    "updated": "Stand: 12. Oktober 2026",
+    "updated": "Stand: 15. November 2026",
     "serviceTitle": "Was Dialectio ist",
     "service": "Dialectio ist eine populärwissenschaftliche Website, die auf einer Karte zeigt, wie Wörter in verschiedenen Sprachen und Dialekten klingen. Ein Teil der Wörter wurde automatisch gesammelt oder sind ungeprüfte Entwürfe (Zeichen „≈“), daher können die Daten Fehler enthalten. Die Website ersetzt kein Wörterbuch und kein wissenschaftliches Nachschlagewerk.",
     "contentTitle": "Nutzung der Inhalte",
@@ -369,7 +378,9 @@
     "liability": "Die Website wird „wie besehen“ bereitgestellt, ohne Gewähr für Richtigkeit oder Verfügbarkeit. Für Folgen der Nutzung der Daten haften wir nicht, soweit gesetzlich zulässig. Für verlinkte fremde Websites sind deren Betreiber verantwortlich.",
     "changesTitle": "Änderungen",
     "changes": "Wir können diese Bedingungen aktualisieren; das Datum der letzten Änderung steht oben auf der Seite.",
-    "contact": "Fragen und Beschwerden: <link>dialectio.team@gmail.com</link>."
+    "contact": "Fragen und Beschwerden: <link>dialectio.team@gmail.com</link>.",
+    "discussionsTitle": "Diskussionen",
+    "discussions": "In den Diskussionen schreiben registrierte Mitglieder, in jeder Sprache. Ein Kommentar erscheint sofort, verantwortlich ist sein Autor. Alle können einen Kommentar melden; nach drei Meldungen verschiedener Mitglieder wird er ausgeblendet, bis die Redaktion entscheidet. Redaktion und Experten der Varietät können Kommentare ausblenden oder löschen, die gegen die Verhaltensregeln oder das Gesetz verstoßen."
   },
   "Imprint": {
     "title": "Impressum",
@@ -625,5 +636,46 @@
     "helpWords": "Füge Wörter und Ausspracheaufnahmen hinzu: auf der Seite eines Wortes über „Füge das Wort hinzu“.",
     "helpShare": "Erzähle Freunden, Lehrkräften und deiner Region von der Website.",
     "helpPartner": "Du bist an einer Universität, Schule, einem Museum oder in einer Redaktion und möchtest zusammenarbeiten? Schreib an <link>dialectio.team@gmail.com</link>."
+  },
+  "Discussion": {
+    "title": "Diskussion zum Wort",
+    "loading": "Wird geladen…",
+    "error": "Das hat nicht geklappt. Bitte versuche es noch einmal.",
+    "tooMany": "Zu viele Kommentare in kurzer Zeit. Bitte versuche es später.",
+    "captcha": "Bitte bestätige, dass du kein Roboter bist.",
+    "meaning": "Bedeutung",
+    "whereSaid": "Wo man das sagt",
+    "source": "Quelle",
+    "addedBy": "hinzugefügt von {name}",
+    "unverified": "≈ noch nicht geprüft",
+    "votes": "Stimmen: ja {yes}, nein {no}",
+    "confirmed": "👥 von Sprechern bestätigt",
+    "disputed": "⚠ umstritten",
+    "noComments": "Noch hat niemand geschrieben. Erzähl, was du über dieses Wort weißt.",
+    "placeholder": "Wo man das sagt, wie man es ausspricht, woher das Wort kommt, Beispiele… Schreib in jeder Sprache.",
+    "send": "Senden",
+    "sending": "Wird gesendet…",
+    "signIn": "Melde dich an, um mitzudiskutieren",
+    "rules": "Kommentare erscheinen sofort. Bleib höflich: nach drei Meldungen wird ein Kommentar ausgeblendet, bis die Redaktion entscheidet.",
+    "reply": "antworten",
+    "replyingTo": "Antwort an {name}",
+    "cancel": "abbrechen",
+    "edit": "bearbeiten",
+    "save": "Speichern",
+    "delete": "löschen",
+    "confirmDelete": "Diesen Kommentar löschen?",
+    "edited": "bearbeitet",
+    "report": "melden",
+    "reportReason": "Was stimmt nicht? (optional)",
+    "reportSend": "Meldung senden",
+    "reported": "Danke, die Moderation prüft das.",
+    "hide": "ausblenden",
+    "restore": "wieder zeigen",
+    "hiddenNote": "ausgeblendet · Meldungen: {count}",
+    "reports": "Meldungen: {count}",
+    "badge": {
+      "expert": "Experte",
+      "editor": "Redaktion"
+    }
   }
 }
