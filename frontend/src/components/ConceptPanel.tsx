@@ -216,6 +216,7 @@ function LanguageCard({ language }: { language: LanguageForms }) {
         form={primary}
         variety={language.code}
         onCounts={setCounts}
+        comments={primary.comments}
         // Where Ukrainian, dialect and regional-language words are really used is worth
         // collecting (regional languages are mapped to regions only: "GB-SCT", not "GBR").
         askUsage={

@@ -17,7 +17,7 @@ from app.api.schemas import (
     LanguageForms,
     SearchHit,
 )
-from app.api.votes import Tally, tallies
+from app.api.votes import Tally, comment_counts, tallies
 from app.db.session import get_session
 from app.models import PENDING, PUBLIC_STATUSES, Concept, Form, Variety
 
@@ -213,6 +213,7 @@ def build_detail(session: Session, concept: Concept) -> ConceptDetail:
     ).all()
 
     votes = tallies(session, [f.id for f in forms])
+    discussed = comment_counts(session, [f.id for f in forms])
 
     languages: dict[int, LanguageForms] = {}
     for form in forms:
@@ -246,6 +247,7 @@ def build_detail(session: Session, concept: Concept) -> ConceptDetail:
                 votes_yes=tally.yes,
                 votes_no=tally.no,
                 community=tally.community,
+                comments=discussed.get(form.id, 0),
                 audio=[AudioOut.model_validate(a) for a in form.audio],
             )
         )

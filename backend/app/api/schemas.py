@@ -67,6 +67,7 @@ class FormOut(BaseModel):
     votes_yes: int = 0
     votes_no: int = 0
     community: str | None = None  # "confirmed" or "disputed"
+    comments: int = 0  # visible comments in its discussion
     audio: list[AudioOut]
 
 

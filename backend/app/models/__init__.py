@@ -1,5 +1,6 @@
 from app.models.account import EDITOR, MEMBER, AuthSession, EmailToken, User
 from app.models.base import Base
+from app.models.discussion import HIDDEN, HIDE_AFTER, MAX_COMMENT, VISIBLE, Comment, CommentReport
 from app.models.feedback import (
     CONFIRMED,
     DISPUTED,
@@ -37,6 +38,12 @@ from app.models.trust import (
 )
 
 __all__ = [
+    "HIDDEN",
+    "HIDE_AFTER",
+    "MAX_COMMENT",
+    "VISIBLE",
+    "Comment",
+    "CommentReport",
     "EDITOR",
     "MEMBER",
     "AuthSession",

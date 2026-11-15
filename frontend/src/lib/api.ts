@@ -58,6 +58,8 @@ export type Form = {
   votes_no: number;
   /** "confirmed" by speakers' votes, or "disputed" */
   community: "confirmed" | "disputed" | null;
+  /** Visible comments in the word's discussion */
+  comments: number;
   audio: Audio[];
 };
 
@@ -309,6 +311,8 @@ export type DialectUse = DialectRef & {
   votes_yes: number;
   votes_no: number;
   community: "confirmed" | "disputed" | null;
+  /** Visible comments in the word's discussion */
+  comments: number;
 };
 
 export type DialectWordMeaning = {

@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
-from app.models import Vote, community_status
+from app.models import VISIBLE, Comment, Vote, community_status
 
 
 @dataclass(frozen=True)
@@ -40,3 +40,15 @@ def tallies(session: Session, form_ids: list[int]) -> dict[int, Tally]:
         form_id: Tally(yes, no, float(yes_weight), float(no_weight))
         for form_id, yes, no, yes_weight, no_weight in rows
     }
+
+
+def comment_counts(session: Session, form_ids: list[int]) -> dict[int, int]:
+    """{form id: its visible comments} for the forms that have any."""
+    if not form_ids:
+        return {}
+    rows = session.execute(
+        select(Comment.form_id, func.count())
+        .where(Comment.form_id.in_(form_ids), Comment.status == VISIBLE)
+        .group_by(Comment.form_id)
+    )
+    return {form_id: count for form_id, count in rows}

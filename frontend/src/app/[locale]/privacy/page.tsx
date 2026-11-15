@@ -12,6 +12,7 @@ const SECTIONS = [
   "search",
   "contrib",
   "votes",
+  "comments",
   "ip",
   "browser",
   "third",

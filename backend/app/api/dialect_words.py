@@ -13,7 +13,7 @@ from sqlalchemy import text
 from app.api.dialects import DialectRegion
 from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
 from app.api.schemas import AudioOut
-from app.api.votes import Tally, tallies
+from app.api.votes import Tally, comment_counts, tallies
 
 router = APIRouter(prefix="/api/dialect-words", tags=["dialect words"])
 
@@ -33,6 +33,7 @@ class DialectUse(DialectRef):
     votes_yes: int = 0
     votes_no: int = 0
     community: str | None = None
+    comments: int = 0  # visible comments in its discussion
 
 
 class OtherWord(BaseModel):
@@ -136,6 +137,7 @@ def dialect_word(session: SessionDep, word: str) -> DialectWordDetail:
         raise HTTPException(status_code=404, detail="Dialect word not found")
 
     votes = tallies(session, [r["id"] for r in rows])
+    discussed = comment_counts(session, [r["id"] for r in rows])
     by_concept: dict[int, list] = {}
     for row in rows:
         by_concept.setdefault(row["concept_id"], []).append(row)
@@ -179,6 +181,7 @@ def dialect_word(session: SessionDep, word: str) -> DialectWordDetail:
                         votes_yes=votes.get(f["id"], Tally()).yes,
                         votes_no=votes.get(f["id"], Tally()).no,
                         community=votes.get(f["id"], Tally()).community,
+                        comments=discussed.get(f["id"], 0),
                     )
                     for f in forms
                 ],

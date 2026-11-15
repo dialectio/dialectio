@@ -97,7 +97,13 @@
     "reviewRejectSure": "Sure? ← again",
     "reviewSkip": "Skip",
     "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel",
-    "changeVariety": "change language or dialect"
+    "changeVariety": "change language or dialect",
+    "comments": "Reported or hidden comments ({count})",
+    "commentHidden": "hidden ({by})",
+    "commentHide": "hide",
+    "commentRestore": "show and close the reports",
+    "commentDelete": "delete",
+    "guest": "guest"
   },
   "Word": {
     "title": "{word} en distintos idiomas — escritura y pronunciación | Dialectio",
@@ -202,7 +208,7 @@
   "Privacy": {
     "title": "Política de privacidad",
     "metaDescription": "Qué datos recoge Dialectio y cómo los utiliza.",
-    "updated": "Actualizado: 21 de octubre de 2026",
+    "updated": "Actualizado: 15 de noviembre de 2026",
     "intro": "Puedes usar Dialectio sin cuenta. No usamos cookies de seguimiento ni compartimos datos con redes publicitarias.",
     "contribTitle": "Cuando añades una palabra",
     "contrib": "Guardamos lo que escribes en el formulario: la palabra, el idioma o dialecto, el lugar y una grabación de voz (opcional), y que la envió tu cuenta. Tras la revisión, el nombre de tu cuenta y el lugar pueden mostrarse junto a la palabra. Al enviar una aportación, permites que Dialectio la publique.",
@@ -221,7 +227,9 @@
     "searchTitle": "Búsqueda",
     "search": "Cuando una búsqueda no encuentra nada, guardamos el texto buscado y un contador para añadir la palabra al diccionario. No se guarda nada sobre ti.",
     "accountTitle": "Si te registras",
-    "account": "Guardamos tu correo, tu nombre y un hash de tu contraseña (la contraseña no se guarda ni se puede recuperar del hash). Si entras con Google, Google solo nos facilita tu dirección de correo (verificada) y tu nombre; en ese caso no hace falta contraseña. Al entrar, el navegador recibe una cookie de sesión, que solo sirve para mantenerte dentro. Tus votos y respuestas a las tarjetas de control quedan ligados a la cuenta. Puedes borrar la cuenta en tu perfil: correo, nombre y sesiones desaparecen enseguida; los votos se quedan anónimos. Los idiomas y variedades de tu perfil y los resultados de tus pruebas de hablante se guardan con la cuenta y se borran con ella; las palabras que añadiste siguen en el sitio, ya sin tu nombre. Los correos (confirmación de la dirección, contraseña nueva, enlaces para entrar) se envían a través de Brevo (Sendinblue SAS, Francia): solo recibe tu dirección y el propio correo. Si solicitas ser experto, guardamos el texto de la solicitud; lo que un experto hace con las palabras queda en el registro de cambios con su nombre."
+    "account": "Guardamos tu correo, tu nombre y un hash de tu contraseña (la contraseña no se guarda ni se puede recuperar del hash). Si entras con Google, Google solo nos facilita tu dirección de correo (verificada) y tu nombre; en ese caso no hace falta contraseña. Al entrar, el navegador recibe una cookie de sesión, que solo sirve para mantenerte dentro. Tus votos y respuestas a las tarjetas de control quedan ligados a la cuenta. Puedes borrar la cuenta en tu perfil: correo, nombre y sesiones desaparecen enseguida; los votos se quedan anónimos. Los idiomas y variedades de tu perfil y los resultados de tus pruebas de hablante se guardan con la cuenta y se borran con ella; las palabras que añadiste siguen en el sitio, ya sin tu nombre. Los correos (confirmación de la dirección, contraseña nueva, enlaces para entrar) se envían a través de Brevo (Sendinblue SAS, Francia): solo recibe tu dirección y el propio correo. Si solicitas ser experto, guardamos el texto de la solicitud; lo que un experto hace con las palabras queda en el registro de cambios con su nombre.",
+    "commentsTitle": "Debates sobre palabras",
+    "comments": "Los comentarios en los debates sobre palabras son públicos: todos los ven con el nombre de tu perfil y la fecha. Puedes editar o eliminar tu comentario; al eliminar la cuenta se eliminan todos tus comentarios. Guardamos las denuncias de comentarios con un hash del identificador de quien denuncia (no con su nombre), para que nadie denuncie dos veces."
   },
   "Home": {
     "intro": "Escribe una palabra en cualquier idioma y mira en el mapa cómo se escribe, se pronuncia y suena en los idiomas del mundo, sus dialectos y variantes regionales. O empieza con estos ejemplos:",
@@ -316,7 +324,8 @@
     "reportThanks": "¡Gracias! Un editor lo revisará.",
     "error": "No se pudo enviar. Inténtalo de nuevo.",
     "usageQuestion": "¿Se dice así donde vives?",
-    "otherCountries": "Otros países"
+    "otherCountries": "Otros países",
+    "discuss": "{count, plural, =0 {💬 comentar} other {💬 debate · #}}"
   },
   "Game": {
     "title": "Revisa palabras",
@@ -356,7 +365,7 @@
   "Terms": {
     "title": "Condiciones de uso",
     "metaDescription": "Normas de uso de Dialectio: datos, aportaciones, responsabilidad.",
-    "updated": "Actualizado: 12 de octubre de 2026",
+    "updated": "Actualizado: 15 de noviembre de 2026",
     "serviceTitle": "Qué es Dialectio",
     "service": "Dialectio es un sitio de divulgación que muestra en un mapa cómo suenan las palabras en distintos idiomas y dialectos. Algunas palabras se recogieron automáticamente o son borradores sin verificar (marca «≈»), por lo que los datos pueden contener errores. El sitio no sustituye a un diccionario ni a una obra de referencia científica.",
     "contentTitle": "Uso de los contenidos",
@@ -369,7 +378,9 @@
     "liability": "El sitio se ofrece «tal cual», sin garantía de exactitud ni de disponibilidad. No respondemos de las consecuencias del uso de los datos. Los enlaces a otros sitios llevan a recursos de los que son responsables sus propietarios.",
     "changesTitle": "Cambios",
     "changes": "Podemos actualizar estas condiciones; la fecha de la última actualización figura al principio de la página.",
-    "contact": "Preguntas y reclamaciones: <link>dialectio.team@gmail.com</link>."
+    "contact": "Preguntas y reclamaciones: <link>dialectio.team@gmail.com</link>.",
+    "discussionsTitle": "Debates",
+    "discussions": "Los miembros registrados pueden escribir en los debates, en cualquier idioma. Un comentario aparece al momento y su autor es responsable de él. Cualquiera puede denunciar un comentario; tras tres denuncias de distintos miembros se oculta hasta que decida un editor. Los editores y los expertos de la variedad pueden ocultar o eliminar un comentario que incumpla las normas de conducta o la ley."
   },
   "Imprint": {
     "title": "Aviso legal",
@@ -625,5 +636,46 @@
     "helpWords": "Añade palabras y grabaciones de pronunciación: en la página de cualquier palabra, pulsa «Añade la palabra».",
     "helpShare": "Cuéntales del sitio a tus amigos, profesores y comunidades locales.",
     "helpPartner": "¿Eres de una universidad, escuela, museo o medio y quieres colaborar? Escribe a <link>dialectio.team@gmail.com</link>."
+  },
+  "Discussion": {
+    "title": "Debate sobre la palabra",
+    "loading": "Cargando…",
+    "error": "No se pudo. Inténtalo de nuevo.",
+    "tooMany": "Demasiados comentarios en poco tiempo. Inténtalo más tarde.",
+    "captcha": "Confirma que no eres un robot.",
+    "meaning": "Significado",
+    "whereSaid": "Dónde se dice así",
+    "source": "Fuente",
+    "addedBy": "añadida por {name}",
+    "unverified": "≈ aún sin comprobar",
+    "votes": "votos: sí {yes}, no {no}",
+    "confirmed": "👥 confirmada por hablantes",
+    "disputed": "⚠ cuestionada",
+    "noComments": "Nadie ha escrito todavía. Cuenta lo que sabes de esta palabra.",
+    "placeholder": "Dónde se dice, cómo se pronuncia, de dónde viene, ejemplos… Escribe en cualquier idioma.",
+    "send": "Enviar",
+    "sending": "Enviando…",
+    "signIn": "Inicia sesión para participar en el debate",
+    "rules": "Los comentarios aparecen al momento. Sé amable: tras tres denuncias un comentario se oculta hasta que decida un editor.",
+    "reply": "responder",
+    "replyingTo": "Respuesta a {name}",
+    "cancel": "cancelar",
+    "edit": "editar",
+    "save": "Guardar",
+    "delete": "eliminar",
+    "confirmDelete": "¿Eliminar este comentario?",
+    "edited": "editado",
+    "report": "denunciar",
+    "reportReason": "¿Qué pasa? (opcional)",
+    "reportSend": "Enviar denuncia",
+    "reported": "Gracias, los moderadores lo revisarán.",
+    "hide": "ocultar",
+    "restore": "mostrar de nuevo",
+    "hiddenNote": "oculto · denuncias: {count}",
+    "reports": "denuncias: {count}",
+    "badge": {
+      "expert": "experto",
+      "editor": "editor"
+    }
   }
 }
