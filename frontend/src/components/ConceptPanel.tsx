@@ -283,6 +283,7 @@ export default function ConceptPanel({
     concept.descriptions,
   );
   const [contributing, setContributing] = useState(false);
+  const [areasNote, setAreasNote] = useState(false);
   const dialects = concept.languages.filter((l) => l.kind === "dialect").length;
   const liveRecordings = concept.languages
     .flatMap((l) => l.forms)
@@ -300,16 +301,28 @@ export default function ConceptPanel({
     : concept.languages;
 
   return (
-    <aside className="flex h-full flex-col overflow-hidden">
-      <div className="border-b border-black/10 p-4 dark:border-white/10">
+    // One scroll for the whole panel (MapShell's): only the word and the region filter stick
+    <aside>
+      <div className="sticky top-0 z-10 border-b border-black/10 bg-background/95 px-4 py-3 backdrop-blur dark:border-white/10">
         <Headword concept={concept} locale={locale} />
+        {region && (
+          <button
+            type="button"
+            onClick={onClearRegion}
+            className="mt-2 rounded-md bg-blue-500/10 px-2 py-1 text-sm"
+          >
+            {region.name} ✕
+          </button>
+        )}
+      </div>
+      <div className="px-4 pt-2">
         {description && (
-          <p className="mt-1 text-sm opacity-70">
+          <p className="text-sm opacity-70">
             {description}
             <DescriptionOrigin concept={concept} locale={locale} />
           </p>
         )}
-        <p className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs">
+        <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
           <span className="opacity-60">
             {t("languageCount", {
               count: concept.languages.filter((l) => l.kind === "language")
@@ -326,42 +339,25 @@ export default function ConceptPanel({
               🎙 {t("liveCount", { count: liveRecordings })}
             </span>
           )}
+          {dialects > 0 && (
+            <button
+              type="button"
+              onClick={() => setAreasNote(!areasNote)}
+              aria-expanded={areasNote}
+              aria-label={t("areasNote")}
+              title={t("areasNote")}
+              className="opacity-60 hover:opacity-100"
+            >
+              ⓘ
+            </button>
+          )}
         </p>
-        {dialects > 0 && (
+        {areasNote && (
           <p className="mt-1 text-xs opacity-60">{t("areasNote")}</p>
-        )}
-        {region && (
-          <button
-            type="button"
-            onClick={onClearRegion}
-            className="mt-2 rounded-md bg-blue-500/10 px-2 py-1 text-sm"
-          >
-            {region.name} ✕
-          </button>
         )}
         {tools}
       </div>
-      <button
-        type="button"
-        onClick={() => setContributing(true)}
-        className="mx-4 mt-3 rounded-md border border-dashed border-blue-500/60 px-3 py-2 text-left text-sm text-blue-700 hover:bg-blue-500/10 dark:text-blue-300"
-      >
-        {t("contribute")}
-      </button>
-      {contributing && (
-        <ContributeDialog
-          conceptId={concept.id}
-          conceptName={localized(
-            locale,
-            concept.gloss_en,
-            concept.gloss_uk,
-            concept.glosses,
-          )}
-          regionCode={region?.code ?? null}
-          onClose={() => setContributing(false)}
-        />
-      )}
-      <div className="flex-1 overflow-y-auto px-4">
+      <div className="px-4">
         {!region && <WordIntro concept={concept} />}
         <ul>
           {languages.length === 0 && (
@@ -371,9 +367,29 @@ export default function ConceptPanel({
             <LanguageCard key={language.variety_id} language={language} />
           ))}
         </ul>
+        <button
+          type="button"
+          onClick={() => setContributing(true)}
+          className="mt-3 w-full rounded-md border border-dashed border-blue-500/60 px-3 py-2 text-left text-sm text-blue-700 hover:bg-blue-500/10 dark:text-blue-300"
+        >
+          {t("contribute")}
+        </button>
+        {contributing && (
+          <ContributeDialog
+            conceptId={concept.id}
+            conceptName={localized(
+              locale,
+              concept.gloss_en,
+              concept.gloss_uk,
+              concept.glosses,
+            )}
+            regionCode={region?.code ?? null}
+            onClose={() => setContributing(false)}
+          />
+        )}
         <RelatedWords concept={concept} />
       </div>
-      <p className="border-t border-black/10 p-3 text-xs opacity-60 dark:border-white/10">
+      <p className="px-4 pt-4 text-xs opacity-60">
         {t.rich("attribution", {
           wikidata: (chunks) => (
             <a
