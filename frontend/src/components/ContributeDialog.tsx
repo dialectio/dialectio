@@ -226,7 +226,9 @@ export default function ContributeDialog({
           </div>
         ) : status === "sent" ? (
           <div className="space-y-4">
-            <p>{t("thanks")}</p>
+            <p>
+              {t(where?.kind === "settlement" ? "thanksPoint" : "thanks")}
+            </p>
             <button type="button" onClick={onClose} className="rounded bg-blue-600 px-3 py-1.5 text-white">
               {t("close")}
             </button>

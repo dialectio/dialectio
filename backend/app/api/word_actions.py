@@ -54,6 +54,7 @@ def log_change(
     before: dict[str, Any],
     actor: User | None,
     after: dict[str, Any] | None = None,
+    actor_name: str | None = None,
 ) -> None:
     session.add(
         FormChange(
@@ -65,7 +66,7 @@ def log_change(
             before=before,
             after=snapshot(form) if after is None else after,
             user_id=actor.id if actor else None,
-            actor=actor.name if actor else EDITORS,
+            actor=actor.name if actor else actor_name or EDITORS,
         )
     )
 
@@ -108,7 +109,10 @@ def approve(session: Session, form: Form, actor: User | None) -> None:
     if form.status not in (PENDING, SUBMITTED):
         raise HTTPException(status.HTTP_409_CONFLICT, "Only drafts and submissions can be approved")
     before = snapshot(form)
-    if form.status == PENDING:
+    # Members' words (also those the community let through) keep their source and author
+    if form.status == PENDING and (
+        form.source is None or form.source.name != CONTRIBUTOR_SOURCE_NAME
+    ):
         # A reviewed draft is an editor's word from now on.
         form.source = upsert_source(
             session, EDITOR_SOURCE_NAME, EDITOR_SOURCE_URL, EDITOR_SOURCE_LICENSE

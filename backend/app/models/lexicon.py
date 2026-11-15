@@ -29,6 +29,9 @@ PENDING = "pending"
 SUBMITTED = "submitted"
 # Drafts are public too (marked unverified on the site) until an editor reviews them.
 PUBLIC_STATUSES = (APPROVED, PENDING)
+# Members' submissions also show as points on the map (app/api/points.py), where visitors
+# vote on and discuss them.
+ON_MAP_STATUSES = (APPROVED, PENDING, SUBMITTED)
 
 variety_region = Table(
     "variety_region",

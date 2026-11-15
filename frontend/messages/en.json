@@ -32,7 +32,9 @@
     "dialectCount": "{count, plural, one {# dialect} other {# dialects}}",
     "liveCount": "{count, plural, one {# real recording} other {# real recordings}}",
     "liveRecording": "recorded by a speaker",
-    "areasNote": "Dialect areas are approximate: a region shows the word most often given for it, while real word borders do not follow administrative ones."
+    "areasNote": "Dialect areas are approximate: a region shows the word most often given for it, while real word borders do not follow administrative ones.",
+    "pointCount": "{count, plural, one {# place from members} other {# places from members}}",
+    "pointsNote": "Points on the map are words members added where they are said. Weakly confirmed ones show only up close; the more people confirm them, the further out they show."
   },
   "Editor": {
     "title": "Word editor: {variety}",
@@ -130,7 +132,7 @@
     "consent": "I give Dialectio permanent permission to use and publish this word and recording (including commercially). The word appears on the site after review.",
     "send": "Send",
     "sending": "Sending…",
-    "thanks": "Thank you! The word will appear on the map after an editor reviews it.",
+    "thanks": "Thank you! The word will appear in the list once other people confirm it or an editor reviews it.",
     "error": "Could not send. Please try again.",
     "tooMany": "Too many submissions. Please try later.",
     "signInFirst": "Members add words: that way we know who sent a word, and it carries your name.",
@@ -152,7 +154,8 @@
     "dontKnowDialect": "{language}, not sure of the dialect",
     "otherVariety": "another language…",
     "severalDialects": "Several dialects are spoken here. Pick yours, or \"not sure\": the editors will decide.",
-    "varietyFromPlace": "Found from the place."
+    "varietyFromPlace": "Found from the place.",
+    "thanksPoint": "Thank you! The word is already on the map as a point where you said (zoom in to see it). The more people confirm it, the further out it shows; it joins the word list once the community or an editor confirms it."
   },
   "VarietySelect": {
     "search": "Search languages and dialects…",
@@ -677,5 +680,9 @@
       "expert": "expert",
       "editor": "editor"
     }
+  },
+  "Points": {
+    "close": "Close",
+    "people": "{count, plural, =0 {Added without a member} one {# member says it is said here} other {# members say it is said here}}"
   }
 }

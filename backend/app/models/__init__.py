@@ -14,6 +14,7 @@ from app.models.feedback import (
 )
 from app.models.lexicon import (
     APPROVED,
+    ON_MAP_STATUSES,
     PENDING,
     PUBLIC_STATUSES,
     SUBMITTED,
@@ -58,6 +59,7 @@ __all__ = [
     "APPROVED",
     "PENDING",
     "PUBLIC_STATUSES",
+    "ON_MAP_STATUSES",
     "SUBMITTED",
     "Audio",
     "Base",

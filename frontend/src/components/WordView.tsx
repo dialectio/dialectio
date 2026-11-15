@@ -19,6 +19,7 @@ import OriginTools, {
 } from "@/components/OriginTools";
 import type { SelectedRegion } from "@/components/WorldMap";
 import { type ConceptDetail, getConcept, localized } from "@/lib/api";
+import { getPoints, type WordPoints } from "@/lib/points";
 import { DIALECT_BOUNDS } from "@/lib/visitor";
 
 /** Query parameter that keeps the selected region in the URL (`?region=UA-26`). */
@@ -109,6 +110,16 @@ export default function WordView({
     return () => controller.abort();
   }, [initialConcept.id]);
 
+  // Members' words where they say them (always current, not cached with the page)
+  const [points, setPoints] = useState<WordPoints | null>(null);
+  useEffect(() => {
+    const controller = new AbortController();
+    getPoints(initialConcept.id, controller.signal)
+      .then(setPoints)
+      .catch(() => {});
+    return () => controller.abort();
+  }, [initialConcept.id]);
+
   const selectRegion = (selected: SelectedRegion | null) => {
     setRegion(selected);
     setRegionInUrl(selected?.code ?? null);
@@ -119,7 +130,14 @@ export default function WordView({
     [initialConcept, locale],
   );
 
-  useConceptOnMap(concept, region?.code ?? null, selectRegion, colors, bounds);
+  useConceptOnMap(
+    concept,
+    region?.code ?? null,
+    selectRegion,
+    colors,
+    bounds,
+    points,
+  );
 
   return (
     <>
@@ -131,6 +149,7 @@ export default function WordView({
         concept={concept}
         region={region}
         onClearRegion={() => selectRegion(null)}
+        pointCount={points?.features.length ?? 0}
         tools={
           <OriginTools
             concept={concept}

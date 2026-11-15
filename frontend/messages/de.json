@@ -32,7 +32,9 @@
     "dialectCount": "{count, plural, one {# Dialekt} other {# Dialekte}}",
     "liveCount": "{count, plural, one {# echte Aufnahme} other {# echte Aufnahmen}}",
     "liveRecording": "Aufnahme eines Sprechers",
-    "areasNote": "Die Gebiete sind nur ungefähr: Für eine Region steht das dort häufigste Wort, echte Wortgrenzen folgen aber nicht den Verwaltungsgrenzen."
+    "areasNote": "Die Gebiete sind nur ungefähr: Für eine Region steht das dort häufigste Wort, echte Wortgrenzen folgen aber nicht den Verwaltungsgrenzen.",
+    "pointCount": "{count, plural, one {# Ort von Mitgliedern} other {# Orte von Mitgliedern}}",
+    "pointsNote": "Punkte auf der Karte sind Wörter, die Mitglieder dort eingetragen haben, wo man sie sagt. Schwach bestätigte sieht man nur von nahem; je mehr Menschen sie bestätigen, desto weiter herausgezoomt erscheinen sie."
   },
   "Editor": {
     "title": "Word editor: {variety}",
@@ -130,7 +132,7 @@
     "consent": "Ich erteile Dialectio die unbefristete Erlaubnis, dieses Wort und die Aufnahme zu nutzen und zu veröffentlichen (auch kommerziell). Das Wort erscheint nach der Prüfung auf der Website.",
     "send": "Senden",
     "sending": "Wird gesendet…",
-    "thanks": "Danke! Das Wort erscheint auf der Karte, sobald eine Redakteurin oder ein Redakteur es geprüft hat.",
+    "thanks": "Danke! Das Wort erscheint in der Liste, sobald andere es bestätigen oder die Redaktion es prüft.",
     "error": "Senden fehlgeschlagen. Bitte versuche es erneut.",
     "tooMany": "Zu viele Einsendungen. Bitte versuche es später.",
     "signInFirst": "Wörter fügen Mitglieder hinzu: So wissen wir, wer ein Wort geschickt hat, und es trägt Ihren Namen.",
@@ -152,7 +154,8 @@
     "dontKnowDialect": "{language}, Dialekt unbekannt",
     "otherVariety": "andere Sprache…",
     "severalDialects": "Hier spricht man mehrere Dialekte. Wähle deinen oder „unbekannt“: die Redaktion entscheidet.",
-    "varietyFromPlace": "Aus dem Ort ermittelt."
+    "varietyFromPlace": "Aus dem Ort ermittelt.",
+    "thanksPoint": "Danke! Das Wort steht schon als Punkt auf der Karte, wo du es angegeben hast (zoome hinein, um es zu sehen). Je mehr Menschen es bestätigen, desto weiter herausgezoomt erscheint es; in die Wortliste kommt es nach Bestätigung durch die Gemeinschaft oder die Redaktion."
   },
   "VarietySelect": {
     "search": "Sprache oder Mundart suchen…",
@@ -677,5 +680,9 @@
       "expert": "Experte",
       "editor": "Redaktion"
     }
+  },
+  "Points": {
+    "close": "Schließen",
+    "people": "{count, plural, =0 {Ohne Mitglied hinzugefügt} one {# Mitglied sagt, man sagt es hier} other {# Mitglieder sagen, man sagt es hier}}"
   }
 }

@@ -22,11 +22,12 @@ from app.api.accounts import current_user, voter_of
 from app.api.dialects import REGIONAL
 from app.api.gold import LOCALE, gold_cards, quiz_status
 from app.api.lexicon import UNVERIFIED_SOURCES, SessionDep
+from app.api.points import promote
 from app.api.trust import member_weight
 from app.api.votes import Tally, tallies
 from app.models import (
     GUEST_WEIGHT,
-    PUBLIC_STATUSES,
+    ON_MAP_STATUSES,
     Form,
     MissingSearch,
     Region,
@@ -89,7 +90,9 @@ class ReportIn(BaseModel):
 
 def public_form(session: SessionDep, form_id: int) -> Form:
     form = session.get(Form, form_id)
-    if form is None or form.status not in PUBLIC_STATUSES:
+    """A word visitors can vote on, report and discuss: public words and members' words on
+    the map."""
+    if form is None or form.status not in ON_MAP_STATUSES:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Word not found")
     return form
 
@@ -142,6 +145,7 @@ def vote(session: SessionDep, request: Request, data: VoteIn) -> VoteCounts:
                 },
             )
         )
+    promote(session, form)
     session.commit()
     return counts(session, data.form_id)
 

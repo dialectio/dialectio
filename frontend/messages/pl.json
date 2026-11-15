@@ -32,7 +32,9 @@
     "dialectCount": "{count, plural, one {# gwara} few {# gwary} many {# gwar} other {# gwary}}",
     "liveCount": "{count, plural, one {# nagranie na żywo} few {# nagrania na żywo} many {# nagrań na żywo} other {# nagrania na żywo}}",
     "liveRecording": "nagranie użytkownika języka",
-    "areasNote": "Obszary gwar są przybliżone: dla regionu podano najczęstsze słowo, a prawdziwe granice słów nie pokrywają się z administracyjnymi."
+    "areasNote": "Obszary gwar są przybliżone: dla regionu podano najczęstsze słowo, a prawdziwe granice słów nie pokrywają się z administracyjnymi.",
+    "pointCount": "{count, plural, one {# miejsce od użytkowników} few {# miejsca od użytkowników} many {# miejsc od użytkowników} other {# miejsca od użytkowników}}",
+    "pointsNote": "Punkty na mapie to słowa dodane przez użytkowników tam, gdzie się je mówi. Słabo potwierdzone widać tylko z bliska; im więcej osób je potwierdzi, tym z dalsza są widoczne."
   },
   "Editor": {
     "title": "Word editor: {variety}",
@@ -130,7 +132,7 @@
     "consent": "Udzielam Dialectio bezterminowej zgody na wykorzystanie i publikację tego słowa i nagrania (także w celach zarobkowych). Słowo pojawi się na stronie po sprawdzeniu.",
     "send": "Wyślij",
     "sending": "Wysyłanie…",
-    "thanks": "Dziękujemy! Słowo pojawi się na mapie po sprawdzeniu przez redaktora.",
+    "thanks": "Dziękujemy! Słowo pojawi się na liście, gdy potwierdzą je inni lub sprawdzi redaktor.",
     "error": "Nie udało się wysłać. Spróbuj ponownie.",
     "tooMany": "Za dużo zgłoszeń. Spróbuj później.",
     "signInFirst": "Słowa dodają uczestnicy: wiemy, kto je przesłał, i podpisujemy je Twoim imieniem.",
@@ -152,7 +154,8 @@
     "dontKnowDialect": "{language}, nie wiem, jaka gwara",
     "otherVariety": "inny język…",
     "severalDialects": "Tu mówi się kilkoma gwarami. Wybierz swoją albo „nie wiem”: zdecydują redaktorzy.",
-    "varietyFromPlace": "Ustalono na podstawie miejsca."
+    "varietyFromPlace": "Ustalono na podstawie miejsca.",
+    "thanksPoint": "Dziękujemy! Słowo jest już na mapie jako punkt we wskazanym miejscu (przybliż mapę, aby je zobaczyć). Im więcej osób je potwierdzi, tym z dalsza jest widoczne; na listę słów trafi po potwierdzeniu przez społeczność lub redaktora."
   },
   "VarietySelect": {
     "search": "Szukaj języka lub gwary…",
@@ -677,5 +680,9 @@
       "expert": "ekspert",
       "editor": "redaktor"
     }
+  },
+  "Points": {
+    "close": "Zamknij",
+    "people": "{count, plural, =0 {Dodane bez użytkownika} one {# użytkownik mówi, że tak się tu mówi} few {# użytkowników mówi, że tak się tu mówi} many {# użytkowników mówi, że tak się tu mówi} other {# użytkownika mówi, że tak się tu mówi}}"
   }
 }

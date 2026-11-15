@@ -9,12 +9,14 @@ import type {
   MapMouseEvent,
   Map as MapLibreMap,
   ExpressionSpecification,
+  GeoJSONSource,
   Marker,
 } from "maplibre-gl";
 import { useLocale } from "next-intl";
 import { type RefObject, useEffect, useRef, useState } from "react";
 
 import { API_URL, type LabelProps, localized } from "@/lib/api";
+import { POINT_ZOOMS, type PointProps, type WordPoints } from "@/lib/points";
 import { snapshotMap, type SnapshotText } from "@/lib/snapshot";
 
 export type SnapshotFn = (text: SnapshotText) => Promise<Blob | null>;
@@ -49,6 +51,12 @@ const REGIONS_MIN_ZOOM = 5;
 // Region highlights show earlier (the tiles carry regions from zoom 2), so a whole dialect
 // area is visible when the map fits Ukraine, or the US and Britain together.
 const REGION_HIGHLIGHT_MIN_ZOOM = 2;
+
+// Members' words where they say them: one circle + word layer per level (see lib/points.ts)
+const POINTS = "word-points";
+const POINT_LEVELS = [0, 1, 2] as const;
+const pointCircles = POINT_LEVELS.map((level) => `points-circle-${level}`);
+const EMPTY_POINTS: WordPoints = { type: "FeatureCollection", features: [] };
 
 export type SelectedRegion = { code: string; name: string; parentCode: string | null };
 
@@ -102,6 +110,8 @@ export default function WorldMap({
   onSelectRegion,
   bounds = null,
   colors = null,
+  points = null,
+  onSelectPoint,
   snapshotRef,
 }: {
   highlightCodes: string[];
@@ -112,6 +122,9 @@ export default function WorldMap({
   bounds?: number[] | null;
   /** Fill colours by country/region code (the "by origin" map); others get a neutral grey */
   colors?: Record<string, string> | null;
+  /** Members' words as points, each visible from its level's zoom */
+  points?: WordPoints | null;
+  onSelectPoint?: (point: PointProps) => void;
   /** Filled with a function that saves the map as an image */
   snapshotRef?: RefObject<SnapshotFn | null>;
 }) {
@@ -120,6 +133,7 @@ export default function WorldMap({
   const markersRef = useRef<Marker[]>([]);
   const markerClassRef = useRef<typeof Marker | null>(null);
   const onSelectRef = useRef(onSelectRegion);
+  const onPointRef = useRef(onSelectPoint);
   const locale = useLocale();
   const localeRef = useRef(locale);
   const [loaded, setLoaded] = useState(false);
@@ -127,6 +141,7 @@ export default function WorldMap({
 
   useEffect(() => {
     onSelectRef.current = onSelectRegion;
+    onPointRef.current = onSelectPoint;
     localeRef.current = locale;
   });
 
@@ -215,6 +230,55 @@ export default function WorldMap({
           });
         }
 
+        m.addSource(POINTS, { type: "geojson", data: EMPTY_POINTS });
+        for (const level of POINT_LEVELS) {
+          const filter: FilterSpecification = ["==", ["get", "level"], level];
+          m.addLayer({
+            id: pointCircles[level],
+            type: "circle",
+            source: POINTS,
+            minzoom: POINT_ZOOMS[level],
+            filter,
+            paint: {
+              // Heavier points are bigger; checked words are violet, unchecked ones amber
+              "circle-radius": ["interpolate", ["linear"], ["get", "weight"], 0, 4, 3, 7, 10, 10],
+              "circle-color": ["case", ["get", "unverified"], "#f59e0b", "#7c3aed"],
+              "circle-stroke-color": "#ffffff",
+              "circle-stroke-width": 1.5,
+            },
+          });
+          m.addLayer({
+            id: `points-word-${level}`,
+            type: "symbol",
+            source: POINTS,
+            minzoom: POINT_ZOOMS[level],
+            filter,
+            layout: {
+              "text-field": ["get", "spelling"],
+              "text-font": ["Noto Sans Regular"],
+              "text-size": 12,
+              "text-offset": [0, 1.1],
+              "text-anchor": "top",
+            },
+            paint: {
+              "text-color": "#1f2937",
+              "text-halo-color": "#ffffff",
+              "text-halo-width": 1.5,
+            },
+          });
+        }
+
+        const pointAt = (e: MapMouseEvent): PointProps | undefined => {
+          const feature = m.queryRenderedFeatures(e.point, { layers: pointCircles })[0];
+          if (!feature) return undefined;
+          // GeoJSON sources hand objects back as JSON strings
+          const props = { ...feature.properties } as Record<string, unknown>;
+          for (const key of ["variety_names", "place_names"]) {
+            if (typeof props[key] === "string") props[key] = JSON.parse(props[key] as string);
+          }
+          return props as PointProps;
+        };
+
         // Regions are drawn above their country, so prefer them under the cursor.
         const featureAt = (e: MapMouseEvent): MapGeoJSONFeature | undefined => {
           const layers = ["regions-fill", "countries-fill"].filter((id) => m.getLayer(id));
@@ -241,6 +305,11 @@ export default function WorldMap({
         };
 
         m.on("mousemove", (e) => {
+          if (pointAt(e)) {
+            setHover(undefined);
+            m.getCanvas().style.cursor = "pointer";
+            return;
+          }
           const feature = featureAt(e);
           if (feature?.id !== hovered?.id || feature?.sourceLayer !== hovered?.sourceLayer) {
             setHover(feature);
@@ -248,6 +317,11 @@ export default function WorldMap({
         });
         m.on("mouseout", () => setHover(undefined));
         m.on("click", (e) => {
+          const point = pointAt(e);
+          if (point) {
+            onPointRef.current?.(point);
+            return;
+          }
           const props = featureAt(e)?.properties as RegionProps | undefined;
           if (props) {
             onSelectRef.current({
@@ -300,6 +374,12 @@ export default function WorldMap({
       }
     }
   }, [loaded, colors]);
+
+  useEffect(() => {
+    const m = mapRef.current;
+    if (!loaded || !m) return;
+    (m.getSource(POINTS) as GeoJSONSource | undefined)?.setData(points ?? EMPTY_POINTS);
+  }, [loaded, points]);
 
   useEffect(() => {
     if (!snapshotRef) return;

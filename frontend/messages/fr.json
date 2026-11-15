@@ -32,7 +32,9 @@
     "dialectCount": "{count, plural, one {# dialecte} other {# dialectes}}",
     "liveCount": "{count, plural, one {# enregistrement réel} other {# enregistrements réels}}",
     "liveRecording": "enregistrement d'un locuteur",
-    "areasNote": "Les zones sont approximatives : chaque région montre le mot le plus courant, mais les vraies limites des mots ne suivent pas les frontières administratives."
+    "areasNote": "Les zones sont approximatives : chaque région montre le mot le plus courant, mais les vraies limites des mots ne suivent pas les frontières administratives.",
+    "pointCount": "{count, plural, one {# lieu des membres} other {# lieux des membres}}",
+    "pointsNote": "Les points de la carte sont des mots que des membres ont ajoutés là où on les dit. Ceux peu confirmés ne se voient que de près ; plus il y a de personnes qui les confirment, plus on les voit de loin."
   },
   "Editor": {
     "title": "Word editor: {variety}",
@@ -130,7 +132,7 @@
     "consent": "J'accorde à Dialectio l'autorisation permanente d'utiliser et de publier ce mot et cet enregistrement (y compris à des fins commerciales). Le mot apparaîtra sur le site après vérification.",
     "send": "Envoyer",
     "sending": "Envoi…",
-    "thanks": "Merci ! Le mot apparaîtra sur la carte après vérification par un éditeur.",
+    "thanks": "Merci ! Le mot apparaîtra dans la liste quand d'autres personnes l'auront confirmé ou qu'un éditeur l'aura vérifié.",
     "error": "Impossible d'envoyer. Veuillez réessayer.",
     "tooMany": "Trop d'envois. Veuillez réessayer plus tard.",
     "signInFirst": "Les mots sont ajoutés par les membres : nous savons ainsi qui les a envoyés, et ils portent votre nom.",
@@ -152,7 +154,8 @@
     "dontKnowDialect": "{language}, je ne sais pas le dialecte",
     "otherVariety": "autre langue…",
     "severalDialects": "Plusieurs dialectes sont parlés ici. Choisissez le vôtre ou « je ne sais pas » : la rédaction décidera.",
-    "varietyFromPlace": "D'après le lieu."
+    "varietyFromPlace": "D'après le lieu.",
+    "thanksPoint": "Merci ! Le mot est déjà sur la carte, sous forme de point là où vous l'avez indiqué (zoomez pour le voir). Plus il y a de personnes qui le confirment, plus on le voit de loin ; il entre dans la liste des mots une fois confirmé par la communauté ou un éditeur."
   },
   "VarietySelect": {
     "search": "Chercher une langue ou un dialecte…",
@@ -677,5 +680,9 @@
       "expert": "expert",
       "editor": "rédaction"
     }
+  },
+  "Points": {
+    "close": "Fermer",
+    "people": "{count, plural, =0 {Ajouté sans membre} one {# membre dit qu'on le dit ici} other {# membres disent qu'on le dit ici}}"
   }
 }

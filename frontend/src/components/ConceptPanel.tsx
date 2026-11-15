@@ -266,11 +266,14 @@ export default function ConceptPanel({
   concept,
   region,
   onClearRegion,
+  pointCount = 0,
   tools,
 }: {
   concept: ConceptDetail;
   region: SelectedRegion | null;
   onClearRegion: () => void;
+  /** Members' words on the map as points */
+  pointCount?: number;
   /** Extra controls under the heading (colour by origin, save as image) */
   tools?: ReactNode;
 }) {
@@ -337,6 +340,14 @@ export default function ConceptPanel({
           {liveRecordings > 0 && (
             <span className="font-medium text-amber-700 dark:text-amber-300">
               🎙 {t("liveCount", { count: liveRecordings })}
+            </span>
+          )}
+          {pointCount > 0 && (
+            <span
+              className="text-amber-700 dark:text-amber-300"
+              title={t("pointsNote")}
+            >
+              📍 {t("pointCount", { count: pointCount })}
             </span>
           )}
           {dialects > 0 && (

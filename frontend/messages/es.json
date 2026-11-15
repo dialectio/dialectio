@@ -32,7 +32,9 @@
     "dialectCount": "{count, plural, one {# dialecto} other {# dialectos}}",
     "liveCount": "{count, plural, one {# grabación real} other {# grabaciones reales}}",
     "liveRecording": "grabación de un hablante",
-    "areasNote": "Las zonas son aproximadas: para cada región se muestra la palabra más habitual, pero los límites reales de las palabras no siguen los administrativos."
+    "areasNote": "Las zonas son aproximadas: para cada región se muestra la palabra más habitual, pero los límites reales de las palabras no siguen los administrativos.",
+    "pointCount": "{count, plural, one {# lugar de miembros} other {# lugares de miembros}}",
+    "pointsNote": "Los puntos del mapa son palabras que los miembros añadieron donde se dicen. Las poco confirmadas solo se ven de cerca; cuantas más personas las confirmen, desde más lejos se ven."
   },
   "Editor": {
     "title": "Word editor: {variety}",
@@ -130,7 +132,7 @@
     "consent": "Doy a Dialectio permiso indefinido para usar y publicar esta palabra y la grabación (también con fines comerciales). La palabra aparecerá en el sitio tras la revisión.",
     "send": "Enviar",
     "sending": "Enviando…",
-    "thanks": "¡Gracias! La palabra aparecerá en el mapa cuando un editor la revise.",
+    "thanks": "¡Gracias! La palabra aparecerá en la lista cuando otras personas la confirmen o un editor la revise.",
     "error": "No se pudo enviar. Inténtalo de nuevo.",
     "tooMany": "Demasiados envíos. Inténtalo más tarde.",
     "signInFirst": "Las palabras las añaden los miembros: así sabemos quién envió cada una, y lleva tu nombre.",
@@ -152,7 +154,8 @@
     "dontKnowDialect": "{language}, no sé el dialecto",
     "otherVariety": "otro idioma…",
     "severalDialects": "Aquí se hablan varios dialectos. Elige el tuyo o «no sé»: lo decidirán los editores.",
-    "varietyFromPlace": "Según el lugar."
+    "varietyFromPlace": "Según el lugar.",
+    "thanksPoint": "¡Gracias! La palabra ya está en el mapa como un punto donde indicaste (acerca el mapa para verla). Cuantas más personas la confirmen, desde más lejos se verá; entrará en la lista de palabras cuando la confirme la comunidad o un editor."
   },
   "VarietySelect": {
     "search": "Buscar lengua o dialecto…",
@@ -677,5 +680,9 @@
       "expert": "experto",
       "editor": "editor"
     }
+  },
+  "Points": {
+    "close": "Cerrar",
+    "people": "{count, plural, =0 {Añadida sin miembro} one {# miembro dice que aquí se dice así} other {# miembros dicen que aquí se dice así}}"
   }
 }
