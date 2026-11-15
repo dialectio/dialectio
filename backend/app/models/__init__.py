@@ -24,6 +24,7 @@ from app.models.lexicon import (
     Variety,
     variety_region,
 )
+from app.models.places import FormPlace, Settlement
 from app.models.speaker import SPEAKER_WEIGHT, MemberVariety, SpeakerTest
 from app.models.trust import (
     APPLIED,
@@ -62,6 +63,8 @@ __all__ = [
     "Variety",
     "Vote",
     "variety_region",
+    "FormPlace",
+    "Settlement",
     "SPEAKER_WEIGHT",
     "MemberVariety",
     "SpeakerTest",

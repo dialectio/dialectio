@@ -92,6 +92,13 @@ export const changeSpelling = (token: string, id: number, spelling: string, ipa:
     body: JSON.stringify({ spelling, ipa }),
   });
 
+/** Move a word to another language or dialect. */
+export const changeVariety = (token: string, id: number, variety: string) =>
+  request<EditorForm>(token, `/forms/${id}/variety`, {
+    method: "POST",
+    body: JSON.stringify({ variety }),
+  });
+
 export const deleteForm = (token: string, id: number) =>
   request<void>(token, `/forms/${id}`, { method: "DELETE" });
 

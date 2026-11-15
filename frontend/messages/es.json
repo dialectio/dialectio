@@ -96,7 +96,8 @@
     "reviewReject": "Reject",
     "reviewRejectSure": "Sure? ← again",
     "reviewSkip": "Skip",
-    "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel"
+    "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel",
+    "changeVariety": "change language or dialect"
   },
   "Word": {
     "title": "{word} en distintos idiomas — escritura y pronunciación | Dialectio",
@@ -111,8 +112,8 @@
     "close": "Cerrar",
     "variety": "Idioma o dialecto",
     "word": "Palabra",
-    "place": "Localidad o región (opcional)",
-    "placeHint": "p. ej. Vyzhnytsia, óblast de Chernivtsi",
+    "place": "Pueblo o ciudad (opcional)",
+    "placeHint": "Pueblo o ciudad, si la búsqueda no lo encontró (opcional)",
     "recording": "Pronunciación (opcional)",
     "record": "Grabar",
     "recordAgain": "Grabar de nuevo",
@@ -128,7 +129,24 @@
     "tooMany": "Demasiados envíos. Inténtalo más tarde.",
     "signInFirst": "Las palabras las añaden los miembros: así sabemos quién envió cada una, y lleva tu nombre.",
     "signIn": "Entrar o crear una cuenta",
-    "signedAs": "La palabra llevará tu nombre: {name}."
+    "signedAs": "La palabra llevará tu nombre: {name}.",
+    "where": "¿Dónde se dice así?",
+    "settlement": "Localidad",
+    "settlementHint": "Empieza a escribir un pueblo o ciudad",
+    "noSettlements": "No se encontró nada. Elige una región abajo.",
+    "myLocation": "Estoy allí ahora",
+    "locating": "Buscando…",
+    "locationDenied": "El navegador no permitió acceder a tu ubicación.",
+    "noNearby": "No hay ninguna localidad cerca.",
+    "locationError": "No se pudo determinar tu ubicación.",
+    "orRegion": "o elige una región o un país",
+    "otherCountries": "Otros países",
+    "privacy": "Guardamos solo la localidad, no tus coordenadas. Localidades: GeoNames (CC BY 4.0).",
+    "change": "cambiar",
+    "dontKnowDialect": "{language}, no sé el dialecto",
+    "otherVariety": "otro idioma…",
+    "severalDialects": "Aquí se hablan varios dialectos. Elige el tuyo o «no sé»: lo decidirán los editores.",
+    "varietyFromPlace": "Según el lugar."
   },
   "VarietySelect": {
     "search": "Buscar lengua o dialecto…",
@@ -174,7 +192,7 @@
     "words": "Palabras",
     "recordings": "Grabaciones",
     "mapTitle": "Mapa",
-    "map": "Las fronteras de países y regiones proceden de Natural Earth (dominio público), en la edición desde el punto de vista de Ucrania. Mapa base: OpenFreeMap, © OpenMapTiles, datos © colaboradores de OpenStreetMap (ODbL). El mapa se muestra con MapLibre GL.",
+    "map": "Las fronteras de países y regiones proceden de Natural Earth (dominio público), en la edición desde el punto de vista de Ucrania. Mapa base: OpenFreeMap, © OpenMapTiles, datos © colaboradores de OpenStreetMap (ODbL). El mapa se muestra con MapLibre GL. Localidades para «¿Dónde se dice así?»: GeoNames (CC BY 4.0).",
     "ttsTitle": "Pronunciación sintética",
     "tts": "Donde no hay una grabación real, la pronunciación se sintetiza con Piper, solo con voces cuya licencia lo permite. Estas grabaciones llevan la marca TTS.",
     "ownTitle": "Datos propios de Dialectio",
@@ -588,7 +606,8 @@
       "reject": "rechazó",
       "delete": "borró",
       "spelling": "corrigió",
-      "primary": "hizo principal"
+      "primary": "hizo principal",
+      "variety": "movió a otra variedad"
     }
   },
   "Support": {

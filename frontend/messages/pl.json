@@ -96,7 +96,8 @@
     "reviewReject": "Reject",
     "reviewRejectSure": "Sure? ← again",
     "reviewSkip": "Skip",
-    "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel"
+    "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel",
+    "changeVariety": "change language or dialect"
   },
   "Word": {
     "title": "{word} w różnych językach — pisownia i wymowa | Dialectio",
@@ -111,8 +112,8 @@
     "close": "Zamknij",
     "variety": "Język lub gwara",
     "word": "Słowo",
-    "place": "Miejscowość lub region (opcjonalnie)",
-    "placeHint": "np. Przemyśl, województwo podkarpackie",
+    "place": "Wieś lub miasto (opcjonalnie)",
+    "placeHint": "Wieś lub miasto, jeśli wyszukiwarka go nie znalazła (opcjonalnie)",
     "recording": "Wymowa (opcjonalnie)",
     "record": "Nagraj",
     "recordAgain": "Nagraj ponownie",
@@ -128,7 +129,24 @@
     "tooMany": "Za dużo zgłoszeń. Spróbuj później.",
     "signInFirst": "Słowa dodają uczestnicy: wiemy, kto je przesłał, i podpisujemy je Twoim imieniem.",
     "signIn": "Zaloguj się lub załóż konto",
-    "signedAs": "Pod słowem pojawi się Twoje imię: {name}."
+    "signedAs": "Pod słowem pojawi się Twoje imię: {name}.",
+    "where": "Gdzie się tak mówi?",
+    "settlement": "Miejscowość",
+    "settlementHint": "Zacznij wpisywać nazwę wsi lub miasta",
+    "noSettlements": "Nic nie znaleziono. Wybierz region poniżej.",
+    "myLocation": "Jestem tam teraz",
+    "locating": "Ustalamy…",
+    "locationDenied": "Przeglądarka nie dała dostępu do lokalizacji.",
+    "noNearby": "Nie znaleziono miejscowości w pobliżu.",
+    "locationError": "Nie udało się ustalić lokalizacji.",
+    "orRegion": "albo wybierz region lub kraj",
+    "otherCountries": "Inne kraje",
+    "privacy": "Zapisujemy tylko miejscowość, nie Twoje współrzędne. Miejscowości: GeoNames (CC BY 4.0).",
+    "change": "zmień",
+    "dontKnowDialect": "{language}, nie wiem, jaka gwara",
+    "otherVariety": "inny język…",
+    "severalDialects": "Tu mówi się kilkoma gwarami. Wybierz swoją albo „nie wiem”: zdecydują redaktorzy.",
+    "varietyFromPlace": "Ustalono na podstawie miejsca."
   },
   "VarietySelect": {
     "search": "Szukaj języka lub gwary…",
@@ -174,7 +192,7 @@
     "words": "Słowa",
     "recordings": "Nagrania",
     "mapTitle": "Mapa",
-    "map": "Granice krajów i regionów — Natural Earth (domena publiczna), w wersji z ukraińskiego punktu widzenia. Mapa podkładowa: OpenFreeMap, © OpenMapTiles, dane © współtwórcy OpenStreetMap (ODbL). Mapa jest wyświetlana przez bibliotekę MapLibre GL.",
+    "map": "Granice krajów i regionów — Natural Earth (domena publiczna), w wersji z ukraińskiego punktu widzenia. Mapa podkładowa: OpenFreeMap, © OpenMapTiles, dane © współtwórcy OpenStreetMap (ODbL). Mapa jest wyświetlana przez bibliotekę MapLibre GL. Miejscowości do pytania „Gdzie się tak mówi?”: GeoNames (CC BY 4.0).",
     "ttsTitle": "Wymowa syntetyczna",
     "tts": "Tam, gdzie nie ma nagrania żywego głosu, wymowa jest syntetyzowana programem Piper, tylko głosami, których licencja na to pozwala. Takie nagrania mają oznaczenie TTS.",
     "ownTitle": "Własne dane Dialectio",
@@ -588,7 +606,8 @@
       "reject": "odrzucił(a)",
       "delete": "usunął(-ęła)",
       "spelling": "poprawił(a)",
-      "primary": "ustawił(a) jako główne"
+      "primary": "ustawił(a) jako główne",
+      "variety": "przeniósł(-a) do innej odmiany"
     }
   },
   "Support": {

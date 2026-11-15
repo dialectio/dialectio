@@ -96,7 +96,8 @@
     "reviewReject": "Reject",
     "reviewRejectSure": "Sure? ← again",
     "reviewSkip": "Skip",
-    "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel"
+    "reviewKeys": "Keys: → approve · ← reject (twice) · ↓ skip · Esc cancel",
+    "changeVariety": "change language or dialect"
   },
   "Word": {
     "title": "{word} dans différentes langues — orthographe et prononciation | Dialectio",
@@ -111,8 +112,8 @@
     "close": "Fermer",
     "variety": "Langue ou dialecte",
     "word": "Mot",
-    "place": "Localité ou région (facultatif)",
-    "placeHint": "p. ex. Vyjnytsia, oblast de Tchernivtsi",
+    "place": "Village ou ville (facultatif)",
+    "placeHint": "Village ou ville, si la recherche ne l'a pas trouvé (facultatif)",
     "recording": "Prononciation (facultatif)",
     "record": "Enregistrer",
     "recordAgain": "Réenregistrer",
@@ -128,7 +129,24 @@
     "tooMany": "Trop d'envois. Veuillez réessayer plus tard.",
     "signInFirst": "Les mots sont ajoutés par les membres : nous savons ainsi qui les a envoyés, et ils portent votre nom.",
     "signIn": "Se connecter ou créer un compte",
-    "signedAs": "Le mot portera votre nom : {name}."
+    "signedAs": "Le mot portera votre nom : {name}.",
+    "where": "Où le dit-on ainsi ?",
+    "settlement": "Localité",
+    "settlementHint": "Commencez à taper un village ou une ville",
+    "noSettlements": "Rien trouvé. Choisissez une région ci-dessous.",
+    "myLocation": "J'y suis en ce moment",
+    "locating": "Localisation…",
+    "locationDenied": "Le navigateur n'a pas autorisé l'accès à votre position.",
+    "noNearby": "Aucune localité trouvée à proximité.",
+    "locationError": "Impossible de déterminer votre position.",
+    "orRegion": "ou choisissez une région ou un pays",
+    "otherCountries": "Autres pays",
+    "privacy": "Nous ne gardons que la localité, pas vos coordonnées. Localités : GeoNames (CC BY 4.0).",
+    "change": "modifier",
+    "dontKnowDialect": "{language}, je ne sais pas le dialecte",
+    "otherVariety": "autre langue…",
+    "severalDialects": "Plusieurs dialectes sont parlés ici. Choisissez le vôtre ou « je ne sais pas » : la rédaction décidera.",
+    "varietyFromPlace": "D'après le lieu."
   },
   "VarietySelect": {
     "search": "Chercher une langue ou un dialecte…",
@@ -174,7 +192,7 @@
     "words": "Mots",
     "recordings": "Enregistrements",
     "mapTitle": "Carte",
-    "map": "Les frontières des pays et des régions proviennent de Natural Earth (domaine public), dans l'édition du point de vue de l'Ukraine. Fond de carte : OpenFreeMap, © OpenMapTiles, données © contributeurs d'OpenStreetMap (ODbL). La carte est affichée avec MapLibre GL.",
+    "map": "Les frontières des pays et des régions proviennent de Natural Earth (domaine public), dans l'édition du point de vue de l'Ukraine. Fond de carte : OpenFreeMap, © OpenMapTiles, données © contributeurs d'OpenStreetMap (ODbL). La carte est affichée avec MapLibre GL. Localités pour « Où le dit-on ainsi ? » : GeoNames (CC BY 4.0).",
     "ttsTitle": "Prononciation synthétique",
     "tts": "Là où il n'y a pas d'enregistrement réel, la prononciation est synthétisée avec Piper, uniquement avec des voix dont la licence le permet. Ces enregistrements portent la mention TTS.",
     "ownTitle": "Données propres de Dialectio",
@@ -588,7 +606,8 @@
       "reject": "a refusé",
       "delete": "a supprimé",
       "spelling": "a corrigé",
-      "primary": "a fait principal"
+      "primary": "a fait principal",
+      "variety": "a déplacé vers une autre variété"
     }
   },
   "Support": {

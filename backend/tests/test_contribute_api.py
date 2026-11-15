@@ -5,13 +5,15 @@ from collections.abc import Iterator
 
 import pytest
 from fastapi.testclient import TestClient
-from sqlalchemy import delete
+from sqlalchemy import delete, select
+from sqlalchemy.orm import selectinload
 
 from app.api import accounts, contribute
 from app.config import MEDIA_DIR, settings
 from app.db.session import SessionLocal
 from app.main import app
-from app.models import User
+from app.models import Form as WordForm
+from app.models import FormPlace, User
 from tests.test_lexicon_api import pytestmark  # noqa: F401  (skip without data)
 
 TOKEN = "test-token"
@@ -149,3 +151,83 @@ def test_guests_cannot_contribute() -> None:
         data = {"concept_id": str(water_id()), "variety": "ukr-hutsul", "spelling": "x"}
         response = guest.post("/api/contributions", data={**data, "consent": "true"})
     assert response.status_code == 401
+
+
+# --- "Where do they say it?" ---------------------------------------------------------------
+
+
+def settlement(q: str) -> dict:
+    hits = client.get("/api/settlements", params={"q": q}).json()
+    assert hits, q
+    return hits[0]
+
+
+def places_of(spelling: str) -> list[FormPlace]:
+    with SessionLocal() as session:
+        return list(
+            session.scalars(
+                select(FormPlace)
+                .join(WordForm, WordForm.id == FormPlace.form_id)
+                .where(WordForm.spelling == spelling)
+                .options(selectinload(FormPlace.region))
+            )
+        )
+
+
+def test_settlement_search_in_any_script_and_language() -> None:
+    verkhovyna = settlement("Верховина")
+    assert verkhovyna["names"]["uk"] == "Верховина"
+    assert verkhovyna["region_code"] == "UA-26" and verkhovyna["country_code"] == "UKR"
+    assert settlement("Verkhovyna")["id"] == verkhovyna["id"]
+    assert settlement("Munchen")["names"]["de"] == "München"
+    assert client.get("/api/settlements", params={"q": "ж"}).status_code == 422
+
+
+def test_nearest_settlement_to_a_point() -> None:
+    near = client.post("/api/settlements/nearest", json={"lat": 48.15, "lon": 24.81}).json()
+    assert near["names"]["uk"] == "Верховина"
+    ocean = client.post("/api/settlements/nearest", json={"lat": 30.0, "lon": -40.0})
+    assert ocean.status_code == 404
+
+
+def test_submission_keeps_where_it_is_said() -> None:
+    verkhovyna = settlement("Верховина")
+    first = submit(spelling="містотест", place="", settlement_id=verkhovyna["id"])
+    again = submit(spelling="містотест", place="", settlement_id=verkhovyna["id"])
+    elsewhere = submit(spelling="містотест", place="", region="UA-77")
+    found = find_submission("містотест")
+    try:
+        assert first.status_code == again.status_code == elsewhere.status_code == 201
+        assert found is not None and found["form"]["place"] == "Верховина"
+        places = places_of("містотест")
+        assert sorted(p.region.code for p in places) == ["UA-26", "UA-77"]
+        assert {p.settlement_id for p in places} == {verkhovyna["id"], None}
+    finally:
+        if found:
+            editor("DELETE", f"/forms/{found['form']['id']}")
+    assert places_of("містотест") == []
+    assert submit(spelling="містотест", settlement_id=0).status_code == 404
+    assert submit(spelling="містотест", region="XX-00").status_code == 404
+
+
+def test_editor_moves_a_word_to_another_dialect() -> None:
+    submit(spelling="говіртест", variety="ukr")
+    found = find_submission("говіртест")
+    assert found is not None
+    form_id = found["form"]["id"]
+    try:
+        response = client.post(
+            f"/api/editor/forms/{form_id}/variety",
+            json={"variety": "ukr-hutsul"},
+            headers={"X-Editor-Token": TOKEN},
+        )
+        assert response.status_code == 200, response.text
+        assert find_submission("говіртест")["variety_code"] == "ukr-hutsul"
+        unknown = client.post(
+            f"/api/editor/forms/{form_id}/variety",
+            json={"variety": "xxx-none"},
+            headers={"X-Editor-Token": TOKEN},
+        )
+        assert unknown.status_code == 404
+    finally:
+        editor("DELETE", f"/forms/{form_id}")
