@@ -371,15 +371,24 @@ export default function ConceptPanel({
         {tools}
       </div>
       <div className="px-4">
-        {!region && <WordIntro concept={concept} />}
-        <ul>
-          {languages.length === 0 && (
-            <li className="py-3 text-sm opacity-60">{t("noWords")}</li>
-          )}
-          {languages.map((language) => (
-            <LanguageCard key={language.variety_id} language={language} />
-          ))}
-        </ul>
+        {region ? (
+          <ul>
+            {languages.length === 0 && (
+              <li className="py-3 text-sm opacity-60">{t("noWords")}</li>
+            )}
+            {languages.map((language) => (
+              <LanguageCard key={language.variety_id} language={language} />
+            ))}
+          </ul>
+        ) : (
+          <>
+            {/* The words in prose for search engines; visitors pick a place on the map */}
+            <div className="sr-only">
+              <WordIntro concept={concept} />
+            </div>
+            <p className="pt-2 text-sm opacity-70">{t("pickRegion")}</p>
+          </>
+        )}
         <button
           type="button"
           onClick={() => setContributing(true)}

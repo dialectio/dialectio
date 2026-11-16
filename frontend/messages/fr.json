@@ -34,7 +34,8 @@
     "liveRecording": "enregistrement d'un locuteur",
     "areasNote": "Les zones sont approximatives : chaque région montre le mot le plus courant, mais les vraies limites des mots ne suivent pas les frontières administratives.",
     "pointCount": "{count, plural, one {# lieu des membres} other {# lieux des membres}}",
-    "pointsNote": "Les points de la carte sont des mots que des membres ont ajoutés là où on les dit. Ceux peu confirmés ne se voient que de près ; plus il y a de personnes qui les confirment, plus on les voit de loin."
+    "pointsNote": "Les points de la carte sont des mots que des membres ont ajoutés là où on les dit. Ceux peu confirmés ne se voient que de près ; plus il y a de personnes qui les confirment, plus on les voit de loin.",
+    "pickRegion": "👆 Cliquez sur un pays ou une région de la carte pour voir les mots qu'on y dit."
   },
   "Editor": {
     "title": "Word editor: {variety}",
