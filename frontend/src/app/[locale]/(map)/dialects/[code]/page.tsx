@@ -27,7 +27,7 @@ export async function generateMetadata({
   const regional = dialect.kind === "regional";
   // Dialect words next to the standard Ukrainian word; regional words next to their meaning
   const examples = dialect.words_list
-    .filter((w) => regional || w.standard)
+    .filter((w) => regional || (w.standard && w.standard !== w.spelling))
     .slice(0, DESCRIPTION_EXAMPLES)
     .map(
       (w) =>

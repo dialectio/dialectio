@@ -11,6 +11,7 @@ import { API_URL, localized } from "@/lib/api";
 import { VarietySelect } from "@/components/VarietySelect";
 import { settlementArea, settlementName, varietiesOf } from "@/lib/settlements";
 import { listPublicVarieties, sortVarieties, type Variety } from "@/lib/varieties";
+import { ownLanguage } from "@/lib/visitor";
 
 const MAX_RECORDING_MS = 10_000;
 // Browsers record in different containers: Chrome/Firefox WebM/Ogg, Safari MP4.
@@ -129,7 +130,7 @@ export default function ContributeDialog({
     return candidates[0]?.code ?? null;
   })();
   const fullList = anyVariety || candidates.length === 0;
-  const variety = chosen ?? (fullList ? (lastVariety() ?? "ukr") : suggested);
+  const variety = chosen ?? (fullList ? (lastVariety() ?? ownLanguage(locale)) : suggested);
   /** The language of the place's dialects: picking it means "I don't know my dialect" */
   const dialectLanguage = (v: Variety) =>
     v.kind === "language" && dialects.some((d) => d.code.split("-")[0] === v.code);

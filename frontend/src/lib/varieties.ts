@@ -1,4 +1,5 @@
 import { API_URL, localized, type Names } from "@/lib/api";
+import { ownLanguage } from "@/lib/visitor";
 
 export type Variety = {
   code: string;
@@ -17,14 +18,15 @@ export async function listPublicVarieties(): Promise<Variety[]> {
   return response.json();
 }
 
-/** Ukrainian and its dialects first (the project's focus), then other languages by name. */
+/** The interface language's own language and its dialects first, then other languages by name. */
 export function sortVarieties<
   T extends Pick<Variety, "code" | "kind" | "name_en" | "name_uk" | "names">,
 >(
   varieties: T[],
   locale: string,
 ): T[] {
-  const focus = (v: T) => (v.code === "ukr" || v.code.startsWith("ukr-") ? 0 : 1);
+  const own = ownLanguage(locale);
+  const focus = (v: T) => (v.code.split("-")[0] === own ? 0 : 1);
   return [...varieties].sort(
     (a, b) =>
       focus(a) - focus(b) ||
