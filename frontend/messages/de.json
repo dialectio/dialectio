@@ -32,7 +32,10 @@
     "dialectCount": "{count, plural, one {# Dialekt} other {# Dialekte}}",
     "liveCount": "{count, plural, one {# echte Aufnahme} other {# echte Aufnahmen}}",
     "liveRecording": "Aufnahme eines Sprechers",
-    "areasNote": "Die Gebiete sind nur ungefähr: Für eine Region steht das dort häufigste Wort, echte Wortgrenzen folgen aber nicht den Verwaltungsgrenzen."
+    "areasNote": "Die Gebiete sind nur ungefähr: Für eine Region steht das dort häufigste Wort, echte Wortgrenzen folgen aber nicht den Verwaltungsgrenzen.",
+    "pointCount": "{count, plural, one {# Ort von Mitgliedern} other {# Orte von Mitgliedern}}",
+    "pointsNote": "Punkte auf der Karte sind Wörter, die Mitglieder dort eingetragen haben, wo man sie sagt. Schwach bestätigte sieht man nur von nahem; je mehr Menschen sie bestätigen, desto weiter herausgezoomt erscheinen sie.",
+    "pickRegion": "👆 Klicke auf der Karte auf ein Land oder eine Region, um die Wörter von dort zu sehen."
   },
   "Editor": {
     "title": "Word editor: {variety}",
@@ -130,7 +133,7 @@
     "consent": "Ich erteile Dialectio die unbefristete Erlaubnis, dieses Wort und die Aufnahme zu nutzen und zu veröffentlichen (auch kommerziell). Das Wort erscheint nach der Prüfung auf der Website.",
     "send": "Senden",
     "sending": "Wird gesendet…",
-    "thanks": "Danke! Das Wort erscheint auf der Karte, sobald eine Redakteurin oder ein Redakteur es geprüft hat.",
+    "thanks": "Danke! Das Wort erscheint in der Liste, sobald andere es bestätigen oder die Redaktion es prüft.",
     "error": "Senden fehlgeschlagen. Bitte versuche es erneut.",
     "tooMany": "Zu viele Einsendungen. Bitte versuche es später.",
     "signInFirst": "Wörter fügen Mitglieder hinzu: So wissen wir, wer ein Wort geschickt hat, und es trägt Ihren Namen.",
@@ -152,7 +155,8 @@
     "dontKnowDialect": "{language}, Dialekt unbekannt",
     "otherVariety": "andere Sprache…",
     "severalDialects": "Hier spricht man mehrere Dialekte. Wähle deinen oder „unbekannt“: die Redaktion entscheidet.",
-    "varietyFromPlace": "Aus dem Ort ermittelt."
+    "varietyFromPlace": "Aus dem Ort ermittelt.",
+    "thanksPoint": "Danke! Das Wort steht schon als Punkt auf der Karte, wo du es angegeben hast (zoome hinein, um es zu sehen). Je mehr Menschen es bestätigen, desto weiter herausgezoomt erscheint es; in die Wortliste kommt es nach Bestätigung durch die Gemeinschaft oder die Redaktion."
   },
   "VarietySelect": {
     "search": "Sprache oder Mundart suchen…",
@@ -174,19 +178,19 @@
   },
   "About": {
     "title": "Über das Projekt",
-    "metaDescription": "Dialectio ist eine Karte, wie Wörter in den Sprachen der Welt und in ukrainischen Dialekten klingen. Wie man die Karte liest und woher die Daten stammen.",
-    "intro": "Dialectio zeigt auf einer Karte, wie derselbe Begriff in den Sprachen der Welt und in den Dialekten des Ukrainischen geschrieben, ausgesprochen und gesprochen wird. Es ist ein populärwissenschaftliches Projekt: Es soll Neugier wecken, kein Wörterbuch ersetzen.",
+    "metaDescription": "Dialectio ist eine Karte, wie Wörter in den Sprachen der Welt, ihren Dialekten und Regionalsprachen klingen. Wie man die Karte liest und woher die Daten stammen.",
+    "intro": "Dialectio zeigt auf einer Karte, wie derselbe Begriff in den Sprachen der Welt, ihren Dialekten und Regionalsprachen geschrieben, ausgesprochen und gesprochen wird. Es ist ein populärwissenschaftliches Projekt: Es soll neugierig machen, nicht ein Wörterbuch ersetzen.",
     "numbers": "Jetzt auf der Karte — Begriffe: {concepts}, Sprachen: {languages}, Dialekte: {dialects}, Wörter: {words}, Aufnahmen echter Stimmen: {recordings}.",
     "howTitle": "Wie man die Karte liest",
     "how1": "Gib ein Wort in einer beliebigen Sprache ein und wähle einen Vorschlag: Länder mit einer Übersetzung werden hervorgehoben, und die Wörter erscheinen auf der Karte.",
-    "how2": "Zoome auf die Ukraine oder ihre Nachbarländer: Ab einer bestimmten Zoomstufe werden Wörter für Regionen statt für Länder angezeigt. Dialektwörter sind violett.",
+    "how2": "Zoome hinein: ab einer bestimmten Stufe stehen statt des Ländernamens die Wörter der Regionen — in der Ukraine und ihren Nachbarländern, in Westeuropa, den USA und Kanada. Dialektwörter sind lila; Punkte sind Wörter, die Mitglieder dort eingetragen haben, wo man sie sagt.",
     "how3": "Klicke auf ein Land oder eine Region, damit im Bereich rechts nur die dort gesprochenen Sprachen und Dialekte bleiben.",
     "how4": "IPA in eckigen Klammern ist die Aussprache im Internationalen Phonetischen Alphabet. Die Taste ▶ spielt eine Aufnahme ab; TTS kennzeichnet eine synthetische Stimme.",
     "how5": "Das Zeichen ≈ markiert ein ungeprüftes Wort: einen Entwurf, eine Wikidata-Bezeichnung oder eine maschinelle Übersetzung. Unter einem solchen Wort kann man „Sagt man das so?“ beantworten: Wenn genug Leute „ja“ sagen, erhält es das Zeichen 👥 (von Sprechern bestätigt), ⚠ markiert ein umstrittenes Wort. Die endgültige Prüfung macht die Redaktion.",
-    "dialectsTitle": "Ukrainische Dialekte",
-    "dialects": "Die Dialekte folgen dem klassischen Schema: drei Dialektgruppen (Nord, Südwest, Südost) und 15 Dialekte. Die Dialektgebiete sind an Verwaltungsregionen angenähert, eine Vereinfachung: echte Dialektgrenzen folgen nicht den Verwaltungsgrenzen. Der lemkische und der San-Dialekt werden auch in Polen und der Slowakei gezeigt.",
+    "dialectsTitle": "Dialekte",
+    "dialects": "Die ukrainischen Dialekte folgen dem klassischen Schema: drei Dialektgruppen (Nord, Südwest, Südost) und 15 Dialekte; Lemkisch und Nadsjanisch erscheinen auch in Polen und der Slowakei. Für Englisch, Deutsch, Spanisch, Französisch, Italienisch, Polnisch und Portugiesisch zeigt die Karte regionale Wörter nach Gebieten, für Walisisch, Bretonisch, Sizilianisch und andere die Regionen, in denen sie gesprochen werden. Dialektgebiete sind an Regionen angenähert, eine Vereinfachung: echte Dialektgrenzen folgen nicht den Verwaltungsgrenzen.",
     "helpTitle": "Wie du helfen kannst",
-    "help": "Weißt du, wie man dieses Wort in deinem Dorf oder deiner Stadt sagt? Klicke im Wortbereich auf „Weißt du, wie man es bei euch sagt?“, gib das Wort ein und nimm es, wenn du möchtest, auf. Beiträge erscheinen nach der Prüfung durch die Redaktion.",
+    "help": "Weißt du, wie man dieses Wort in deinem Dorf oder deiner Stadt sagt, in welcher Sprache auch immer? Klicke im Wortfeld auf „Weißt du, wie man es bei euch sagt?“, gib das Wort ein, sag wo und nimm, wenn du magst, die Aussprache auf. Das Wort erscheint sofort als Punkt auf der Karte und kommt in die Wortliste, sobald andere oder die Redaktion es bestätigen.",
     "feedback": "Einen Fehler entdeckt? Schreib uns an <link>dialectio.team@gmail.com</link>."
   },
   "Sources": {
@@ -243,12 +247,12 @@
     "gamePlay": "Spielen"
   },
   "Dialects": {
-    "title": "Dialekte des Ukrainischen",
-    "metaDescription": "Drei Dialektgruppen und 15 Dialekte des Ukrainischen: wo sie gesprochen werden und welche Wörter sie verwenden — mit Karte, Übersetzung und Aussprache.",
-    "intro": "Die ukrainischen Dialekte bilden drei Gruppen. Wähle einen Dialekt, um sein Gebiet auf der Karte und seine Wörter mit den Entsprechungen im Standardukrainischen zu sehen.",
+    "title": "Dialekte und Regionalsprachen",
+    "metaDescription": "Dialekte des Ukrainischen, Englischen, Deutschen, Spanischen, Französischen, Italienischen und anderer Sprachen sowie die Regionalsprachen Europas: wo sie gesprochen werden und welche Wörter sie verwenden — mit Karte, Übersetzung und Aussprache.",
+    "intro": "Wie dieselbe Sache in den Regionen einer Sprache unterschiedlich heißt. Im Deutschen ist es Brötchen, Schrippe, Semmel oder Weckle, im Italienischen heißt die Wassermelone anguria, cocomero oder melone d'acqua — je nach Region. Wähle einen Dialekt, um sein Gebiet auf der Karte und seine Wörter neben der Standardsprache zu sehen.",
     "words": "{count, plural, one {# Wort} other {# Wörter}}",
     "pageTitle": "{name}: Wörter mit Übersetzung",
-    "pageDescription": "{name}: {examples} und weitere Wörter mit Entsprechungen im Standardukrainischen. Gebiet auf der Karte, Aussprache.",
+    "pageDescription": "{name}: {examples} und weitere Wörter neben der Standardsprache. Gebiet auf der Karte, Aussprache.",
     "territory": "Gebiet",
     "territoryNote": "Die Gebiete sind an Verwaltungsregionen angenähert; echte Dialektgrenzen folgen nicht den Verwaltungsgrenzen.",
     "wordsTitle": "Wörter des Dialekts",
@@ -267,8 +271,6 @@
     "shownOf": "{shown} von {total} Wörtern; die übrigen stehen auf den Wortseiten.",
     "checkCtaLanguage": "Sprechen Sie diese Sprache? Prüfen Sie ihre Wörter →",
     "regionalPageDescription": "{name}: {examples} und weitere Wörter mit Übersetzung. Wo sie gesprochen wird, auf der Karte.",
-    "otherDialectsTitle": "Regionale Varianten anderer Sprachen",
-    "otherDialectsIntro": "Wie dieselbe Sache in den Regionen einer Sprache unterschiedlich heißt. Im Deutschen ist es Brötchen, Schrippe, Semmel oder Weckle, im Italienischen heißt die Wassermelone anguria, cocomero oder melone d'acqua — je nach Region.",
     "standardWordOther": "Standardsprache"
   },
   "DialectInfo": {
@@ -331,7 +333,7 @@
     "title": "Wörter prüfen",
     "metaDescription": "Hilf zu prüfen, wie man in ukrainischen Dialekten und anderen Sprachen spricht: ein Wort, ein Klick.",
     "intro": "Viele unserer Wörter wurden automatisch gesammelt oder sind Entwürfe. Hilf uns, Fehler zu finden: Sagt man das wirklich so?",
-    "deck": "Wir prüfen:",
+    "deck": "Oder eine andere Sprache oder ein Dialekt:",
     "ukrainianDeck": "Ukrainisch und seine Dialekte",
     "loading": "Wird geladen…",
     "error": "Wörter konnten nicht geladen werden. Bitte versuche es erneut.",
@@ -353,7 +355,8 @@
     "shareTitle": "Ich habe {count} Wörter geprüft: {deck}",
     "regionalDecks": "Regionalsprachen",
     "shareKickerWorld": "Ich helfe zu zeigen, wie die Welt wirklich spricht",
-    "languageWithRegional": "{language} und regionale Wörter"
+    "languageWithRegional": "{language} und regionale Wörter",
+    "knowQuestion": "Welche Sprache kennst du?"
   },
   "NotFound": {
     "title": "Seite nicht gefunden",
@@ -677,5 +680,9 @@
       "expert": "Experte",
       "editor": "Redaktion"
     }
+  },
+  "Points": {
+    "close": "Schließen",
+    "people": "{count, plural, =0 {Ohne Mitglied hinzugefügt} one {# Mitglied sagt, man sagt es hier} other {# Mitglieder sagen, man sagt es hier}}"
   }
 }

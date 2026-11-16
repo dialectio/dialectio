@@ -19,7 +19,7 @@ from app.api.schemas import (
 )
 from app.api.votes import Tally, comment_counts, tallies
 from app.db.session import get_session
-from app.models import PENDING, PUBLIC_STATUSES, Concept, Form, Variety
+from app.models import PENDING, PUBLIC_STATUSES, Concept, Form, Region, Variety
 
 router = APIRouter(prefix="/api", tags=["lexicon"])
 
@@ -215,6 +215,9 @@ def build_detail(session: Session, concept: Concept) -> ConceptDetail:
     votes = tallies(session, [f.id for f in forms])
     discussed = comment_counts(session, [f.id for f in forms])
 
+    countries = dict(
+        session.execute(select(Region.id, Region.code).where(Region.level == "country")).all()
+    )
     languages: dict[int, LanguageForms] = {}
     for form in forms:
         variety = form.variety
@@ -230,6 +233,9 @@ def build_detail(session: Session, concept: Concept) -> ConceptDetail:
                 name_uk=variety.name_uk,
                 names=variety.names,
                 region_codes=sorted(r.code for r in variety.regions),
+                country_codes=sorted(
+                    {countries[r.parent_id] for r in variety.regions if r.parent_id in countries}
+                ),
                 forms=[],
             )
         source = form.source.name if form.source else None

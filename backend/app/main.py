@@ -21,6 +21,7 @@ from app.api import (
     google_auth,
     lexicon,
     places,
+    points,
     profile,
     regions,
     speaker,
@@ -53,6 +54,7 @@ app.include_router(expert.editor_router)
 app.include_router(profile.router)
 app.include_router(false_friends.router)
 app.include_router(community.router)
+app.include_router(points.router)
 
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(

@@ -32,7 +32,10 @@
     "dialectCount": "{count, plural, one {# dialecto} other {# dialectos}}",
     "liveCount": "{count, plural, one {# grabación real} other {# grabaciones reales}}",
     "liveRecording": "grabación de un hablante",
-    "areasNote": "Las zonas son aproximadas: para cada región se muestra la palabra más habitual, pero los límites reales de las palabras no siguen los administrativos."
+    "areasNote": "Las zonas son aproximadas: para cada región se muestra la palabra más habitual, pero los límites reales de las palabras no siguen los administrativos.",
+    "pointCount": "{count, plural, one {# lugar de miembros} other {# lugares de miembros}}",
+    "pointsNote": "Los puntos del mapa son palabras que los miembros añadieron donde se dicen. Las poco confirmadas solo se ven de cerca; cuantas más personas las confirmen, desde más lejos se ven.",
+    "pickRegion": "👆 Haz clic en un país o una región del mapa para ver las palabras de allí."
   },
   "Editor": {
     "title": "Word editor: {variety}",
@@ -130,7 +133,7 @@
     "consent": "Doy a Dialectio permiso indefinido para usar y publicar esta palabra y la grabación (también con fines comerciales). La palabra aparecerá en el sitio tras la revisión.",
     "send": "Enviar",
     "sending": "Enviando…",
-    "thanks": "¡Gracias! La palabra aparecerá en el mapa cuando un editor la revise.",
+    "thanks": "¡Gracias! La palabra aparecerá en la lista cuando otras personas la confirmen o un editor la revise.",
     "error": "No se pudo enviar. Inténtalo de nuevo.",
     "tooMany": "Demasiados envíos. Inténtalo más tarde.",
     "signInFirst": "Las palabras las añaden los miembros: así sabemos quién envió cada una, y lleva tu nombre.",
@@ -152,7 +155,8 @@
     "dontKnowDialect": "{language}, no sé el dialecto",
     "otherVariety": "otro idioma…",
     "severalDialects": "Aquí se hablan varios dialectos. Elige el tuyo o «no sé»: lo decidirán los editores.",
-    "varietyFromPlace": "Según el lugar."
+    "varietyFromPlace": "Según el lugar.",
+    "thanksPoint": "¡Gracias! La palabra ya está en el mapa como un punto donde indicaste (acerca el mapa para verla). Cuantas más personas la confirmen, desde más lejos se verá; entrará en la lista de palabras cuando la confirme la comunidad o un editor."
   },
   "VarietySelect": {
     "search": "Buscar lengua o dialecto…",
@@ -174,19 +178,19 @@
   },
   "About": {
     "title": "Acerca del proyecto",
-    "metaDescription": "Dialectio es un mapa de cómo suenan las palabras en los idiomas del mundo y en los dialectos ucranianos. Cómo leer el mapa y de dónde vienen los datos.",
-    "intro": "Dialectio muestra en un mapa cómo se escribe, se pronuncia y suena un mismo concepto en los idiomas del mundo y en los dialectos del ucraniano. Es un proyecto de divulgación: quiere despertar la curiosidad, no sustituir a un diccionario.",
+    "metaDescription": "Dialectio es un mapa de cómo suenan las palabras en las lenguas del mundo, sus dialectos y lenguas regionales. Cómo leer el mapa y de dónde vienen los datos.",
+    "intro": "Dialectio muestra en un mapa cómo se escribe, se pronuncia y suena el mismo concepto en las lenguas del mundo, sus dialectos y lenguas regionales. Es un proyecto de divulgación: quiere despertar la curiosidad, no sustituir a un diccionario.",
     "numbers": "Ahora en el mapa — conceptos: {concepts}, idiomas: {languages}, dialectos: {dialects}, palabras: {words}, grabaciones de voces reales: {recordings}.",
     "howTitle": "Cómo leer el mapa",
     "how1": "Escribe una palabra en cualquier idioma y elige una sugerencia: los países con traducción se resaltan y las palabras aparecen en el mapa.",
-    "how2": "Acércate a Ucrania o a sus vecinos: a partir de cierto zoom, las palabras se muestran por región en lugar de por país. Las palabras dialectales son moradas.",
+    "how2": "Acerca el mapa: a partir de cierto zoom, en lugar del nombre del país se muestran las palabras de cada región — en Ucrania y sus vecinos, Europa occidental, Estados Unidos y Canadá. Las palabras dialectales van en violeta; los puntos son palabras que los miembros añadieron donde se dicen.",
     "how3": "Haz clic en un país o una región para dejar en el panel solo los idiomas y dialectos que se hablan allí.",
     "how4": "El AFI entre corchetes es la pronunciación en el Alfabeto Fonético Internacional. El botón ▶ reproduce una grabación; TTS indica una voz sintética.",
     "how5": "La marca ≈ indica una palabra sin verificar: un borrador, una etiqueta de Wikidata o una traducción automática. Bajo esa palabra puedes responder «¿Se dice así?»: cuando suficientes personas dicen que sí, recibe la marca 👥 (confirmada por hablantes), y ⚠ indica una palabra discutida. La revisión final la hace un editor.",
-    "dialectsTitle": "Dialectos ucranianos",
-    "dialects": "Los dialectos siguen el esquema clásico: tres grupos dialectales (norte, suroeste, sureste) y 15 dialectos. Sus zonas se aproximan por regiones administrativas, lo cual es una simplificación: las fronteras reales de los dialectos no coinciden con las administrativas. Los dialectos lemko y del San también se muestran en Polonia y Eslovaquia.",
+    "dialectsTitle": "Dialectos",
+    "dialects": "Los dialectos ucranianos siguen el esquema clásico: tres grupos (norte, suroeste, sureste) y 15 dialectos; el lemko y el nadsiano también se muestran en Polonia y Eslovaquia. Para el inglés, alemán, español, francés, italiano, polaco y portugués el mapa muestra palabras regionales por zonas, y para el galés, bretón, siciliano y otras, las regiones donde se hablan. Las zonas dialectales se aproximan con regiones, lo que es una simplificación: las fronteras reales no coinciden con las administrativas.",
     "helpTitle": "Cómo ayudar",
-    "help": "¿Sabes cómo se dice esta palabra en tu pueblo o ciudad? Haz clic en «¿Sabes cómo se dice donde vives?» en el panel de la palabra, escríbela y, si quieres, grábala. Las aportaciones aparecen en el sitio tras la revisión de un editor.",
+    "help": "¿Sabes cómo se dice esta palabra en tu pueblo o ciudad, en cualquier lengua? Pulsa «¿Sabes cómo se dice donde vives?» en el panel de la palabra, escríbela, indica dónde y, si quieres, graba la pronunciación. La palabra aparece enseguida como un punto en el mapa, y entra en la lista de palabras cuando otras personas o un editor la confirman.",
     "feedback": "¿Has visto un error? Escríbenos a <link>dialectio.team@gmail.com</link>."
   },
   "Sources": {
@@ -243,12 +247,12 @@
     "gamePlay": "Jugar"
   },
   "Dialects": {
-    "title": "Dialectos del ucraniano",
-    "metaDescription": "Tres grupos dialectales y 15 dialectos del ucraniano: dónde se hablan y qué palabras usan, con mapa, traducción y pronunciación.",
-    "intro": "Los dialectos ucranianos se dividen en tres grupos. Elige un dialecto para ver su zona en el mapa y sus palabras con sus equivalentes en ucraniano estándar.",
+    "title": "Dialectos y lenguas regionales",
+    "metaDescription": "Dialectos del ucraniano, inglés, alemán, español, francés, italiano y otras lenguas, y las lenguas regionales de Europa: dónde se hablan y qué palabras usan, con mapa, traducción y pronunciación.",
+    "intro": "Cómo la misma cosa se llama de forma distinta en las regiones de una lengua. En alemán el panecillo es Brötchen, Schrippe, Semmel o Weckle; en italiano la sandía es anguria, cocomero o melone d'acqua, según la región. Elige un dialecto para ver su zona en el mapa y sus palabras junto a la lengua estándar.",
     "words": "{count, plural, one {# palabra} other {# palabras}}",
     "pageTitle": "{name}: palabras con traducción",
-    "pageDescription": "{name}: {examples} y más palabras con sus equivalentes en ucraniano estándar. Zona en el mapa, pronunciación.",
+    "pageDescription": "{name}: {examples} y más palabras junto a la lengua estándar. Su zona en el mapa, pronunciación.",
     "territory": "Zona",
     "territoryNote": "Las zonas se aproximan por regiones administrativas; las fronteras reales de los dialectos no coinciden con ellas.",
     "wordsTitle": "Palabras del dialecto",
@@ -267,8 +271,6 @@
     "shownOf": "Se muestran {shown} de {total} palabras; el resto está en las páginas de cada palabra.",
     "checkCtaLanguage": "¿Hablas esta lengua? Revisa sus palabras →",
     "regionalPageDescription": "{name}: {examples} y otras palabras con traducción. Dónde se habla, en el mapa.",
-    "otherDialectsTitle": "Variantes regionales de otras lenguas",
-    "otherDialectsIntro": "Cómo la misma cosa se llama de forma distinta en las regiones de una lengua. En alemán el panecillo es Brötchen, Schrippe, Semmel o Weckle; en italiano la sandía es anguria, cocomero o melone d'acqua, según la región.",
     "standardWordOther": "Lengua estándar"
   },
   "DialectInfo": {
@@ -331,7 +333,7 @@
     "title": "Revisa palabras",
     "metaDescription": "Ayuda a revisar cómo se habla en los dialectos ucranianos y en otros idiomas: una palabra, un clic.",
     "intro": "Muchas de nuestras palabras se recogieron automáticamente o son borradores. Ayúdanos a detectar errores: ¿de verdad se dice así?",
-    "deck": "Revisamos:",
+    "deck": "O cualquier otra lengua o dialecto:",
     "ukrainianDeck": "Ucraniano y sus dialectos",
     "loading": "Cargando…",
     "error": "No se pudieron cargar las palabras. Inténtalo de nuevo.",
@@ -353,7 +355,8 @@
     "shareTitle": "He revisado {count} palabras: {deck}",
     "regionalDecks": "Lenguas regionales",
     "shareKickerWorld": "Ayudo a mostrar cómo habla realmente el mundo",
-    "languageWithRegional": "{language} y palabras regionales"
+    "languageWithRegional": "{language} y palabras regionales",
+    "knowQuestion": "¿Qué lengua conoces?"
   },
   "NotFound": {
     "title": "Página no encontrada",
@@ -677,5 +680,9 @@
       "expert": "experto",
       "editor": "editor"
     }
+  },
+  "Points": {
+    "close": "Cerrar",
+    "people": "{count, plural, =0 {Añadida sin miembro} one {# miembro dice que aquí se dice así} other {# miembros dicen que aquí se dice así}}"
   }
 }

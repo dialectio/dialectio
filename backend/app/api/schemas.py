@@ -82,6 +82,9 @@ class LanguageForms(BaseModel):
     name_uk: str | None
     names: dict[str, str] = {}
     region_codes: list[str]
+    # Countries of its first-level regions (a dialect's oblasts → "UKR"), so a country
+    # filter shows its dialects and regional languages too
+    country_codes: list[str] = []
     forms: list[FormOut]
     # Word family (languages whose words look related, largest family 0), for colouring the
     # map by the word's origin; None if the word has no relative among the languages

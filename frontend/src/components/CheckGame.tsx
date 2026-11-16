@@ -231,6 +231,27 @@ export default function CheckGame({ decks }: { decks: Deck[] }) {
         <p className="text-sm opacity-80">{t("intro")}</p>
       </header>
 
+      <div className="space-y-2">
+        <p className="font-medium">{t("knowQuestion")}</p>
+        <div className="flex flex-wrap gap-1.5">
+          {languageDecks.map((d) => (
+            <button
+              key={d.code}
+              type="button"
+              aria-pressed={deck === d.code}
+              onClick={() => deck !== d.code && chooseDeck(d.code)}
+              className={`rounded-full border px-3 py-1 text-sm ${
+                deck === d.code
+                  ? "border-violet-600 bg-violet-600 text-white"
+                  : "border-black/15 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
+              }`}
+            >
+              {capitalize(localized(locale, d.name_en, d.name_uk, d.names))}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <div className="flex flex-wrap items-center gap-2 text-sm">
         <label htmlFor="check-deck" className="opacity-70">
           {t("deck")}

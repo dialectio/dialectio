@@ -22,6 +22,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session, selectinload
 
 from app.api.accounts import require_member
+from app.api.points import promote
 from app.api.word_actions import CONTRIBUTOR_SOURCE_NAME
 from app.config import MEDIA_DIR, MEDIA_URL_PREFIX
 from app.db.session import get_session
@@ -143,6 +144,7 @@ async def contribute(
         # Already known (or sent twice): nothing to review, but no error for the visitor;
         # where they say it still counts.
         add_place(session, duplicate, member, settlement, where)
+        promote(session, duplicate)
         session.commit()
         return {"status": "exists"}
 

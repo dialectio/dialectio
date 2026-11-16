@@ -266,11 +266,14 @@ export default function ConceptPanel({
   concept,
   region,
   onClearRegion,
+  pointCount = 0,
   tools,
 }: {
   concept: ConceptDetail;
   region: SelectedRegion | null;
   onClearRegion: () => void;
+  /** Members' words on the map as points */
+  pointCount?: number;
   /** Extra controls under the heading (colour by origin, save as image) */
   tools?: ReactNode;
 }) {
@@ -290,11 +293,13 @@ export default function ConceptPanel({
     .flatMap((f) => f.audio)
     .filter((a) => !a.is_synthetic).length;
 
-  // A region shows its own varieties (dialects, regional languages) and its country's languages.
+  // A region shows its own varieties (dialects, regional languages) and its country's
+  // languages; a country also shows the varieties of its regions.
   const languages = region
     ? concept.languages.filter(
         (lang) =>
           lang.region_codes.includes(region.code) ||
+          lang.country_codes?.includes(region.code) ||
           (region.parentCode !== null &&
             lang.region_codes.includes(region.parentCode)),
       )
@@ -339,6 +344,14 @@ export default function ConceptPanel({
               🎙 {t("liveCount", { count: liveRecordings })}
             </span>
           )}
+          {pointCount > 0 && (
+            <span
+              className="text-amber-700 dark:text-amber-300"
+              title={t("pointsNote")}
+            >
+              📍 {t("pointCount", { count: pointCount })}
+            </span>
+          )}
           {dialects > 0 && (
             <button
               type="button"
@@ -358,15 +371,24 @@ export default function ConceptPanel({
         {tools}
       </div>
       <div className="px-4">
-        {!region && <WordIntro concept={concept} />}
-        <ul>
-          {languages.length === 0 && (
-            <li className="py-3 text-sm opacity-60">{t("noWords")}</li>
-          )}
-          {languages.map((language) => (
-            <LanguageCard key={language.variety_id} language={language} />
-          ))}
-        </ul>
+        {region ? (
+          <ul>
+            {languages.length === 0 && (
+              <li className="py-3 text-sm opacity-60">{t("noWords")}</li>
+            )}
+            {languages.map((language) => (
+              <LanguageCard key={language.variety_id} language={language} />
+            ))}
+          </ul>
+        ) : (
+          <>
+            {/* The words in prose for search engines; visitors pick a place on the map */}
+            <div className="sr-only">
+              <WordIntro concept={concept} />
+            </div>
+            <p className="pt-2 text-sm opacity-70">{t("pickRegion")}</p>
+          </>
+        )}
         <button
           type="button"
           onClick={() => setContributing(true)}

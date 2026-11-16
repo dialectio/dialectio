@@ -1,9 +1,9 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 
-import { INFO_PAGES } from "@/lib/pages";
+import { menuPages } from "@/lib/pages";
 import { Link, usePathname } from "@/i18n/navigation";
 
 /** ☰ menu with the project pages; by default only on screens too narrow for header links. */
@@ -13,6 +13,7 @@ export default function MobileMenu({
   className?: string;
 }) {
   const t = useTranslations("Nav");
+  const locale = useLocale();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -42,7 +43,7 @@ export default function MobileMenu({
       </button>
       {open && (
         <nav className="absolute right-0 z-20 mt-2 w-56 rounded-lg border border-black/10 bg-white p-2 shadow-lg dark:border-white/15 dark:bg-neutral-900">
-          {INFO_PAGES.map((page) => (
+          {menuPages(locale).map((page) => (
             <Link
               key={page}
               href={`/${page}`}

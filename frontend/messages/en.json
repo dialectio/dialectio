@@ -32,7 +32,10 @@
     "dialectCount": "{count, plural, one {# dialect} other {# dialects}}",
     "liveCount": "{count, plural, one {# real recording} other {# real recordings}}",
     "liveRecording": "recorded by a speaker",
-    "areasNote": "Dialect areas are approximate: a region shows the word most often given for it, while real word borders do not follow administrative ones."
+    "areasNote": "Dialect areas are approximate: a region shows the word most often given for it, while real word borders do not follow administrative ones.",
+    "pointCount": "{count, plural, one {# place from members} other {# places from members}}",
+    "pointsNote": "Points on the map are words members added where they are said. Weakly confirmed ones show only up close; the more people confirm them, the further out they show.",
+    "pickRegion": "👆 Click a country or region on the map to see the words said there."
   },
   "Editor": {
     "title": "Word editor: {variety}",
@@ -130,7 +133,7 @@
     "consent": "I give Dialectio permanent permission to use and publish this word and recording (including commercially). The word appears on the site after review.",
     "send": "Send",
     "sending": "Sending…",
-    "thanks": "Thank you! The word will appear on the map after an editor reviews it.",
+    "thanks": "Thank you! The word will appear in the list once other people confirm it or an editor reviews it.",
     "error": "Could not send. Please try again.",
     "tooMany": "Too many submissions. Please try later.",
     "signInFirst": "Members add words: that way we know who sent a word, and it carries your name.",
@@ -152,7 +155,8 @@
     "dontKnowDialect": "{language}, not sure of the dialect",
     "otherVariety": "another language…",
     "severalDialects": "Several dialects are spoken here. Pick yours, or \"not sure\": the editors will decide.",
-    "varietyFromPlace": "Found from the place."
+    "varietyFromPlace": "Found from the place.",
+    "thanksPoint": "Thank you! The word is already on the map as a point where you said (zoom in to see it). The more people confirm it, the further out it shows; it joins the word list once the community or an editor confirms it."
   },
   "VarietySelect": {
     "search": "Search languages and dialects…",
@@ -174,19 +178,19 @@
   },
   "About": {
     "title": "About",
-    "metaDescription": "Dialectio is a map of how words sound in the world's languages and in Ukrainian dialects. How to read the map and where the data comes from.",
-    "intro": "Dialectio shows on a map how the same concept is written, pronounced and sounds in the world's languages and in the dialects of Ukrainian. It is a popular-science project: it aims to spark curiosity, not to replace a dictionary.",
+    "metaDescription": "Dialectio is a map of how words sound in the world's languages, their dialects and regional languages. How to read the map and where the data comes from.",
+    "intro": "Dialectio shows on a map how the same concept is written, pronounced and sounds in the world's languages, their dialects and regional languages. It is a popular-science project: it aims to spark curiosity, not to replace a dictionary.",
     "numbers": "On the map now: {concepts} concepts, {languages} languages, {dialects} dialects, {words} words and {recordings} recordings by real speakers.",
     "howTitle": "How to read the map",
     "how1": "Type a word in any language and pick a suggestion: countries that have a translation light up and the words appear on the map.",
-    "how2": "Zoom in on Ukraine or its neighbours: from a certain zoom level, words are shown per region instead of per country. Dialect words are purple.",
+    "how2": "Zoom in: from a certain zoom level, words are shown per region instead of per country — in Ukraine and its neighbours, Western Europe, the United States and Canada. Dialect words are purple; dots are words members added where they are said.",
     "how3": "Click a country or region to keep only the languages and dialects spoken there in the panel.",
     "how4": "IPA in square brackets is the pronunciation in the International Phonetic Alphabet. The ▶ button plays a recording; TTS marks a synthetic voice.",
     "how5": "The ≈ mark means an unverified word: a draft, a Wikidata concept label or a machine translation. Under such a word you can answer “Do people say it like this?”: once enough people say yes, it gets the 👥 mark (confirmed by speakers), while ⚠ marks a disputed word. An editor makes the final check.",
-    "dialectsTitle": "Ukrainian dialects",
-    "dialects": "Dialects follow the classic scheme: three dialect groups (Northern, South-Western, South-Eastern) and 15 dialects. Dialect areas are approximated by regions, which is a simplification: real dialect borders do not follow administrative ones. Lemko and Nadsian are also shown in Poland and Slovakia.",
+    "dialectsTitle": "Dialects",
+    "dialects": "Ukrainian dialects follow the classic scheme: three dialect groups (Northern, South-Western, South-Eastern) and 15 dialects; Lemko and Nadsian are also shown in Poland and Slovakia. For English, German, Spanish, French, Italian, Polish and Portuguese the map shows regional words by area, and for Welsh, Breton, Sicilian and others the regions where they are spoken. Dialect areas are approximated by regions, which is a simplification: real dialect borders do not follow administrative ones.",
     "helpTitle": "How to help",
-    "help": "Do you know how this word is said in your village or town? Click “Know how it’s said where you live?” in the word panel, type the word and, if you like, record it. Contributions appear on the site after an editor reviews them.",
+    "help": "Do you know how this word is said in your village or town, in any language? Click “Know how it’s said where you live?” in the word panel, type the word, say where and, if you like, record it. The word shows on the map as a dot right away, and joins the word list once other people or an editor confirm it.",
     "feedback": "Spotted a mistake? Write to us at <link>dialectio.team@gmail.com</link>."
   },
   "Sources": {
@@ -243,12 +247,12 @@
     "gamePlay": "Play"
   },
   "Dialects": {
-    "title": "Dialects of Ukrainian",
-    "metaDescription": "Three dialect groups and 15 dialects of Ukrainian: where they are spoken and which words they use, with a map, translations and pronunciation.",
-    "intro": "Ukrainian dialects fall into three groups. Pick a dialect to see its area on the map and its words with standard Ukrainian equivalents.",
+    "title": "Dialects and regional languages",
+    "metaDescription": "Dialects of Ukrainian, English, German, Spanish, French, Italian and other languages, and the regional languages of Europe: where they are spoken and which words they use, with a map, translations and pronunciation.",
+    "intro": "How the same thing is called differently across one language's regions. In German a bread roll is Brötchen, Schrippe, Semmel or Weckle; in Italian a watermelon is anguria, cocomero or melone d'acqua, depending on the region. Pick a dialect to see its area on the map and its words next to the standard language.",
     "words": "{count, plural, one {# word} other {# words}}",
     "pageTitle": "{name}: words with translations",
-    "pageDescription": "{name}: {examples} and more words with standard Ukrainian equivalents. Its area on the map, pronunciation.",
+    "pageDescription": "{name}: {examples} and more words next to the standard language. Its area on the map, pronunciation.",
     "territory": "Area",
     "territoryNote": "Areas are approximated by regions; real dialect borders do not follow administrative ones.",
     "wordsTitle": "Words",
@@ -267,8 +271,6 @@
     "shownOf": "Showing {shown} of {total} words; the rest are on the word pages.",
     "checkCtaLanguage": "Speak this language? Check its words →",
     "regionalPageDescription": "{name}: {examples} and other words with translations. Where it is spoken, on the map.",
-    "otherDialectsTitle": "Regional variants of other languages",
-    "otherDialectsIntro": "How the same thing is called differently across one language's regions. In German a bread roll is Brötchen, Schrippe, Semmel or Weckle; in Italian a watermelon is anguria, cocomero or melone d'acqua, depending on the region.",
     "standardWordOther": "Standard"
   },
   "DialectInfo": {
@@ -331,7 +333,7 @@
     "title": "Check words",
     "metaDescription": "Help check how people speak in Ukrainian dialects and other languages: one word, one click.",
     "intro": "Many of our words were collected automatically or are drafts. Help us weed out mistakes: do people really say it like this?",
-    "deck": "Checking:",
+    "deck": "Or any other language or dialect:",
     "ukrainianDeck": "Ukrainian and its dialects",
     "loading": "Loading…",
     "error": "Could not load words. Please try again.",
@@ -353,7 +355,8 @@
     "shareTitle": "I checked {count} words: {deck}",
     "regionalDecks": "Regional languages",
     "shareKickerWorld": "Helping to show how the world really speaks",
-    "languageWithRegional": "{language} and regional words"
+    "languageWithRegional": "{language} and regional words",
+    "knowQuestion": "Which language do you know?"
   },
   "NotFound": {
     "title": "Page not found",
@@ -677,5 +680,9 @@
       "expert": "expert",
       "editor": "editor"
     }
+  },
+  "Points": {
+    "close": "Close",
+    "people": "{count, plural, =0 {Added without a member} one {# member says it is said here} other {# members say it is said here}}"
   }
 }

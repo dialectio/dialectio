@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 
 import LocaleSwitcher from "@/components/LocaleSwitcher";
@@ -6,7 +6,7 @@ import { AccountButton } from "@/components/Account";
 import Logo from "@/components/Logo";
 import MobileMenu from "@/components/MobileMenu";
 import { Link } from "@/i18n/navigation";
-import { INFO_PAGES } from "@/lib/pages";
+import { INFO_PAGES, menuPages } from "@/lib/pages";
 
 /** Where visitors write: mistakes, deleting their contributions, questions. */
 export const CONTACT_EMAIL = "dialectio.team@gmail.com";
@@ -23,9 +23,10 @@ export function InfoNav({
   pages?: readonly (typeof INFO_PAGES)[number][];
 }) {
   const t = useTranslations("Nav");
+  const locale = useLocale();
   return (
     <nav className={`flex flex-wrap gap-x-4 gap-y-1 text-sm ${className}`}>
-      {pages.map((page) => (
+      {menuPages(locale, pages).map((page) => (
         <Link
           key={page}
           href={`/${page}`}

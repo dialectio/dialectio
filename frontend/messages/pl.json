@@ -32,7 +32,10 @@
     "dialectCount": "{count, plural, one {# gwara} few {# gwary} many {# gwar} other {# gwary}}",
     "liveCount": "{count, plural, one {# nagranie na żywo} few {# nagrania na żywo} many {# nagrań na żywo} other {# nagrania na żywo}}",
     "liveRecording": "nagranie użytkownika języka",
-    "areasNote": "Obszary gwar są przybliżone: dla regionu podano najczęstsze słowo, a prawdziwe granice słów nie pokrywają się z administracyjnymi."
+    "areasNote": "Obszary gwar są przybliżone: dla regionu podano najczęstsze słowo, a prawdziwe granice słów nie pokrywają się z administracyjnymi.",
+    "pointCount": "{count, plural, one {# miejsce od użytkowników} few {# miejsca od użytkowników} many {# miejsc od użytkowników} other {# miejsca od użytkowników}}",
+    "pointsNote": "Punkty na mapie to słowa dodane przez użytkowników tam, gdzie się je mówi. Słabo potwierdzone widać tylko z bliska; im więcej osób je potwierdzi, tym z dalsza są widoczne.",
+    "pickRegion": "👆 Kliknij kraj lub region na mapie, aby zobaczyć tamtejsze słowa."
   },
   "Editor": {
     "title": "Word editor: {variety}",
@@ -130,7 +133,7 @@
     "consent": "Udzielam Dialectio bezterminowej zgody na wykorzystanie i publikację tego słowa i nagrania (także w celach zarobkowych). Słowo pojawi się na stronie po sprawdzeniu.",
     "send": "Wyślij",
     "sending": "Wysyłanie…",
-    "thanks": "Dziękujemy! Słowo pojawi się na mapie po sprawdzeniu przez redaktora.",
+    "thanks": "Dziękujemy! Słowo pojawi się na liście, gdy potwierdzą je inni lub sprawdzi redaktor.",
     "error": "Nie udało się wysłać. Spróbuj ponownie.",
     "tooMany": "Za dużo zgłoszeń. Spróbuj później.",
     "signInFirst": "Słowa dodają uczestnicy: wiemy, kto je przesłał, i podpisujemy je Twoim imieniem.",
@@ -152,7 +155,8 @@
     "dontKnowDialect": "{language}, nie wiem, jaka gwara",
     "otherVariety": "inny język…",
     "severalDialects": "Tu mówi się kilkoma gwarami. Wybierz swoją albo „nie wiem”: zdecydują redaktorzy.",
-    "varietyFromPlace": "Ustalono na podstawie miejsca."
+    "varietyFromPlace": "Ustalono na podstawie miejsca.",
+    "thanksPoint": "Dziękujemy! Słowo jest już na mapie jako punkt we wskazanym miejscu (przybliż mapę, aby je zobaczyć). Im więcej osób je potwierdzi, tym z dalsza jest widoczne; na listę słów trafi po potwierdzeniu przez społeczność lub redaktora."
   },
   "VarietySelect": {
     "search": "Szukaj języka lub gwary…",
@@ -174,19 +178,19 @@
   },
   "About": {
     "title": "O projekcie",
-    "metaDescription": "Dialectio to mapa tego, jak brzmią słowa w językach świata i gwarach ukraińskich. Jak czytać mapę i skąd pochodzą dane.",
-    "intro": "Dialectio pokazuje na mapie, jak to samo pojęcie jest zapisywane, wymawiane i jak brzmi w językach świata oraz w gwarach języka ukraińskiego. To projekt popularnonaukowy: ma zaciekawić, a nie zastąpić słownik.",
+    "metaDescription": "Dialectio to mapa tego, jak brzmią słowa w językach świata, ich gwarach i językach regionalnych. Jak czytać mapę i skąd pochodzą dane.",
+    "intro": "Dialectio pokazuje na mapie, jak to samo pojęcie się pisze, wymawia i brzmi w językach świata, ich gwarach i językach regionalnych. To projekt popularnonaukowy: ma zaciekawić, a nie zastąpić słownik.",
     "numbers": "Teraz na mapie — pojęcia: {concepts}, języki: {languages}, gwary: {dialects}, słowa: {words}, nagrania żywych głosów: {recordings}.",
     "howTitle": "Jak czytać mapę",
     "how1": "Wpisz słowo w dowolnym języku i wybierz podpowiedź: kraje, w których jest tłumaczenie, zostaną podświetlone, a na mapie pojawią się podpisy ze słowami.",
-    "how2": "Przybliż mapę do Ukrainy lub sąsiednich krajów: od pewnego powiększenia zamiast kraju pokazywane są słowa dla regionów. Słowa gwarowe są fioletowe.",
+    "how2": "Przybliż mapę: od pewnej skali zamiast nazwy kraju widać słowa dla regionów — na Ukrainie i w krajach sąsiednich, w Europie Zachodniej, USA i Kanadzie. Na fioletowo zaznaczono słowa gwarowe, a kropkami — słowa dodane przez użytkowników tam, gdzie się je mówi.",
     "how3": "Kliknij kraj lub region, aby w panelu zostały tylko języki i gwary, którymi się tam mówi.",
     "how4": "IPA w nawiasach kwadratowych to wymowa w Międzynarodowym Alfabecie Fonetycznym. Przycisk ▶ odtwarza nagranie; oznaczenie TTS to głos syntetyczny.",
     "how5": "Znak ≈ oznacza słowo niezweryfikowane: szkic, nazwę pojęcia z Wikidata albo tłumaczenie automatyczne. Pod takim słowem można odpowiedzieć „Tak się mówi?” — gdy wystarczająco wiele osób odpowie „tak”, pojawi się znak 👥 (potwierdzone przez użytkowników języka), a ⚠ oznacza słowo sporne. Ostatecznie sprawdza je redaktor.",
-    "dialectsTitle": "Gwary ukraińskie",
-    "dialects": "Gwary są pogrupowane według klasycznego schematu: trzy grupy dialektalne (północna, południowo-zachodnia, południowo-wschodnia) i 15 gwar. Obszary gwar są przybliżone granicami obwodów i regionów, co jest uproszczeniem: prawdziwe granice gwar nie pokrywają się z administracyjnymi. Gwary łemkowska i nadsańska są pokazane także w Polsce i na Słowacji.",
+    "dialectsTitle": "Gwary",
+    "dialects": "Gwary ukraińskie pogrupowano według klasycznego schematu: trzy grupy (północna, południowo-zachodnia, południowo-wschodnia) i 15 gwar; łemkowską i nadsańską pokazano też w Polsce i na Słowacji. Dla angielskiego, niemieckiego, hiszpańskiego, francuskiego, włoskiego, polskiego i portugalskiego mapa pokazuje słowa regionalne według obszarów, a dla walijskiego, bretońskiego, sycylijskiego i innych — regiony, w których się nimi mówi. Granice gwar przybliżono granicami regionów, to uproszczenie: prawdziwe granice nie pokrywają się z administracyjnymi.",
     "helpTitle": "Jak pomóc",
-    "help": "Wiesz, jak to słowo mówi się w twojej wsi lub mieście? Kliknij „Wiesz, jak to się mówi u was?” w panelu słowa, wpisz słowo i, jeśli chcesz, nagraj wymowę. Zgłoszenia pojawiają się na stronie po sprawdzeniu przez redaktora.",
+    "help": "Wiesz, jak mówi się to słowo w twojej wsi lub mieście, w dowolnym języku? Kliknij „Wiesz, jak to się mówi u was?” w panelu słowa, wpisz słowo, wskaż miejsce i, jeśli chcesz, nagraj wymowę. Słowo od razu pojawi się na mapie jako kropka, a na liście słów — gdy potwierdzą je inni lub redaktor.",
     "feedback": "Zauważyłeś błąd? Napisz do nas: <link>dialectio.team@gmail.com</link>."
   },
   "Sources": {
@@ -243,12 +247,12 @@
     "gamePlay": "Graj"
   },
   "Dialects": {
-    "title": "Gwary języka ukraińskiego",
-    "metaDescription": "Trzy grupy dialektalne i 15 gwar języka ukraińskiego: gdzie się nimi mówi i jakich słów używają — z mapą, tłumaczeniem i wymową.",
-    "intro": "Gwary ukraińskie dzielą się na trzy grupy. Wybierz gwarę, aby zobaczyć jej obszar na mapie i słowa z odpowiednikami w ukraińskim języku literackim.",
+    "title": "Gwary i języki regionalne",
+    "metaDescription": "Gwary ukraińskie, angielskie, niemieckie, hiszpańskie, francuskie, włoskie i inne oraz języki regionalne Europy: gdzie się nimi mówi i jakich słów używają — z mapą, tłumaczeniem i wymową.",
+    "intro": "Jak tę samą rzecz nazywa się różnie w regionach jednego języka. Po niemiecku bułka to Brötchen, Schrippe, Semmel albo Weckle, a po włosku arbuz to anguria, cocomero albo melone d'acqua — zależnie od regionu. Wybierz gwarę, aby zobaczyć jej obszar na mapie i słowa z odpowiednikami w języku literackim.",
     "words": "{count, plural, one {# słowo} few {# słowa} many {# słów} other {# słowa}}",
     "pageTitle": "{name}: słowa z tłumaczeniem",
-    "pageDescription": "{name}: {examples} i inne słowa z odpowiednikami w ukraińskim języku literackim. Obszar na mapie, wymowa.",
+    "pageDescription": "{name}: {examples} i inne słowa z odpowiednikami w języku literackim. Obszar na mapie, wymowa.",
     "territory": "Obszar",
     "territoryNote": "Obszary są przybliżone granicami obwodów i regionów; prawdziwe granice gwar nie pokrywają się z administracyjnymi.",
     "wordsTitle": "Słowa gwary",
@@ -267,8 +271,6 @@
     "shownOf": "Pokazano {shown} z {total} słów; pozostałe są na stronach słów.",
     "checkCtaLanguage": "Znasz ten język? Sprawdź jego słowa →",
     "regionalPageDescription": "{name}: {examples} i inne słowa z tłumaczeniem. Gdzie się nim mówi — na mapie.",
-    "otherDialectsTitle": "Regionalne odmiany innych języków",
-    "otherDialectsIntro": "Jak tę samą rzecz nazywa się różnie w regionach jednego języka. Po niemiecku bułka to Brötchen, Schrippe, Semmel albo Weckle, a po włosku arbuz to anguria, cocomero albo melone d'acqua — zależnie od regionu.",
     "standardWordOther": "W języku ogólnym"
   },
   "DialectInfo": {
@@ -331,7 +333,7 @@
     "title": "Sprawdź słowa",
     "metaDescription": "Pomóż sprawdzić, jak mówi się w gwarach ukraińskich i innych językach: jedno słowo — jedno kliknięcie.",
     "intro": "Wiele naszych słów zebrano automatycznie lub to szkice. Pomóż wyłapać błędy: czy naprawdę tak się mówi?",
-    "deck": "Co sprawdzamy:",
+    "deck": "Albo dowolny inny język lub gwara:",
     "ukrainianDeck": "Ukraiński i gwary",
     "loading": "Wczytywanie…",
     "error": "Nie udało się wczytać słów. Spróbuj ponownie.",
@@ -353,7 +355,8 @@
     "shareTitle": "Sprawdziłem/am {count} słów: {deck}",
     "regionalDecks": "Języki regionalne",
     "shareKickerWorld": "Pomagam pokazać, jak naprawdę mówi świat",
-    "languageWithRegional": "{language} i słowa regionalne"
+    "languageWithRegional": "{language} i słowa regionalne",
+    "knowQuestion": "Jaki język znasz?"
   },
   "NotFound": {
     "title": "Nie znaleziono strony",
@@ -677,5 +680,9 @@
       "expert": "ekspert",
       "editor": "redaktor"
     }
+  },
+  "Points": {
+    "close": "Zamknij",
+    "people": "{count, plural, =0 {Dodane bez użytkownika} one {# użytkownik mówi, że tak się tu mówi} few {# użytkowników mówi, że tak się tu mówi} many {# użytkowników mówi, że tak się tu mówi} other {# użytkownika mówi, że tak się tu mówi}}"
   }
 }

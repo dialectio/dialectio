@@ -23,12 +23,12 @@ from app.api.trust import covers, expert_scope
 from app.api.votes import Tally, tallies
 from app.db.session import get_session
 from app.models import (
+    APPROVED,
     EDITOR,
     HIDDEN,
     HIDE_AFTER,
     MAX_COMMENT,
-    PENDING,
-    PUBLIC_STATUSES,
+    ON_MAP_STATUSES,
     VISIBLE,
     Comment,
     CommentReport,
@@ -171,7 +171,7 @@ def card_of(session: Session, form: Form) -> Card:
         source_url=source.url if source else None,
         license=source.license if source else None,
         contributor=form.contributor,
-        unverified=form.status == PENDING
+        unverified=form.status != APPROVED
         or (source is not None and source.name in UNVERIFIED_SOURCES),
         votes_yes=tally.yes,
         votes_no=tally.no,
@@ -474,7 +474,7 @@ def editor_comments(session: SessionDep) -> list[EditorComment]:
             ],
         )
         for comment, name, form in rows
-        if form.status in PUBLIC_STATUSES
+        if form.status in ON_MAP_STATUSES
     ]
 
 

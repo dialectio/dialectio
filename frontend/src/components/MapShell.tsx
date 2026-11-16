@@ -17,6 +17,7 @@ import LocaleSwitcher from "@/components/LocaleSwitcher";
 import { AccountButton } from "@/components/Account";
 import Logo from "@/components/Logo";
 import MobileMenu from "@/components/MobileMenu";
+import PointCard from "@/components/PointCard";
 import { QuizProvider } from "@/components/QuizGate";
 import SearchBox from "@/components/SearchBox";
 import WorldMap, {
@@ -25,6 +26,7 @@ import WorldMap, {
 } from "@/components/WorldMap";
 import { Link, useRouter } from "@/i18n/navigation";
 import type { ConceptDetail, LabelProps, SearchHit } from "@/lib/api";
+import type { PointProps, WordPoints } from "@/lib/points";
 
 export type MapLabels = FeatureCollection<Point, LabelProps>;
 
@@ -40,6 +42,8 @@ export type MapView = {
   panelFirstOnPhone?: boolean;
   /** Fill colours by country/region code instead of the plain highlight */
   colors?: Record<string, string> | null;
+  /** Members' words where they say them */
+  points?: WordPoints | null;
 };
 
 /** Ukraine and the neighbouring areas where Ukrainian dialects are spoken. */
@@ -79,6 +83,7 @@ export function useMapView(view: MapView) {
     bounds = null,
     panelFirstOnPhone = false,
     colors = null,
+    points = null,
   } = view;
   const onSelectRef = useRef(onSelectRegion);
   useEffect(() => {
@@ -92,6 +97,7 @@ export function useMapView(view: MapView) {
       bounds,
       panelFirstOnPhone,
       colors,
+      points,
       onSelectRegion: (r) => onSelectRef.current(r),
     });
   }, [
@@ -102,6 +108,7 @@ export function useMapView(view: MapView) {
     bounds,
     panelFirstOnPhone,
     colors,
+    points,
   ]);
   useEffect(() => () => setView(EMPTY_VIEW), [setView]);
 }
@@ -113,6 +120,7 @@ export function useConceptOnMap(
   onSelectRegion: (region: SelectedRegion) => void,
   colors: Record<string, string> | null = null,
   bounds: number[] | null = null,
+  points: WordPoints | null = null,
 ) {
   const highlightCodes = useMemo(
     () =>
@@ -128,6 +136,7 @@ export function useConceptOnMap(
     onSelectRegion,
     colors,
     bounds,
+    points,
   });
 }
 
@@ -139,6 +148,13 @@ export function useConceptOnMap(
 export default function MapShell({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [view, setView] = useState<MapView>(EMPTY_VIEW);
+  const [point, setPoint] = useState<PointProps | null>(null);
+  // Another word's points: close the open one
+  const [shownPoints, setShownPoints] = useState(view.points);
+  if (shownPoints !== view.points) {
+    setShownPoints(view.points);
+    setPoint(null);
+  }
   const panelRef = useRef<HTMLDivElement>(null);
   const snapshotRef = useRef<SnapshotFn | null>(null);
 
@@ -180,9 +196,18 @@ export default function MapShell({ children }: { children: ReactNode }) {
                   selectedCode={view.selectedCode}
                   bounds={view.bounds ?? null}
                   colors={view.colors ?? null}
+                  points={view.points ?? null}
+                  onSelectPoint={setPoint}
                   snapshotRef={snapshotRef}
                   onSelectRegion={selectRegion}
                 />
+                {point && (
+                  <PointCard
+                    key={point.form_id + point.place}
+                    point={point}
+                    onClose={() => setPoint(null)}
+                  />
+                )}
               </section>
               <div
                 ref={panelRef}
