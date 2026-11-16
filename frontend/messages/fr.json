@@ -247,9 +247,9 @@
     "gamePlay": "Jouer"
   },
   "Dialects": {
-    "title": "Dialectes de l'ukrainien",
-    "metaDescription": "Trois groupes dialectaux et 15 dialectes de l'ukrainien : où on les parle et quels mots ils emploient, avec carte, traduction et prononciation.",
-    "intro": "Les dialectes ukrainiens forment trois groupes. Choisissez un dialecte pour voir son aire sur la carte et ses mots avec leurs équivalents en ukrainien standard.",
+    "title": "Dialectes et langues régionales",
+    "metaDescription": "Dialectes de l'ukrainien, de l'anglais, de l'allemand, de l'espagnol, du français, de l'italien et d'autres langues, et langues régionales d'Europe : où on les parle et quels mots ils emploient, avec carte, traduction et prononciation.",
+    "intro": "Comment la même chose se dit différemment selon les régions d'une langue. En allemand, le petit pain est Brötchen, Schrippe, Semmel ou Weckle ; en italien, la pastèque est anguria, cocomero ou melone d'acqua, selon la région. Choisissez un dialecte pour voir son aire sur la carte et ses mots à côté de la langue standard.",
     "words": "{count, plural, one {# mot} other {# mots}}",
     "pageTitle": "{name} : mots avec traduction",
     "pageDescription": "{name} : {examples} et d'autres mots avec leurs équivalents en ukrainien standard. Aire sur la carte, prononciation.",
@@ -271,8 +271,6 @@
     "shownOf": "{shown} mots sur {total} ; les autres sont sur les pages des mots.",
     "checkCtaLanguage": "Vous parlez cette langue ? Vérifiez ses mots →",
     "regionalPageDescription": "{name} : {examples} et d'autres mots avec leur traduction. Où on la parle, sur la carte.",
-    "otherDialectsTitle": "Variantes régionales d'autres langues",
-    "otherDialectsIntro": "Comment la même chose se dit différemment selon les régions d'une langue. En allemand, le petit pain est Brötchen, Schrippe, Semmel ou Weckle ; en italien, la pastèque est anguria, cocomero ou melone d'acqua, selon la région.",
     "standardWordOther": "Langue standard"
   },
   "DialectInfo": {
@@ -335,7 +333,7 @@
     "title": "Vérifier des mots",
     "metaDescription": "Aidez à vérifier comment on parle dans les dialectes ukrainiens et d'autres langues : un mot, un clic.",
     "intro": "Beaucoup de nos mots ont été collectés automatiquement ou sont des brouillons. Aidez-nous à repérer les erreurs : dit-on vraiment ainsi ?",
-    "deck": "On vérifie :",
+    "deck": "Ou une autre langue ou un dialecte :",
     "ukrainianDeck": "L'ukrainien et ses dialectes",
     "loading": "Chargement…",
     "error": "Impossible de charger les mots. Veuillez réessayer.",
@@ -357,7 +355,8 @@
     "shareTitle": "J'ai vérifié {count} mots : {deck}",
     "regionalDecks": "Langues régionales",
     "shareKickerWorld": "J'aide à montrer comment le monde parle vraiment",
-    "languageWithRegional": "{language} et mots régionaux"
+    "languageWithRegional": "{language} et mots régionaux",
+    "knowQuestion": "Quelle langue connaissez-vous ?"
   },
   "NotFound": {
     "title": "Page introuvable",

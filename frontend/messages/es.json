@@ -247,9 +247,9 @@
     "gamePlay": "Jugar"
   },
   "Dialects": {
-    "title": "Dialectos del ucraniano",
-    "metaDescription": "Tres grupos dialectales y 15 dialectos del ucraniano: dónde se hablan y qué palabras usan, con mapa, traducción y pronunciación.",
-    "intro": "Los dialectos ucranianos se dividen en tres grupos. Elige un dialecto para ver su zona en el mapa y sus palabras con sus equivalentes en ucraniano estándar.",
+    "title": "Dialectos y lenguas regionales",
+    "metaDescription": "Dialectos del ucraniano, inglés, alemán, español, francés, italiano y otras lenguas, y las lenguas regionales de Europa: dónde se hablan y qué palabras usan, con mapa, traducción y pronunciación.",
+    "intro": "Cómo la misma cosa se llama de forma distinta en las regiones de una lengua. En alemán el panecillo es Brötchen, Schrippe, Semmel o Weckle; en italiano la sandía es anguria, cocomero o melone d'acqua, según la región. Elige un dialecto para ver su zona en el mapa y sus palabras junto a la lengua estándar.",
     "words": "{count, plural, one {# palabra} other {# palabras}}",
     "pageTitle": "{name}: palabras con traducción",
     "pageDescription": "{name}: {examples} y más palabras con sus equivalentes en ucraniano estándar. Zona en el mapa, pronunciación.",
@@ -271,8 +271,6 @@
     "shownOf": "Se muestran {shown} de {total} palabras; el resto está en las páginas de cada palabra.",
     "checkCtaLanguage": "¿Hablas esta lengua? Revisa sus palabras →",
     "regionalPageDescription": "{name}: {examples} y otras palabras con traducción. Dónde se habla, en el mapa.",
-    "otherDialectsTitle": "Variantes regionales de otras lenguas",
-    "otherDialectsIntro": "Cómo la misma cosa se llama de forma distinta en las regiones de una lengua. En alemán el panecillo es Brötchen, Schrippe, Semmel o Weckle; en italiano la sandía es anguria, cocomero o melone d'acqua, según la región.",
     "standardWordOther": "Lengua estándar"
   },
   "DialectInfo": {
@@ -335,7 +333,7 @@
     "title": "Revisa palabras",
     "metaDescription": "Ayuda a revisar cómo se habla en los dialectos ucranianos y en otros idiomas: una palabra, un clic.",
     "intro": "Muchas de nuestras palabras se recogieron automáticamente o son borradores. Ayúdanos a detectar errores: ¿de verdad se dice así?",
-    "deck": "Revisamos:",
+    "deck": "O cualquier otra lengua o dialecto:",
     "ukrainianDeck": "Ucraniano y sus dialectos",
     "loading": "Cargando…",
     "error": "No se pudieron cargar las palabras. Inténtalo de nuevo.",
@@ -357,7 +355,8 @@
     "shareTitle": "He revisado {count} palabras: {deck}",
     "regionalDecks": "Lenguas regionales",
     "shareKickerWorld": "Ayudo a mostrar cómo habla realmente el mundo",
-    "languageWithRegional": "{language} y palabras regionales"
+    "languageWithRegional": "{language} y palabras regionales",
+    "knowQuestion": "¿Qué lengua conoces?"
   },
   "NotFound": {
     "title": "Página no encontrada",

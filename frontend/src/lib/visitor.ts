@@ -27,6 +27,11 @@ export const DIALECT_BOUNDS: Record<string, number[]> = {
   por: [-74, -34, -6, 43], // Portugal and Brazil
 };
 
+/** The interface language's own language (ISO 639-3), listed first among dialect languages. */
+export function ownLanguage(locale: string): string {
+  return { uk: "ukr", en: "eng", pl: "pol", de: "deu", es: "spa", fr: "fra" }[locale] ?? "ukr";
+}
+
 /** The dialect language of the interface language, Ukrainian by default. */
 export function dialectLanguage(locale: string): string {
   return LOCALE_DIALECTS[locale] ?? "ukr";

@@ -247,9 +247,9 @@
     "gamePlay": "Play"
   },
   "Dialects": {
-    "title": "Dialects of Ukrainian",
-    "metaDescription": "Three dialect groups and 15 dialects of Ukrainian: where they are spoken and which words they use, with a map, translations and pronunciation.",
-    "intro": "Ukrainian dialects fall into three groups. Pick a dialect to see its area on the map and its words with standard Ukrainian equivalents.",
+    "title": "Dialects and regional languages",
+    "metaDescription": "Dialects of Ukrainian, English, German, Spanish, French, Italian and other languages, and the regional languages of Europe: where they are spoken and which words they use, with a map, translations and pronunciation.",
+    "intro": "How the same thing is called differently across one language's regions. In German a bread roll is Brötchen, Schrippe, Semmel or Weckle; in Italian a watermelon is anguria, cocomero or melone d'acqua, depending on the region. Pick a dialect to see its area on the map and its words next to the standard language.",
     "words": "{count, plural, one {# word} other {# words}}",
     "pageTitle": "{name}: words with translations",
     "pageDescription": "{name}: {examples} and more words with standard Ukrainian equivalents. Its area on the map, pronunciation.",
@@ -271,8 +271,6 @@
     "shownOf": "Showing {shown} of {total} words; the rest are on the word pages.",
     "checkCtaLanguage": "Speak this language? Check its words →",
     "regionalPageDescription": "{name}: {examples} and other words with translations. Where it is spoken, on the map.",
-    "otherDialectsTitle": "Regional variants of other languages",
-    "otherDialectsIntro": "How the same thing is called differently across one language's regions. In German a bread roll is Brötchen, Schrippe, Semmel or Weckle; in Italian a watermelon is anguria, cocomero or melone d'acqua, depending on the region.",
     "standardWordOther": "Standard"
   },
   "DialectInfo": {
@@ -335,7 +333,7 @@
     "title": "Check words",
     "metaDescription": "Help check how people speak in Ukrainian dialects and other languages: one word, one click.",
     "intro": "Many of our words were collected automatically or are drafts. Help us weed out mistakes: do people really say it like this?",
-    "deck": "Checking:",
+    "deck": "Or any other language or dialect:",
     "ukrainianDeck": "Ukrainian and its dialects",
     "loading": "Loading…",
     "error": "Could not load words. Please try again.",
@@ -357,7 +355,8 @@
     "shareTitle": "I checked {count} words: {deck}",
     "regionalDecks": "Regional languages",
     "shareKickerWorld": "Helping to show how the world really speaks",
-    "languageWithRegional": "{language} and regional words"
+    "languageWithRegional": "{language} and regional words",
+    "knowQuestion": "Which language do you know?"
   },
   "NotFound": {
     "title": "Page not found",

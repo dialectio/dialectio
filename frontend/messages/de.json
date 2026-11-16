@@ -247,9 +247,9 @@
     "gamePlay": "Spielen"
   },
   "Dialects": {
-    "title": "Dialekte des Ukrainischen",
-    "metaDescription": "Drei Dialektgruppen und 15 Dialekte des Ukrainischen: wo sie gesprochen werden und welche Wörter sie verwenden — mit Karte, Übersetzung und Aussprache.",
-    "intro": "Die ukrainischen Dialekte bilden drei Gruppen. Wähle einen Dialekt, um sein Gebiet auf der Karte und seine Wörter mit den Entsprechungen im Standardukrainischen zu sehen.",
+    "title": "Dialekte und Regionalsprachen",
+    "metaDescription": "Dialekte des Ukrainischen, Englischen, Deutschen, Spanischen, Französischen, Italienischen und anderer Sprachen sowie die Regionalsprachen Europas: wo sie gesprochen werden und welche Wörter sie verwenden — mit Karte, Übersetzung und Aussprache.",
+    "intro": "Wie dieselbe Sache in den Regionen einer Sprache unterschiedlich heißt. Im Deutschen ist es Brötchen, Schrippe, Semmel oder Weckle, im Italienischen heißt die Wassermelone anguria, cocomero oder melone d'acqua — je nach Region. Wähle einen Dialekt, um sein Gebiet auf der Karte und seine Wörter neben der Standardsprache zu sehen.",
     "words": "{count, plural, one {# Wort} other {# Wörter}}",
     "pageTitle": "{name}: Wörter mit Übersetzung",
     "pageDescription": "{name}: {examples} und weitere Wörter mit Entsprechungen im Standardukrainischen. Gebiet auf der Karte, Aussprache.",
@@ -271,8 +271,6 @@
     "shownOf": "{shown} von {total} Wörtern; die übrigen stehen auf den Wortseiten.",
     "checkCtaLanguage": "Sprechen Sie diese Sprache? Prüfen Sie ihre Wörter →",
     "regionalPageDescription": "{name}: {examples} und weitere Wörter mit Übersetzung. Wo sie gesprochen wird, auf der Karte.",
-    "otherDialectsTitle": "Regionale Varianten anderer Sprachen",
-    "otherDialectsIntro": "Wie dieselbe Sache in den Regionen einer Sprache unterschiedlich heißt. Im Deutschen ist es Brötchen, Schrippe, Semmel oder Weckle, im Italienischen heißt die Wassermelone anguria, cocomero oder melone d'acqua — je nach Region.",
     "standardWordOther": "Standardsprache"
   },
   "DialectInfo": {
@@ -335,7 +333,7 @@
     "title": "Wörter prüfen",
     "metaDescription": "Hilf zu prüfen, wie man in ukrainischen Dialekten und anderen Sprachen spricht: ein Wort, ein Klick.",
     "intro": "Viele unserer Wörter wurden automatisch gesammelt oder sind Entwürfe. Hilf uns, Fehler zu finden: Sagt man das wirklich so?",
-    "deck": "Wir prüfen:",
+    "deck": "Oder eine andere Sprache oder ein Dialekt:",
     "ukrainianDeck": "Ukrainisch und seine Dialekte",
     "loading": "Wird geladen…",
     "error": "Wörter konnten nicht geladen werden. Bitte versuche es erneut.",
@@ -357,7 +355,8 @@
     "shareTitle": "Ich habe {count} Wörter geprüft: {deck}",
     "regionalDecks": "Regionalsprachen",
     "shareKickerWorld": "Ich helfe zu zeigen, wie die Welt wirklich spricht",
-    "languageWithRegional": "{language} und regionale Wörter"
+    "languageWithRegional": "{language} und regionale Wörter",
+    "knowQuestion": "Welche Sprache kennst du?"
   },
   "NotFound": {
     "title": "Seite nicht gefunden",
