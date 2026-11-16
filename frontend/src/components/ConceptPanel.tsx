@@ -293,11 +293,13 @@ export default function ConceptPanel({
     .flatMap((f) => f.audio)
     .filter((a) => !a.is_synthetic).length;
 
-  // A region shows its own varieties (dialects, regional languages) and its country's languages.
+  // A region shows its own varieties (dialects, regional languages) and its country's
+  // languages; a country also shows the varieties of its regions.
   const languages = region
     ? concept.languages.filter(
         (lang) =>
           lang.region_codes.includes(region.code) ||
+          lang.country_codes?.includes(region.code) ||
           (region.parentCode !== null &&
             lang.region_codes.includes(region.parentCode)),
       )
