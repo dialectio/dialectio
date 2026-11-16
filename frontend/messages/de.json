@@ -32,9 +32,7 @@
     "dialectCount": "{count, plural, one {# Dialekt} other {# Dialekte}}",
     "liveCount": "{count, plural, one {# echte Aufnahme} other {# echte Aufnahmen}}",
     "liveRecording": "Aufnahme eines Sprechers",
-    "areasNote": "Die Gebiete sind nur ungefähr: Für eine Region steht das dort häufigste Wort, echte Wortgrenzen folgen aber nicht den Verwaltungsgrenzen.",
-    "pointCount": "{count, plural, one {# Ort von Mitgliedern} other {# Orte von Mitgliedern}}",
-    "pointsNote": "Punkte auf der Karte sind Wörter, die Mitglieder dort eingetragen haben, wo man sie sagt. Schwach bestätigte sieht man nur von nahem; je mehr Menschen sie bestätigen, desto weiter herausgezoomt erscheinen sie."
+    "areasNote": "Die Gebiete sind nur ungefähr: Für eine Region steht das dort häufigste Wort, echte Wortgrenzen folgen aber nicht den Verwaltungsgrenzen."
   },
   "Editor": {
     "title": "Word editor: {variety}",

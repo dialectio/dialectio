@@ -32,9 +32,7 @@
     "dialectCount": "{count, plural, one {# gwara} few {# gwary} many {# gwar} other {# gwary}}",
     "liveCount": "{count, plural, one {# nagranie na żywo} few {# nagrania na żywo} many {# nagrań na żywo} other {# nagrania na żywo}}",
     "liveRecording": "nagranie użytkownika języka",
-    "areasNote": "Obszary gwar są przybliżone: dla regionu podano najczęstsze słowo, a prawdziwe granice słów nie pokrywają się z administracyjnymi.",
-    "pointCount": "{count, plural, one {# miejsce od użytkowników} few {# miejsca od użytkowników} many {# miejsc od użytkowników} other {# miejsca od użytkowników}}",
-    "pointsNote": "Punkty na mapie to słowa dodane przez użytkowników tam, gdzie się je mówi. Słabo potwierdzone widać tylko z bliska; im więcej osób je potwierdzi, tym z dalsza są widoczne."
+    "areasNote": "Obszary gwar są przybliżone: dla regionu podano najczęstsze słowo, a prawdziwe granice słów nie pokrywają się z administracyjnymi."
   },
   "Editor": {
     "title": "Word editor: {variety}",
