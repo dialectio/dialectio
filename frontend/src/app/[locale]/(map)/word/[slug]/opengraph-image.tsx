@@ -21,20 +21,38 @@ export default async function Image({
   if (!concept) return renderCard({ kicker: "", title: "Dialectio", footer: t("site") });
 
   const own = LOCALE_LANGUAGE[locale] ?? "eng";
-  // Dialect words that differ from standard Ukrainian
-  const standard = new Set(
-    concept.languages
-      .filter((l) => l.code === "ukr")
-      .flatMap((l) => l.forms.map((f) => f.spelling.toLowerCase())),
-  );
-  const dialectWords = [
-    ...new Set(
+  // Dialect words that differ from their own language's standard word (ukr-hutsul vs ukr),
+  // the interface language's dialects first (the image is made per locale)
+  const languageOf = (code: string) => code.split("-")[0];
+  const standard = (language: string) =>
+    new Set(
       concept.languages
-        .filter((l) => l.kind === "dialect")
-        .flatMap((l) => l.forms.map((f) => f.spelling.toLowerCase()))
-        .filter((w) => !standard.has(w)),
-    ),
-  ];
+        .filter((l) => l.code === language)
+        .flatMap((l) => l.forms.map((f) => f.spelling.toLowerCase())),
+    );
+  const dialects = concept.languages
+    .filter((l) => l.kind === "dialect")
+    .sort(
+      (a, b) =>
+        Number(languageOf(b.code) === own) - Number(languageOf(a.code) === own),
+    );
+  // Each language's distinct dialect words, then taken in turns: бараболя, Grumbeer, бульба ...
+  const byLanguage = new Map<string, string[]>();
+  for (const l of dialects) {
+    const language = languageOf(l.code);
+    const main = standard(language);
+    const words = byLanguage.get(language) ?? [];
+    for (const f of l.forms) {
+      const w = f.spelling.toLowerCase();
+      if (!main.has(w) && !words.includes(w) && isDrawable(w)) words.push(w);
+    }
+    byLanguage.set(language, words);
+  }
+  const dialectWords: string[] = [];
+  const lists = [...byLanguage.values()];
+  for (let i = 0; lists.some((words) => i < words.length); i++)
+    for (const words of lists)
+      if (i < words.length && !dialectWords.includes(words[i])) dialectWords.push(words[i]);
   const world = WORLD_LANGUAGES.filter((code) => code !== own)
     .map((code) => concept.languages.find((l) => l.code === code)?.forms[0]?.spelling)
     .filter((w): w is string => !!w && isDrawable(w));
