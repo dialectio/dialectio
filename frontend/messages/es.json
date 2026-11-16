@@ -32,7 +32,9 @@
     "dialectCount": "{count, plural, one {# dialecto} other {# dialectos}}",
     "liveCount": "{count, plural, one {# grabación real} other {# grabaciones reales}}",
     "liveRecording": "grabación de un hablante",
-    "areasNote": "Las zonas son aproximadas: para cada región se muestra la palabra más habitual, pero los límites reales de las palabras no siguen los administrativos."
+    "areasNote": "Las zonas son aproximadas: para cada región se muestra la palabra más habitual, pero los límites reales de las palabras no siguen los administrativos.",
+    "pointCount": "{count, plural, one {# lugar de miembros} other {# lugares de miembros}}",
+    "pointsNote": "Los puntos del mapa son palabras que los miembros añadieron donde se dicen. Las poco confirmadas solo se ven de cerca; cuantas más personas las confirmen, desde más lejos se ven."
   },
   "Editor": {
     "title": "Word editor: {variety}",

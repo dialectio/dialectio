@@ -149,6 +149,7 @@ export default function WordView({
         concept={concept}
         region={region}
         onClearRegion={() => selectRegion(null)}
+        pointCount={points?.features.length ?? 0}
         tools={
           <OriginTools
             concept={concept}
