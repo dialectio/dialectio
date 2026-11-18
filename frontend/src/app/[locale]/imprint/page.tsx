@@ -10,7 +10,11 @@ export async function generateMetadata({
 }: PageProps<"/[locale]/imprint">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "Imprint" });
-  return pageMetadata(locale, "/imprint", t("title"), t("metaDescription"));
+  // The operator's postal address must be on the site, not in search results.
+  return {
+    ...pageMetadata(locale, "/imprint", t("title"), t("metaDescription")),
+    robots: { index: false, follow: true },
+  };
 }
 
 /** Legal notice (Impressum). The operator's details come from the server's environment

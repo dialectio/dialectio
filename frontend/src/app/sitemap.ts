@@ -27,7 +27,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]);
   const paths = [
     "",
-    ...INFO_PAGES.map((page) => `/${page}`),
+    // The Impressum holds the operator's address: reachable from every page, not from search.
+    ...INFO_PAGES.filter((page) => page !== "imprint").map((page) => `/${page}`),
     ...dialects.filter((d) => d.kind === "dialect").map((d) => `/dialects/${d.code}`),
     ...concepts.map((c) => `/word/${c.slug}`),
     ...dialectWords.map((word) => `/slovo/${encodeURIComponent(word)}`),
