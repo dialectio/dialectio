@@ -9,7 +9,7 @@ export const INFO_PAGES = [
   "support",
   "privacy",
   "terms",
-  // "imprint" comes back with the German version, once the site has its address
+  "imprint",
 ] as const;
 
 export type InfoPage = (typeof INFO_PAGES)[number];
