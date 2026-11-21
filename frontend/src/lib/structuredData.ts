@@ -34,6 +34,9 @@ export function siteData(locale: string, description: string) {
         description,
         keywords: ["dialects", "dialectology", "lexicon", "IPA", "linguistic atlas"],
         isBasedOn: ["https://www.wikidata.org", "https://en.wiktionary.org"],
+        // The data mixes licenses (Wikidata CC0, Wiktionary CC BY-SA, our own words): the terms
+        // page lists them. Google Search Console flags a Dataset without a license.
+        license: `${url}/terms`,
         creator: { "@type": "Organization", name: "Dialectio", url: SITE_URL },
       },
     ],
