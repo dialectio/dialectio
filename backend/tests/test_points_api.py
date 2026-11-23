@@ -168,3 +168,40 @@ def test_a_word_with_only_an_oblast_stands_at_its_seat() -> None:
     assert feature["properties"]["place_names"]["uk"] == "Івано-Франківська область"
     lng, lat = feature["geometry"]["coordinates"]
     assert abs(lng - 24.71) < 0.1 and abs(lat - 48.92) < 0.1
+
+
+def test_votes_on_a_point_count_there_and_grey_it_out_before_hiding_it() -> None:
+    guest = TestClient(app)
+    concept_id = guest.get("/api/concepts/by-slug/water").json()["id"]
+    verkhovyna = settlement(guest, "Верховина")
+    kosiv = settlement(guest, "Косів")
+    add_word(new_member(), concept_id, verkhovyna)
+    add_word(new_member(), concept_id, kosiv)
+    found = {p["place_names"]["uk"]: p for p in points(guest, concept_id)}
+    form_id = found["Верховина"]["form_id"]
+    assert found["Верховина"]["settlement_id"] == verkhovyna
+
+    # The vote API keeps the point voted on
+    vote = {"form_id": form_id, "value": -1, "voter": "guest-browser-place"}
+    assert guest.post("/api/votes", json={**vote, "settlement_id": verkhovyna}).is_success
+    with SessionLocal() as session:
+        cast = session.scalars(select(Vote).where(Vote.form_id == form_id)).one()
+        assert cast.settlement_id == verkhovyna and cast.weight == 0  # no quiz: counts nothing
+        cast.weight = 0.5
+        session.commit()
+
+    # A "no" on Verkhovyna's card greys out Verkhovyna only: Kosiv (same oblast) keeps its point
+    found = {p["place_names"]["uk"]: p for p in points(guest, concept_id)}
+    assert found["Верховина"]["weight"] == 0 and found["Верховина"]["disputed"]
+    assert found["Верховина"]["level"] == 0
+    assert found["Косів"]["weight"] == 0.5 and not found["Косів"]["disputed"]
+
+    # People there can still say "yes" on the grey point; more "no" hides it
+    add_votes(form_id, (-1, 1.5, None))  # from the word list, region unknown: no point counts it
+    with SessionLocal() as session:
+        session.add(
+            Vote(form_id=form_id, value=-1, weight=1.5, voter="x" * 64, settlement_id=verkhovyna)
+        )
+        session.commit()
+    found = {p["place_names"]["uk"]: p for p in points(guest, concept_id)}
+    assert set(found) == {"Косів"}

@@ -52,12 +52,18 @@ export default function PointCard({
       <p className="text-xs opacity-60">
         {t("people", { count: point.people })}
       </p>
+      {point.disputed && (
+        <p className="mt-1 text-xs text-amber-800 dark:text-amber-300">
+          {t("disputed")}
+        </p>
+      )}
       <WordCheck
         form={form}
         variety={point.variety_code}
         onCounts={setCounts}
         comments={point.comments}
         askUsage
+        place={point.settlement_id}
       />
     </div>
   );

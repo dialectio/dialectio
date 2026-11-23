@@ -75,6 +75,8 @@ async function post<T>(path: string, body: unknown): Promise<T> {
 export async function sendVote(
   formId: number,
   value: number,
+  /** The map point voted on (its settlement), when voting on a point's card */
+  settlementId?: number,
 ): Promise<VoteCounts> {
   const region = myRegion();
   const counts = await post<VoteCounts>("/api/votes", {
@@ -82,6 +84,7 @@ export async function sendVote(
     value,
     voter: voterId(),
     region_code: region && region !== ABROAD ? region : null,
+    settlement_id: settlementId ?? null,
   });
   rememberVote(formId, value);
   return counts;

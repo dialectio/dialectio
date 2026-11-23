@@ -683,6 +683,7 @@
   },
   "Points": {
     "close": "Schließen",
-    "people": "{count, plural, =0 {Ohne Mitglied hinzugefügt} one {# Mitglied sagt, man sagt es hier} other {# Mitglieder sagen, man sagt es hier}}"
+    "people": "{count, plural, =0 {Ohne Mitglied hinzugefügt} one {# Mitglied sagt, man sagt es hier} other {# Mitglieder sagen, man sagt es hier}}",
+    "disputed": "Einheimische zweifeln: Einige Leute von hier sagen, dass man es so nicht sagt. Wenn man es bei Ihnen so sagt, klicken Sie auf „Ja“."
   }
 }

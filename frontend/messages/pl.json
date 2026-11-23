@@ -683,6 +683,7 @@
   },
   "Points": {
     "close": "Zamknij",
-    "people": "{count, plural, =0 {Dodane bez użytkownika} one {# użytkownik mówi, że tak się tu mówi} few {# użytkowników mówi, że tak się tu mówi} many {# użytkowników mówi, że tak się tu mówi} other {# użytkownika mówi, że tak się tu mówi}}"
+    "people": "{count, plural, =0 {Dodane bez użytkownika} one {# użytkownik mówi, że tak się tu mówi} few {# użytkowników mówi, że tak się tu mówi} many {# użytkowników mówi, że tak się tu mówi} other {# użytkownika mówi, że tak się tu mówi}}",
+    "disputed": "Miejscowi mają wątpliwości: kilka osób stąd mówi, że tak się nie mówi. Jeśli u Ciebie tak się mówi, kliknij „Tak”."
   }
 }

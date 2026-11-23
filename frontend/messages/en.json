@@ -683,6 +683,7 @@
   },
   "Points": {
     "close": "Close",
-    "people": "{count, plural, =0 {Added without a member} one {# member says it is said here} other {# members say it is said here}}"
+    "people": "{count, plural, =0 {Added without a member} one {# member says it is said here} other {# members say it is said here}}",
+    "disputed": "Locals doubt it: some people from here say it isn't said this way. If people say it where you live, press “Yes”."
   }
 }

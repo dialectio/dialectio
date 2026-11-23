@@ -10,11 +10,15 @@ export type PointProps = {
   variety_en: string;
   variety_uk: string | null;
   variety_names: Names;
+  /** The settlement the point stands at: votes on its card count around there */
+  settlement_id: number;
   place: string;
   place_names: Names;
   /** Members who say it here (within ~10 km) */
   people: number;
   weight: number;
+  /** "No" votes brought it to 0 or below: greyed out, still open to "yes" */
+  disputed: boolean;
   /** 0: shown at village zoom, 1: district zoom, 2: oblast zoom */
   level: 0 | 1 | 2;
   unverified: boolean;

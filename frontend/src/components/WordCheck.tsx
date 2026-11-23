@@ -240,6 +240,7 @@ export default function WordCheck({
   onCounts,
   askUsage = false,
   comments,
+  place,
 }: {
   form: Checkable;
   /** The word's variety code ("ukr-hutsul"): the quiz is per language */
@@ -248,6 +249,8 @@ export default function WordCheck({
   askUsage?: boolean;
   /** Visible comments in the word's discussion; undefined = no discussion button */
   comments?: number;
+  /** The map point's settlement when voting on a point's card: the vote counts around there */
+  place?: number;
 }) {
   const gate = useQuizGate();
   const t = useTranslations("Check");
@@ -274,7 +277,7 @@ export default function WordCheck({
     // A guest's first vote on a language: the quiz first (votes count only after it)
     if (next !== 0 && !(await gate(languageOf(variety)))) return;
     try {
-      const result = await sendVote(form.id, next);
+      const result = await sendVote(form.id, next, place);
       setMyVote(next);
       setCounts(result);
       onCounts(result);
@@ -287,7 +290,7 @@ export default function WordCheck({
   const regionAnswered = async () => {
     setAskRegion(false);
     // Attach the region to the vote just made.
-    if (myVote !== 0) await sendVote(form.id, myVote).catch(() => {});
+    if (myVote !== 0) await sendVote(form.id, myVote, place).catch(() => {});
   };
 
   const button = (value: number, label: string, count: number) => (

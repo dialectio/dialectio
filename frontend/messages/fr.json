@@ -683,6 +683,7 @@
   },
   "Points": {
     "close": "Fermer",
-    "people": "{count, plural, =0 {Ajouté sans membre} one {# membre dit qu'on le dit ici} other {# membres disent qu'on le dit ici}}"
+    "people": "{count, plural, =0 {Ajouté sans membre} one {# membre dit qu'on le dit ici} other {# membres disent qu'on le dit ici}}",
+    "disputed": "Les habitants en doutent : quelques personnes d’ici disent qu’on ne le dit pas ainsi. Si on le dit ainsi chez vous, cliquez sur « Oui »."
   }
 }

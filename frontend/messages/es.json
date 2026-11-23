@@ -683,6 +683,7 @@
   },
   "Points": {
     "close": "Cerrar",
-    "people": "{count, plural, =0 {Añadida sin miembro} one {# miembro dice que aquí se dice así} other {# miembros dicen que aquí se dice así}}"
+    "people": "{count, plural, =0 {Añadida sin miembro} one {# miembro dice que aquí se dice así} other {# miembros dicen que aquí se dice así}}",
+    "disputed": "Los locales lo dudan: algunas personas de aquí dicen que no se dice así. Si en tu zona se dice así, pulsa «Sí»."
   }
 }

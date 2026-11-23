@@ -32,6 +32,7 @@ from app.models import (
     MissingSearch,
     Region,
     Report,
+    Settlement,
     Vote,
 )
 
@@ -65,6 +66,8 @@ class VoteIn(BaseModel):
     value: int = Field(ge=-1, le=1)
     voter: str = Field(min_length=8, max_length=64)
     region_code: str | None = Field(default=None, max_length=10)
+    # The map point voted on (its settlement), if the vote came from a point's card
+    settlement_id: int | None = None
 
 
 class VoteCounts(BaseModel):
@@ -103,6 +106,12 @@ def known_region(session: SessionDep, code: str | None) -> str | None:
     return code if session.scalar(select(Region.id).where(Region.code == code)) else None
 
 
+def known_settlement(session: SessionDep, settlement_id: int | None) -> int | None:
+    if settlement_id is None:
+        return None
+    return settlement_id if session.get(Settlement, settlement_id) else None
+
+
 def counts(session: SessionDep, form_id: int) -> VoteCounts:
     tally = tallies(session, [form_id]).get(form_id, Tally())
     return VoteCounts(form_id=form_id, yes=tally.yes, no=tally.no, community=tally.community)
@@ -133,6 +142,7 @@ def vote(session: SessionDep, request: Request, data: VoteIn) -> VoteCounts:
             value=data.value,
             voter=voter,
             region_code=known_region(session, data.region_code),
+            settlement_id=known_settlement(session, data.settlement_id),
             weight=weight,
         )
         session.execute(
@@ -141,6 +151,7 @@ def vote(session: SessionDep, request: Request, data: VoteIn) -> VoteCounts:
                 set_={
                     "value": statement.excluded.value,
                     "region_code": statement.excluded.region_code,
+                    "settlement_id": statement.excluded.settlement_id,
                     "weight": statement.excluded.weight,
                 },
             )

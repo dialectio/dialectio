@@ -7,11 +7,14 @@ Its weight is what makes it visible from further out:
 
 - each member who says "they say it here" counts their vote weight in the word's variety
   (member 0.5, speaker 1, trusted 2, expert 3);
-- "yes" votes from visitors who live in the point's region (oblast, or country) add their
-  weight, their "no" votes take it away; votes of the point's own members count once (as marks).
+- "yes" votes cast on the point's card (or on another point of the word within `NEAR_KM`) add
+  their weight, "no" votes take it away; votes cast elsewhere (the word list) count for the
+  word's points in the voter's region (oblast, or country); votes of the point's own members
+  count once (as marks).
 
 Weight > 0 shows the point at village zoom, >= `DISTRICT_WEIGHT` from district zoom,
->= `OBLAST_WEIGHT` from oblast zoom, approved words too; weight <= 0 hides it.
+>= `OBLAST_WEIGHT` from oblast zoom, approved words too. "No" votes that bring it to 0 or below
+grey it out at village zoom (people there can still say "yes"); below `HIDE_WEIGHT` it hides.
 When a member's submission gathers `PROMOTE_WEIGHT` in all, it becomes a public draft of its
 variety ("≈" in the word list), as if an editor had let it through (`promote`).
 """
@@ -53,6 +56,7 @@ NEAR_KM = 10
 DISTRICT_WEIGHT = 1.0
 OBLAST_WEIGHT = 3.0
 PROMOTE_WEIGHT = 8.0
+HIDE_WEIGHT = -1.5  # "no" votes hide a point only below this; above it, it shows greyed out
 # Point levels: 0 = village zoom, 1 = district zoom, 2 = oblast zoom (the map picks the zooms)
 VILLAGE, DISTRICT, OBLAST = 0, 1, 2
 COMMUNITY = "community"  # the change log's actor for promotions
@@ -75,14 +79,13 @@ class Point:
     users: set[int] = field(default_factory=set)
     regions: set[str] = field(default_factory=set)
     weight: float = 0.0
+    # Some "no" votes count against it
+    disputed: bool = False
 
 
 def km(a: Mark, b: Mark) -> float:
     """Great-circle distance."""
-    lat1, lat2 = math.radians(a.lat), math.radians(b.lat)
-    dlat, dlng = lat2 - lat1, math.radians(b.lng - a.lng)
-    h = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlng / 2) ** 2
-    return 2 * 6371 * math.asin(math.sqrt(h))
+    return km_between((a.lng, a.lat), (b.lng, b.lat))
 
 
 def marks_of(session: Session, form_ids: list[int]) -> dict[int, list[Mark]]:
@@ -171,21 +174,45 @@ def region_centers(
     return centers
 
 
+@dataclass
+class CastVote:
+    voter: str
+    region: str | None
+    # +weight for "yes", -weight for "no"
+    weight: float
+    # (lng, lat) of the map point it was cast on, if any
+    place: tuple[float, float] | None
+
+
 class Weights:
-    """Members' weights per variety, and vote weights per form and region (cached)."""
+    """Members' weights per variety, and vote weights per form (cached)."""
 
     def __init__(self, session: Session, form_ids: list[int]) -> None:
         self.session = session
         self.members: dict[tuple[int, str], float] = {}
-        # {form id: [(voter hash, region code, signed weight)]}
-        self.votes: dict[int, list[tuple[str, str | None, float]]] = defaultdict(list)
+        self.votes: dict[int, list[CastVote]] = defaultdict(list)
         if form_ids:
-            for form_id, voter, region, value, weight in session.execute(
-                select(Vote.form_id, Vote.voter, Vote.region_code, Vote.value, Vote.weight).where(
-                    Vote.form_id.in_(form_ids)
+            for form_id, voter, region, value, weight, lng, lat in session.execute(
+                select(
+                    Vote.form_id,
+                    Vote.voter,
+                    Vote.region_code,
+                    Vote.value,
+                    Vote.weight,
+                    geo.ST_X(Settlement.geom),
+                    geo.ST_Y(Settlement.geom),
                 )
+                .outerjoin(Settlement, Settlement.id == Vote.settlement_id)
+                .where(Vote.form_id.in_(form_ids))
             ):
-                self.votes[form_id].append((voter, region, weight if value > 0 else -weight))
+                self.votes[form_id].append(
+                    CastVote(
+                        voter,
+                        region,
+                        weight if value > 0 else -weight,
+                        (lng, lat) if lng is not None else None,
+                    )
+                )
 
     def member(self, user_id: int, variety: str) -> float:
         key = (user_id, variety)
@@ -194,15 +221,31 @@ class Weights:
             self.members[key] = member_weight(self.session, user, variety) if user else 0.0
         return self.members[key]
 
-    def votes_from(self, form_id: int, regions: set[str] | None, users: set[int]) -> float:
-        """Net vote weight on the form (from these regions only, unless None), leaving out
-        the votes of members who already count as marks."""
+    def counted(self, form_id: int, users: set[int]) -> list[CastVote]:
+        """The form's votes, leaving out those of members who already count as marks."""
         own = {voter_hash(f"user:{user_id}") for user_id in users}
-        return sum(
-            weight
-            for voter, region, weight in self.votes[form_id]
-            if voter not in own and (regions is None or region in regions)
-        )
+        return [v for v in self.votes[form_id] if v.voter not in own]
+
+    def votes_on(self, form_id: int, point: "Point") -> list[CastVote]:
+        """The votes a point counts: those cast on a map point within NEAR_KM of it, and those
+        cast elsewhere (the word list) by voters living in its region."""
+        return [
+            v
+            for v in self.counted(form_id, point.users)
+            if (
+                km_between(v.place, (point.center.lng, point.center.lat)) <= NEAR_KM
+                if v.place
+                else v.region in point.regions
+            )
+        ]
+
+
+def km_between(a: tuple[float, float], b: tuple[float, float]) -> float:
+    """Great-circle distance between two (lng, lat)."""
+    lat1, lat2 = math.radians(a[1]), math.radians(b[1])
+    dlat, dlng = lat2 - lat1, math.radians(b[0] - a[0])
+    h = math.sin(dlat / 2) ** 2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlng / 2) ** 2
+    return 2 * 6371 * math.asin(math.sqrt(h))
 
 
 def points_of(marks: list[Mark], form_id: int, variety: str, weights: Weights) -> list[Point]:
@@ -220,20 +263,24 @@ def points_of(marks: list[Mark], form_id: int, variety: str, weights: Weights) -
         point.users.update(m.user_id for m in group if m.user_id is not None)
         point.regions.add(group[0].region_code)
     for point in points:
-        point.weight = sum(weights.member(u, variety) for u in point.users) + weights.votes_from(
-            form_id, point.regions, point.users
+        votes = weights.votes_on(form_id, point)
+        point.weight = sum(weights.member(u, variety) for u in point.users) + sum(
+            v.weight for v in votes
         )
+        point.disputed = any(v.weight < 0 for v in votes)
     return points
 
 
-def level_of(weight: float) -> int | None:
+def level_of(point: Point) -> int | None:
     """The zoom level a point shows from: by its weight only. An editor's approval says the
-    word belongs to the variety, not that it is said at this place (violet on the map)."""
-    if weight >= OBLAST_WEIGHT:
+    word belongs to the variety, not that it is said at this place (violet on the map).
+    A point that "no" votes brought to 0 or below stays at village zoom, greyed out, so that
+    people there can still say "yes", until it falls to HIDE_WEIGHT."""
+    if point.weight >= OBLAST_WEIGHT:
         return OBLAST
-    if weight >= DISTRICT_WEIGHT:
+    if point.weight >= DISTRICT_WEIGHT:
         return DISTRICT
-    if weight > 0:
+    if point.weight > 0 or (point.disputed and point.weight > HIDE_WEIGHT):
         return VILLAGE
     return None
 
@@ -262,7 +309,7 @@ def concept_points(session: SessionDep, concept_id: int) -> dict[str, Any]:
         variety: Variety = form.variety
         tally = counted.get(form_id)
         for point in points_of(marks.get(form_id, []), form_id, variety.code, weights):
-            level = level_of(point.weight)
+            level = level_of(point)
             if level is None:
                 continue
             features.append(
@@ -279,10 +326,12 @@ def concept_points(session: SessionDep, concept_id: int) -> dict[str, Any]:
                         "variety_en": variety.name_en,
                         "variety_uk": variety.name_uk,
                         "variety_names": variety.names,
+                        "settlement_id": point.center.settlement_id,
                         "place": point.center.name,
                         "place_names": point.center.names,
                         "people": len(point.users),
                         "weight": round(point.weight, 2),
+                        "disputed": point.weight <= 0,
                         "level": level,
                         "unverified": form.status != APPROVED,
                         "votes_yes": tally.yes if tally else 0,
@@ -308,8 +357,8 @@ def total_weight(session: Session, form: Form) -> float:
     )
     weights = Weights(session, [form.id])
     variety = form.variety.code
-    return sum(weights.member(u, variety) for u in users) + weights.votes_from(
-        form.id, None, users
+    return sum(weights.member(u, variety) for u in users) + sum(
+        v.weight for v in weights.counted(form.id, users)
     )
 
 

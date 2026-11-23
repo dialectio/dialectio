@@ -32,6 +32,11 @@ class Vote(Base):
     value: Mapped[int] = mapped_column(SmallInteger)
     # Where the voter says they live (region code such as "UA-26"), optional
     region_code: Mapped[str | None] = mapped_column(String(10))
+    # The map point the vote was cast on (its settlement): such a vote counts for the word's
+    # points around there only, a vote without one for its points in the voter's region
+    settlement_id: Mapped[int | None] = mapped_column(
+        ForeignKey("settlement.id", ondelete="SET NULL")
+    )
     # SHA-256 of the browser's random voter id
     voter: Mapped[str] = mapped_column(String(64))
     # How much the vote counts, set when it is cast: a guest who passed the quiz of the word's

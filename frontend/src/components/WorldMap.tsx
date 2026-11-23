@@ -242,7 +242,16 @@ export default function WorldMap({
             paint: {
               // Heavier points are bigger; checked words are violet, unchecked ones amber
               "circle-radius": ["interpolate", ["linear"], ["get", "weight"], 0, 4, 3, 7, 10, 10],
-              "circle-color": ["case", ["get", "unverified"], "#f59e0b", "#7c3aed"],
+              // Disputed ones ("no" votes brought them to 0 or below) are grey and faint
+              "circle-color": [
+                "case",
+                ["get", "disputed"],
+                "#9ca3af",
+                ["get", "unverified"],
+                "#f59e0b",
+                "#7c3aed",
+              ],
+              "circle-opacity": ["case", ["get", "disputed"], 0.6, 1],
               "circle-stroke-color": "#ffffff",
               "circle-stroke-width": 1.5,
             },
@@ -261,7 +270,7 @@ export default function WorldMap({
               "text-anchor": "top",
             },
             paint: {
-              "text-color": "#1f2937",
+              "text-color": ["case", ["get", "disputed"], "#6b7280", "#1f2937"],
               "text-halo-color": "#ffffff",
               "text-halo-width": 1.5,
             },
