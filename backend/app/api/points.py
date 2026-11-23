@@ -11,7 +11,7 @@ Its weight is what makes it visible from further out:
   weight, their "no" votes take it away; votes of the point's own members count once (as marks).
 
 Weight > 0 shows the point at village zoom, >= `DISTRICT_WEIGHT` from district zoom,
->= `OBLAST_WEIGHT` (or an approved word) from oblast zoom; weight <= 0 hides it.
+>= `OBLAST_WEIGHT` from oblast zoom, approved words too; weight <= 0 hides it.
 When a member's submission gathers `PROMOTE_WEIGHT` in all, it becomes a public draft of its
 variety ("≈" in the word list), as if an editor had let it through (`promote`).
 """
@@ -226,8 +226,10 @@ def points_of(marks: list[Mark], form_id: int, variety: str, weights: Weights) -
     return points
 
 
-def level_of(form: Form, weight: float) -> int | None:
-    if form.status == APPROVED or weight >= OBLAST_WEIGHT:
+def level_of(weight: float) -> int | None:
+    """The zoom level a point shows from: by its weight only. An editor's approval says the
+    word belongs to the variety, not that it is said at this place (violet on the map)."""
+    if weight >= OBLAST_WEIGHT:
         return OBLAST
     if weight >= DISTRICT_WEIGHT:
         return DISTRICT
@@ -260,7 +262,7 @@ def concept_points(session: SessionDep, concept_id: int) -> dict[str, Any]:
         variety: Variety = form.variety
         tally = counted.get(form_id)
         for point in points_of(marks.get(form_id, []), form_id, variety.code, weights):
-            level = level_of(form, point.weight)
+            level = level_of(point.weight)
             if level is None:
                 continue
             features.append(
