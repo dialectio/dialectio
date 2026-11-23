@@ -40,13 +40,14 @@ NAME_LANGUAGES = {"uk", "en", "pl", "de", "es", "fr", "sk", "ro", "nl", "it"}
 csv.field_size_limit(2**31 - 1)  # a C long on Windows too
 
 LOAD = text("""
-    INSERT INTO settlement (id, name, names, keys, country, population, geom, source_id)
-    SELECT id, name, names, keys, country, population,
+    INSERT INTO settlement (id, name, names, keys, country, population, feature, geom, source_id)
+    SELECT id, name, names, keys, country, population, feature,
            ST_SetSRID(ST_MakePoint(lon, lat), 4326), :source_id
     FROM settlement_load
     ON CONFLICT (id) DO UPDATE
     SET name = EXCLUDED.name, names = EXCLUDED.names, keys = EXCLUDED.keys,
-        country = EXCLUDED.country, population = EXCLUDED.population, geom = EXCLUDED.geom,
+        country = EXCLUDED.country, population = EXCLUDED.population,
+        feature = EXCLUDED.feature, geom = EXCLUDED.geom,
         source_id = EXCLUDED.source_id
 """)
 
@@ -157,7 +158,8 @@ def main() -> None:
             cursor.execute("""
                 CREATE TEMP TABLE settlement_load (
                     id integer PRIMARY KEY, name text, names jsonb, keys text, country text,
-                    population integer, lat double precision, lon double precision
+                    population integer, feature text, lat double precision,
+                    lon double precision
                 ) ON COMMIT DROP
             """)
             files = [(download(c), f"{c}.txt", c) for c in FULL_COUNTRIES]
@@ -173,8 +175,8 @@ def main() -> None:
                 seen |= ids
                 names = local_names(country, ids) if country else {}
                 with cursor.copy(
-                    "COPY settlement_load (id, name, names, keys, country, population, lat, lon)"
-                    " FROM STDIN"
+                    "COPY settlement_load"
+                    " (id, name, names, keys, country, population, feature, lat, lon) FROM STDIN"
                 ) as copy:
                     for row in batch:
                         geoname_id = int(row[0])
@@ -191,6 +193,7 @@ def main() -> None:
                                 keys,
                                 row[8],
                                 int(row[14] or 0),
+                                row[7],
                                 float(row[4]),
                                 float(row[5]),
                             )

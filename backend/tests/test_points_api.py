@@ -146,3 +146,25 @@ def test_enough_weight_lets_a_word_into_the_word_list() -> None:
     # An editor's approval keeps the member as the source
     approved = guest.post(f"/api/editor/forms/{form_id}/approve", headers=EDITOR).json()
     assert approved["status"] == "approved" and approved["source"] == "Dialectio contributors"
+
+
+def test_a_word_with_only_an_oblast_stands_at_its_seat() -> None:
+    guest = TestClient(app)
+    concept_id = guest.get("/api/concepts/by-slug/water").json()["id"]
+    response = new_member().post(
+        "/api/contributions",
+        data={
+            "concept_id": str(concept_id),
+            "variety": "ukr-hutsul",
+            "spelling": WORD,
+            "consent": "true",
+            "region": "UA-26",
+        },
+    )
+    assert response.status_code == 201, response.text
+    collection = guest.get(f"/api/concepts/{concept_id}/points").json()
+    [feature] = [f for f in collection["features"] if f["properties"]["spelling"] == WORD]
+    # At Ivano-Frankivsk, named after the oblast the member chose
+    assert feature["properties"]["place_names"]["uk"] == "Івано-Франківська область"
+    lng, lat = feature["geometry"]["coordinates"]
+    assert abs(lng - 24.71) < 0.1 and abs(lat - 48.92) < 0.1

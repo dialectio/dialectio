@@ -38,6 +38,12 @@ class Settlement(Base):
             postgresql_using="gin",
             postgresql_ops={"search_key(keys)": "gin_trgm_ops"},
         ),
+        # Capitals and seats, where a mark with only an oblast or a country goes on the map
+        Index(
+            "ix_settlement_seat",
+            "feature",
+            postgresql_where=text("feature IN ('PPLA', 'PPLC', 'PPLG')"),
+        ),
     )
 
     # The GeoNames id
@@ -51,6 +57,8 @@ class Settlement(Base):
     # ISO 3166-1 alpha-2
     country: Mapped[str] = mapped_column(String(2))
     population: Mapped[int] = mapped_column(Integer, default=0, server_default="0")
+    # GeoNames feature code: PPLC = a country's capital, PPLA = an oblast's (adm1) seat, ...
+    feature: Mapped[str | None] = mapped_column(String(10))
     geom = mapped_column(Geometry("POINT", srid=4326, spatial_index=True))
     # The smallest of our regions it lies in: the oblast, else the country
     region_id: Mapped[int | None] = mapped_column(ForeignKey("region.id"), index=True)
