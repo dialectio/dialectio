@@ -12,12 +12,22 @@ router = APIRouter(prefix="/api/regions", tags=["regions"])
 MAX_ZOOM = 10
 TILE_EXTENT = 4096
 
-# Mapbox Vector Tile layer of one region level. Geometry is simplified to about half a pixel at
-# the tile's zoom and clipped to Web Mercator's latitude range (poles can't be projected).
+# Mapbox Vector Tile layer of one region level. Geometry is first cut to the tile (with a margin
+# wider than the MVT buffer, so no seams), then simplified to about half a pixel at the tile's
+# zoom. Cutting first matters: simplifying all of Russia or Canada for each tile took seconds.
+# Tile envelopes stay within Web Mercator's latitude range, so the poles are cut off too.
 TILE_LAYER = """
-    WITH bounds AS (
+    WITH tile AS (
         SELECT ST_TileEnvelope(:z, :x, :y) AS merc,
                ST_Transform(ST_TileEnvelope(:z, :x, :y), 4326) AS geo
+    ),
+    bounds AS (
+        SELECT merc, geo,
+               ST_MakeEnvelope(
+                   GREATEST(ST_XMin(geo) - margin, -180), GREATEST(ST_YMin(geo) - margin, -85.0511),
+                   LEAST(ST_XMax(geo) + margin, 180), LEAST(ST_YMax(geo) + margin, 85.0511),
+                   4326) AS cut
+        FROM tile, LATERAL (SELECT (ST_XMax(geo) - ST_XMin(geo)) * 0.03 AS margin) m
     ),
     features AS (
         SELECT r.id, r.code, r.name_en, r.name_uk, parent.code AS parent_code,
@@ -25,9 +35,8 @@ TILE_LAYER = """
                r.names->>'es' AS name_es, r.names->>'fr' AS name_fr,
                ST_AsMVTGeom(
                    ST_Transform(
-                       ST_ClipByBox2D(
-                           ST_SimplifyPreserveTopology(r.geom, :tolerance),
-                           ST_MakeEnvelope(-180, -85.0511, 180, 85.0511, 4326)),
+                       ST_SimplifyPreserveTopology(
+                           ST_ClipByBox2D(r.geom, bounds.cut), :tolerance),
                        3857),
                    bounds.merc, :extent, 64, true) AS geom
         FROM region r
