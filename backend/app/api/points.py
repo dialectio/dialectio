@@ -15,6 +15,8 @@ Its weight is what makes it visible from further out:
 Weight > 0 shows the point at village zoom, >= `DISTRICT_WEIGHT` from district zoom,
 >= `OBLAST_WEIGHT` from oblast zoom, approved words too. "No" votes that bring it to 0 or below
 grey it out at village zoom (people there can still say "yes"); below `HIDE_WEIGHT` it hides.
+A point is amber ("unverified") until its word is approved and the place has weight
+>= `DISTRICT_WEIGHT`: an approved standard word marked in a village is not yet checked there.
 When a member's submission gathers `PROMOTE_WEIGHT` in all, it becomes a public draft of its
 variety ("≈" in the word list), as if an editor had let it through (`promote`).
 """
@@ -333,7 +335,9 @@ def concept_points(session: SessionDep, concept_id: int) -> dict[str, Any]:
                         "weight": round(point.weight, 2),
                         "disputed": point.weight <= 0,
                         "level": level,
-                        "unverified": form.status != APPROVED,
+                        # amber until the place itself is confirmed: an approved word marked
+                        # in a new village is still unchecked there
+                        "unverified": form.status != APPROVED or point.weight < DISTRICT_WEIGHT,
                         "votes_yes": tally.yes if tally else 0,
                         "votes_no": tally.no if tally else 0,
                         "community": tally.community if tally else None,

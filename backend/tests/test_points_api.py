@@ -205,3 +205,18 @@ def test_votes_on_a_point_count_there_and_grey_it_out_before_hiding_it() -> None
         session.commit()
     found = {p["place_names"]["uk"]: p for p in points(guest, concept_id)}
     assert set(found) == {"Косів"}
+
+
+def test_an_approved_word_stays_amber_until_the_place_is_confirmed() -> None:
+    guest = TestClient(app)
+    concept_id = guest.get("/api/concepts/by-slug/water").json()["id"]
+    add_word(new_member(), concept_id, settlement(guest, "Верховина"))
+    form_id = points(guest, concept_id)[0]["form_id"]
+    assert guest.post(f"/api/editor/forms/{form_id}/approve", headers=EDITOR).is_success
+
+    [point] = points(guest, concept_id)
+    assert point["unverified"]  # the word is checked, its use in Verkhovyna is not
+
+    add_votes(form_id, (1, 1.0, "UA-26"))
+    [point] = points(guest, concept_id)
+    assert not point["unverified"]
